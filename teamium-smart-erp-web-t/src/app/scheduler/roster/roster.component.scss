@@ -1,0 +1,59 @@
+@import '../../../variables';
+@import '../user-scheduler/user-scheduler.component';
+
+.ui-grid-row div {
+    padding: 4px 10px
+  }
+  
+  .ui-grid-row div label {
+    font-weight: bold;
+  }
+  .optionDiv {
+    position: relative;
+    display: inline-block;
+    .optionsBox {
+        border: 1px solid #d7d7d7;
+        background: #fff;
+        position: absolute;
+        top: 100%;
+        right: 0px;
+        z-index: 999;
+        border-bottom: 0;
+        width: 192px;
+        margin-top: 10px;
+        font-size: 13px;
+        .arrow {
+            width: 0;
+            height: 0;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-bottom: 12px solid #d7d7d7;
+            position: absolute;
+            right: 45px;
+            margin: auto;
+            top: -12px;
+            &:after {
+                content: "";
+                width: 0;
+                height: 0;
+                border-left: 10px solid transparent;
+                border-right: 10px solid transparent;
+                border-bottom: 10px solid #fff;
+                display: inline-block;
+                position: relative;
+                left: -10px;
+                top: -1px;
+            }
+        }
+        .chk-list {
+            list-style: none;
+            margin-bottom: 0;
+            padding: 10px 10px;
+            overflow: auto;
+            height: auto;
+            li {
+                margin-bottom: 4px;
+            }
+        }
+    }
+}

@@ -1,0 +1,229 @@
+<!--MAIN HEADER -->
+<header class="header header-fixed-top">
+    <div class="navbar-menu">
+        <!--toggle-->
+        <app-sidebar-toggle></app-sidebar-toggle>
+
+        <!--Page Title Text-->
+        <h4 class="title">{{'Project Booking' | translate}}</h4>
+
+        <!--user-Img-->
+        <app-profile-pic></app-profile-pic>
+    </div>
+    
+    <!-- Sub-Menu -->
+    <!-- <div class="sub-Menu subMenu-filter">
+        <div class="search-filter">
+          <i class="fa fa-search"></i>
+          <input type="text" class="form-control input-search" placeholder="Search"/>
+        </div>
+        <span class="notepad-ico ripple"><img src="../assets/img/notepad-ico.png" alt=""/></span>
+    </div> -->
+</header>
+  
+  <!-- WRAPPER -->
+  <div id="wrapper" class="wrapper" style="padding-top:73px !important;">
+    <!--sideBar-->
+    <app-sidebar></app-sidebar>
+  
+    <!-- Main Section -->
+    <section class="main-section">
+        <!-- Add Your Content Inside -->
+        <div class="content pad-btm-50">
+  
+          <div class="usersContent personnel-edit project-Details Project-booking">
+
+              <!---->
+              <div class="mb-20">
+                  <div class="c-des">
+                      <h4 class="c-Text">
+                        <span class="c-Name">
+                            <a  href="javascript:void(0);" class="arrow"><i class="fa fa-chevron-left"></i></a>
+                            {{"Amex Apple Pay" | translate}}
+                        </span>
+
+                        <!--rightside icon start-->
+                        <span class="group-icons pull-right">
+                            <a href="javascript:void(0);" class="link-icon ripple">
+                                <img src="assets/img/edit-ico.png" alt=""/>
+                            </a>
+                            <a href="javascript:void(0);" class="link-icon ripple ml-10">
+                                <img src="assets/img/timer-ico.png" alt=""/>
+                            </a>
+                            <a href="javascript:void(0);" class="link-icon ripple ml-10">
+                                <img src="assets/img/user-detail-ico.png" alt=""/>
+                            </a>
+                        </span>
+                        <!--rightside icon end-->
+                      </h4>
+                  </div>
+              </div>
+
+              <!-- pb-Title -->
+              <div class="pb-Title mb-20">
+                  <div class="c-33p text-left">
+                      <h5 class="name">{{'PostProd' | translate}}
+                        <span class="subName">{{'Edit Suite' | translate}}</span>
+                      </h5>
+                  </div>
+                  <div class="c-33p text-center mt-5">
+                    <span class="resource">{{'Room 14' | translate}}</span>
+                  </div>
+                  <div class="c-33p text-center">
+                      <h5 class="name">13/03/2019
+                          <span class="subName">09:00 - 06:00</span>
+                      </h5>
+                  </div>
+              </div>
+
+              <!-- pb-Title -->
+              <div class="resource-Des mb-20">
+                  <span class="t-count">3</span>
+                  <div class="c-33p text-center mt-5">
+                    <span class="resource">{{'Room 14' | translate}}</span>
+                  </div>
+                  <div class="buy-div">
+                      <button class="btn btn-first btn-buy ripple">BUY</button>
+                      <span class="done-check ripple" style="display: none;">
+                          <i class="fa fa-check"></i>
+                      </span>
+                  </div>
+              </div>
+
+              <!-- Details Div -->
+              <div class="mb-20">
+                  <div class="client-Details">
+                      <ul>
+                          <li>
+                              <div><span>{{'Item' | translate}}</span> <span class="pull-right">{{'1' | translate}}</span></div>
+                              <a href="javascript:void(0);" class="arrow pull-right"><i class="fa fa-angle-right"></i></a>
+                          </li>
+                          <li>
+                              <div><span>{{'Quantity' | translate}}</span>  <span class="pull-right">{{'1' | translate}}</span></div>
+                              <a href="javascript:void(0);" class="arrow pull-right"><i class="fa fa-angle-right"></i></a>
+                          </li>
+                          <li>
+                              <div><span>{{'Basis' | translate}}</span> <span class="pull-right">{{'Day' | translate}}</span></div>
+                              <a href="javascript:void(0);" class="arrow pull-right"><i class="fa fa-angle-right"></i></a>
+                          </li>
+                          <li>
+                              <div><span>{{'Total' | translate}}</span> <span class="pull-right">{{'$1500' | translate}}</span></div>
+                              <a href="javascript:void(0);" class="arrow pull-right"><i class="fa fa-angle-right"></i></a>
+                          </li>
+                          <li>
+                              <div><span>{{'Cost' | translate}}</span> <span class="pull-right">{{'$750' | translate}}</span></div>
+                              <a href="javascript:void(0);" class="arrow pull-right"><i class="fa fa-angle-right"></i></a>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+
+              <!-- Comment -->
+              <div class="comment-box mb-20">
+                  <label class="label-Text">{{'Comment' | translate}}</label>
+                  <textarea class="form-control textarea-style mt-5" name="" id="" rows="4" placeholder="Comment" style="height:auto;"></textarea>
+              </div>
+
+              <!-- client-Details -->
+              <div class="mb-20">
+                  <div class="table-filter-Head">
+                        <span class="calendar-Img"><img src="assets/img/calender-ico-active.png" alt=""/></span>
+                        <div class="search-filter">
+                            <i class="fa fa-search"></i>
+                            <input type="text" class="form-control input-search" placeholder="Search"/>
+                        </div>
+                        <span class="templeted"><i class="fa fa-star"></i></span>
+                  </div>
+                  <table class="table common-table table-Scroll">
+                        <!-- <thead>
+                            <tr>
+                                <th></th>
+                            </tr>
+                        </thead> -->
+                        <tbody>
+                            <tr>
+                                <td class="text-left">
+                                    <h5 class="name">{{'PostProd' | translate}}
+                                        <span class="subName">{{'Edit Suite' | translate}}</span>
+                                    </h5>
+                                </td>
+                                <td class="text-center">
+                                    <h5 class="name">
+                                        <span class="resource">Room 14</span>
+                                        <!-- <span class="book-recource">Book</span> -->
+                                        <span class="subName">1x5 {{'days' | translate}}</span>
+                                    </h5>
+                                </td>
+                                <td class="text-center">
+                                    <h5 class="name">04/21/18
+                                        <span class="subName">09:00 - 06:00</span>
+                                    </h5>
+                                </td>
+                                <td class="width-25 text-right">
+                                    <a href="javascript:void(0);" class="go-to-link"><i class="fa fa-angle-right"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">
+                                    <h5 class="name">{{'PostProd' | translate}}
+                                        <span class="subName">{{'GFX Talent' | translate}}</span>
+                                    </h5>
+                                </td>
+                                <td class="text-center">
+                                    <h5 class="name">
+                                        <span class="resource">Peter Smith </span>
+                                        <!-- <span class="book-recource">Book</span> -->
+                                        <span class="subName">1x5 {{'days' | translate}}</span>
+                                    </h5>
+                                </td>
+                                <td class="text-center">
+                                    <h5 class="name">04/21/18
+                                        <span class="subName">09:00 - 06:00</span>
+                                    </h5>
+                                </td>
+                                <td class="width-25 text-right">
+                                    <a href="javascript:void(0);" class="go-to-link"><i class="fa fa-angle-right"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">
+                                    <h5 class="name">{{'Service' | translate}}
+                                        <span class="subName">{{'File Transfer' | translate}}</span>
+                                    </h5>
+                                </td>
+                                <td class="text-center">
+                                    <h5 class="name">
+                                        <!-- <span class="resource">Room 14</span> -->
+                                        <span class="book-recource">Book</span>
+                                        <span class="subName">1x5 {{'days' | translate}}</span>
+                                    </h5>
+                                </td>
+                                <td class="text-center">
+                                    <h5 class="name">04/21/18
+                                        <span class="subName">09:00 - 06:00</span>
+                                    </h5>
+                                </td>
+                                <td class="width-25 text-right">
+                                    <a href="javascript:void(0);" class="go-to-link"><i class="fa fa-angle-right"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                  </table>
+              </div> 
+
+          </div>
+  
+        </div>
+        <!-- /.content -->
+    </section>
+    <!-- /.main-section -->
+  </div>
+  <!-- /#wrapper -->
+  
+  <!-- MANU FOOTER -->
+  <app-footer></app-footer>
+  
+  <!-- MANU FOOTER -->
+  
+
+

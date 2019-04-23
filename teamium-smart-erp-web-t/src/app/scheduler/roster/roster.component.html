@@ -1,0 +1,98 @@
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner>
+<!-- <div class="filter" style="min-width: 365px;">
+  <div class="filter-search">
+    <div class="optionDiv">
+
+      <a href="javascript:void(0)" class="ml-5" (click)="openOpion=!openOpion" id="option-id">
+        <i class="fa fa-list-ul"></i> Options
+      </a>
+
+      <div class="optionsBox" id="option-id" *ngIf="openOpion">
+        <div class="arrow"></div>
+        <ul class="chk-list">
+          <li>
+            <div _ngcontent-c4="" class="checkbox">
+              <input _ngcontent-c4="" [checked]="checkedAll" type="checkbox" id="chselect" (click)="checkedAllOrUnCheckedAll()">
+              <label _ngcontent-c4="" class="chk" for="chselect"></label>
+              <label _ngcontent-c4="" for="chselect">Select All</label>
+            </div>
+          </li>
+          <li *ngFor="let dt of functionList">
+            <div _ngcontent-c4="" class="checkbox">
+              <input _ngcontent-c4="" [checked]="dt.checked" type="checkbox" id={{dt.function.id}} (click)="checkedFunction(dt)">
+              <label _ngcontent-c4="" class="chk" for={{dt.function.id}}></label>
+              <label _ngcontent-c4="" for={{dt.function.id}}>{{dt.function.qualifiedName}}</label>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div> -->
+<!-- <p-schedule [events]="filteredEvent" [header]="header" [editable]="true" (onEventClick)="handleEventClick($event)" (onDayClick)="handleDayClick($event)"
+  (onEventDrop)="onEventDrop($event)" (onEventResize)="onEventResize($event)">
+</p-schedule> -->
+
+
+<div class="relative_main_div">
+
+  <div class="buttons mb-20">
+
+    <div class="btn-group">
+      <button type="button" class="btn btn-first ripple" (click)="changeDate(-1)">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+      </button>
+      <button type="button" class="btn btn-first ripple" (click)="changeDate(1)">
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div class="titleWithFilter">
+      <p>{{dateString}}</p>
+      <div class="filter">
+
+        <div class="filter-search">
+          <div class="optionDiv">
+            <a href="javascript:void(0)" (click)="openOpion=!openOpion" id="option-id">
+              <i class="fa fa-chevron-down"></i>
+            </a>
+            <div class="optionsBox" id="option-id" *ngIf="openOpion">
+              <div class="arrow"></div>
+              <ul class="chk-list">
+                <li>
+                  <div _ngcontent-c4="" class="checkbox">
+                    <input _ngcontent-c4="" [checked]="checkedAll" type="checkbox" id="chselect" (click)="checkedAllOrUnCheckedAll()">
+                    <label _ngcontent-c4="" class="chk" for="chselect"></label>
+                    <label _ngcontent-c4="" for="chselect">{{'Select All' | translate}}</label>
+                  </div>
+                </li>
+                <li *ngFor="let dt of functionList">
+                  <div _ngcontent-c4="" class="checkbox">
+                    <input _ngcontent-c4="" [checked]="dt.checked" type="checkbox" id={{dt.function.id}} (click)="checkedFunction(dt)">
+                    <label _ngcontent-c4="" class="chk" for={{dt.function.id}}></label>
+                    <label _ngcontent-c4="" for={{dt.function.id}}>{{dt.function.qualifiedName}}</label>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="btn-group">
+      <button type="button" class="btn btn-first ripple" (click)="viewDay()" [ngClass]='{active:  this.configDay.visible}'>{{'Day' | translate}}</button>
+      <button type="button" class="btn btn-first ripple" (click)="viewWeek()" [ngClass]='{active:  this.configWeek.visible}'>{{'Week' | translate}}</button>
+      <button type="button" class="btn btn-first ripple" (click)="viewMonth()" [ngClass]='{active:  this.configMonth.visible}'>{{'Month' | translate}}</button>
+    </div>
+  </div>
+
+  <div class="fullscreen">
+    <div class="main-body">
+      <daypilot-calendar [config]="configDay" [events]="filteredEvent" #day></daypilot-calendar>
+      <daypilot-calendar [config]="configWeek" [events]="filteredEvent" #week></daypilot-calendar>
+      <daypilot-month [config]="configMonth" [events]="filteredEvent" #month></daypilot-month>
+    </div>
+  </div>
+
+</div>
+
+<app-roster-event #rosterEvent></app-roster-event>

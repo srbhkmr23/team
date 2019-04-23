@@ -1,0 +1,183 @@
+@import '../../variables';
+@import '../equipment-list/equipment-list.component';
+.col-md-5,
+.col-xs-5,
+.col-xs-4,
+.col-md-6,
+.col-xs-6,
+.col-sm-4,
+.col-sm-3,
+.col-md-12,
+.col-xs-12,
+.col-xs-10,
+.col-md-1,
+.col-xs-1 {
+    padding: 0 8px;
+}
+
+.row {
+    margin-left: -10px;
+    margin-right: -10px;
+}
+
+.project-list {
+    .count {
+        font-size: 14px;
+        float: right;
+    }
+    .recentDiv {
+        border-bottom: 1px solid #d7d7d7;
+        margin: 0 0 20px;
+        padding-bottom: 15px;
+        h4.title {
+            background: transparent;
+            padding: 0;
+            border: 0;
+            color: #2f6f98;
+        }
+    }
+    .goBtn {
+        display: inline-block;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: 1px solid #d7d7d7;
+        text-align: center;
+        line-height: 28px;
+        color: #d7d7d7;
+        position: absolute;
+        right: -3px;
+        top: 28px;
+        background: #fff;
+    }
+    h4.title {
+        padding: 10px 0px;
+        font-size: 16px;
+        border-left: 3px solid;
+        padding: 10px 15px;
+        margin-bottom: 17px;
+        background: #f0f0f0;
+    }
+    .card {
+        padding-right: 10px;
+        .badge {
+            bottom: 0px;
+            position: absolute;
+            right: 0px;
+            font-size: 10px;
+            padding: 3px 5px;
+            background: $alert-color;
+            border-radius: 0;
+        }
+        .card-box {
+            padding: 10px 10px 10px 10px !important;
+            height: 80px;
+            border-left: 3px solid;
+            .spInfo {
+                h4 {
+                    font-size: 16px;
+                    margin: 0 0 5px 0;
+                }
+            }
+        }
+    }
+    .toDOSec {
+        border: 1px solid #ddd;
+        padding: 5px 15px;
+        .card-box {
+            border-left-color: $first-color;
+        }
+        h4.title {
+            border-left-color: $first-color;
+        }
+    }
+    .inProgressSec {
+        border: 1px solid #ddd;
+        padding: 5px 15px;
+        .card-box {
+            border-left-color: $yellow-color;
+        }
+        h4.title {
+            border-left-color: $yellow-color;
+        }
+    }
+    .sucessSec {
+        border: 1px solid #ddd;
+        padding: 5px 15px;
+        .card-box {
+            border-left-color: $green-color;
+        }
+        h4.title {
+            border-left-color: $green-color;
+        }
+    }
+    .templeteCard {
+        position: relative;
+        .template,
+        .untempleted  {
+            //position: relative;
+            //border: 1px solid #d7d7d7;
+            position: absolute;
+            left: 8px;
+            top: 8px;
+            width: 30px;
+            height: 30px;
+            background: #fff;
+            text-align: center;
+            line-height: 30px;
+            overflow: hidden;
+            display: inline-block;
+            cursor: pointer;
+            &:after {
+                content: "";
+                width: 0;
+                height: 0;
+                border-top: 30px solid #2f6f98;
+                border-right: 30px solid transparent;
+                position: absolute;
+                left:0;
+                top:0;
+            }
+        }
+        .untempleted {
+            &:after {
+                content: "";
+                border-top: 30px solid #c3dff2 !important;
+            }
+        }
+    }
+}
+
+.subName {
+    display: block;
+    margin-top: 4px;
+}
+
+.projectNewCard {
+    .compnay-name {
+        font-size: 80%;
+        font-weight: bold;
+        background: #75a4c2;
+        color: #fff;
+        position: absolute;
+        right: 0;
+        top: 4px;
+        padding: 2px 3px;
+    }
+    .production-name {
+        font-weight: bold;
+        font-size: 90%;
+        margin-bottom: 3px;
+    }
+    .merge-text {
+        display: table;
+        p {
+            display: table-cell;
+            padding: 0 6px;
+            font-size: 80%;
+            padding-left: 0;
+        }
+    }
+}
+
+

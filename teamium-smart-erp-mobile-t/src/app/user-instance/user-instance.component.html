@@ -1,0 +1,50 @@
+<!-- SIGNIN PAGE -->
+<div class="signin" >
+  <div class="container-center">
+
+      <div class="inner-page">
+
+          <div class="page-logo">
+              <div class="img-div">
+                      <img src="assets/img/Teamium-Freelance-1.png" alt="" class="logo2">
+              </div>
+              <div class="logo-div">
+                <img src="assets/img/logo-white2.png" alt="" class="teamium-logo">
+              </div>
+              <!-- <p>PRODUCTION PLATFORM</p> -->
+          </div>
+
+          <!-- basic-form -->
+          <form [formGroup]="userInstanceForm" >
+              <div class="basic-form">
+
+                  <!--User Name-->
+                  <div class="form-ctrl-row">
+                      <mat-form-field class="dummy-input-field">
+                          <span class="icon"><i class="fa fa-user"></i></span>
+                          <input matInput placeholder="User Instance" class="dummy-input-style" formControlName="userInstance" (keyup.enter)="submit()">
+                      </mat-form-field>
+                  </div>
+                
+                  <div *ngIf="userInstanceForm.controls['userInstance'].invalid && userInstanceForm.controls['userInstance'].touched" style="color: #FF5722;text-align: left;font-size: 14px;margin-top: 5pt;">The User Instance field is required.</div>
+                  <div *ngIf="errorMessage!=null && formValid()" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{errorMessage}}</div>
+                
+                </div>
+
+                <div _ngcontent-c27="" class="checkbox">
+                    <input _ngcontent-c27="" type="checkbox" id="0" formControlName="default">
+                    <label _ngcontent-c27="" class="chk" for="0"></label>
+                    <label _ngcontent-c27="" for="0">Set as a default instance </label>
+                </div>
+
+              <!--basic-form-footer-->
+              <div class="basic-form-footer">
+                  <button type="button" (click)="submit()" [disabled]="userInstanceForm.invalid" class="btn btn-first btn-lg mt-35 mb-15 font-bold ripple">{{'SUBMIT' | translate}}</button>
+                  <!-- <p class="info mt-35">{{'Forget Password?' | translate}} <a href="javascript:void(0)" class="link">{{'Recover' | translate}}</a></p> -->
+                  </div>
+         </form>
+
+      </div>
+   
+  </div>
+</div>

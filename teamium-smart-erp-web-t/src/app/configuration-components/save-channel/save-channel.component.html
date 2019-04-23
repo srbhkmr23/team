@@ -1,0 +1,101 @@
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner> 
+<div  class="modal fade in" style="display:block;background: rgba(0, 0, 0, 0.6);">
+    <div class="modal-dialog modal-md">
+        <!-- Modal content-->
+        <div class="modal-content mdlUpdateConfig mdlConfInfo">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" (click)="hideChannelModal()">&times;</button>
+                <h4 class="modal-title">
+                    {{title |translate}}                    
+                </h4>
+            </div>
+            <div class="modal-body">
+                <!-- tab Content Start -->
+                <div class="channelContent">
+                        <form [formGroup]="groupForm"> 
+                            <div class="row ">
+                                    <div class="col-xs-6">
+                                        <div class="input-row ">
+                                            <label>{{"Channel Name" |translate}}<span class="required-field">*</span></label>
+                                            <input type="text" class="form-control" formControlName="channelName" placeholder=" Channel Name">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <!-- <div class="input-row ">
+                                            <label>Theme</label>
+                                            <input class="form-control" [value]="selectedColor" [style.background]="selectedColor" [(colorPicker)]="selectedColor" />
+                                        </div> -->
+                                    </div>
+
+                                    <!-- <div class="col-xs-1 ">
+                                        <label>&nbsp;</label>
+                                        <div class="">
+                                            <button class="btn btn-first btn-plus ">
+                                                <i class="fa fa-plus "></i>
+                                            </button>
+                                        </div>
+                                    </div> -->
+                            </div>
+                        </form>
+
+                        <div class="common-Sec mt-0"> 
+
+                            <!-- TABLE SATRT -->
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="grid">
+                                        <div class="grid-body "> 
+                                            <div >
+                                                <table class="table signaturetable channelTable table-hover text-center ">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="format-name width-35">&nbsp;</th>
+                                                            <th class="text-left">
+                                                                {{"Format Name" |translate}} <span class="required-field">*</span>
+                                                                
+                                                            </th> 
+                                                            <th >
+                                                                <div class="filter-search pull-right">
+                                                                    <input type="text" [(ngModel)]="searchText" class="input-search bg-grey" placeholder="{{'Search' | translate}}">
+                                                                    <i class="fa fa-search"></i>
+                                                                </div> 
+                                                            </th>                                                        
+                                                        </tr>
+                                                    </thead>
+                                                   
+                                                    <tbody >
+                                                        <tr  *ngFor="let format of formatList | globalSearch:searchText:terms"> 
+                                                            <td class="width-35">
+                                                                <span class="checkbox">
+                                                                    <input type="checkbox" id="{{format.id}}" [checked]="isMember(format.id)" (change)="onChangeFormat(format)">
+                                                                    <label class="chk" for="{{format.id}}"></label>
+                                                                    <label for="{{format.id}}"></label>
+                                                                </span>
+                                                            </td>
+                                                            <td colspan="2" class="text-left">
+                                                                <h5 class="name">{{format.name |translate}}
+                                                                    <!-- <span class="subName">First Name</span> -->
+                                                                </h5>
+                                                            </td>                                                            
+                                                        </tr>
+                                                    </tbody>
+                                                   
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- TABLE END -->                           
+                        </div>    
+                        
+                </div>
+                <!-- tab Content End -->
+            </div>
+            <div class="modal-footer">
+                <button type="button"class="btn btn-first ripple pull-left" *ngIf="selectedChannel.hasOwnProperty('id')" data-dismiss="modal" (click)="deleteChannel(selectedChannel.id)" style="background-color: darkred;"> {{"Delete" |translate}}</button>
+                <button type="button"class="btn btn-first ripple" data-dismiss="modal" (click)="saveChannel()"> {{'Save' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+<app-delete-confirm-modal *ngIf="showDeleteModal" [componentName]="componentName" (deleteDataEvent)="deleteChannelData($event)" (closeModalEvent)="closeDeleteConfirmModal($event)"></app-delete-confirm-modal>

@@ -1,0 +1,145 @@
+@import '../../equipment-list/equipment-list.component';
+@import '../../edit-equipment/edit-equipment.component';
+@import '../../personnel-edit/personnel-edit.component';
+@import '../../personal-list/personal-list.component';
+@import '../../project-booking/project-booking.component';
+@import '../../create-function/create-function.component';
+@import '../../project-budgeting/project-budgeting.component';
+@import '../schedule/scheduler.component';
+@import '../../../variables';
+.scheduler-page {
+    margin-top: 10px;
+    .filter-header {
+        display: table;
+        width: 100%;
+        margin-bottom: 25px;
+        border-bottom: 0px solid $lite-color;
+        padding-bottom: 15px;
+        .formInHeader {
+            margin: 0 15px;
+            width: 100%;
+            .row {
+                .col-xs-6 {
+                    max-width: 300px;
+                }
+            }
+        }
+        .title {
+            display: inline-block;
+            font-size: 22px;
+            margin-top: 0;
+            margin-bottom: 0;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            width: 100%;
+            max-width: 400px;
+        }
+    }
+}
+
+.column-left {
+    float: left;
+    width: 150px;
+}
+
+.column-right {
+    margin-left: 160px;
+}
+
+.queue-title {
+    padding: 3px 0;
+}
+
+.queue-list {
+    /*border: 1px solid #ccc;*/
+    /*padding: 2px;*/
+    min-height: 200px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.queue-item {
+    cursor: move;
+    box-sizing: border-box;
+    /*padding: 8px 0 10px 8px;*/
+    border: 1px solid #ccc;
+    margin-bottom: 2px;
+    position: relative;
+    height: 40px;
+    padding: 4px 8px;
+    background: linear-gradient(180deg, rgb(255, 255, 255) 0%, rgb(238, 238, 238));
+    line-height: normal;
+    label {
+        font-size: 14px;
+        margin-bottom: 0;
+    }
+    .task-duration {
+        margin: 0;
+        font-size: 12px;
+    }
+}
+
+.queue-item::after {
+    content: '';
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    width: 4px;
+    /*background-color: #666;*/
+    background-color: #1066a8;
+}
+
+.queue button {
+    display: block;
+    width: 100%;
+    margin-bottom: 5px;
+    /*background-color: #f3f3f3;*/
+    background-color: #3c78d8;
+    color: white;
+    /*border: 1px solid #ccc;*/
+    border: 0;
+    padding: .5rem 1rem;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.options {
+    margin-top: 10px;
+}
+
+.clipboard {
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    width: 200px;
+}
+
+.clipboard-header {
+    background-color: #efefef;
+    border-bottom: 1px solid #ccc;
+    padding: 5px;
+}
+
+.clipboard-item {
+    padding: 5px;
+}
+
+.clipboard-empty {
+    padding: 5px;
+}
+
+// ========= project-scheduler-modal =========
+.project-scheduler-modal {
+    .modal-content {
+        .modal-header {
+            background: #2f6f98;
+            color: #fff;
+            //border-radius: 6px 6px 0px 0px;
+            h4 {
+                margin-top: 0;
+                margin-bottom: 15px;
+            }
+        }
+    }
+}

@@ -1,0 +1,11 @@
+@import '../home/home.component';
+@import '../../variables.scss';
+.sign-Sec {
+    .sign-Div {
+        /*text-align: center;*/
+        height: 60px;
+        img {
+            height:100%;
+        }
+    }
+}

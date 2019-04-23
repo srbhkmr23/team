@@ -1,0 +1,37 @@
+<div class="menu-footer">
+    <ul class="menu-ul">
+        <li>
+            <a (click)="redirectTo('/teamium')" href="javascript:void(0);" class="icon ripple">
+                <img [src]="commonDataService.getActivePage=='home'? 'assets/img/home-ico-active.png':'assets/img/home-ico.png'" alt=""/>
+                <span class="title">My teamium</span>
+            </a>
+        </li>
+        <li>
+            <a (click)="redirectTo('/teamium/jobs')" href="javascript:void(0);" class="icon ripple">
+                <img [src]="commonDataService.getActivePage=='myJobs'? 'assets/img/bussiness-ico-active.png':'assets/img/bussiness-ico.png'"  alt=""/>
+                <span class="title">Project</span>
+            </a>
+        </li>
+        <li>
+            <a (click)="redirectTo('/teamium/personal-schedule')" href="javascript:void(0);" class="icon ripple">
+                <img [src]="commonDataService.getActivePage=='schedule'? 'assets/img/calender-ico-active.png':'assets/img/calender-ico.png'"  alt=""  taskDetails/>
+                <span class="title">Schedule</span>
+            </a>
+        </li>
+        <li>
+            <a (click)="redirectTo('/teamium/chat-message')" href="javascript:void(0);" class="icon ripple">
+                <img [src]="commonDataService.getActivePage=='message'? 'assets/img/message-ico-active.png':'assets/img/message-ico.png'"  alt=""/>
+                <span class="title">Message</span>
+            </a>
+        </li>
+        <li>
+            <a (click)="redirectTo('/teamium/notification')" href="javascript:void(0);" class="icon ripple">
+                <img 
+                [src]="commonDataService.getActivePage=='notification'? 'assets/img/notification-ico-active.png':'assets/img/notification-ico.png'"     
+                alt=""/>
+                <span class="title">Notification</span>
+            </a>
+        </li>
+        
+    </ul>
+</div>

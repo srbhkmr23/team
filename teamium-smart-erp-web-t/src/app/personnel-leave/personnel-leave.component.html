@@ -1,0 +1,194 @@
+<!--     Spinner component-->
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner>
+
+<div *ngIf="userLeaveRecordDTO && userLeaveRecordDTO.leaveRequestDTOs" class="edit-equipment project-Budgeting project-procurement dashboard user-dashboard personnel-leave">
+
+    <div class="filter-header">
+        <div class="container-fluid pad-0">
+            <h1 class="title">{{personnelDetail.firstName}} {{personnelDetail.lastName}}
+            </h1>
+        </div>
+    </div>
+
+    <div class="inner-content">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="grid">
+                    <div class="grid-body">
+                        <div class="table-responsive">
+                            <table class="table text-center vBiddingTable common-Table">
+                                <thead>
+                                    <tr>
+                                        <th colspan="5">
+                                            <span>{{'Leave Request' | translate}}</span>
+                                            <a (click)="showModal()" class="plusIcon" href="javascript:void(0);">
+                                                <i class="fa fa-plus-circle"></i>
+                                            </a>
+                                        </th>
+                                        <th colspan="2">
+                                            <!-- search filter -->
+                                            <div class="filter-search pull-right">
+                                                <input type="text" [(ngModel)]="searchText" class="input-search bg-grey" placeholder="Search...">
+                                                <i class="fa fa-search"></i>
+                                            </div>
+                                            <!-- search filter -->
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-left">
+                                            <span>{{'LR' | translate}}</span>
+                                        </th>
+                                        <th class="text-center">
+                                            <span>{{'Day' | translate}} Off</span>
+                                        </th>
+                                        <th class="text-center">
+                                            <span>{{'Start Date' | translate}}</span>
+                                        </th>
+                                        <th class="text-center">
+                                            <span>{{'End Date' | translate}}</span>
+                                        </th>
+                                        <th class="text-center">
+                                            <span>{{'Number of Days' | translate}}</span>
+                                        </th>
+                                        <th class="text-center">
+                                            <span>{{'Attachment' | translate}}</span>
+                                        </th>
+                                        <th class="text-center">
+                                            <span>{{'Status' | translate}}</span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let leave of userLeaveRecordDTO.leaveRequestDTOs|leaveFilter:searchText;let i = index">
+                                        <td class="text-left">
+                                            <h5 class="name">{{'LR' | translate}}-{{leave.leaveRequestId}}</h5>
+                                        </td>
+                                        <td class="text-center">
+                                            <h5 class="name">{{leave.leaveRecordDTO.leaveTypeDTO.type}}</h5>
+                                        </td>
+                                        <td class="text-center">
+                                            <h5 class="name">{{leave.startTime}}</h5>
+                                        </td>
+                                        <td class="text-center">
+                                            <h5 class="name">{{leave.endTime}}</h5>
+                                        </td>
+                                        <td class="text-center">
+                                            <h5 class="name">{{leave.numberOfDay}}</h5>
+                                        </td>
+                                        <td>
+                                            <!-- <div class="text-center" *ngIf="leave.fileUploadDTO">
+                                                <a href="{{leave.fileUploadDTO.url}}">
+                                                    <img [src]="leave.fileUploadDTO.extension==='pdf'?'../../assets/img/pdf_logo.jpg':'../../assets/img/image_icon.png'" alt=""
+                                                        style="width: 45px;height: 35px;
+                                                ">{{leave.fileUploadDTO.type}}
+                                                </a>
+                                            </div> -->
+                                            <div class="relative attachment-col">
+                                                <i *ngIf="leave.fileUploadDTO&&leave.fileUploadDTO.url" style="position: absolute;top: -6px;left: 57px;font-size: 18px;color: red;opacity: 1;cursor:pointer;z-index: 1;"
+                                                    class="fa fa-times-circle" (click)='removeAttachment(leave)'></i>
+                                                <div *ngIf="leave.fileUploadDTO&&leave.fileUploadDTO.url" class="upload-img">
+                                                    <a href="{{leave.fileUploadDTO.url}}">
+                                                        <img [src]="leave.fileUploadDTO.extension==='pdf'?'../../assets/img/pdf_logo.jpg':'../../assets/img/image_icon.png'" style="width: 100%;height: 100%;"> {{leave.fileUploadDTO.type}}
+                                                    </a>
+                                                </div>
+                                                <!-- <i style="font-size: 32px;" class="fa fa-file-image-o" aria-hidden="true" (click)="showAttachmentModal(leave)"></i>
+                                                <i class="fa fa-plus-circle"></i>
+                                                <i *ngIf="leave.fileUploadDTO&&leave.fileUploadDTO.url" style="position: absolute;top: -6px;left: 44px;font-size: 18px;color: red;opacity: 1;cursor:pointer;"
+                                                    class="fa fa-times-circle" (click)='removePicture()'></i> -->
+
+                                                <div *ngIf="!leave.fileUploadDTO" class="upload-img" (click)="showAttachmentModal(leave)">
+                                                    <!-- <input type="file" (change)="showAttachmentModal(leave)"> -->
+                                                    <i class="fa fa-file-image-o" aria-hidden="true"></i>
+                                                </div>
+
+                                                <i *ngIf="!leave.fileUploadDTO" class="fa fa-plus-circle"></i>
+
+                                                <!-- Delete picture -->
+
+                                                <div></div>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="dropdown-parent" *ngIf="leave.leaveStatus == userLeaveRecordDTO.leaveStatus[0]">
+                                                <a href="javascript:void(0);" class="numOfRate availableBtn" id="status-id">
+                                                    <span>{{'Request' | translate}}</span>
+                                                    <i class="fa fa-caret-down" (click)="showStatusModal(i)"></i>
+                                                </a>
+                                                <div class="dropdown-panel" *ngIf="show==i">
+                                                    <div class="arrow"></div>
+                                                    <h4 class="title">{{'Status' | translate}}</h4>
+                                                    <ul>
+                                                        <div *ngFor="let status of userLeaveRecordDTO.leaveStatus">
+                                                            <li *ngIf="status!= userLeaveRecordDTO.leaveStatus[0]">
+                                                                {{status}}
+                                                                <button class="btn btn-xs" (click)="changeStatusForLeaveRequest(leave,status)">{{'Set' | translate}}</button>
+                                                            </li>
+                                                        </div>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <button *ngIf="leave.leaveStatus == userLeaveRecordDTO.leaveStatus[2]" class="btn btn-first btn-rejected ripple" type="button">{{'Rejected' | translate}}</button>
+                                            <button *ngIf="leave.leaveStatus == userLeaveRecordDTO.leaveStatus[1]" class="btn btn-first btn-approved ripple" type="button">{{'Approved' | translate}}</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- LEAVE DETAILS -->
+        <div class="row">
+            <div class="col-md-7">
+                <div class="grid">
+                    <div class="grid-body">
+                        <div class="table-responsive">
+                            <table class="table text-center vBiddingTable  common-Table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-left">
+                                            <span>{{'Days Off' | translate}}</span>
+                                        </th>
+                                        <th class="text-center">{{'Total Days' | translate}}</th>
+                                        <th class="text-center">{{'Consume Days' | translate}}</th>
+                                        <th class="text-center">{{'Remain Days' | translate}}</th>
+                                        <th class="text-center "> &nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="userLeaveRecordDTO">
+                                    <tr *ngFor="let item of userLeaveRecordDTO.leaveRecordDTOs">
+                                        <td class="text-left">
+                                            <h5 class="name">{{item.leaveTypeDTO.type}}</h5>
+                                        </td>
+                                        <td class="text-center">
+                                            <input [disabled]="!item.leaveTypeDTO.active" type="number" class="form-control editableInput width-50 text-center" [(ngModel)]="item.creditLeave"
+                                                min="0" oninput="validity.valid||(value='')" />
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="number" disabled=true [disabled]="!item.leaveTypeDTO.active" class="form-control editableInput width-50 text-center orange"
+                                                [(ngModel)]="item.debitedLeave" min="0" oninput="validity.valid||(value='')"
+                                            />
+                                        </td>
+                                        <td class="text-center">
+                                            <h5 class="name green">{{item.remainBalance}}</h5>
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="javascript:void(0);" [ngClass]='{"fa-save-disabled":!item.leaveTypeDTO.active}'>
+                                                <i *ngIf="item.leaveTypeDTO.active" class="fa fa-save" (click)="saveLeaveRecord(item)"></i>
+                                                <i *ngIf="!item.leaveTypeDTO.active" class="fa fa-save"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <app-leave-request #leaveRequest></app-leave-request>
+</div>

@@ -1,0 +1,113 @@
+.filter {
+    .filter-search {
+        display: flex;
+        a {
+            color: #2f6f98;
+            margin-left: 15px;
+            font-size: 14px;
+        }
+    }
+}
+
+.relative_main_div {
+    .buttons {
+        display: flex;
+        justify-content: space-between;
+        .btn-first {
+            border-radius: 0px;
+            &+.btn-first {
+                margin-left: 1px;
+            }
+            &:first-child {
+                border-radius: 4px 0 0 4px;
+            }
+            &:last-child {
+                border-radius: 0px 4px 4px 0px;
+            }
+            &.active {
+                background: #d9534f;
+                &:focus {
+                    box-shadow: none;
+                }
+            }
+            &:focus {
+                box-shadow: none;
+            }
+        }
+        p {
+            margin: 0;
+            font-size: 21px;
+        }
+    }
+    .fullscreen {
+        top: 58px;
+    }
+}
+
+.titleWithFilter {
+    display: flex;
+    .fa {
+        position: relative;
+        top: 4px;
+        margin-left: 3px;
+        font-size: 16px;
+    }
+}
+
+.optionDiv {
+    position: relative;
+    .optionsBox {
+        border: 1px solid #d7d7d7;
+        background: #fff;
+        position: absolute;
+        top: 100%;
+        right: -20px;
+        z-index: 999;
+        width: 192px;
+        margin-top: 10px;
+        font-size: 13px;
+        ul {
+            list-style: none;
+            margin-bottom: 0;
+            padding: 10px 10px;
+            overflow: auto;
+            height: auto;
+            li {
+                display: block;
+                .checkbox {
+                    padding-left: 10px;
+                    margin: 3px 0;
+                    .chk {
+                        top: 3px;
+                        &+label {
+                            font-size: 14px;
+                        }
+                    }
+                }
+            }
+        }
+        .arrow {
+            width: 0;
+            height: 0;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-bottom: 12px solid #d7d7d7;
+            position: absolute;
+            right: 14px;
+            margin: auto;
+            top: -12px;
+            &:after {
+                content: "";
+                width: 0;
+                height: 0;
+                border-left: 10px solid transparent;
+                border-right: 10px solid transparent;
+                border-bottom: 10px solid #fff;
+                display: inline-block;
+                position: relative;
+                left: -10px;
+                top: -1px;
+            }
+        }
+    }
+}

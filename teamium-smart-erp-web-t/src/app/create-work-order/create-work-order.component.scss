@@ -1,0 +1,82 @@
+@import '../create-equipment/create-equipment.component';
+@import '../create-personnel/create-personnel.component';
+@import '../create-project-budgeting/create-project-budgeting.component';
+@import '../../variables';
+
+.work-order-details {
+    max-width: 500px;
+    margin: 0 auto;
+    .ttl-Order {
+        font-size: 16px;
+        font-weight: 600;
+        color: #2f6f98;
+    }
+    .searchWorkOrder {
+        border-radius: 2px;
+        border:1px solid #ccc;
+        border-bottom: 0;
+        .list {
+            top: 38px;
+        }
+        &.large .list ul {
+            max-height: 102px;
+            overflow-y: scroll;
+        }
+    }
+    .work-order-list {
+        .editableCntrol {
+            width:200px;
+            height:28px;
+            display:inline-block;
+        }
+    }
+    // ===== buttons =====//
+    .btn-submit,
+    .btn-inprogress,
+    .btn-done {
+        padding: 5px 15px;
+        border-radius: 20px;
+        min-width: 75px;
+        &:focus {
+            outline: 0;
+        }
+    }
+    & .btn-inprogress {
+        color: #fff;
+        background-color: $yellow-color;
+        border-color: $yellow-color;
+    }
+    & .btn-done {
+        color: #fff;
+        background-color:$green-color2;
+        border-color: $green-color2;
+    }
+    .work-order-list {
+        table {
+            tr {
+                display: table;
+                table-layout: fixed;
+                width: 100%;
+            }
+            thead {
+                tr {
+                    th {
+
+                    }
+                }
+            }
+            tbody {
+                display: block;
+                width: 100%;
+                max-height: 225px;
+                overflow-y: auto;
+            }
+        }
+    }
+}
+
+.orderDisable{
+    cursor:not-allowed;
+    pointer-events: none;
+    background-color: #e3e3e3;
+}

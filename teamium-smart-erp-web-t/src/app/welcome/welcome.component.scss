@@ -1,0 +1,49 @@
+@import '../../variables';
+.welcome-screen {
+    padding: 50px 0;
+    .box {
+        text-align: center;
+        background: $white-color;
+        min-height: 360px;
+        border-radius: 3px;
+        overflow: hidden;
+        border: 1px solid $lite-color;
+        overflow: hidden;
+        .title {
+            padding: 25px 0;
+            font-size: 22px;
+            color: $first-color;
+            margin-top: 0;
+            margin-bottom: 0;
+            @include ipad-view {
+                font-size: 18px;
+            }
+        }
+        .box-thumbnail {
+            height: 200px;
+            text-align: center;
+            padding: 20px 10px;
+            margin-bottom: 25px;
+            background: $dark-color;
+            @include mobile-view {
+                height: auto;
+            }
+            img {
+                margin: 0 auto;
+                max-width: 100%;
+            }
+        }
+        @include mobile-view {
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+        }
+        .info {
+            padding: 0 15px;
+            color: $dark-color2;
+            min-height: 100px;
+        }
+    }
+    .basic-form-footer {
+        margin-top: 75px;
+    }
+}

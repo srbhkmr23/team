@@ -1,0 +1,991 @@
+<!--     Spinner component-->
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner>
+<app-not-found-page [message]='bookingNotExistMessage' *ngIf="isBookingAvailabe"></app-not-found-page>
+
+
+<app-create-project-budgeting *ngIf="showEditProjectModal" (closeModalEvent)="closeModal($event)" [projectDetail]="projectDetail" [isBooking]="true" [isApproved]="this.projectDetail.financialStatus=='Approved'"></app-create-project-budgeting>
+
+<!-- create template modal -->
+<div id="myModal" class="modal in fade template-modal" style="display: block;" *ngIf="showTemplateModal">
+    <div class=" modal-dialog">
+        <div class="modal-content template-content">
+            <form [formGroup]="templateForm">
+                
+                <div class="modal-body">
+                    <div class="create-personnel ">
+                      
+                                <div class="row ">
+                                    <div class="col-md-12">
+                                        <div class="form-content ">
+                                            <div class="row ">
+                                                <div class="col-xs-8 col-xs-offset-2">
+                                                    <div class="input-row ">
+                                                        <label>{{'Template Name' | translate}} </label>
+                                                        <input [attr.disabled]="projectDetail && projectDetail.templateLayout && projectDetail.templateLayout.hasOwnProperty('title')==true" class="form-control" formControlName="templateName"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                           
+              
+                    </div>
+                </div>
+                <div class="modal-footer ">
+                    <div class="button-set text-center ">
+                        <button class="btn btn-first btn-close" type="button" (click)="closeTemplateModal()">{{'Close' | translate}}</button>
+                        <button class="btn btn-first " [disabled]="(!templateForm.controls.templateName.valid) || (projectDetail && projectDetail.templateLayout && projectDetail.templateLayout.hasOwnProperty('title')==true)" type="button" (click)="onCreateTempalte()">{{'Save' | translate}}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- CONTENT  -->
+
+<div class="edit-equipment project-Budgeting open-side-modal" *ngIf="projectDetail">
+
+    <div class="filter-header" style="padding-bottom: 0px !important">
+        <div class="container-fluid pad-0">
+            <h1 class="title">{{'Booking' | translate}}
+                <span>{{projectDetail.title}}</span>
+
+            </h1>
+
+            <div class="filter">
+                <div class="filter-search">
+                    <!--dropdown-parent-->
+                    <div class="view-list">
+                        <div class="dropdown-parent">
+                            <a href="javascript:void(0);" class="numOfRate availableBtn">
+                                <span (click)="goToSchedule(line)">{{'Views' | translate}}</span>
+                                <i class="fa fa-caret-down" (click)="showAvailableResources=i;show=!show"></i>
+                            </a>
+                            <div class="dropdown-panel">
+                                <div class="arrow"></div>
+                                <h4 class="title">{{'Resource' | translate}}</h4>
+                                <ul>
+                                    <li>{{'Secquential Booking' | translate}}
+                                        <button class="btn btn-xs">{{'Set' | translate}}</button>
+                                    </li>
+                                    <li>{{'Secquential Booking' | translate}}
+                                        <button class="btn btn-xs">{{'Set' | translate}}</button>
+                                    </li>
+                                    <li>{{'Secquential Booking' | translate}}
+                                        <button class="btn btn-xs">{{'Set' | translate}}</button>
+                                    </li>
+                                    <li>{{'Secquential Booking' | translate}}
+                                        <button class="btn btn-xs">{{'Set' | translate}}</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="button-set">
+                        <button class="btn btn-edit" (click)="showEditProjectModal=(!showEditProjectModal)"> {{'Edit' | translate}} </button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="inner-content">
+        <div class="equipment-info-content">
+            <ul class="equipment-current-status">
+                <li [ngClass]="projectDetail.status=='In Progress'?'inProgress':projectDetail.status=='To Do' ||  projectDetail.status=='Archived'?'rejected':'approved'">
+                    <h5 class="name">{{projectDetail.status | translate}}
+                        <span class="subName">{{'Project status' | translate}}</span>
+                    </h5>
+                </li>
+                <li [ngClass]="projectDetail.financialStatus=='Approved'?'approved':projectDetail.financialStatus=='Rejected'?'rejected':'inProgress'">
+                    <h5 class="name">{{projectDetail.financialStatus}}
+                        <span class="subName">{{'Financial status' | translate}}</span>
+                    </h5>
+                </li>
+                <li>
+                    <div class="team-name">
+                        <h5 class="name">{{projectDetail.referenceInternal}}
+                            <span class="subName">{{'Internal Refrence' | translate}}</span>
+                        </h5>
+                    </div>
+                </li>
+                <li>
+                    <h5 class="name">{{projectDetail.follower&&projectDetail.follower.firstName?projectDetail.follower.firstName:''}} {{projectDetail.follower&&projectDetail.follower.lastName?projectDetail.follower.lastName:''}}
+                        <span class="subName">{{'Managed By' | translate}}</span>
+                    </h5>
+                </li>
+                <li>
+                    <h5 class="name">{{projectDetail.origin}}
+                        <span class="subName">{{'Origin' | translate}}</span>
+                    </h5>
+                </li>
+
+                <li>
+                    <h5 class="name">{{projectDetail.saleEntity?projectDetail.saleEntity.name:''}}
+                        <span class="subName">{{'Company' | translate}}</span>
+                    </h5>
+                </li>
+                <li>
+                    <h5 class="name">{{projectDetail.currency}}{{getCurrencySymbol(projectDetail.currency,'wide')}}
+                        <span class="subName">{{'Currency' | translate}}</span>
+                    </h5>
+                </li>
+                <li>
+                    <h5 class="name">{{projectDetail.language}}
+                        <span class="subName">{{'Language' | translate}}</span>
+                    </h5>
+                </li>
+                <!-- <li class="text-right">
+
+                    <div class="equipment-on">
+                        <img alt="" src="../../assets/img/lg-market-place.png">
+                        <label class="switch">
+                            <input type="checkbox" disabled [(ngModel)]="equipmentDetail.marketplace">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="equipment-on pull-left">
+                        <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                        <label class="switch">
+                            <input type="checkbox" disabled [(ngModel)]="equipmentDetail.available">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </li> -->
+            </ul>
+        </div>
+        
+        <!--dataHideShow-Div-->
+        <div class="dataHideShow-Div">
+            <div class="row">
+                <div class="col-lg-3 ">
+                    <div class="equipment-on showHide-Toggle mr-10">
+                        <label class="switch">
+                            <input type="checkbox" class="ng-untouched ng-pristine" >
+                            <span class="slider round"></span>
+                        </label>
+                        <label class="ml-10">{{'Show Project Details' | translate}}</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <!-- Info In Progress -->
+                <div class="col-lg-3 ">
+                    <!-- EQUIPMENT PANEL -->
+                    <div class="grid">
+                        <!-- <div class="grid-header">
+                            Basic info
+                        </div> -->
+                        <div class="grid-body">
+                            <ul class="equipment-info">
+                                <li *ngIf="projectDetail.company">
+                                    <h5 class="name">{{projectDetail.company.name}}
+                                        <span class="subName">{{primaryRecordContact}}</span>
+                                    </h5>
+                                </li>
+                                <li>
+                                    <h5 class="name">{{projectDetail.program?projectDetail.program.title:''}}
+                                        <span class="subName">{{projectDetail.category}}</span>
+                                    </h5>
+                                </li>
+
+                                <li>
+                                    <div class="team-name">
+                                        <h5 class="name">{{'Duration' | translate}}:
+                                            <span>{{projectDetail.information?projectDetail.information.length:''}}</span>
+                                            <span class="subName">{{projectDetail.information?projectDetail.information.version:''}}</span>
+                                        </h5>
+                                    </div>
+                                </li>
+                                <li>
+                                    <h5 class="name">{{projectDetail.city}}
+                                        <span class="subName">{{projectDetail.country}}</span>
+                                    </h5>
+                                </li>
+                                <li>
+                                    <h5 class="name">{{'Theme' | translate}}: <span [ngStyle]="{'background':projectDetail.theme}"> {{projectDetail.theme}} </span>
+                                        
+                                    </h5>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Add Channel PANEL -->
+                <div class="col-lg-3">
+                    <div class="grid">
+                        <div class="grid-body">
+                            <div class="table-responsive">
+                                <table class="table common-Table">
+                                    <thead>
+                                        <tr>
+                                            <th>{{'Channels' | translate}}</th>
+                                            <th>{{'Format' | translate}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor=" let ch of projectDetail.channelFormat">
+                                            <td>{{ch.channel.name}}</td>
+                                            <td>{{ch.format}}</td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Milestone PANEL -->
+                <div class="col-lg-3">
+                    <div class="grid">
+                        <div class="grid-body">
+                            <div class="table-responsive">
+                                <table class="table common-Table">
+                                    <thead>
+                                        <tr>
+                                            <th>{{'Milestones' | translate}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let duedate of projectDetail.dueDates">
+                                            <td>
+                                                <h5 class="name">{{duedate.date| date:"MM/dd/yy"}}
+                                                    <span class="subName">{{duedate.type}}</span>
+                                                    <span class="milestone-arrow" [ngStyle]="{'color':duedate.expirationColor}">
+                                                        <i class="fa fa-caret-down"></i>
+                                                    </span>
+                                                </h5>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contacts PANEL -->
+                <div class="col-lg-3">
+                    <div class="grid">
+                        <div class="grid-body">
+                            <div class="table-responsive">
+                                <table class="table common-Table">
+                                    <thead>
+                                        <tr>
+                                            <th>{{'Contacts' | translate}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let contact of projectDetail.recordContacts">
+                                            <td>
+                                                <h5 class="name">{{contact.firstName}} {{contact.lastName}}
+                                                    <span class="subName">{{contact.jobTitle}}</span>
+                                                    <a href="javascript:void(0);" class="contactLink">
+                                                        <i class="fa fa-ellipsis-h"></i>
+                                                    </a>
+                                                </h5>
+                                            </td>
+                                        </tr>
+                                        <!-- <tr>
+                                            <td>
+                                                <h5 class="name">Ian Smith
+                                                    <span class="subName">Postprod Supervisor</span>
+                                                    <a href="javascript:void(0);" class="contactLink"><i class="fa fa-ellipsis-h"></i></a>
+                                                </h5>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h5 class="name">Susan Leight
+                                                    <span class="subName">Executive Producer</span>
+                                                    <a href="javascript:void(0);" class="contactLink"><i class="fa fa-ellipsis-h"></i></a>
+                                                </h5>
+                                            </td>
+                                        </tr> -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div><!--dataHideShow-Div-->
+
+        <div class="row">
+
+            <!-- BOOKING DETAILS -->
+            <div class="col-lg-12 col-md-12">
+                <div class="grid bookingTable">
+                    <div class="grid-body">
+                        <div class="table-responsive">
+                            <table class="table text-center">
+                                <thead>
+                                    <tr>
+                                        <th colspan="8">
+                                            <!-- <div class="equipment-on showHide-Toggle mr-10">
+                                                <label class="switch">
+                                                    <input type="checkbox" class="ng-untouched ng-pristine">
+                                                    <span class="slider round"></span>
+                                                </label>
+                                            </div> -->
+                                            <span class="pull-left" style="position:relative;top:5px;">{{'Booking Items ' | translate}}</span>
+                                            <div class="filter">
+                                                <div class="filter-search">
+                                                    <input type="text" [(ngModel)]="searchText" class="input-search bg-grey" placeholder="Search...">
+                                                    <i class="fa fa-search"></i>
+                                                </div>
+                                            </div>
+                                            <a title="Add Lines" href="javscript:void(0)" class="addCatalog-tag" (click)="showAddLineModalView();isEditLineModalOpen=false">
+                                                <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+                                            </a>
+                                            <a [ngStyle]="{'color':projectDetail.theme}" (click)="openTemplateModal()" href="javascript:void(0)" title="Create Template" class="template-tag">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                            </a>
+
+                                            <a [ngStyle]="{'background':projectDetail.theme}" title="Template Name" class="templeteName" *ngIf="projectDetail && projectDetail.templateLayout && projectDetail.templateLayout.hasOwnProperty('title')==true">
+                                                    {{this.projectDetail.templateLayout.title}}
+                                            </a>
+                                            <!-- Version -->
+                                            <!-- <a title="Version A" class="templeteName mr-10">
+                                                    {{'Version A' | translate}}
+                                            </a> -->
+                                            
+                                            <!-- buttons -->
+                                            <button class="btn btn-edit" (click)="saveProject()" >{{' Save Lines ' | translate}}</button>
+                                            <a href="javascript:void(0);" class="btn btn-first btn-book ripple" >{{'Notify' | translate}}</a>
+
+
+                                            <!-- <a class="pull-right mt-4" href="javascript:void(0)"><i class="fa fa-calendar pull-right"></i></a> -->
+                                        </th>
+                                        <th class="text-center">
+                                            &nbsp;
+                                        </th>
+                                        <th class="text-center">
+                                            <h5 class="name">{{'Comment' | translate}}
+                                                <span class="subName"></span>
+                                            </h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5 class="name">{{'Order form' | translate}}
+                                                <span class="subName">{{'' | translate}}</span>
+                                            </h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5 class="name">{{getCurrencySymbol(projectDetail.currency,'wide')}}{{projectDetail.totalPriceIVAT}}
+                                                <span class="subName">{{'Total Rate' | translate}}</span>
+                                            </h5>
+                                        </th>
+                                        <th>&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let line of projectDetail.lines|lineSearch:searchText,let i of index" [ngStyle]="{'background':selectedLine? (selectedLine.id===line.id ? '#c5e8ec' : ''):line.disabled? '#f4d7d7' :'' }" >
+                                        <td class="text-left">
+                                            <h5 class="name">{{line.function && line.function.parent? line.function.parent.value:''}}
+                                                <span class="subName">{{line.function?line.function.value:''}}</span>
+                                            </h5>
+                                        </td>
+                                        <td colspan="2">
+                                            <div class="dropdown-parent">
+                                                <a title="{{line.resource && !line.defaultResource?line.resource.name:''}}" href="javascript:void(0);" class="numOfRate availableBtn" *ngIf="line.id" [ngStyle]="{'background':!line.defaultResource?'#009933':''}">
+                                                    <span (click)="goToSchedule(line)">{{line.resource && !line.defaultResource?line.resource.name:'Available:'}} {{!line.defaultResource?'':line.availableResources?line.availableResources.length:0}}</span>
+                                                    <i class="fa fa-caret-down" (click)="showAvailableResources=i;show=!show" *ngIf="line.defaultResource && !line.group"></i>
+                                                </a>
+
+                                                <div class="dropdown-panel" *ngIf="(showAvailableResources==i) && show && line.availableResources">
+                                                    <div class="arrow"></div>
+                                                    <h4 class="title">{{'Resource' | translate}}</h4>
+                                                    <ul>
+                                                        <li *ngFor="let resource of line.availableResources">{{resource.name}}
+                                                            <button class="btn btn-xs" (click)="addResourceToLine(line,resource)" [disabled]="line.disabled">{{'Set' | translate}}</button>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="dropdown-parent" *ngIf="line.staffBooking">
+                                                <a href="javascript:void(0);" class="groupPost availableBtn" *ngIf="line.id" [ngStyle]="{'background':line.group?'#f0f0f0':''}">
+                                                    <span >{{line.group?line.group.name:'Group:'}} {{line.group?'':availableGroups.length}}</span>
+                                                    <i class="fa fa-caret-down" *ngIf="line.defaultResource"  (click)="showAvailableGroups=i;showGroup=!showGroup" ></i>
+                                                </a>
+
+                                                <div class="dropdown-panel" *ngIf="(showAvailableGroups==i) && showGroup && availableGroups.length>0">
+                                                    <div class="arrow"></div>
+                                                    <h4 class="title">{{'Groups' | translate}}
+                                                        <a title="Unassign" class="unassignGroupText pull-right" (click)="removeGroupToBooking(line)" >{{'Unassign' | translate}}</a>
+                                                    </h4>
+                                                    <ul>
+                                                        <li *ngFor="let group of availableGroups">{{group.name}}
+                                                            <button class="btn btn-xs" (click)="addGroupToBooking(line,group)" [disabled]="line.disabled">{{'Set' | translate}}</button>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <h5 class="name">{{ line.from | date:"MM/dd/yy"}}
+                                                <span class="subName">{{line.from| date:"shortTime"}}</span>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <h5 class="name">{{ line.to| date:"MM/dd/yy"}}
+                                                <span class="subName">{{line.to| date:"shortTime"}}</span>
+                                            </h5>
+                                        </td>
+                                        <td class="text-center">
+                                            <h5 class="name">{{line.occurrenceCount}}
+                                                <span class="subName">{{'Qty' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                        <td class="text-center">
+                                            <h5 class="name">{{line.totalLocalCost}}
+                                                <span class="subName">{{line.unitPriceBasis ? line.unitPriceBasis : 'Day'}}</span>
+                                            </h5>
+                                        </td>
+                                        <td class="text-center">
+                                            <h5 class="name">{{line.extraCost}}
+                                                <span class="subName">{{'Extra Cost' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="commentDiv">
+                                                <i class="fa fa-pencil"></i>
+                                                <input class="form-control commentInput" type="text" [(ngModel)]="line.comment" placeholder="Comment here...">
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="oderListImg">
+                                                <a href="javascript:void(0);" *ngIf="line.workOrder" title="Work Order" (click)="onBookingOrderSelect(line.workOrder,line)"><img src="../../assets/img/edit-order.png"></a>
+                                                <a href="javascript:void(0);"  *ngIf="line.travelOrder" title="Travel Order" (click)="onBookingOrderSelect(line.travelOrder,line)" class="ml-5"><img src="../../assets/img/order-time.png"></a>
+                                                <a href="javascript:void(0);" *ngIf="line.mediaOrder" title="Media Order" (click)="onBookingOrderSelect(line.mediaOrder,line)" class="ml-5"><img src="../../assets/img/order-amount.png"></a>
+                                                <div class="dropdown-parent" style="display: inline-block !important;" *ngIf="!(line.workOrder && line.travelOrder && line.mediaOrder)" id="orderAttachment">
+                                                        <!-- <a href="javascript:void(0);" class="numOfRate availableBtn" *ngIf="line.id" [ngStyle]="{'background':!line.defaultResource?'#009933':''}">
+                                                            <span (click)="goToSchedule(line)">{{line.resource && !line.defaultResource?line.resource.name:'Available:'}} {{!line.defaultResource?'':line.availableResources?line.availableResources.length:0}}</span>
+                                                            
+                                                            <i class="fa fa-caret-down" (click)="showAvailableResources=i;show=!show" *ngIf="line.defaultResource && !line.group"></i>
+                                                        </a> -->
+                                                        <a href="javascript:void(0);" *ngIf ="line.showOrderForm" (click)="isShowAddAttachmentsLine(i);" class="ml-5" id="orderAttachment" ><img src="../../assets/img/oder-attachment.png"></a>
+    
+                                                        <div class="dropdown-panel" *ngIf="(showAddAttachmentsLine==i) && showAddAttachments" id="orderAttachment">
+                                                            <div class="arrow"></div>
+                                                            <h4 class="title">{{'Add Order Forms' | translate}}</h4>
+                                                            <ul>
+                                                                <!-- <li *ngFor="let resource of line.availableResources">
+                                                                    {{resource.name}}
+                                                                    <button class="btn btn-xs" (click)="addResourceToLine(line,resource)" [disabled]="line.disabled">Set</button>
+                                                                </li> -->
+                                                                <li *ngIf="!line.workOrder">{{'Work Order' | translate}}
+                                                                    <button class="btn btn-xs" (click)="addAttachmentToLine(line,'WORK_ORDER')" [disabled]="line.disabled">{{'Set' | translate}}</button>
+                                                                </li>
+                                                                <li *ngIf="!line.travelOrder">{{'Travel Order' | translate}}
+                                                                    <button class="btn btn-xs" (click)="addAttachmentToLine(line,'TRAVEL_ORDER')" [disabled]="line.disabled">{{'Set' | translate}}</button>
+                                                                    </li>
+                                                                    <li *ngIf="!line.mediaOrder">{{'Media Order' | translate}}
+                                                                    <button class="btn btn-xs" (click)="addAttachmentToLine(line,'MEDIA_ORDER')" [disabled]="line.disabled">{{'Set' | translate}}</button>
+                                                                    </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <h5 class="name">{{getCurrencySymbol(projectDetail.currency,'wide')}}{{line.totalPriceWithOccurenceCount}}
+                                                <span class="subName">{{getCurrencySymbol(projectDetail.currency,'wide')}} {{line.totalCostWithOccurenceCount}}</span>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <a href="javascript:void(0);" class="ml-10" (click)="showLineEditModal(line)">
+                                                <i class="fa fa-pencil-square-o"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Description & Attachments -->
+        <div class="row">
+
+            <!-- DESCRIPTION PANEL -->
+            <div class="col-lg-4 col-md-12">
+                <div class="grid">
+                    <div class="grid-header">{{'Description' | translate}}</div>
+                    <div class="grid-body">
+                        <textarea class="form-control" name="" id="" cols="30" rows="5" readonly placeholder="Description">{{projectDetail.information?projectDetail.information.comment:''}}</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ATTACHMENT PANEL -->
+            <div class="col-lg-4 col-md-12">
+                <div class="grid">
+                    <div class="grid-body">
+                        <div class="table-responsive">
+                            <table class="table common-Table">
+                                <thead>
+                                    <tr>
+                                        <th>{{'Attachments' | translate}}
+                                            <!-- <i class="fa fa-paperclip"></i>
+                                            <a class="pull-right" href="javascript:void(0)" style="height: 0;font-size: 18px;line-height: 1.2;">
+                                                <i class="fa fa-plus-circle"></i>
+                                            </a> -->
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="projectDetail && projectDetail.attachments">
+                                    <tr *ngFor="let attachment of projectDetail.attachments">
+                                        <td>
+                                            <div class="loaded-attachment">
+                                                <a href="{{attachment.url}}">
+                                                    <img [src]="attachment.extension==='pdf'?'../../assets/img/pdf_logo.jpg':'../../assets/img/image_icon.png'" alt="">{{attachment.type}}</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!--  side-modal -->
+    <div class="side-modal " *ngIf="isEditLineModalOpen || showAddLineModal" >
+        <div class="side-modal-inner" [ngStyle]="{'max-height':innerHeight}">
+
+
+            <!-- 1 ADD FUNCTION -->
+            <div class="add-resuorce-div " [ngClass]="!showAddLineModal?'hide':''">
+
+                <div class="text-header">
+                    <h4 class="title">{{'Function Catalog' | translate}}
+                        <a href="javascript:void(0)" class="close pull-right" (click)="showAddLineModal=false">&times;</a>
+                    </h4>
+                </div>
+                <!--Scrolling Content-->
+                <div class="inner-content" style="max-height: calc(100vh - 120px);overflow-y: auto;">
+                    <form [formGroup]="addLineForm">
+                        <div class="body-content" formGroupName="resource">
+
+                            <!-- Planning Div -->
+                            <div class="">
+                                <!-- <h4 class="title">Planning</h4> -->
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <div class="form-group">
+                                            <label>{{'Start Date' | translate}}</label>
+                                            <div style="display: flex;">
+                                                <p-calendar [showIcon]="true" [maxDate]="this.addLineForm.get('resource').get('to').value" formControlName="from" [showTime]="true"></p-calendar>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="form-group">
+                                            <label>{{'Due Date' | translate}}</label>
+                                            <p-calendar [showIcon]="true"  [minDate]="this.addLineForm.get('resource').get('from').value"  formControlName="to" [showTime]="true" ></p-calendar>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- Planning Div -->
+
+
+                            <div class="form-group">
+                                <label>{{'Resource' | translate}}</label>
+                                <select class="form-control" formControlName="selectedResourceType">
+                                    <option [ngValue]="resourceType" *ngFor="let resourceType of resourceTypes">{{resourceType}}</option>
+                                </select>
+                            </div>
+
+                            <div class="list-content">
+                                <div class="filter">
+                                    <div class="filter-search">
+                                        <input type="text" class="input-search" placeholder="Search..." formControlName="searchBy">
+                                        <i class="fa fa-search"></i>
+                                    </div>
+                                </div>
+                                <ul class="resource-list" formArrayName="qtyOnFunction">
+                                        <div *ngIf="addLineForm.get('resource').get('selectedResourceType').value != 'Template'">
+                                            <li *ngFor="let resource of resourceList|functionFilter:addLineForm.get('resource').get('searchBy').value; let i=index"  [formGroupName]="i">
+                                                {{resource.qualifiedName}}
+        
+                                                <div class="incDes-Quantity">
+                                                    <i class="fa fa-minus" (click)="decreaeseQtyOnFunction(i)"></i>
+                                                    <input type="number"  min="1" max="99" oninput="validity.valid||(value='')" #item (keypress)="onlyNumber(event,item.value)" class="form-control" formControlName="qty"/>
+                                                    <i class="fa fa-plus" (click)="increaseQtyOnFunction(i)"></i>
+                                                </div>
+        
+                                                <a href="javascript:void(0)" class="link" (click)="addLine(resource,i)">+ {{'Add' | translate}}</a>
+                                            </li>
+                                        </div>
+        
+                                        <div *ngIf="addLineForm.get('resource').get('selectedResourceType').value == 'Template'">
+                                                <li *ngFor="let resource of resourceList |templateFilter:addLineForm.get('resource').get('searchBy').value;">
+                                                    {{resource.title}}
+            
+                                                    <!-- <div class="incDes-Quantity">
+                                                            <i class="fa fa-minus" (click)="decreaeseQtyOnFunction(i)"></i>
+                                                            <input type="number"  min=1 class="form-control" formControlName="qty"/>
+                                                            <i class="fa fa-plus" (click)="increaseQtyOnFunction(i)"></i>
+                                                        </div> -->
+                
+                                                        <a href="javascript:void(0)" class="link" (click)="addTemplate(resource)">+ {{'Add' | translate}}</a>
+                                                </li>
+                                            </div>
+        
+        
+                                    </ul>
+                            </div>
+                        </div>
+                    </form>
+                </div><!--Scrolling Content-->
+            </div>
+
+            <!--2 EDIT RATING  -->
+            <div class="edit-resources-div " *ngIf="selectedLine" [ngClass]="showAddLineModal?'hide':''">
+                <div class="text-header">
+                    <h4 class="title">{{selectedLine.function.qualifiedName}}
+                        <a href="javascript:void(0)" class="close pull-right" (click)="closeEditLineModal()">&times;</a>
+
+                        <div class="source-on">{{'Deactivate' | translate}}
+                            <label class="switch">
+                            <input type="checkbox" [(ngModel)]="selectedLine.disabled" (onChange)="selectedLine.active= !selectedLine.disabled">
+                            <span class="slider round"></span>
+                        </label>
+                        </div>
+                    </h4>
+                </div>
+                
+                <!--Scrolling Content-->
+                <div class="inner-content" style="max-height: calc(100vh - 120px);overflow-y: auto;">
+                    <fieldset [disabled]="selectedLine.disabled">
+                        <form [formGroup]="editLineForm" >
+
+                        
+                            <div class="body-content">
+
+                                <!-- Planning Div -->
+                                <div class="form-content">
+                                    <!-- <h4 class="title">Planning</h4> -->
+
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="form-group">
+                                                <label>{{'Comment' | translate}}</label>
+                                                <textarea class="form-control" rows="10" style="height: 100px;" placeholder="Description" formControlName="description"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <div class="form-group">
+                                                <label>{{'Start Date' | translate}}</label>
+                                                <div style="display: flex;">
+                                                    <p-calendar [showIcon]="true" formControlName="from" [disabled]="manualUpdate" [maxDate]="this.editLineForm.get('to').value" [showTime]="true"></p-calendar>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <div class="form-group">
+                                                <label>{{'Due Date' | translate}}</label>
+                                                <p-calendar [showIcon]="true" formControlName="to" [minDate]="this.editLineForm.get('from').value" [showTime]="true" (onClose)="getDaysDiff()"></p-calendar>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <div class="form-group">
+                                                <button class="btn btn-first apply-booking-btn" type="button" [disabled]="manualUpdate" (click)="applyBookingDateToAllLines()">{{'Apply date to all booking' | translate}}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Sale Div -->
+                                <div class="form-content">
+
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <div class="form-group">
+                                                <label>{{'Quantity' | translate}}</label>
+                                                <input type="number" class="form-control" formControlName="occurrenceCount" placeholder="Quantity" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-3">
+                                            <div class="form-group">
+                                                <label>{{'Rate Card' | translate}}</label>
+                                                <select name="" id="" class="form-control" formControlName="rateCard">
+                                                    <option value="0">{{'None' | translate}}</option>
+                                                    <option [ngValue]="rate.id" *ngFor="let rate of rateOnSlectedFunction">{{rate.label}}</option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-3">
+                                                <div class="form-group">
+                                                    <label>{{'Basis' | translate}}</label>
+                                                    <select class="form-control" formControlName="basis">
+                                                        
+                                                        <option  *ngFor="let b of dropdownData.unitBasis" [ngValue]="b">{{b}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <div class="form-group">
+                                                    <label>{{'Currency' | translate}}</label>
+                                                    <select class="form-control" formControlName="currency">
+                                                        
+                                                        <option  *ngFor="let currency of dropdownData.currencyList" [ngValue]="currency.defaultCurrency && !editLineForm.get('currency').value?null:currency.code">{{currency.code}}</option>
+            
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        <div class="col-xs-12 text-center">
+                                            <div class="equipment-on">
+                                                <label class="switch">
+                                                    <input  formControlName="synQty" type="checkbox" ng-reflect-is-disabled="" ng-reflect-model="false"
+                                                        class="ng-untouched ng-pristine">
+                                                    <span class="slider round"></span>
+                                                </label>
+                                                <span class="text">{{'Manual Update' | translate}}</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-12">
+                                            <div class="row">
+                                                <div class="col-xs-6">
+                                                    <h4 class="title-4">{{'Sale' | translate}}</h4>
+                                                    <div class="row">
+                                                        <div class="col-xs-6">
+                                                            <label for="">{{'Billable Quantity' | translate}}</label>
+
+                                                            <input type="number" class="form-control" formControlName="qtySoldPerOc" [readonly]="!manualUpdate">
+                                                        </div>
+                                                        <div class="col-xs-6">
+                                                            <label for="">{{'Price' | translate}}</label>
+
+                                                            <input type="number" class="form-control" formControlName="unitPrice" [readonly]="!manualUpdate">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <h4 class="title-4">{{'Cost' | translate}}</h4>
+                                                    <div class="row">
+                                                        <div class="col-xs-6">
+                                                            <label for="">{{'Bookable Quantity' | translate}}</label>
+
+                                                            <input type="number" class="form-control" formControlName="qtyUsedPerOc" [readonly]="!manualUpdate">
+                                                        </div>
+                                                        <div class="col-xs-6">
+                                                            <label for="">{{'Cost' | translate}}</label>
+
+                                                            <input type="number" class="form-control" formControlName="unitCost" [readonly]="!manualUpdate">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <!-- extra Div -->
+                            <div class="form-content" style="padding: 0 15px;">
+                                <!-- <h4 class="title"></h4> -->
+                                <div class="row">
+
+                                    <div class="col-xs-12">
+                                        <p>
+                                            <a href="javascript:void(0)" (click)="addExtra(null)">+{{'Add Extra' | translate}}</a>
+                                        </p>
+
+                                        <div class="table-responsive extras-table" style="max-height: 350px;">
+                                            <table class="table ">
+                                                <thead>
+                                                    <tr>
+                                                        <td style="background: #fff;">&nbsp;</td>
+                                                        <td>{{'Extra Designation' | translate}}</td>
+                                                        <td>{{'Extra price' | translate}}</td>
+                                                        <td style="background: #fff;border:0;">&nbsp;</td>
+                                                        <td>{{'Extra cost' | translate}}</td>
+
+                                                        <td>&nbsp;</td>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody formArrayName="extras">
+                                                    <tr *ngFor="let phone of extrasForm.controls; let i=index" [formGroupName]="i">
+                                                        <td>&nbsp;</td>
+                                                        <td>
+                                                            <input class="form-control" type="text" formControlName="label" />
+                                                        </td>
+                                                        <td>
+                                                            <input class="form-control" type="number" formControlName="price" />
+                                                        </td>
+                                                        <td style="background: #fff;border:0;">&nbsp;</td>
+
+                                                        <td>
+                                                            <input class="form-control" type="number" formControlName="cost" />
+                                                        </td>
+
+                                                        <td>
+                                                            <a href="javascript:void(0);" class="deleteIco" styyle="font-size: 25px;" (click)="deleteExtra(i)">
+                                                                <i class="fa fa-trash"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="6"></td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody>
+                                                    <tr>
+                                                        <td colspan="6"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-right">{{'Discount' | translate}}</td>
+                                                        <td>
+                                                            <input class="form-control" type="number" formControlName="discountRate">
+
+                                                        </td>
+                                                        <td>
+                                                            <input class="form-control" type="number" formControlName="discountAmount" readonly>
+
+                                                        </td>
+                                                        <td style="background: #fff;border:0;">&nbsp;</td>
+                                                        <td style="background: #fff;border:0;">&nbsp;</td>
+
+                                                        <!-- <td>Unit price</td>
+                                                    <td>Percent price</td> -->
+                                                        <td>&nbsp;</td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-right">{{'Tax' | translate}}</td>
+                                                        <td>
+                                                            <input class="form-control" type="number" formControlName="vatRate">
+
+                                                        </td>
+                                                        <td>
+                                                            <input class="form-control" type="number" formControlName="vatAmount" readonly>
+
+                                                        </td>
+                                                        <td style="background: #fff;border:0;">&nbsp;</td>
+                                                        <td style="background: #fff;border:0;">&nbsp;</td>
+
+                                                        <!-- <td>Unit price</td>
+                                                    <td>Percent price</td> -->
+                                                        <td>&nbsp;</td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2" class="text-right"><h5 class="name">{{'Price per Unit' | translate}}
+                                                            <span class="subName">({{'Including discount' | translate}})</span>
+                                                        </h5></td>
+                                                        <td>
+
+                                                            <input class="form-control" type="text" formControlName="totalLocalPrice" readonly>
+
+                                                        </td>
+                                                        <td style="background: #fff;border:0;"></td>
+                                                        <td> <input class="form-control" type="text" formControlName="totalLocalCost" readonly></td>
+
+                                                        <!-- <td>Unit price</td>
+                                                    <td>Percent price</td> -->
+                                                        <td>&nbsp;</td>
+
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td colspan="2" class="text-right"><h5 class="name">{{'Total price' | translate}} ({{'Price per Unit X' | translate}} {{selectedLine.occurrenceCount}})
+                                                            <span class="subName">({{'Including discount' | translate}})</span>
+                                                        </h5></td>
+                                                        <td>
+                                                            <input class="form-control" type="text" formControlName="totalWithQuantity" readonly>
+
+                                                        </td>
+                                                        <td style="background: #fff;border:0;">&nbsp;</td>
+                                                        <td>
+                                                            <input class="form-control" type="text" formControlName="totalLocalCostWithQuantity" readonly>
+                                                        </td>
+
+                                                        <!-- <td>Unit price</td>
+                                                        <td>Percent price</td> -->
+                                                        <td>&nbsp;</td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2" class="text-right"><h5 class="name">{{'Grand Total' | translate}}
+                                                            <span class="subName">({{'Including discount and taxes' | translate}})</span>
+                                                        </h5></td>
+                                                        <td>
+                                                            <input class="form-control" type="text" formControlName="totalWithVat" readonly>
+
+                                                        </td>
+                                                        <td style="background: #fff;border:0;">&nbsp;</td>
+                                                        <td style="background: #fff;border:0;">&nbsp;</td>
+
+                                                        <!-- <td>Unit price</td>
+                                                            <td>Percent price</td> -->
+                                                        <td>&nbsp;</td>
+
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </fieldset>
+                </div><!--Scrolling Content-->
+
+                <!-- footer -->
+                <div class="form-content">
+                    <div class="row">
+                        <div class="col-xs-12 ">
+                            <div class="form-group text-center" style="margin-top: 15px;">
+                                <button class="btn btn-danger ripple" type="button" (click)="removeLine(selectedLine)" *ngIf="!bookingExist">{{'Delete' | translate}}</button>
+                                <button class="btn btn-first  ripple" type="button" (click)="saveLine()" *ngIf="!bookingExist" >{{'Save' | translate}}</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div><!-- footer -->
+
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<app-create-work-order *ngIf="showOrderForm" (closeModalEvent)="closeOrderFormModal();" [selectedOrder]="selectedOrder" [lineId]="selectedLine.id"></app-create-work-order>

@@ -1,0 +1,34 @@
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner>
+<div class="modal fade in" style="display:block;background: rgba(0, 0, 0, 0.6);">
+    <div class="modal-dialog modal-sm">
+        <!-- Modal content-->
+        <div class="modal-content mdlUpdateConfig mdlConfInfo">
+            <div class="modal-header">
+                <button (click)="hideDaysOffModal()" type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{modalText | translate}}
+                    <!-- <p class="sub-Title">Days off</p> -->
+                </h4>
+            </div>
+            <div class="modal-body">
+                <!-- tab Content Start -->
+                <div class="InfoContentSec">
+                    <form [formGroup]="leaveTypeForm">
+                        <div class="common-Sec">
+                            <div>
+                                <label>{{'Days Off Type' |translate}}
+                                    <span class="astrick">*</span> : </label>
+                                <input type="text" formControlName="type" class="form-control" />
+                                <span *ngIf="showError" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">Leave Type is Required.</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- tab Content End -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" *ngIf="leaveTypeForm.get('leaveTypeId')" class="btn btn-first ripple pull-left" data-dismiss="modal" (click)="inActivateLeaveType()" style="background-color: darkred;">Delete</button>
+                <button type="button" class="btn btn-first ripple" [disabled]="leaveTypeForm.get('type').invalid" data-dismiss="modal" (click)="saveOrUpdateLeaveType()">{{'Save' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>

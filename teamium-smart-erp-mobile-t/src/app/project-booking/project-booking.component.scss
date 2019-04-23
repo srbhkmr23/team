@@ -1,0 +1,70 @@
+@import '../project-details/project-details.component';
+@import '../../variables.scss';
+
+.Project-booking {
+    /*======= pb-Title ========*/ 
+    .pb-Title {
+        padding: 8px;
+        background: $lite-blue;
+        display: flex;
+        flex-wrap: wrap;
+        .c-33p {
+            width:33.33%;
+            .name {
+                font-size: 15px;
+                color:$white-color !important;
+                .subName {
+                    color:$white-color !important;
+                }
+            }
+        }
+    }
+    /*======= resource-Des ========*/ 
+    .resource-Des {
+        position: relative;
+        padding: 8px 70px 8px 50px;
+        .t-count {
+            position: absolute;
+            left:0;
+            min-width: 35px;
+            height: 35px;
+            display: inline-block;
+            text-align: center;
+            border-radius: 20px;
+            font-size: 18px;
+            padding: 7px 5px;
+            color: $white-color;
+            background: $lite-blue;
+        }
+        .buy-div {
+            position: absolute;
+            top: 12px;
+            right:0;
+            .btn-buy {
+                border-radius: 20px;
+                padding: 5px 15px;
+                line-height: normal;
+                text-align: center;
+                background: $yellow-color;
+                &:hover,
+                &:focus {
+                    background: $yellow-color2;
+                }
+                &::focus {
+                    outline: 0;
+                }
+            }
+            .done-check {
+                border-radius: 20px;
+                padding: 5px 6px;
+                color: $white-color;
+                line-height: normal;
+                text-align: center;
+                background: $yellow-color;
+                .fa {
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+}

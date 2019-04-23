@@ -1,0 +1,27 @@
+@import '../assign-to-me/assign-to-me.component';
+@import '../../variables.scss';
+.user-Img {
+    width: 44px;
+    height: 44px;
+    img {
+        border: 1px solid #ddd;
+        border-radius: 50%;
+        width:100%;
+        height:100%;
+    }
+}
+.img-position {
+    position: absolute;
+    top:-5px;
+    right: 0;
+}
+.active-indicator {
+  background: transparent;
+  border:3px solid #3adb57;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  position: absolute;
+  top: 3px;
+  right: -2px;
+}

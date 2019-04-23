@@ -1,0 +1,310 @@
+
+    <!--     Spinner component-->
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner>
+
+
+<div class="equipment-list project-Budgeting notification-Builder functionAndFolderList">
+
+    <div class="filter-header">
+        <div class="container-fluid">
+            <h1 class="title">{{'Notification' | translate}}</h1>
+
+            <div class="filter">
+                <div class="filter-search">
+                    <select class="form-control selectField">
+                        <option>Preset</option>
+                        <option>Preset</option>
+                        <option>Preset</option>
+                        <option>Preset</option>
+                        <option>Preset</option>
+                    </select>
+
+                    <a href="javascript:void(0)">
+                        <i class="fa fa-download" aria-hidden="true"></i> {{'Download' | translate}}
+                    </a>
+
+                    <!-- <a href="javascript:void(0)" class="ml-5" (click)="openModal()" *ngIf="selectedNode==null||(selectedNode!=null&&selectedNode.data.functionValue.type=='folder')"> -->
+                            <a href="javascript:void(0)" class="ml-5">
+                        <i class="fa fa-plus"></i> {{'Add' | translate}}
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="smallToLarge view-details-card-active"  [ngClass]="selectedEquipment !=null?'view-details-card-active':''"> -->
+            <div class="smallToLarge view-details-card-active">
+        <div class="card-list-content">
+            <div class="row">
+                <!-- BOOKING DETAILS -->
+                <div class="col-lg-12 col-md-12">
+                    <div class="grid bookingTable">
+                        <div class="grid-body">
+                            <div class="table-responsive">
+                                <table class="table notificationTable table-striped text-center common-Table">
+                                    <thead>
+                                        <tr>
+                                            <th>{{'Function' | translate}}</th>
+                                            <th>{{'Data Trigger' | translate}}</th>
+                                            <th>{{'Value' | translate}}</th>
+                                            <th>{{'Action' | translate}}</th>
+                                            <th>{{'Status' | translate}}</th>
+                                            <th class="width-80">&nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-left">
+                                                <h5 class="name">{{'Project' | translate}} 
+                                                    <span class="subName">{{'Budgeting' | translate}}</span>
+                                                </h5>
+                                            </td>
+                                            <td class="text-left">
+                                                <h5 class="name">{{'Status' | translate}}
+                                                    <span class="subName">{{'wer' | translate}}</span>
+                                                </h5>
+                                            </td>
+                                            <td class="text-left showApproval">
+                                                <h5 class="name">{{'Req Approval' | translate}}
+                                                    <!-- <span class="subName">Groups</span> -->
+                                                </h5>
+                                            </td>
+                                            <td class="text-left">
+                                                <h5 class="name">{{'Notification' | translate}}
+                                                    <!-- <span class="subName">Qty</span> -->
+                                                </h5>
+                                            </td>
+                                            <td class="text-left">
+                                                <span class="showStatus activated">{{'Activated' | translate}} </span>
+                                            </td>
+                                            <td class="width-80">
+                                                <a href="javascript:void(0);" class="deleteIco"><i class="fa fa-trash"></i></a>
+                                                <a href="javascript:void(0);" class="ml-10"><i class="fa fa-pencil-square-o"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr class="activeTr">
+                                            <td class="text-left">
+                                                    <h5 class="name">{{'Booking' | translate}}
+                                                        <span class="subName">{{'File Transfer' | translate}}</span>
+                                                    </h5>
+                                            </td>
+                                            <td class="text-left">
+                                                <h5 class="name">{{'Status' | translate}}
+                                                    <span class="subName">{{'wer' | translate}}</span>
+                                                </h5>
+                                            </td>
+                                            <td class="text-left showApproval">
+                                                <h5 class="name">{{'Done' | translate}}
+                                                    <!-- <span class="subName">Groups</span> -->
+                                                </h5>
+                                            </td>
+                                            <td class="text-left">
+                                                <h5 class="name">{{'Process' | translate}}
+                                                    <!-- <span class="subName">Qty</span> -->
+                                                </h5>
+                                            </td>
+                                            <td class="text-left">
+                                                <span class="showStatus enable">{{'Enable' | translate}}</span>
+                                            </td>
+                                            <td class="width-80">
+                                                <a href="javascript:void(0);" class="deleteIco"><i class="fa fa-trash"></i></a>
+                                                <a href="javascript:void(0);" class="ml-10"><i class="fa fa-pencil-square-o"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-left">
+                                                <h5 class="name">{{'Booking' | translate}}
+                                                    <span class="subName">{{'File Transfer' | translate}}</span>
+                                                </h5>
+                                            </td>
+                                            <td class="text-left">
+                                                <h5 class="name">{{'Status' | translate}}
+                                                    <span class="subName">{{'wer' | translate}}</span>
+                                                </h5>
+                                            </td>
+                                            <td class="text-left showApproval">
+                                                <h5 class="name">{{'Done' | translate}}
+                                                    <!-- <span class="subName">Groups</span> -->
+                                                </h5>
+                                            </td>
+                                            <td class="text-left">
+                                                <h5 class="name">{{'Process' | translate}}
+                                                    <!-- <span class="subName">Qty</span> -->
+                                                </h5>
+                                            </td>
+                                            <td class="text-left">
+                                                <span class="showStatus enable">{{'Enable' | translate}}</span>
+                                            </td>
+                                            <td class="width-80">
+                                                <a href="javascript:void(0);" class="deleteIco"><i class="fa fa-trash"></i></a>
+                                                <a href="javascript:void(0);" class="ml-10"><i class="fa fa-pencil-square-o"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-left">
+                                                <h5 class="name">{{'Project' | translate}} 
+                                                    <span class="subName">{{'Budgeting' | translate}}</span>
+                                                </h5>
+                                            </td>
+                                            <td class="text-left">
+                                                <h5 class="name">{{'Status' | translate}}
+                                                    <span class="subName">{{'wer' | translate}}</span>
+                                                </h5>
+                                            </td>
+                                            <td class="text-left showApproval">
+                                                <h5 class="name">{{'Req Approval' | translate}}
+                                                    <!-- <span class="subName">Groups</span> -->
+                                                </h5>
+                                            </td>
+                                            <td class="text-left">
+                                                <h5 class="name">{{'Notification' | translate}}
+                                                    <!-- <span class="subName">Qty</span> -->
+                                                </h5>
+                                            </td>
+                                            <td class="text-left">
+                                                <span class="showStatus activated">{{'Activated' | translate}} </span>
+                                            </td>
+                                            <td class="width-80">
+                                                <a href="javascript:void(0);" class="deleteIco"><i class="fa fa-trash"></i></a>
+                                                <a href="javascript:void(0);" class="ml-10"><i class="fa fa-pencil-square-o"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr class="">
+                                            <td class="text-left">
+                                                    <h5 class="name">{{'Booking' | translate}}
+                                                        <span class="subName">{{'File Transfer' | translate}}</span>
+                                                    </h5>
+                                            </td>
+                                            <td class="text-left">
+                                                <h5 class="name">{{'Status' | translate}}
+                                                    <span class="subName">{{'wer' | translate}}</span>
+                                                </h5>
+                                            </td>
+                                            <td class="text-left showApproval">
+                                                <h5 class="name">{{'Done' | translate}}
+                                                    <!-- <span class="subName">Groups</span> -->
+                                                </h5>
+                                            </td>
+                                            <td class="text-left">
+                                                <h5 class="name">{{'Process' | translate}}
+                                                    <!-- <span class="subName">Qty</span> -->
+                                                </h5>
+                                            </td>
+                                            <td class="text-left">
+                                                <span class="showStatus enable">{{'Enable' | translate}}</span>
+                                            </td>
+                                            <td class="width-80">
+                                                <a href="javascript:void(0);" class="deleteIco"><i class="fa fa-trash"></i></a>
+                                                <a href="javascript:void(0);" class="ml-10"><i class="fa fa-pencil-square-o"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-left">
+                                                <h5 class="name">{{'Booking' | translate}}
+                                                    <span class="subName">{{'File Transfer' | translate}}</span>
+                                                </h5>
+                                            </td>
+                                            <td class="text-left">
+                                                <h5 class="name">{{'Status' | translate}}
+                                                    <span class="subName">{{'wer' | translate}}</span>
+                                                </h5>
+                                            </td>
+                                            <td class="text-left showApproval">
+                                                <h5 class="name">{{'Done' | translate}}
+                                                    <!-- <span class="subName">Groups</span> -->
+                                                </h5>
+                                            </td>
+                                            <td class="text-left">
+                                                <h5 class="name">{{'Process' | translate}}
+                                                    <!-- <span class="subName">Qty</span> -->
+                                                </h5>
+                                            </td>
+                                            <td class="text-left">
+                                                <span class="showStatus enable">{{'Enable' | translate}}</span>
+                                            </td>
+                                            <td class="width-80">
+                                                <a href="javascript:void(0);" class="deleteIco"><i class="fa fa-trash"></i></a>
+                                                <a href="javascript:void(0);" class="ml-10"><i class="fa fa-pencil-square-o"></i></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- DETAILS WINDOW -->
+        <div class="visible-div">
+            <div class="view-details-card card">
+                <div class="card-header" >
+                    <a href="javascript:void(0)" class="close" data-dismiss="modal">&times;</a>
+                    <h4 class="modal-title">{{'Project' | translate}}
+                        <span class="subName">{{'Budgeting' | translate}}</span>
+                    </h4>
+                </div>
+                <div class="card-body" >
+                    <div class="table-responsive">
+                        <caption>{{'Features' | translate}}</caption>
+                        <table class="table custom-table ">
+                            <tbody>
+                                <tr>
+                                    <td>Moduel</td>
+                                    <td>{{'Project' | translate}}/{{'Budgeting' | translate}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'Data Trigger' | translate}}</td>
+                                    <td>{{'Status' | translate}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'Operator' | translate}}</td>
+                                    <td>===</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'Value' | translate}}</td>
+                                    <td>{{'Req Approval' | translate}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'Action' | translate}}</td>
+                                    <td>===</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'Message Title' | translate}}</td>
+                                    <td>Reuired Your Approval</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="receiverDiv">
+                        <div class="added-value-content">
+                            <div  class="added-value">
+                                <label >{{'Procurement Group' | translate}}</label>
+                                <a class="close" href="javascript:void(0)">×</a>
+                            </div>
+                        </div>
+                        <select class="form-control" >
+                            <option>{{'Procurement Group' | translate}}</option>
+                            <option>{{'Group Producer' | translate}}</option>
+                            <option>{{'Assigned' | translate}}</option>
+                        </select>
+                    </div>
+                    <p class="description">
+                        <label>{{'Description' | translate}}:</label>
+                        <span></span>
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <button type="button" class="btn btn-first ripple">{{'More Details' | translate}}</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+

@@ -1,0 +1,96 @@
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner> 
+<div  class="modal fade in" style="display:block;background: rgba(0, 0, 0, 0.6);">
+    <div class="modal-dialog modal-md">
+        <!-- Modal content-->
+        <div class="modal-content mdlUpdateConfig mdlConfInfo save-currency">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" (click)="hideCurrencyModal()" title="Close">&times;</button>
+                <h4 class="modal-title">
+                    {{'Currency' | translate}}                    
+                </h4>
+            </div>
+            <div class="modal-body">
+                <!-- tab Content Start -->
+                <div class="channelContent">
+                        <div class="row ">
+                            <div class="col-xs-6">
+                                <div class="input-row ">
+                                    <label>{{"Select Currency" |translate}}</label>
+                                    <div class="search-Flter-div">
+                                        <div class="select-Search large searchPeraonnel" tabindex="0" id="currency-dropdown">
+                                          <span class="value form-control" (click)="showCurrencyDropdown = !showCurrencyDropdown">{{selectedCurrencyCode?selectedCurrencyCode:'Select Currency'}}</span>
+                                          <div class="list open" tabindex="-1" *ngIf="showCurrencyDropdown == true">
+                                            <div class="filter">
+                                              <input type="text" [(ngModel)]="searchText" autofocus placeholder="{{'Search...' | translate}}">
+                                            </div>
+                                            <ul>
+                                                <li *ngFor="let currency of filterActive(currencyList, false) | currencySearch: searchText| globalSort:'code':1;" (click)="selectCurrency(currency)">{{currency.code}}</li>
+                                            </ul>
+                                            </div>
+                                        </div>
+                                        <!-- Plus Btn-->
+                                        <button class="btn btn-first btn-plus " (click)="activeCurrency()" title="{{'Activate Selected Currency' | translate}}">
+                                            <i class="fa fa-plus "></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    <div class="common-Sec mt-0"> 
+
+                        <!-- TABLE SATRT -->
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="grid">
+                                    <div class="grid-body "> 
+                                        <div >
+                                            <table class="table signaturetable channelTable table-hover text-center mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-left">
+                                                            {{"Active Currencies" |translate}}
+                                                        </th>
+                                                        <th>&nbsp;</th>
+                                                        <th>
+                                                            <div class="filter-search pull-right">
+                                                                <input type="text" [(ngModel)]="searchText2" class="input-search bg-grey" placeholder="{{'Search ...' | translate}}">
+                                                                <i class="fa fa-search"></i>
+                                                            </div> 
+                                                        </th>                                                       
+                                                    </tr>
+                                                </thead>
+                                                
+                                                <tbody >
+                                                    <tr *ngFor="let currency of filterActive(currencyList, true) | currencySearch: searchText2| globalSort:'code':1;let i = index;"> 
+                                                        <td class="text-left">
+                                                            <h5 class="name m-0">{{currency.code}}</h5>
+                                                        </td>
+                                                        <td class="">
+                                                            <span class="primaryOption ml-10" title="Set Default Currency">
+                                                                <input class="radio-custom" name="radio-group" type="radio" id="{{i+'Default'}}" (click)="changeDefaultCurrency(currency)" [checked]="currency.defaultCurrency">
+                                                                <label class="radio-custom-label" for="{{i+'Default'}}">{{'Default' | translate}}</label>
+                                                            </span>
+                                                        </td>
+                                                        <td class="width-35">
+                                                            <a class="close" href="javascript:void(0)" (click)="deactiveCurrency(currency)" title="{{'Deactivate Selected Currency' | translate}}">×</a>
+                                                        </td>                                                          
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- TABLE END -->                           
+                    </div>    
+                        
+                </div>
+                <!-- tab Content End -->
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+

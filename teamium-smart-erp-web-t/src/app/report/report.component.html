@@ -1,0 +1,318 @@
+<!-- <app-create-show *ngIf="showSaveShowModal" (closeModalEvent)="closeModal($event)" ></app-create-show> -->
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner>
+<div class="dashboard report-list">
+    <!-- FILTER HEADER   -->
+    <div class="filter-header">
+        <div class="container-fluid">
+
+            <h1 class="title">{{'Report' | translate}}</h1>
+
+            <div class="filter">
+
+                <div class="filter-search">
+                    <form [formGroup]="mainForm">
+
+                        <!-- <input type="text" [(ngModel)]="searchText" class="input-search" placeholder="Search...">
+                    <i class="fa fa-search"></i>
+                    <i class="fa fa-calendar"></i>
+                    <input type="text" class="inputStyle" placeholder="From">
+                    <input type="text" class="inputStyle" placeholder="To"> -->
+
+                        <div class="dateFilter-auto">
+                            <div class="dateInputdiv">
+                                <label>{{'From' | translate}}</label>
+                                <p-calendar [showIcon]="true" [showTime]="false" class="inputStyle"
+                                    [maxDate]="this.mainForm.get('toDate').value" formControlName="fromDate">
+                                </p-calendar>
+                            </div>
+                            <div class="dateInputdiv">
+                                <label>{{'To' | translate}}</label>
+                                <p-calendar [showIcon]="true" [showTime]="false" class="inputStyle mr-0"
+                                    [minDate]="this.mainForm.get('fromDate').value" formControlName="toDate">
+                                </p-calendar>
+                            </div>
+                        </div>
+
+                        <!--refresh-->
+                        <!-- <a href="javascript:void(0)" class="ml-5" (click)="resetDateRange()">
+                        <i class="fa fa-refresh"></i> 
+                    </a> -->
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="project-content">
+
+        <div class="card-list-content">
+
+            <div class="projectsList">
+
+                <h4 class="title">{{'Projects' | translate}}</h4>
+
+                <div class="row">
+
+                    <div class="col-sm-6 col-md-3">
+                        <div class="projectCardView">
+                            <div class="projectImg">
+                                <img src="../../assets/img/chart1.png" alt="" />
+                            </div>
+                            <p class="p-titleText">{{'Production Report' | translate}}</p>
+                            <p class="p-description">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                has been the industry's standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it to make a type specimen book.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="projectCardView">
+                            <div class="projectImg">
+                                <img src="../../assets/img/chart2.png" alt="" />
+                            </div>
+                            <p class="p-titleText">{{'P&L' | translate}}</p>
+                            <p class="p-description">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                has been the industry's standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it to make a type specimen book.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="projectCardView">
+                            <div class="projectImg">
+                                <img src="../../assets/img/chart3.png" alt="" />
+                            </div>
+                            <p class="p-titleText">{{'Time Tracking Report' | translate}}</p>
+                            <p class="p-description">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                has been the industry's standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it to make a type specimen book.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="projectCardView">
+                            <div class="projectImg">
+                                <img src="../../assets/img/chart4.png" alt="" />
+                            </div>
+                            <p class="p-titleText">{{'Product Workload Report' | translate}}</p>
+                            <p class="p-description">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                has been the industry's standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it to make a type specimen book.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-sm-6 col-md-3">
+                        <div class="projectCardView">
+                            <div class="projectImg">
+                                <img src="../../assets/img/chart4.png" alt="" />
+                            </div>
+                            <p class="p-titleText">{{'Burndown Chart' | translate}}</p>
+                            <p class="p-description">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                has been the industry's standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it to make a type specimen book.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="projectCardView">
+                            <div class="projectImg">
+                                <img src="../../assets/img/chart2.png" alt="" />
+                            </div>
+                            <p class="p-titleText">{{'Burnup Chart' | translate}}</p>
+                            <p class="p-description">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                has been the industry's standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it to make a type specimen book.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="projectCardView">
+                            <div class="projectImg">
+                                <img src="../../assets/img/chart1.png" alt="" />
+                            </div>
+                            <p class="p-titleText">{{'Cumulative Flow Diagram' | translate}}</p>
+                            <p class="p-description">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                has been the industry's standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it to make a type specimen book.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="projectCardView">
+                            <div class="projectImg">
+                                <img src="../../assets/img/chart3.png" alt="" />
+                            </div>
+                            <p class="p-titleText">{{'Product Pie Chart' | translate}}</p>
+                            <p class="p-description">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                has been the industry's standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it to make a type specimen book.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-sm-6 col-md-3">
+                        <div class="projectCardView">
+                            <div class="projectImg">
+                                <img src="../../assets/img/chart4.png" alt="" />
+                            </div>
+                            <p class="p-titleText">{{'Procurement' | translate}}</p>
+                            <p class="p-description">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                has been the industry's standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it to make a type specimen book.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="projectsList">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <h4 class="title">{{'Workforce' | translate}}</h4>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="staff-list-div pull-right ">
+                            <label>{{'Personnel List' | translate}}<span class="astrick">*</span></label>
+                            <select class="form-control" placeholder="Personnel List" [(ngModel)]="selectedStaff">
+                                <option value=null>{{'Select Personnel' | translate}}</option>
+                                <option *ngFor="let staff of staffList" value="{{staff.id}}">{{staff.fullName}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-sm-6 col-md-3" (click)="downloadTimeReport('getTimeReportByWeek')">
+                        <div class="projectCardView">
+                            <div class="projectImg">
+                                <img src="../../assets/img/chart2.png" alt="" />
+                            </div>
+                            <p class="p-titleText">{{'Time report per week' | translate}}</p>
+                            <p class="p-description">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                has been the industry's standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it to make a type specimen book.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3" (click)="downloadTimeReport('getAnnualPersonnelTimeReport')">
+                        <div class="projectCardView">
+                            <div class="projectImg">
+                                <img src="../../assets/img/chart1.png" alt="" />
+                            </div>
+                            <p class="p-titleText">{{'Annual personal time report' | translate}}</p>
+                            <p class="p-description">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                has been the industry's standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it to make a type specimen book.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3" (click)="downloadTimeReport('getWeeklyPersonnelTimeReport')">
+                        <div class="projectCardView">
+                            <div class="projectImg">
+                                <img src="../../assets/img/chart3.png" alt="" />
+                            </div>
+                            <p class="p-titleText">{{'Weekly personal time report' | translate}}</p>
+                            <p class="p-description">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                has been the industry's standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it to make a type specimen book.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="projectsList">
+
+                <h4 class="title">{{'Equipement' | translate}}</h4>
+
+                <div class="row">
+
+                    <div class="col-sm-6 col-md-3">
+                        <div class="projectCardView">
+                            <div class="projectImg">
+                                <img src="../../assets/img/chart4.png" alt="" />
+                            </div>
+                            <p class="p-titleText">{{'Equipement Report' | translate}}</p>
+                            <p class="p-description">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                has been the industry's standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it to make a type specimen book.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="projectCardView">
+                            <div class="projectImg">
+                                <img src="../../assets/img/chart3.png" alt="" />
+                            </div>
+                            <p class="p-titleText">{{'Maintenance Report' | translate}}</p>
+                            <p class="p-description">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                has been the industry's standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it to make a type specimen book.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="projectCardView">
+                            <div class="projectImg">
+                                <img src="../../assets/img/chart2.png" alt="" />
+                            </div>
+                            <p class="p-titleText">{{'Licence' | translate}}</p>
+                            <p class="p-description">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                has been the industry's standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it to make a type specimen book.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="projectCardView">
+                            <div class="projectImg">
+                                <img src="../../assets/img/chart1.png" alt="" />
+                            </div>
+                            <p class="p-titleText">{{'SLA' | translate}}</p>
+                            <p class="p-description">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                has been the industry's standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it to make a type specimen book.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,438 @@
+<!--     Spinner component-->
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner>
+
+
+<div class="edit-equipment project-Budgeting sequentail-booking dashboard-sequentail-booking open-side-modal">
+
+    <div class="filter-header">
+        <div class="container-fluid">
+            <h1 class="title">{{'Dashboard' | translate}}</h1>
+
+            <div class="filter">
+
+                <div class="filter-search">
+
+                    <!-- <i class="fa fa-calendar"></i>
+                    <input type="text" class="inputStyle" placeholder="From">
+                    <input type="text" class="inputStyle" placeholder="To"> -->
+                    
+                    <div class="dateFilter-auto">
+                        <div class="dateInputdiv">
+                            <label>{{'From' | translate}}</label>
+                            <p-calendar [showIcon]="true" [showTime]="false" class="inputStyle" [(ngModel)]="fromDate"></p-calendar>
+                        </div>
+                        <div class="dateInputdiv">
+                            <label>To</label>
+                            <p-calendar [showIcon]="true" [showTime]="false" class="inputStyle mr-0" [(ngModel)]="toDate"></p-calendar>
+                        </div>
+                    </div>
+
+                    <a href="javascript:void(0)" class="ml-5">
+                        <i class="fa fa-refresh"></i> {{'Reset' | translate}}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="inner-content">
+
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="title">{{'Bookings' |translate}}</h4>
+            </div>
+        </div>
+        <!-- DATA TABLE -->
+
+        <div class="">
+            <!-- BOOKING DETAILS -->
+            <div class="">
+              <div class="BookingContentSec">
+                  
+                  <ul class="nav nav-pills">
+                      <li class="active">
+                        <div class="text-center">
+                            <label class="total-Count" style="background: #fd7e52;">12</label>
+                        </div>
+                        <a data-toggle="pill" href="#home"  style="background: #fd7e52;">{{'Over Due' |translate}}</a>
+                      </li>
+                      <li>
+                        <div class="text-center">
+                            <label class="total-Count" style="background: #ffd326;">23</label>
+                        </div>
+                        <a data-toggle="pill" href="#menu1">{{'In Progress' | translate}}</a>
+                      </li>
+                      <li>
+                          <div class="text-center">
+                              <label class="total-Count" style="background: #a5de37;">45</label>
+                          </div>
+                        <a data-toggle="pill" href="#menu2">{{'Done' | translate}}</a>
+                      </li>
+                  </ul>
+                    
+                  <div class="tab-content clearfix">
+                      <div id="home" class="tab-pane fade in active">
+                        <div class="common-content">
+                            <table class="table table-text-center common-Table">
+                                <tbody>
+                                    <tr>
+                                        <td class="text-left">
+                                            <div class="c-description">
+                                                <i class="fa fa-cog"></i>
+                                                <h5 class="name">Service/MPEG4
+                                                    <span class="subName">{{'File Transfer' |translate}}</span>
+                                                </h5>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <label class="ttl-Num">1</label>
+                                        </td>
+                                        <td>
+                                            <div class="c-linkName">
+                                                <h4 class="c-title">{{'Peter Artwood' |translate}}</h4>
+                                                <img src="../assets/img/attachLinkImg.png" alt="" />
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <button class="btn btn-first btn-submit ripple">{{'Reminder' |translate}}</button>
+                                        </td>
+                                        <td class="width-50 text-right">
+                                            <a href="javascript:void(0);" class="ml-10" (click)="showLineEditModal(line)">
+                                                <i class="fa fa-pencil-square-o"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">
+                                            <div class="c-description">
+                                                <i class="fa fa-cog"></i>
+                                                <h5 class="name">Service/MPEG4
+                                                    <span class="subName">{{'File Transfer' |translate}}</span>
+                                                </h5>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <label class="ttl-Num">1</label>
+                                        </td>
+                                        <td>
+                                            <div class="c-linkName">
+                                                <h4 class="c-title">{{'Peter Artwood' |translate}}</h4>
+                                                <img src="../assets/img/attachLinkImg.png" alt="" />
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <button class="btn btn-first btn-submit ripple">{{'Reminder' |translate}}</button>
+                                        </td>
+                                        <td class="width-50 text-right">
+                                            <a href="javascript:void(0);" class="ml-10" (click)="showLineEditModal(line)">
+                                                <i class="fa fa-pencil-square-o"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">
+                                            <div class="c-description">
+                                                <i class="fa fa-cog"></i>
+                                                <h5 class="name">Service/MPEG4
+                                                    <span class="subName">{{'File Transfer' |translate}}</span>
+                                                </h5>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <label class="ttl-Num">1</label>
+                                        </td>
+                                        <td>
+                                            <div class="c-linkName">
+                                                <h4 class="c-title">Peter Artwood</h4>
+                                                <img src="../assets/img/attachLinkImg.png" alt="" />
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <button class="btn btn-first btn-submit ripple">{{'Reminder' |translate}}</button>
+                                        </td>
+                                        <td class="width-50 text-right">
+                                            <a href="javascript:void(0);" class="ml-10" (click)="showLineEditModal(line)">
+                                                <i class="fa fa-pencil-square-o"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                      </div>
+                      <div id="menu1" class="tab-pane fade">
+                        <h3>{{'Menu 1' |translate}}</h3>
+                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                      </div>
+                      <div id="menu2" class="tab-pane fade">
+                        <h3>{{'Menu 2' |translate}}</h3>
+                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                      </div>
+                  </div>
+              </div>
+
+                <!-- <div class="panel-group" id="accordion">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                                    <i class="fa fa-caret-down"></i>
+                                    <span class="ml-5">Estimated Deleivery Time</span>
+                                </a>
+                                <label class="pull-right" style="color:#2f9faa;">
+                                    <span class="hours">6hr :</span>  
+                                    <span class="ml-5 date">05/07/18</span>  
+                                    <span class="ml-5 totalHours">1h33m</span>
+                                </label>
+                            </h4>
+                        </div>
+                        <div id="collapse1" class="panel-collapse collapse in">
+                            <div class="panel-body" >
+                                <table class="table text-center">
+                                    <tbody>
+                                        <tr *ngFor="let line of projectDetail.lines|lineSearch:searchText,let i of index" [ngStyle]="{'background':selectedLine? (selectedLine.id===line.id ? '#c5e8ec' : ''):line.disabled? '#f4d7d7' :'' }" >
+                                            <td class="text-left">
+                                                <div class="c-description">
+                                                    <i class="fa fa-cog"></i>
+                                                    <h5 class="name">DCT
+                                                        <span class="subName">Service</span>
+                                                    </h5>
+                                                    <div class="progress">
+                                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="70"
+                                                        aria-valuemin="0" aria-valuemax="100" style="width:70%">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="width-30 text-right">
+                                                <a href="javascript:void(0);" class="ml-10" (click)="showLineEditModal(line)">
+                                                    <i class="fa fa-pencil-square-o"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="side-modal "  style="width:550px !important;">
+        <div class="side-modal-inner" [ngStyle]="{'max-height':innerHeight}">
+
+            <!--EDIT RATING  -->
+            <div class="edit-resources-div Sequential-Mdl">
+                <div class="text-header">
+                    <h4 class="title name EstimatedTitle">{{'DCT' |translate}}
+                        <span class="subName">{{'Service' |translate}}</span>
+
+                        <i class="fa fa-cog"></i>
+
+                        <a href="javascript:void(0)" class="close pull-right" (click)="closeEditLineModal()">&times;</a>
+
+                    </h4>
+                </div>
+                <!--body-content-->
+                <div class="body-content">
+                    <!-- Planning Div -->
+                    <div class="form-content">
+
+                        <!-- -->
+                        <div class="row mb-20">
+                            <div class="col-xs-12">
+                                <div class="">
+                                    <h4 class="c-title">{{'Computer Farm 1' |translate}}
+                                        <!-- progress -->
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="70"
+                                            aria-valuemin="0" aria-valuemax="100" style="width:70%">
+                                            </div>
+                                        </div><!-- progress -->
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Media ID -->
+                        <div class="row mb-20">
+                            <div class="col-xs-12">
+                                <div class="form-content">
+                                    <div class="form-group inline-lbl-input">
+                                        <label>{{'Media ID' |translate}}</label>
+                                        <input class="form-control mediaInput" type="text" placeholder="Media ID"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- -->
+                        <div class="row mb-20">
+                            <div class="col-xs-7">
+                                <div class="c-linkName">
+                                    <h4 class="c-title">Peter Artwood</h4>
+                                    <img src="../assets/img/attachLinkImg.png" alt="" />
+                                </div>
+                            </div>
+                            <div class="col-xs-5 text-center">
+                                <button class="btn btn-first btn-submit ripple">{{'Done' |translate}}</button>
+                            </div>
+                        </div>
+
+                        <!-- TABLE -->
+                        <div class="row  mb-20">
+                            <div class="col-xs-6">
+                                <div class="table-responsive">
+                                    <table class="table text-center">
+                                        <!-- <thead>
+                                            <tr>
+                                                <th class="text-left">
+                                                    <span>Estimated Deleivery Time</span>
+                                                </th>
+                                                <th class="text-right" style="color:#2f9faa;">
+                                                </th>
+                                            </tr>
+                                        </thead> -->
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-left">
+                                                    <h5 class="name">{{'Item' |translate}}</h5>
+                                                </td>
+                                                <td class="text-right">1</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-left">
+                                                    <h5 class="name">{{'Quantity' |translate}}</h5>
+                                                </td>
+                                                <td class="text-right">1</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-left">
+                                                    <h5 class="name">{{'Due Date' |translate}}</h5>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span>05/07</span> <span>02:30 PM</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="media-sec" style="height:160px;">
+                                    <img src="../assets/img/vdoImg.png" alt="" style="width:100%;height:100%;"/>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- WORK ORDER TABLE -->
+                        <div class="row  mb-20">
+                            <div class="col-xs-12">
+                                <div class="table-responsive">
+                                    <table class="table work-orde-tbl text-center mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-left">
+                                                    <i class="fa fa-chevron-down"></i>
+                                                    <span class="ml-5">{{'Work Order' |translate}}</span>
+                                                </th>
+                                                <th class="text-right">
+                                                    <a href="javascript:void(0);" class="">{{'Edit' | translate}}</a>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-left">
+                                                    <h5 class="name">{{'Vedio Format' |translate}}</h5>
+                                                </td>
+                                                <td class="text-right">{{'MPEG4' |translate}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-left">
+                                                    <h5 class="name">{{'Aspect Ration' |translate}}</h5>
+                                                </td>
+                                                <td class="text-right">16:4</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-left">
+                                                    <h5 class="name">{{'Audio Format' |translate}}</h5>
+                                                </td>
+                                                <td class="text-right">
+                                                    mp3
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-left">
+                                                    <h5 class="name">{{'Bit Rate' |translate}}</h5>
+                                                </td>
+                                                <td class="text-right">
+                                                    2MBPS
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label>{{'Comment' |translate}}</label>
+                                    <textarea class="form-control" rows="10" style="height: 100px;" placeholder="Description" formControlName="description"></textarea>
+                                </div>
+                            </div>
+                            <!-- <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label>Start Date</label>
+                                    <div style="display: flex;">
+                                        <p-calendar [showIcon]="true" formControlName="from" [disabled]="manualUpdate" [maxDate]="this.editLineForm.get('to').value" [showTime]="true"></p-calendar>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label>Due Date</label>
+                                    <p-calendar [showIcon]="true" formControlName="to" [minDate]="this.editLineForm.get('from').value" [showTime]="true" (onClose)="getDaysDiff()"></p-calendar>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <button class="btn btn-first apply-booking-btn" type="button" [disabled]="manualUpdate" (click)="applyBookingDateToAllLines()">Apply date to all booking</button>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+
+                </div>
+                <!--body-content-->
+                <div class="form-content">
+                    <div class="row">
+                        <div class="col-xs-12 ">
+                            <div class="form-group text-center">
+<<<<<<< HEAD
+                                <button class="btn btn-danger ripple" type="button" (click)="removeLine(selectedLine)" *ngIf="!bookingExist">{{'Delete' |translate}}</button>
+                                <button class="btn btn-first  ripple" type="button" (click)="saveLine()" *ngIf="!bookingExist" >{{'Save' | translate}}</button>
+=======
+                                <button class="btn btn-danger ripple" type="button" (click)="removeLine(selectedLine)">{{'Delete' |translate}}</button>
+                                <button class="btn btn-first  ripple" type="button" (click)="saveLine()">{{'Save' |translate}}</button>
+>>>>>>> sprint13
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+

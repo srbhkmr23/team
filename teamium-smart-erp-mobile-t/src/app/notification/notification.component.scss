@@ -1,0 +1,13 @@
+@import '../personal-edit/personal-edit.component';
+@import '../../variables.scss';
+
+.notification {
+    .old-Notifications {
+        .titleText {
+            color:$dark-blue;
+            font-size: 18px;
+            font-weight: normal;
+            margin: 10px 0px;
+        }
+    }
+}

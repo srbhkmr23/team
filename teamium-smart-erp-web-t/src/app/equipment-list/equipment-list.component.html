@@ -1,0 +1,227 @@
+<!--     Spinner component-->
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner>
+
+
+<div class="equipment-list">
+
+    <div class="filter-header">
+        <div class="container-fluid">
+            <h1 class="title">{{'Equipment' | translate}}</h1>
+
+            <div class="filter">
+
+                <div class="filter-search">
+                    <input type="text" [(ngModel)]="searchText" class="input-search" placeholder="Search...">
+                    <i class="fa fa-search"></i>
+
+                    <a href="javascript:void(0)" id="filter-id" (click)="isfiterClicked = !isfiterClicked">
+                       {{' Filter by' | translate}}
+                        <i class="fa fa-sliders"></i>
+                    </a>
+
+                    <a href="javascript:void(0)" id="sort-id" (click)="isSortByClicked =!isSortByClicked">
+                        {{'Sort by' | translate}}
+                        <i class="fa fa-sort"></i>
+                    </a>
+
+                    <a *ngIf="isEquipmentManager" href="javascript:void(0)" class="ml-5" (click)="showSaveEquipmentModal = (!showSaveEquipmentModal)">
+                        <i class="fa fa-plus"></i> {{'Add' | translate}}
+
+                    </a>
+                </div>
+
+                <div class="filter-box" id="filter-id" [ngClass]="!isfiterClicked ? 'hide':''">
+                    <div class="arrow"></div>
+                    <div class="filter-row" [ngClass]="!isFilterByFunctionClicked?'collapse-ul':''">
+                        <h4 class="title4" (click)="isFilterByFunctionClicked = !isFilterByFunctionClicked">{{'Function' | translate}}
+                            <i class="fa fa-angle-down"></i>
+                        </h4>
+                        <ul class="chk-list ">
+
+                            <li *ngFor="let functionCheckBox of functionCheckBoxList; let i = index">
+                                <div class="checkbox">
+                                    <input type="checkbox" id={{i}} (click)="doCheckbox(functionCheckBox)">
+                                    <label for={{i}} class="chk"></label>
+                                    <label for={{i}}>{{functionCheckBox.label}}</label>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="filter-row" id="filter-id" [ngClass]="!isFilterByModelClicked?'collapse-ul':''">
+
+                        <h4 class="title4" (click)="isFilterByModelClicked =!isFilterByModelClicked">{{'Model' | translate}}
+                            <i class="fa fa-angle-down"></i>
+                        </h4>
+                        <ul class="chk-list ">
+
+                            <li *ngFor="let modelCheckBox of modelCheckBoxList;let modelIndex = index">
+                                <div class="checkbox">
+                                    <input type="checkbox" id={{modelCheckBox.label}}{{modelIndex}} (click)="addSelectedModelCheckbox(modelCheckBox)">
+                                    <label for={{modelCheckBox.label}}{{modelIndex}} class="chk"></label>
+                                    <label for={{modelCheckBox.label}}{{modelIndex}}>{{modelCheckBox.label}}</label>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="filter-row" id="filter-id" [ngClass]="!isFilterByLocationClicked?'collapse-ul':''">
+                        <h4 class="title4" (click)="isFilterByLocationClicked =!isFilterByLocationClicked">{{'Location' | translate}}
+                            <i class="fa fa-angle-down"></i>
+                        </h4>
+                        <ul class="chk-list ">
+
+                            <li *ngFor="let location of locationCheckBoxList;let locationIndex =index">
+                                <div class="checkbox">
+                                    <input type="checkbox" id={{locationIndex}}{{location.label}} (click)='addSelectedLocationCheckbox(location)'>
+                                    <label for={{locationIndex}}{{location.label}} class="chk"></label>
+                                    <label for={{locationIndex}}{{location.label}}>{{location.label}}</label>
+                                </div>
+                            </li>
+
+
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="filter-box" id="sort-id" [ngClass]="!isSortByClicked ? 'hide':''" style="left: 160px;">
+                    <div class="arrow"></div>
+                    <ul class="chk-list " style="height:auto;">
+
+                        <li>
+                            <div (click)="sort('model')" [ngClass]="(sortBy=='model'&&sortValue== 1)?'sort':''">
+                                <i class="fa fa-sort" aria-hidden="true"></i>
+                                <!-- <i class="fa fa-angle-up" aria-hidden="true"></i> -->
+                                <!-- <input type="radio" id='model' (click)="sortBy='model'" name="sort"> -->
+                                <label for='model' class="chk" style="margin-left:10px"></label>
+                                <label for='model'>{{'Model' | translate}}</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div (click)="sort('location')" [ngClass]="(sortBy=='location'&&sortValue== 1)?'sort':''">
+                                <i class="fa fa-sort " aria-hidden="true"></i>
+                                <!-- <input type="radio" id='location'  (click)="sortBy='location'" name="sort"> -->
+                                <label for='location' class="chk" style="margin-left:10px"></label>
+                                <label for='location'>{{'Location' | translate}}</label>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="container-fluid hide">
+            <ol class="breadcrumb">
+                <!-- <li>
+                    <a href="#">
+                        <em class="fa fa-home"></em>
+                    </a>
+                </li> -->
+                <li class="active">{{'Equipment' | translate}}</li>
+            </ol>
+        </div>
+    </div>
+    <div class="smallToLarge" [ngClass]="selectedEquipment !=null?'view-details-card-active':''">
+
+        <div class="card-list-content">
+            <div class="row">
+                <div class="col-md-4 col-sm-6" *ngFor="let equipment of equipmentList |equipmentFilter: selectedFunctionCheckBoxList:selectedModelCheckBoxList:selectedLocationCheckBoxList|equipmentSearch:searchText:searchList|globalSort:sortBy:sortValue">
+
+                    <div class="card" [ngClass]="clickedId==equipment.id?'flipped':''">
+                        <div class="card-box" (click)="clickEvent(equipment)">
+                            <div class="ribbon">
+                                <span class="activeRibbon" [ngStyle]="{'background-color':equipment.available?'':'red'}">{{equipment.available?'Available':'Unavailable'}}</span>
+                            </div>
+                            <div class="spImg">
+                                <img [src]="equipment &&equipment.photo?equipment.photo.url:'../../assets/img/image_icon.png'">
+                            </div>
+                            <div class="spInfoContainer">
+                                <div class="spInfo">
+                                    <h4 class="">{{equipment.name}}</h4>
+                                    <p class="client-position">{{'Model' | translate}} - {{equipment.model}} </p>
+                                    <p class="client-position">{{'Brand' | translate}} - {{equipment.brand}}</p>
+                                    <p class="client-position">{{'Serial Number' | translate}} - {{equipment.serialNumber}}</p>
+                                    <p class="client-position">{{'Location' | translate}} - {{equipment.location}}</p>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- DETAILS WINDOW -->
+        <div class="visible-div">
+            <div class="view-details-card card">
+                <div class="card-header" *ngIf="selectedEquipment !=null">
+                    <a href="javascript:void(0)" class="close" data-dismiss="modal" (click)="clickEvent(null)">&times;</a>
+                    <h4 class="modal-title">
+                        <img [src]="selectedEquipment &&selectedEquipment.photo?selectedEquipment.photo.url:'../../assets/img/image_icon.png'">
+                        <span class="subTitle">{{selectedEquipment.name}}</span>
+                    </h4>
+                </div>
+                <div class="card-body" *ngIf="selectedEquipment !=null">
+                    <div class="table-responsive">
+                        <caption>{{'Features' | translate}}</caption>
+                        <table class="table custom-table ">
+                            <tbody>
+                                <tr *ngFor="let info of selectedEquipment.resource.informations |globalSort:'id':1">
+                                    <td>{{info.keyValue}}</td>
+                                    <td>
+                                        <div class="rating">
+                                            <span>{{info.description}}</span>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table">
+                            <caption>{{'Specs' | translate}}</caption>
+                            <tbody>
+                                <tr>
+                                    <td>{{'Consumption' | translate}}</td>
+                                    <td>{{selectedEquipment.specsConsumption}} w</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'Weight' | translate}}</td>
+                                    <td>{{selectedEquipment.specsWeight}} lbs</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'Size' | translate}} (HxWxD)</td>
+                                    <td>{{selectedEquipment.specsSize}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'Origin' | translate}}</td>
+                                    <td>{{selectedEquipment.specsOrign}}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{'IP Address' | translate}}</td>
+                                    <td>{{selectedEquipment.specsIp}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="description">
+                        <label>{{'Description' | translate}}:</label>
+                        <span>{{selectedEquipment.description}}</span>
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <button type="button" class="btn btn-first ripple" (click)="goToDetails(selectedEquipment.id)">{{'More Details' | translate}}</button>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<app-create-equipment *ngIf="showSaveEquipmentModal" (closeModalEvent)="closeModal($event)"></app-create-equipment>

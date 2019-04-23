@@ -1,0 +1,350 @@
+<!--     Spinner component-->
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner>
+
+<!--     Component for save and create Personnel-->
+<app-create-personnel *ngIf="showSavePersonnelModal"  [personnelDetail]="personnelDetail" (closeModalEvent)="closeModal($event)" ></app-create-personnel>
+
+<div class="personnel-edit edit-equipment" *ngIf="personnelDetail">
+
+    <div class="filter-header">
+        <div class="container-fluid pad-0">
+            <h1 class="title">{{'Personnel' | translate}} </h1>
+            <div *ngIf="isHumanResource" class="button-set">
+                <button class="btn btn-edit" (click)="showSavePersonnelModal=(!showSavePersonnelModal)"> {{'Edit' | translate}} </button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="inner-content">
+
+
+        <div class="equipment-info-content">
+            <ul class="equipment-current-status">
+                <li>
+
+                    <h5 class="name">{{personnelDetail.firstName}} {{personnelDetail.lastName}}
+
+                        <span class="subName">{{personnelDetail.jobTitle}} </span>
+                    </h5>
+                </li>
+                <li>
+                    <div class="team-name">
+                        <!-- <div class="ribbon">
+                          <span class="activeRibbon">Available</span>
+                      </div> -->
+                        <h5 class="name">{{ primaryFunction && primaryFunction.function ? primaryFunction.function.qualifiedName:'' }}
+                            <span class="subName">{{'Primary function' | translate}}</span>
+                        </h5>
+                    </div>
+                </li>
+                <li>
+                    <h5 class="name">
+
+                        <i class="fa fa-phone"></i> {{ primaryTelephone ? primaryTelephone.telephone:'' }}
+
+                        <span class="subName" style="font-size: normal;">
+                            <i class="fa fa-envelope" style="margin-right:3px;"></i>{{ primaryEmail ? primaryEmail.email : '' }}</span>
+                    </h5>
+                </li>
+                <li>
+                    <h5 class="name">ID: {{ personnelDetail.employeeCode }}
+                        <span class="subName"></span>
+                    </h5>
+                </li>
+
+                <li>
+                    <h5 class="name">{{ personnelDetail.userSettingDTO && personnelDetail.userSettingDTO.login ? personnelDetail.userSettingDTO.login : '' }}
+                        <span class="subName">Location: {{ personnelDetail.address? personnelDetail.address.city:''}}</span>
+                    </h5>
+                </li>
+                <li class="text-right">
+
+                    <div class="equipment-on">
+                        <img alt="" src="../../assets/img/lg-market-place.png">
+                        <label class="switch">
+                            <input type="checkbox" disabled [(ngModel)]="personnelDetail.marketplace">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="equipment-on pull-left">
+                        <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                        <label class="switch">
+                            <input type="checkbox" disabled [(ngModel)]="personnelDetail.available">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+
+
+        <div class="row">
+
+            <div class="col-lg-3 col-md-6">
+
+                <!-- EQUIPMENT PANEL -->
+                <div class="grid">
+                    <div class="grid-header">
+                        Personnel info
+                    </div>
+                    <div class="grid-body">
+                        <div class="profile-img">
+                                <img [src]="personnelDetail.photo && personnelDetail.photo.url ? personnelDetail.photo.url : '../../assets/img/lg-avtar.png'"
+                                alt="Personnel">
+                            
+                        </div>
+                        <div *ngIf="personnelDetail.freelance" class="profile-category">{{ personnelDetail.freelance ? 'Freelance' : '' }}</div>
+                        <ul class="equipment-info">
+                            <li *ngFor="let skill of personnelDetail.skills |globalSort:'id':1">
+                                <h5 class="name">
+                                    <div class="rating">
+                                        <a href="javascript:void(0)" *ngFor="let i of [1,2,3,4,5]">
+                                            <i class="fa fa-star" [ngStyle]="{'color':skill.rating >=i ? '' : 'silver' }"></i>
+                                        </a>
+                                    </div>
+                                    <span class="subName">{{skill.domain}}</span>
+                                </h5>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Details PANEL -->
+                <div class="grid">
+                    <div class="grid-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>{{'Details' | translate}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <h5 class="name">{{personnelDetail.location}}
+                                                <span class="subName">{{'Address' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h5 class="name">{{ secondaryTelephone != null ? secondaryTelephone.telephone : '' }}
+                                                <span class="subName">{{'Tel' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h5 class="name">{{ secondaryEmail != null ? secondaryEmail.email : ''}}
+                                                <span class="subName">{{'Email' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h5 class="name">-
+                                                <span class="subName">{{'Labour Rule' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h5 class="name">-
+                                                <span class="subName">{{'Status' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            <div class="col-lg-5 col-md-6">
+                <div class="grid">
+                    <div class="grid-body">
+                        <div class="table-responsive">
+                            <table class="table common-Table">
+                                <thead>
+                                    <tr>
+                                        <th>{{'Function' | translate}}</th>
+                                        <th>{{'Rating' | translate}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="personnelDetail && personnelDetail.resource">
+                                    <tr *ngFor="let function of personnelDetail.resource.functions |globalSort:'id':1">
+                                        <td>{{function.function.qualifiedName}}</td>
+                                        <td>
+                                            <div class="rating">
+                                                <a href="javascript:void(0)" *ngFor="let i of [1,2,3,4,5]">
+                                                    <i class="fa fa-star" [ngStyle]="{'color':function.rating >=i ? '' : 'silver' }"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DOCUMENTATION -->
+                <div class="grid">
+                    <div class="grid-body">
+                        <div class="table-responsive">
+                            <table class="table common-Table">
+                                <thead>
+                                    <tr>
+                                        <th>{{'Document' | translate}}</th>
+                                        <th>{{'ID number' | translate}}</th>
+                                        <th>{{'Expiration date' | translate}}</th>
+                                        <th>&nbsp;</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody *ngIf="personnelDetail && personnelDetail.documents">
+                                    <tr *ngFor="let document of personnelDetail.documents">
+                                        <td>{{document.type}}</td>
+                                        <td class="subName"> {{document.number}}</td>
+                                        <td>{{document.expirationDate| date:"MM/dd/yyyy"}}</td>
+                                        <td class="name">
+                                            <span class="milestone-arrow" [ngStyle]="{'color':document.expirationColor}"  ><i class="fa fa-caret-down"></i></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BOOKING DETAILS -->
+                <div class="grid">
+                    <div class="grid-body">
+                        <div class="table-responsive">
+                            <table class="table common-Table">
+                                <thead>
+                                    <tr>
+                                        <th>{{'Bookings' | translate}}
+                                            <a href="javascript:void(0)" class="pull-right ml-10 mt-4">
+                                                <i class="fa fa-refresh pull-right"></i>
+                                            </a>
+                                            <a href="javascript:void(0)" class="pull-right mt-4">
+                                                <i class="fa fa-calendar pull-right"></i>
+                                            </a>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let booking of recentBookings">
+                                        <td>
+                                            <h5 class="name">{{booking.projectTitle}}
+                                                <span class="subName">{{booking.from| date:"MM/dd/yy HH:mm"}} - {{booking.to| date:"MM/dd/yy HH:mm"}}</span>
+                                            </h5>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="row">
+                    <div class="col-md-6">
+                        <!-- ADD GROUP PANEL -->
+                        <div class="grid">
+                            <div class="grid-body">
+                                <div class="table-responsive">
+                                    <table class="table common-Table">
+                                        <thead>
+                                            <tr>
+                                                <th>{{'Group' | translate}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody *ngIf="personnelDetail && personnelDetail.resource">
+                                            <tr *ngFor="let group of personnelDetail.groupDTOs">
+                                                <td >{{group.name}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <!-- ADD LANGUAGES PANEL -->
+                        <div class="grid">
+                            <div class="grid-body">
+                                <div class="table-responsive">
+                                    <table class="table common-Table">
+                                        <thead>
+                                            <tr>
+                                                <th>{{'Languages' | translate}}
+                                                    
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody *ngIf="personnelDetail && personnelDetail.languages">
+                                            <tr *ngFor="let language of personnelDetail.languages">
+                                                <td>{{language}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- ATTACHMENT PANEL -->
+                <div class="grid">
+                    <div class="grid-body">
+                        <div class="table-responsive">
+                            <table class="table common-Table">
+                                <thead>
+                                    <tr>
+                                        <th>{{'Attachments' | translate}}
+                                           
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="personnelDetail && personnelDetail.attachments">
+                                    <tr *ngFor="let attachment of personnelDetail.attachments">
+                                        <td>
+                                            <div class="loaded-attachment">
+                                                <a href="{{attachment.url}}">
+                                                    <img [src]="attachment.extension==='pdf'?'../../assets/img/pdf_logo.jpg':'../../assets/img/image_icon.png'" alt="">{{attachment.type}}</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- DESCRIPTION PANEL -->
+                <div class="grid">
+                    <div class="grid-header">{{'Comments' | translate}}</div>
+                    <div class="grid-body">
+                        <textarea readonly class="form-control" name="" id="" cols="30" rows="7" placeholder="comments">{{personnelDetail.comments}}</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

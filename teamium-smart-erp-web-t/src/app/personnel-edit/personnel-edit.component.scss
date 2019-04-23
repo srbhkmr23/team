@@ -1,0 +1,43 @@
+@import '../edit-equipment/edit-equipment.component';
+@import '../../variables';
+.filter-header {
+    display: table;
+    width: 100%;
+    margin-bottom: 25px;
+    border-bottom: 1px solid $lite-color;
+    padding-bottom: 15px;
+    .title {
+        display: inline-block;
+        font-size: 22px;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+}
+
+.personnel-edit,.edit-equipment {
+    font-size: 14px;
+    .profile-category {
+        color: #fff;
+        background: #999;
+        padding: 4px 12px;
+        border-radius: 20px;
+        letter-spacing: 1px;
+        max-width: 120px;
+        text-align: center;
+        margin: 50px auto 5px;
+    }
+    .equipment-info {
+        .name {
+            font-size: 14px !important;
+            .rating {
+                display: inline-block;
+                float: right;
+            }
+        }
+    }
+    .grid-body {
+        min-height: 200px;
+        //max-height: 260px;
+        overflow-y: auto;
+    }
+}

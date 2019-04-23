@@ -1,0 +1,950 @@
+
+<!-- Modal -->
+<div id="myModal" class="modal in fade add-personnel-modal" style="display: block;">
+    <div class=" modal-dialog modal-lg ">
+        <form [formGroup]="personnelForm">
+            <!-- Modal content-->
+            <div class="modal-content ">
+                <div class="modal-header ">
+                    <button type="button " class="close " data-dismiss="modal" (click)="sendCloseEventToEditOrListComponent()"> &times;</button>
+                    <h4 class="title ">{{modalHeading |translate}}</h4>
+
+                </div>
+                <div class="modal-body ">
+                    <!-- WIZARD STEPS -->
+                    <div class="crumbs ">
+                        <ul>
+                            <li (click)="setSelectedStep(1)">
+                                <a [ngClass]="selectedStep==1?'active':''">
+                                    <span class="Step-span ">1. </span>{{'Personnel Info' |translate}}</a>
+                            </li>
+                            <li (click)="setSelectedStep(2)">
+                                <a [ngClass]="selectedStep==2?'active':''">
+                                    <span class="Step-span">2. </span>{{'Function' |translate}}</a>
+                            </li>
+                            <li (click)="setSelectedStep(3)">
+                                <a [ngClass]="selectedStep==3?'active':''">
+                                    <span class="Step-span ">3. </span>{{'Details' |translate}}</a>
+                            </li>
+                            <li (click)="setSelectedStep(4)">
+                                <a [ngClass]="selectedStep==4?'active':''">
+                                    <span class="Step-span ">4. </span>{{'Attachment' |translate}}</a>
+                            </li>
+                            <li (click)="setSelectedStep(5)">
+                                <a [ngClass]="selectedStep==5?'active':''">
+                                    <span class="Step-span ">5. {{'Other' |translate}}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="create-personnel ">
+
+
+                        <div class="inner-content ">
+
+                            <!-- 1 BASIC INFORMATION -->
+
+                            <div class="steps personal-info " [ngClass]="selectedStep!=1?'hide':''" formGroupName="personnelInfo">
+                                <div class="row ">
+                                    <div class="col-md-12 ">
+                                        <div class="form-content ">
+                                            <div class="row ">
+                                                <div class="col-xs-6">
+                                                    <div class="input-row ">
+                                                        <label>{{'First Name' |translate}} *</label>
+                                                        <input type="text " class="form-control " (focusout)="clearSpace(personnelForm.get('personnelInfo'),'firstName')" placeholder="{{'First Name' |translate}} " formControlName="firstName">
+                                                        <span *ngIf="personnelForm.get('personnelInfo').get('firstName').invalid && personnelForm.get('personnelInfo').get('firstName').touched" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{ 'First Name is Required' |translate}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <div class="input-row ">
+                                                        <label>{{'Last Name' |translate}} *</label>
+                                                        <input type="text " class="form-control " (focusout)="clearSpace(personnelForm.get('personnelInfo'),'lastName')" placeholder="{{'Last Name' |translate}}" formControlName="lastName">
+                                                        <span *ngIf="personnelForm.get('personnelInfo').get('lastName').invalid && personnelForm.get('personnelInfo').get('lastName').touched" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{ 'Last Name is Required' |translate }}</span>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="row ">
+                                                <div class="col-xs-6">
+                                                    <div class="input-row ">
+                                                        <label>{{'Job Title' |translate}}</label>
+                                                        <input type="text " class="form-control " placeholder="{{'Job Title' |translate}}" formControlName="jobTitle">
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <div class="input-row ">
+                                                        <label>&nbsp;</label>
+                                                        <div class="freelanceOnOff" title="{{'Freelance' |translate}}">
+                                                            <h4>{{'Freelance' |translate }}: 
+                                                                <span class="pull-right">{{freelance}}</span>
+                                                            </h4>
+                                                        </div>
+                                                        <!-- <div class="equipment-on" title="Freelance">
+                                                            <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                                                            <label class="switch pull-right">
+                                                                <input type="checkbox" formControlName="freelance">
+                                                                <span class="slider round"></span>
+                                                            </label>
+                                                        </div> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-6" title="Available">
+                                                    <div class="equipment-on">
+                                                        <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                                                        <label class="switch pull-right">
+                                                            <input type="checkbox" formControlName="available">
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6" title="MarketPlace Availability">
+                                                    <div class="equipment-on">
+                                                        <img alt="" src="../../assets/img/lg-market-place.png">
+                                                        <label class="switch pull-right">
+                                                            <input type="checkbox" formControlName="marketplace">
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row ">
+                                                <div class="col-xs-6">
+                                                    <div class="input-row ">
+                                                        <label>{{'Employee Code' |translate}} *</label>
+                                                        <input type="text " class="form-control " placeholder="{{'Employee Code' |translate}}" formControlName="employeeCode">
+                                                        <span *ngIf="personnelForm.get('personnelInfo').get('employeeCode').invalid&&personnelForm.get('personnelInfo').get('employeeCode').touched" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">Employee Code is Required.</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <div class="input-row ">
+                                                        <label>{{'Address' |translate}}</label>
+                                                        <input type="text " class="form-control " placeholder="{{'Address' |translate}}" formControlName="address">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row ">
+                                                <div class="col-xs-6">
+                                                    <div class="input-row ">
+                                                        <label>{{'City' |translate}}</label>
+                                                        <input type="text " class="form-control " placeholder="{{'City' |translate}}" formControlName="city">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <div class="input-row ">
+                                                        <label>{{'State' |translate}}</label>
+                                                        <input type="text " class="form-control " placeholder="{{'State' |translate}}" formControlName="state">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row ">
+                                                <div class="col-xs-6">
+                                                    <div class="input-row ">
+                                                        <label>{{'Zipcode' |translate}}</label>
+                                                        <input type="text " class="form-control " placeholder="{{'Zipcode' |translate}}" formControlName="zipcode">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <div class="input-row ">
+                                                        <label>{{'Country' |translate}}</label>
+                                                        <select class="form-control " formControlName="country">
+                                                            <option value="null">{{'Select Country' |translate}}</option>
+                                                            <option [selected]="country===(personnelDetail&&personnelDetail.address?personnelDetail.address.country:null)" *ngFor="let country of dropdownData.countries">{{country}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row ">
+                                                <div class="col-xs-12">
+                                                    <label>{{'Telephone' |translate}} *</label>
+                                                    <div class="added-value-content mb-1">
+                                                        <div class="added-value-Option" *ngFor="let t of telephones;let telIndex = index">
+                                                            <input class="radio-custom-value" type="radio" id="telpone{{telIndex}}" name="telepone" value="telpone{{telIndex}}" [checked]="t.primaryTelephone"
+                                                                (click)="changePrimary(t,'Telephone')" />
+                                                            <label class="label-value" for="telpone{{telIndex}}">
+                                                                <span title="make it primary">{{t.telephone}}</span>
+                                                                <a href="javascript:void(0) " class="close" (click)="removeContents(t,'Telephone')">&times;</a>
+                                                            </label>
+                                                        </div>
+                                                        <span *ngIf="telephoneError" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{telephoneError}}</span>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-5">
+                                                    <div class="input-row ">
+                                                        <input type="text " class="form-control " placeholder="Telephone" formControlName="telephone">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-1 ">
+                                                    <div>
+                                                        <button class="btn btn-first btn-plus " [disabled]=" telephoneError ||(!this.personnelForm.get('personnelInfo').get('telephone').value) "
+                                                            (click)="addContents('Telephone')">
+                                                            <i class="fa fa-plus "></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <label>{{'Email'|translate }} *</label>
+                                                    <div class="added-value-content mb-1">
+                                                        <div class="added-value-Option" *ngFor="let e of emails;let emailIndex = index">
+                                                            <input class="radio-custom-value" type="radio" id="email{{emailIndex}}" name="email" value="email{{emailIndex}}" [checked]="e.primaryEmail"
+                                                                (click)="changePrimary(e,'Email')" />
+                                                            <label class="label-value" for="email{{emailIndex}}">
+                                                                <span>{{e.email}}</span>
+                                                                <a href="javascript:void(0) " class="close" (click)="removeContents(e,'Email')">&times;</a>
+                                                            </label>
+                                                        </div>
+                                                        <span *ngIf="personnelForm.get('personnelInfo').get('email').invalid" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">Please enter a valid email.</span>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-5">
+                                                    <div class="input-row ">
+
+                                                        <input type="text " class="form-control " placeholder="Email" formControlName="email">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-1 ">
+                                                    <div>
+                                                        <button class="btn btn-first btn-plus " [disabled]="!personnelForm.get('personnelInfo').get('email').value ||  personnelForm.get('personnelInfo').get('email').invalid"
+                                                            (click)="addContents('Email')">
+                                                            <i class="fa fa-plus "></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-row">
+
+                                                <label class="block">{{'Upload Image' |translate}}</label>
+
+                                                <div class="relative" title="{{profilePictureName ? profilePictureName : 'No file chosen'}}">
+                                                    <div *ngIf="pictureUrl" class="upload-img" style="width:50px;height:50px">
+                                                        <input type="file" (change)="onProfilePictureChange($event)">
+                                                        <img [src]="pictureUrl" style="width: 100%;height: 100%;">
+                                                    </div>
+
+                                                    <div *ngIf="!pictureUrl" class="upload-img">
+                                                        <input type="file" (change)="onProfilePictureChange($event)">
+                                                        <i class="fa fa-file-image-o" aria-hidden="true"></i>
+                                                    </div>
+
+                                                    <i class="fa fa-plus-circle"></i>
+
+                                                    <!-- Delete picture -->
+                                                    <i *ngIf="pictureUrl" style="position: absolute;top: -6px;left: 44px;font-size: 18px;color: red;opacity: 1;cursor:pointer;" class="fa fa-times-circle" (click)='removePicture()'></i>
+
+                                                    <div>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <span *ngIf="addedPictureNameMessage" style="color: hsl(147, 78%, 18%);text-align: left;font-size: 14px;margin-top: 5pt;">{{addedPictureNameMessage |translate}}</span>
+                                            <span *ngIf="invalidPhotoFormatError" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{invalidPhotoFormatError |translate}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 2 FUNCTION & SPECIFICATOINS -->
+                            <div class="steps add-function" [ngClass]="selectedStep!=2?'hide':''" formGroupName="functions">
+                                <div class="row ">
+                                    <div class="col-md-12 ">
+                                        <div class="form-content ">
+                                            <div class="row ">
+                                                <div class="col-xs-5">
+                                                    <div class="input-row ">
+                                                        <label>{{'Function' |translate}} *</label>
+                                                        <select class="form-control" formControlName="selectedFunction">
+                                                            <option [ngValue]="null">Select Function</option>
+                                                            <option *ngFor="let function of dropdownData.functions" [ngValue]="function">{{function.qualifiedName}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-5">
+                                                    <div class="input-row ">
+                                                        <label>{{'Rating' |translate}}</label>
+                                                        <select class="form-control" formControlName="selectedRating">
+                                                            <option [ngValue]="null">{{'Select Rating' |translate}}</option>
+                                                            <option *ngFor="let rating of [0,1,2,3,4,5]" value="{{rating}}">{{rating}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-1 ">
+                                                    <label>&nbsp;</label>
+                                                    <div class="">
+                                                        <button class="btn btn-first btn-plus " [disabled]="this.personnelForm.get('functions').get('selectedFunction').invalid"
+                                                            (click)="addContents('Function')">
+                                                            <i class="fa fa-plus "></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- SAVED DATA -->
+                                            <div class="added-function-list ">
+                                                <table class="table common-Table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>{{'Function' |translate}}</th>
+                                                            <th>{{'Rating' |translate}}</th>
+                                                            <th>&nbsp;</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody *ngFor="let ob of this.resource.functions; let i =index;">
+
+                                                        <tr>
+                                                            <td>
+                                                                <i class="fa fa-caret-down" aria-hidden="true" (click)="rateCardShow(ob, i)"></i> {{ob.function.qualifiedName}}</td>
+                                                            <td>
+                                                                <div class="rating">
+                                                                    <a href="javascript:void(0)" *ngFor="let i of [1,2,3,4,5]" (click)="ob.rating=i">
+                                                                        <i class="fa fa-star" [ngStyle]="{'color':ob.rating >=i ? '' : 'silver' }"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <span class="primaryOption">
+                                                                    <input id={{i}} class="radio-custom" name="radio-group" type="radio" [checked]="ob.primaryFunction" (click)="changePrimary(ob,'Function')"
+                                                                    />
+                                                                    <label for={{i}} class="radio-custom-label">{{'Primary' |translate}}</label>
+                                                                </span>
+                                                                <a href="javascript:void(0)" class="close" (click)="removeFunction(ob)">&times;</a>
+                                                            </td>
+                                                        </tr>
+                                                        
+                                                        <tr *ngIf="rateCard[i]">
+                                                            <td class="pad-0" colspan="4">
+                                                                <table class="table innerTable">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th colspan="4">
+                                                                                <span class="primaryOption">
+                                                                                    <input id='rate{{i}}' class="radio-custom" name="radio-group" type="checkbox" [checked]="ob.rateSelected" (click)="checkedPrimaryOption(ob,'Rate')"/>
+                                                                                    <label for='rate{{i}}' class="radio-custom-label">Rate Card</label>
+                                                                                </span>
+                                                                            </th>
+                                                                            <th class="text-right"><a class="" href="javascript:void(0)" (click)="addRateRow(ob, i)" [ngClass]="!ob.rateSelected?'rateDisabled':''">+ {{'Add' |translate}}</a></th>
+                                                                        </tr>
+                                                                    </thead>
+
+                                                                    <tbody formArrayName="rateCard">      
+                                                                    <ng-container [formArrayName]="i" *ngIf=" personnelForm.get('functions').get('rateCard').controls.length>0">                                                                  
+                                                                        <tr *ngFor="let line of personnelForm.get('functions').get('rateCard').controls[i].controls; let j = index;">
+                                                                            <ng-container [formGroupName]="j">
+                                                                            <td>&nbsp;</td>
+                                                                            <td class="text-center">
+                                                                                {{line.price}} 
+                                                                                <input type="text" formControlName="price" placeholder="Price" class="form-control samllInput width-60"  (keyup)="getPrice($event, i, j)"/>
+                                                                            </td>
+                                                                            <td class="text-center">
+                                                                                <select formControlName="basis" class="form-control smallSelect width-120" (change)='getBasis(i, j)'>
+                                                                                    <option value = 'null'>{{'Select Basis' |translate}}</option>
+                                                                                    <option [ngValue]="basis" *ngFor="let basis of basisList">{{basis}}</option>
+                                                                                </select>
+                                                                                
+                                                                            </td>
+                                                                            <td class="text-center">
+                                                                                <select formControlName="currency" class="form-control smallSelect width-131"  (change)="getCurrency(i, j)">
+                                                                                    <option [ngValue]="currency.defaultCurrency && !this.personnelForm.get('functions').get('rateCard')['controls'][i].controls[j].controls.currency.value?null:currency.code" *ngFor="let currency of currencyList">{{currency.code}}</option>
+                                                                                </select>
+                                                                            </td>
+                                                                            <td class="text-right"><a class="close" href="javascript:void(0)" (click)="deleteRateCard(personnelForm.get('functions').get('rateCard'),i, j)">×</a></td>
+                                                                        </ng-container>
+                                                                        </tr>
+                                                                    </ng-container> 
+                                                                    </tbody>
+
+
+                                                                    <!-- <tbody>                                                                        
+                                                                        <tr *ngFor="let line of ob.rates; let j = rateIndex;">
+                                                                            <td>&nbsp;</td>
+                                                                            <td class="text-center">{{line.price}} 
+                                                                                <input type="text" placeholder="Price" class="form-control samllInput width-60"  (keyup)="getPrice($event, j)"/>
+                                                                            </td>
+                                                                            <td class="text-center">
+                                                                                <select class="form-control smallSelect width-60">                                                                                 <option value = 'undefined'>Select Basis</option>
+                                                                                    <option [ngValue]="basis" *ngFor="let basis of basisList">{{basis}}</option>
+                                                                                </select>
+                                                                            </td>
+                                                                            <td class="text-center">
+                                                                                <select class="form-control smallSelect width-60"  (change)="getCurrency(j)">
+                                                                                    <option value = 'undefined'>Select currency</option>
+                                                                                    <option [ngValue]="currency" *ngFor="let currency of currencyList">{{currency}}</option>
+                                                                                </select>
+                                                                            </td>
+                                                                            <td class="text-right"><a class="close" href="javascript:void(0)">×</a></td>
+                                                                        </tr>
+                                                                    </tbody> -->
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-xs-5">
+                                                    <div class="input-row ">
+                                                        <label>{{'Skills' |translate}}</label>
+                                                        <select class="form-control" formControlName="selectedSkill">
+                                                            <option [ngValue]="null">{{'Select Skill' |translate}}</option>
+                                                            <option *ngFor="let skill of dropdownData.skills" [ngValue]="skill">{{skill}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-5">
+                                                    <div class="input-row ">
+                                                        <label>{{'Rating' |translate}}</label>
+                                                        <select class="form-control " formControlName="selectedSkillRating">
+                                                            <option [ngValue]="null">{{'Select Rating' |translate}}</option>
+                                                            <option *ngFor="let rating of [0,1,2,3,4,5]" value="{{rating}}">{{rating}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-1 ">
+                                                    <label>&nbsp;</label>
+                                                    <div class="">
+                                                        <button class="btn btn-first btn-plus " [disabled]="this.personnelForm.get('functions').get('selectedSkill').invalid" (click)="addContents('Skill')">
+                                                            <i class="fa fa-plus "></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <!-- SAVED skills DATA --> 
+                                            <div class="added-function-list ">
+                                                <table class="table ">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>{{'Skill' |translate}}</th>
+                                                            <th>{{'Rating' |translate}}</th>
+
+                                                            <th>&nbsp;</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let ob of skills; let i =index">
+                                                            <td>{{ob.domain}}</td>
+                                                            <td>
+                                                                <div class="rating">
+                                                                    <a href="javascript:void(0)" *ngFor="let i of [1,2,3,4,5]" (click)="ob.rating=i">
+                                                                        <i class="fa fa-star" [ngStyle]="{'color':ob.rating >=i ? '' : 'silver' }"></i>
+                                                                    </a>
+
+                                                                </div>
+                                                            </td>
+                                                            <td (click)="removeFunction(ob)">
+                                                                <a href="javascript:void(0)" class="close" (click)="removeContents(ob,'Skill')">&times;</a>
+                                                            </td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <!-- ADD Languages -->
+                                            <div class="row ">
+                                                <div class="col-xs-12">
+                                                    <label>{{'Language' |translate}}</label>
+                                                    <div class="added-value-content ">
+                                                        <div class="added-value " *ngFor="let language of languages">
+                                                            <label>
+                                                                <span>{{language}}</span>
+                                                            </label>
+                                                            <a href="javascript:void(0) " class="close " (click)="removeContents(language,'Language')">&times;</a>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-5 ">
+                                                    <select class="form-control " formControlName="selectedSkillRating" formControlName="selectedLanguage">
+                                                        <option [ngValue]="null">{{'Select Language' |translate}}</option>
+                                                        <option *ngFor="let language of dropdownData.languages" value="{{language}}">{{language}}</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-xs-1 ">
+                                                    <div>
+                                                        <button class="btn btn-first btn-plus " [disabled]="this.personnelForm.get('functions').get('selectedLanguage').invalid"
+                                                            (click)="addContents('Language')">
+                                                            <i class="fa fa-plus "></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <!-- 3  DETAILS -->
+                            <div class="steps add-specification" [ngClass]="selectedStep!=3?'hide':''" formGroupName="details">
+                                <div class="row ">
+                                    <div class="col-md-12 ">
+                                        <div class="form-content ">
+                                            <div class="row ">
+                                                <div class="col-xs-6">
+                                                    <div class="input-row ">
+                                                        <label>{{'Social Security Number' |translate}}</label>
+                                                        <input type="text " class="form-control " placeholder="{{'Social Security Number' |translate}}" formControlName="socSecNumber">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <div class="input-row ">
+                                                        <label>{{'Gender'|translate }}</label>
+                                                        <select class="form-control " placeholder="Select Gender" formControlName="gender">
+
+                                                            <option value="Male">{{'Male' |translate}}</option>
+                                                            <option value="Female">{{'Female' |translate}}</option>
+                                                            <option value="Third">{{'Third' |translate}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row ">
+                                                <div class="col-xs-4">
+                                                    <div class="input-row ">
+                                                        <label>{{'Birth Date' |translate}}</label>
+                                                        <p-calendar [showIcon]="true"  [showTime]="false" formControlName="dateOfBirth"></p-calendar> 
+                                                       
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-4">
+                                                    <div class="input-row ">
+                                                        <label>{{'Place of Birth' |translate}}</label>
+                                                        <input type="text" class="form-control " placeholder="{{'Place of Birth' |translate}}" formControlName="birthPlace">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-4">
+                                                    <div class="input-row ">
+                                                        <label>{{'State' |translate}}</label>
+                                                        <input type="text " class="form-control " placeholder="{{'State' |translate}}" formControlName="birthState">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row ">
+                                                <div class="col-xs-6">
+                                                    <div class="input-row ">
+                                                        <label>{{'Country of Birth' |translate}}</label>
+                                                        <select class="form-control "  formControlName="birthCountry">
+                                                            <option [ngValue]="null">{{'Select Country of Birth' |translate}}</option>
+
+                                                            <option [selected]="country===(personnelDetail && personnelDetail.staffMemberIdentityDTO?personnelDetail.staffMemberIdentityDTO.birthCountry:null)"
+                                                                *ngFor="let country of dropdownData.countries">{{country}}</option>
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <div class="input-row ">
+                                                        <label>{{'Citizenship'|translate }}</label>
+                                                        <select class="form-control " placeholder="Country" formControlName="nationality">
+                                                            <option [ngValue]="null">{{'Select Citizenship' |translate}}</option>
+
+                                                            <option [selected]="country===(personnelDetail && personnelDetail.staffMemberIdentityDTO?personnelDetail.staffMemberIdentityDTO.nationality:null)"
+                                                                *ngFor="let country of dropdownData.countries">{{country}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row ">
+                                                <div class="col-xs-6">
+                                                    <div class="input-row ">
+                                                        <label>{{'Press Card Number' |translate }}</label>
+                                                        <input type="text " class="form-control " placeholder="{{'Press Card Number' |translate }}r" formControlName="numCardPress">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <div class="input-row ">
+                                                        <label>{{'Talent Registration' |translate}}</label>
+                                                        <input type="text " class="form-control " placeholder="{{'Talent Registration' |translate}}" formControlName="talentReg">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row ">
+                                                <div class="col-xs-6">
+                                                    <div class="input-row ">
+                                                        <label>{{'Routing And Account' |translate}}</label>
+                                                        <input type="text " class="form-control " placeholder="{{'Routing And Account' |translate}}" formControlName="routingAndAccounting">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <div class="input-row ">
+                                                        <label>{{'BIC' |translate}}</label>
+                                                        <input type="text " class="form-control " placeholder="{{'BIC' |translate}}" formControlName="numBic">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row ">
+                                                <div class="col-xs-6">
+                                                    <div class="input-row ">
+                                                        <label>{{'Bank Address' |translate}}</label>
+                                                        <input type="text " class="form-control " placeholder="{{'Bank Address' |translate}}" formControlName="bankAddress">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <div class="input-row ">
+                                                        <label>{{'Beneficiary' |translate}}</label>
+                                                        <input type="text " class="form-control " placeholder="{{'Beneficiary' |translate}}" formControlName="beneficiaire">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- ADD DESCRIPTIONS -->
+
+                                        <div class="form-content ">
+                                            <h4 class="title">{{'Contract Type' |translate}}</h4>
+                                            <div class="row">
+                                                <div class="col-xs-6">
+                                                    <div class="input-row ">
+                                                        <label>{{'Contract' |translate}}</label>
+                                                        <select class="form-control " formControlName="contractType">
+                                                              
+                                                            <option value={{type}} *ngFor=" let type of dropdownData.contractTypes">{{type |translate}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <div class="input-row">
+                                                        <label>{{'Collective Labour Agreement' |translate}}</label>
+                                                        <select class="form-control " formControlName="labourAggrement">
+                                                            <option value=null>{{'Select Labour Agreement' |translate}}</option>
+                                                            <option value={{rule.labourRuleId}} *ngFor=" let rule of dropdownData.labourRuleDTOs">{{rule.labourRuleName |translate}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-6">
+                                                    <div class="input-row ">
+                                                        <label>{{'Hiring Date' |translate}}</label>
+                                                        <!-- <input type="password" class="form-control" placeholder="Start Time"> -->
+                                                        <p-calendar formControlName="hiringDate"></p-calendar>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-xs-6">
+                                                    <div class="input-row ">
+                                                        <label>{{'Working Time Percentage' |translate}}</label>
+                                                        <!-- <input type="password" class="form-control" placeholder="End Time"> -->
+                                                        <input type="text" class="form-control" placeholder="Work time percentage" #item (keypress)="onlyNumber(event,item.value)" formControlName="workingTimePercent"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-6">
+                                                    <div class="input-row ">
+                                                        <label>{{'Start Time' |translate}}</label>
+                                                        <!-- <input type="password" class="form-control" placeholder="Start Time"> -->
+                                                        <p-calendar formControlName="startTime" [timeOnly]="true" hourFormat="12"></p-calendar>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-xs-6">
+                                                    <div class="input-row ">
+                                                        <label>{{'End Time' |translate}}</label>
+                                                        <!-- <input type="password" class="form-control" placeholder="End Time"> -->
+                                                        <p-calendar formControlName="endTime" [timeOnly]="true" hourFormat="12"></p-calendar>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 4  ATTACHMENTS -->
+                            <div class="steps add-attachment " formGroupName="attachment" [ngClass]="selectedStep!=4?'hide':''">
+                                <div class="row">
+                                    <div class="col-md-8">
+
+
+                                        <div class="form-content">
+
+
+                                            <label>{{'Attachment Name' |translate}} *</label>
+                                            <input type="text" class="form-control" placeholder="Attachment Name " (focusout)="clearSpace(personnelForm.get('attachment'),'attachmentType')"
+                                                formControlName="attachmentType">
+                                            <div class="attachment-content">
+                                                <i class="fa fa-upload"></i>
+                                                <label for="">{{'Drag Here' |translate}}</label>
+                                                <label for="">{{'or Browse your computer' |translate}}</label>
+
+                                                <input [disabled]="this.personnelForm.get('attachment').get('feedByUrl').value" type="file" class="fileType" (change)="onFileChange($event)">
+                                            </div>
+
+
+                                            <span *ngIf="addedAttachmentFileName" style="color: hsl(147, 78%, 18%);text-align: left;font-size: 14px;margin-top: 5pt;">{{addedAttachmentFileName}}</span>
+                                            <span *ngIf="invalidAttachmentFormatError" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{invalidAttachmentFormatError}}</span>
+                                            <p class="or"></p>
+                                            <div class="checkbox">
+                                                <input type="checkbox" id="a1" formControlName="feedByUrl" value="1">
+                                                <label class="chk" for="a1"></label>
+                                                <label for="a1">Urls:</label>
+
+                                            </div>
+                                            <input type="text" class="form-control" (focusout)="clearSpace(personnelForm.get('attachment'),'url')" formControlName="url">
+                                            <span *ngIf="personnelForm.get('attachment').get('url').invalid && personnelForm.get('attachment').get('url').value !=null&& personnelForm.get('attachment').get('url').value.length !=0"
+                                                style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{'Please enter valid URL' |translate}}.</span>
+                                        </div>
+
+
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="added-value-content">
+                                            <div class="description">
+                                                <label>&nbsp;</label>
+                                                <div class="text-left mt-0 p-0">
+                                                    <button class="btn btn-first btn-plus" [disabled]="personnelForm.get('attachment').invalid" (click)="addContents('Attachment')">
+                                                        <i class="fa fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="added-value mt-15" *ngFor="let attachment of attachments">
+                                                <!-- <img src="../../assets/img/equipment/edit-suit.jpg" alt=""> -->
+                                                <img [src]="getAttachmentImage(attachment)" alt="">
+                                                <label>
+                                                    <span>{{attachment.type}}</span>
+                                                </label>
+                                                <a href="javascript:void(0)" class="close" (click)="removeContents(attachment,'Attachment')">&times;</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- 5  OTHERS -->
+                            <div class="steps other-details" [ngClass]="selectedStep!=5?'hide':''" formGroupName="others">
+                                <div class="row ">
+                                    <div class="col-md-12 ">
+                                        <!-- ADD MILESTON -->
+
+                                        <div class="form-content ">
+                                            <h4 class="title ">{{'Add Documents' |translate}}</h4>
+
+                                            <div class="added-value-content ">
+                                                <div class="added-value " *ngFor="let document of documents">
+                                                    <label>{{document.expirationDate |date:date:"MM/dd/yy"}}
+                                                        <span>{{document.type}}</span>
+                                                    </label>
+                                                    <a href="javascript:void(0) " class="close " (click)="removeContents(document,'Document')">&times;</a>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="row ">
+                                                <div class="col-xs-4 ">
+                                                    <div class="input-row ">
+                                                        <label>{{'Type' |translate}}</label>
+                                                        <select class="form-control " formControlName="documentType">
+                                                            <option [ngValue]="null">{{'Select Document Type' |translate}}</option>
+                                                            <option *ngFor="let type of dropdownData.documentTypes" value="{{type}}">{{type}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-3 ">
+                                                    <div class="input-row ">
+                                                        <label>{{'Number' | translate}} *</label>
+                                                        <input type="text"  class="form-control document-padding" placeholder="Document Number" formControlName="documentNumber">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-4">
+                                                    <div class="input-row ">
+                                                        <label>Date *</label>
+                                                        <p-calendar [showIcon]="true" [showTime]="false" formControlName="expirationDate"></p-calendar> 
+                                                        <!-- <input type="date" class="form-control" formControlName="expirationDate"> -->
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xs-1 ">
+                                                    <label>&nbsp;</label>
+                                                    <div>
+                                                        <button class="btn btn-first btn-plus " [disabled]="this.personnelForm.get('others').get('documentType').invalid || this.personnelForm.get('others').get('expirationDate').invalid ||this.personnelForm.get('others').get('documentNumber').invalid"
+                                                            (click)="addContents('Document')">
+                                                            <i class="fa fa-plus "></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+
+                                        <!-- ADD ALUE -->
+
+                                        <div class="form-content ">
+                                            <h4 class="title ">{{'Groups' |translate}}</h4>
+                                            <div class="added-value-content ">
+                                                <div class="added-value " *ngFor="let group of groups">
+                                                    <label>{{group}}</label>
+                                                    <a href="javascript:void(0) " class="close " (click)="removeContents(group,'Group')">&times;</a>
+                                                </div>
+
+                                                <div class="added-value-content " *ngIf="personnelDetail && personnelDetail.hasOwnProperty('groupDTOs') && personnelDetail['groupDTOs'].length>0">
+                                                    <div class="added-value " *ngFor="let group of groupList">
+                                                        <label>
+                                                            <span>{{group.name}}</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="added-value-content" *ngIf="!personnelDetail || (personnelDetail && personnelDetail.hasOwnProperty('groupDTOs') && personnelDetail['groupDTOs'].length==0)">
+                                                    <div>
+                                                        <label>
+                                                            {{'No groups added' |translate}}
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            
+                                            <!-- <div class="row ">
+                                                <div class="col-xs-5">
+                                                    <div class="input-row ">
+                                                        <select class="form-control " formControlName="group">
+                                                            <option disabled [ngValue]="null">Select group</option>
+                                                            <option *ngFor="let group of dropdownData.groups" value="{{group}}">{{group}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xs-1 ">
+                                                    <div>
+                                                        <button class="btn btn-first btn-plus " [disabled]="this.personnelForm.get('others').get('group').invalid" (click)="addContents('Group')">
+                                                            <i class="fa fa-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+
+                                        </div>
+
+                                        <!-- ADD DESCRIPTIONS -->
+
+                                        <div class="form-content ">
+                                            <h4 class="title ">{{'IT Profile' |translate}}</h4>
+                                            <div class="row ">
+                                                <div class="col-xs-10">
+                                                    <div class="input-row ">
+                                                        <label>{{'Login Assigned' |translate}}</label>
+                                                        <input type="text" class="form-control" placeholder="{{'Login Assigned' |translate}}" formControlName="login">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <span *ngIf="isInvalidLogin" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">Login name must be greater than 6 characters.</span>
+
+                                            <span *ngIf="personnelForm.get('others').get('login').invalid && assignedRoles.length>0" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">You have assigned some roles,please provide login name.</span>
+                                            <div class="row ">
+                                                <div class="col-xs-5">
+                                                    <div class="input-row ">
+                                                        <label>{{'Password' |translate}}</label>
+                                                        <input type="password" class="form-control" placeholder="Password" formControlName="password">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-5">
+                                                    <div class="input-row ">
+                                                        <label>{{'Confirm Password' |translate}}</label>
+                                                        <input type="password" class="form-control" placeholder="Confirm  Password" formControlName="confirmPassword">
+                                                    </div>
+                                                    <br/>
+                                                    <span *ngIf=" personnelForm.get('others').get('confirmPassword').value && personnelForm.get('others').get('confirmPassword').value.length !=0 && personnelForm.get('others').get('confirmPassword').invalid"
+                                                        style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{'Confirm password does not match' |translate}}.</span>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="row ">
+                                                <div class="col-xs-10">
+                                                    <label>{{'Role' |translate}}</label>
+                                                    <div class="added-value-content ">
+                                                        <div class="added-value " *ngFor="let role of assignedRoles">
+                                                            <label>{{role.roleName |translate}} </label>
+                                                            <a href="javascript:void(0) " class="close " (click)="removeContents(role,'Role')">&times;</a>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-5">
+                                                    <div class="input-row ">
+
+                                                        <select class="form-control " formControlName="selectedRole">
+                                                            <option [ngValue]="null">{{'Select Role' |translate}}</option>
+                                                            <option *ngFor="let role of dropdownData.roles" value="{{role}}">{{role |translate}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-1 ">
+
+                                                    <div>
+                                                        <button class="btn btn-first btn-plus " [disabled]="this.personnelForm.get('others').get('login').invalid || this.personnelForm.get('others').get('selectedRole').invalid"
+                                                            (click)="addContents('Role')">
+                                                            <i class="fa fa-plus "></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+
+                                                <!-- ADD DESCRIPTIONS -->
+
+                                                <div class="form-content">
+                                                    <h4 class="title">{{'Description' |translate}}</h4>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <textarea class="form-control" rows="10" style="height: 100px;" (focusout)="clearSpace(personnelForm.get('others'),'description')"
+                                                                placeholder="{{'Description' |translate}}" formControlName="comment"></textarea>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer ">
+                    <div class="row">
+                        <div class="button-set text-center" class="col-md-12">
+                            <button *ngIf="personnelDetail" style="background-color: darkred;" class="btn btn-first pull-left" [ngClass]="selectedStep==1?'':'hide'"
+                                (click)="showDeleteModal=!showDeleteModal">{{'Delete' |translate}}</button>
+                            <button class="btn btn-first" [ngClass]="selectedStep>1?'':'hide'" (click)="selectedStep =selectedStep-1">{{'Prev' |translate}}</button>
+                            <!-- <button class="btn btn-first" [ngClass]="selectedStep==5?'hide':''" (click)="selectedStep =selectedStep+1;validateNextButton()"
+                                [disabled]="!canGoToNext">Next</button> -->
+                                <button class="btn btn-first" [ngClass]="selectedStep==5?'hide':''" (click)="selectedStep =selectedStep+1" >{{'Next' |translate}}</button>
+                            <button type="submit" class="btn btn-first" [ngClass]="selectedStep!=5?'hide':''" [disabled]="!isValidPeronnnel || errorMessage" (click)="savePersonnel()">{{'Save And Close' |translate}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<app-delete-confirm-modal *ngIf="showDeleteModal" [componentName]="componentName" (deleteDataEvent)="deletePersonnel($event)" (closeModalEvent)="closeDeleteConfirmModal($event)"></app-delete-confirm-modal>

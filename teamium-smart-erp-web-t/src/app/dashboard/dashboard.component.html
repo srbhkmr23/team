@@ -1,0 +1,617 @@
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner>
+<div class="dashboard">
+    <div class="filter-header">
+        <div class="container-fluid">
+            <h1 class="title">{{'Dashboard' | translate}}</h1>
+
+            <div class="filter">
+
+                <div class="filter-search">
+
+                    <!-- <i class="fa fa-calendar"></i>
+                    <input type="text" class="inputStyle" placeholder="From">
+                    <input type="text" class="inputStyle" placeholder="To"> -->
+                    <form [formGroup]="dateForm" style="display: initial;"> 
+                        <div class="dateFilter-auto">
+                            <div class="dateInputdiv">
+                                <label>{{'Month'|translate}}</label>
+                                <!-- <p-calendar [showIcon]="true" [showTime]="false" class="inputStyle" formControlName="month"></p-calendar> -->
+                                <div class="month-Selector-div mr-15">
+                                    <select formControlName="month" class="form-control month-Selector ">
+                                        <option value="selectMonth">{{'Select Month' | translate}}</option>
+                                        <option value="1">{{'January' | translate}}</option>
+                                        <option value="2">{{'February' | translate}}</option>
+                                        <option value="3">{{'March' | translate}}</option>
+                                        <option value="4">{{'April' | translate}}</option>
+                                        <option value="5">{{'May' | translate}}</option>
+                                        <option value="6">{{'June' | translate}}</option>
+                                        <option value="7">{{'July' | translate}}</option>
+                                        <option value="8">{{'August' | translate}}</option>
+                                        <option value="9">{{'Septemper' | translate}}</option>
+                                        <option value="10">{{'October' | translate}}</option>
+                                        <option value="11">{{'November' | translate}}</option>
+                                        <option value="12">{{'December' | translate}}</option>
+                                    </select>
+                                    <span><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                            <div class="dateInputdiv">
+                                <label>{{'From'|translate}}</label> 
+                                <ng-container *ngFor="let d of timeArr; let last=last; let i=index">
+                                        <ng-container *ngIf="last">
+                                            
+                                <p-calendar [showIcon]="true" [showTime]="false" [defaultDate]="d" [minDate]="minDate" [maxDate]="maxDate" class="inputStyle" formControlName="from"></p-calendar>
+                                </ng-container>
+                                </ng-container>
+                            </div>
+                            
+                            <div class="dateInputdiv">
+                                <label>{{'To'|translate}}</label>
+                                <ng-container *ngFor="let d of timeArr; let last=last">
+                                <ng-container *ngIf="last">
+                                    <p-calendar [showIcon]="true" [showTime]="false" [defaultDate]="d" [minDate]="minDate" [maxDate]="maxDate" class="inputStyle mr-0" formControlName="to"></p-calendar>
+                                </ng-container>
+                            </ng-container>
+                            </div>
+                        </div>
+                        <button class="btn btn-first btn-apply ripple ml-10" (click)="applyDate()" [disabled]="this.dateForm.get('from').value > this.dateForm.get('to').value || this.dateForm.get('from').value==null "> {{'Apply' | translate}} </button>
+                    </form>
+
+                    <a href="javascript:void(0)">+{{'Add Widget' | translate }}</a>
+                    <a href="javascript:void(0)" class="ml-5" (click)="reset()">
+                        <i class="fa fa-refresh"></i> {{'Reset'|translate}}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-pages-content edit-equipment">
+
+        <div class="">
+
+            <h3 class="Title">{{'Projects' |translate}}</h3>
+
+            <div class="row">
+                <div class="col-md-6 col-lg-3">
+                    <div class="card common-card">
+                        <div class="card-head">{{'Volume' | translate}}</div>
+                        <div class="card-body">
+                            <div class="graph-Div">
+                                <!-- <img src="../../assets/img/volume-chart.png" alt=""/> -->
+                                <div class="" [chart]="chart" style="height: 249px;">
+                                </div>
+                                <ul class="doughnut-legend">
+                                    <li><span style="background-color:#00a4d7;"></span> {{'To Do' | translate}} </li>
+                                    <li><span style="background-color:#6ebb47;"></span> {{'Done' | translate}} </li>
+                                    <li><span style="background-color:#f6c100;"></span> {{'In Progress' | translate}} </li>
+                                </ul>
+                            </div>
+                            <ul class="countDown">
+                                <li style="background-color:#00a4d7;">{{formatedProjectPieCharDataWithStatus && formatedProjectPieCharDataWithStatus['To Do'] ? formatedProjectPieCharDataWithStatus['To Do'].y : '0'}}</li>
+                                <li style="background-color:#6ebb47;">{{formatedProjectPieCharDataWithStatus && formatedProjectPieCharDataWithStatus['Done'] ? formatedProjectPieCharDataWithStatus['Done'].y : '0'}}</li>
+                                <li style="background-color:#f6c100;">{{formatedProjectPieCharDataWithStatus && formatedProjectPieCharDataWithStatus['In Progress'] ? formatedProjectPieCharDataWithStatus['In Progress'].y : '0'}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card" (click)="openRevenueModal()">
+                        <div class="card-head">{{'Revenue' | translate}}</div>
+                        <div class="card-body pt-5" style="min-height: 84px;">
+                            <div class="avgAmt">
+                                <!-- $ 153,360  -->
+                                {{(revenueData?revenueData.CurrentMonthData:'0') | currency}}
+                                <!-- $ {{0 | currency}} -->
+                                <!-- <ng-container *ngIf="revenueData">
+                                    <i *ngIf="revenueData.CurrentMonthData > revenueData.PreviousMonthData" class="fa fa-caret-up" style="color: #3e9e32;"></i>
+                                    <i *ngIf="revenueData.CurrentMonthData < revenueData.PreviousMonthData" class="fa fa-caret-down" style="color: #fc3123;"></i>
+                                    <i *ngIf="revenueData.CurrentMonthData == revenueData.PreviousMonthData" class="fa fa-caret-up" style="color:orange;"></i>
+                                </ng-container> -->
+                            </div>
+                                <!-- Last Month $143,560 -->
+                                <!-- <p class="lastMonthAvg">
+                                    Last Month ${{revenueData?revenueData.PreviousMonthData:''}}
+                                </p> -->
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-head">{{'Cost' | translate}}</div>
+                        <div class="card-body pt-5" style="min-height: 84px;">
+                            <div class="avgAmt">$ 103,760 <i class="fa fa-caret-up" style="color: #e20f00;"></i></div>
+                            <p class="lastMonthAvg">{{'Last Month' | translate}} $9,560</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-head">{{'Maintenance' | translate}}</div>
+                        <div class="card-body pt-5" style="min-height: 84px;">
+                            <div class="avgAmt">$ 13,110 <i class="fa fa-caret-up" style="color: #fc3123;"></i></div>
+                            <p class="lastMonthAvg">{{'Last Month' | translate}} $9,560</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card common-card">
+                        <div class="card-head">{{'Equipment' | translate}}</div>
+                        <div class="card-body">
+                            <div class="graph-Div">
+                                <!-- <img src="../../assets/img/equipement-graph.png" alt="" /> -->
+                                <div (click)="openResourceModal('equipment')" class="" [chart]="equipmentFunctionChart" style="height: 249px;"></div>
+                                <ul class="countDown">
+                                        <li style="background-color:#55dae1;">{{(formatedFunctionChartData && formatedFunctionChartData['External Use'] ? formatedFunctionChartData['External Use'].y : '0') | roundOff }}%</li>
+                                    <li style="background-color:#7b72e9;">{{(formatedFunctionChartData && formatedFunctionChartData['Internal Use'] ? formatedFunctionChartData['Internal Use'].y : '0') | roundOff }}%</li>
+                                    
+                                    <li style="background-color:#8fc56d;">{{(formatedFunctionChartData && formatedFunctionChartData['Internal Inventory'] ? formatedFunctionChartData['Internal Inventory'].y : '0') | roundOff}}%</li>
+                                </ul>
+                                <ul class="doughnut-legend">
+                                    <li><span style="background-color:#55dae1;"></span> {{'External Use' |translate}} </li>
+                                    <li><span style="background-color:#7b72e9;"></span> {{'Internal Use' |translate}} </li>
+                                    
+                                    <li><span style="background-color:#8fc56d;"></span> {{'Internal Inventory' |translate}} </li>
+                                </ul>
+                            </div>
+                            
+                            <div style="padding: 12px 10px;">
+                                <h4 class="titleText">Outsource</h4>
+                                <div class="avgAmt">{{(this.equipmentChartData?this.equipmentChartData.totalOutsourcedAmount:0) | currency}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card common-card">
+                        <div class="card-head">{{'Personnel' | translate}}</div>
+                        <div class="card-body">
+                            <div class="graph-Div">
+                                <!-- <img src="../../assets/img/personal-graph.png" alt="" /> -->
+                                <div (click)="openResourceModal('personnel')" class="" [chart]="staffFunctionChart" style="height: 249px;"></div>
+                                <ul class="countDown">
+                                    <li style="background-color:#99e7fe;">{{(formatedStaffChartData && formatedStaffChartData['Freelance'] ? formatedStaffChartData['Freelance'].y : '0') | roundOff}}%</li>
+                                    <li style="background-color:#4eb0f9;">{{(formatedStaffChartData && formatedStaffChartData['Internal Staff'] ? formatedStaffChartData['Internal Staff'].y : '0') | roundOff}}%</li>
+                                    <!-- <li style="background-color:#4eb0f9;">{{267.12903 | number:'2.0-0'}}</li> -->
+                                    
+                                    <li style="background-color:#5ebecc;">{{(formatedStaffChartData && formatedStaffChartData['Headcount'] ? formatedStaffChartData['Headcount'].y : '0') | roundOff}}%</li>
+                                    
+                                </ul>
+                                <ul class="doughnut-legend">
+                                    <li><span style="background-color:#99e7fe;"></span> {{'Freelance' |translate}} </li>
+                                    <li><span style="background-color:#4eb0f9;"></span> {{'Internal Staff' |translate}} </li>
+                                    
+                                    <li><span style="background-color:#5ebecc;"></span> {{'Headcount' |translate}} </li>
+                                </ul>
+                            </div>
+                           
+                            <div style="padding: 12px 10px;"><h4 class="titleText">{{'Freelance' | translate}}</h4>
+                                <div class="avgAmt">{{(staffChartData?staffChartData.totalOutsourcedAmount:0) | currency}}</div>
+                            </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!-- TABLES -->
+            <div class="row">
+                <div class="col-md-4">
+                    <!-- Document Date -->
+                    <div class="grid">
+                        <div class="grid-body">
+                            <div class="table-responsive">
+                                <table class="table common-Table">
+                                    <thead>
+                                        <tr>
+                                            <th>{{'Document Date' | translate}}</th>
+                                            <th>
+                                                <a href="javascript:void(0)" class="pull-right ml-10 mt-4">
+                                                    <i class="fa fa-refresh pull-right"></i>
+                                                </a>
+                                                <a href="javascript:void(0)" class="pull-right mt-4">
+                                                    <i class="fa fa-calendar pull-right"></i>
+                                                </a>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                        
+                                            <td>
+                                                <h5 class="name">Peter Smith
+                                                    <span class="subName">{{'Passport' |translate}}</span>
+                                                </h5>
+                                            </td>
+                                            <td>
+                                                <h5 class="name">Expiration Date
+                                                    <span class="subName">5/23/18 - 5/26/18</span>
+                                                </h5>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h5 class="name">Ashley Birmes
+                                                    <span class="subName">{{'Passport' |translate}}</span>
+                                                </h5>
+                                            </td>
+                                            <td>
+                                                <h5 class="name">{{'Expiration Date' |translate}}
+                                                    <span class="subName">5/23/18 - 5/26/18</span>
+                                                </h5>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h5 class="name">Ashley Birmes
+                                                    <span class="subName">{{'Passport' |translate}}</span>
+                                                </h5>
+                                            </td>
+                                            <td>
+                                                <h5 class="name">{{'Expiration Date' |translate}}
+                                                    <span class="subName">5/23/18 - 5/26/18</span>
+                                                </h5>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>          
+                </div>
+                <div class="col-md-4">
+                    <!-- Booking Conflicts -->
+                    <div class="grid">
+                        <div class="grid-body">
+                            <div class="table-responsive">
+                                <table class="table common-Table">
+                                    <thead>
+                                        <tr>
+                                            <th> {{'Booking Conflicts' | translate}}
+                                                <!-- <a href="javascript:void(0)" class="pull-right ml-10 mt-4">
+                                                    <i class="fa fa-refresh pull-right"></i>
+                                                </a> -->
+                                                <a href="javascript:void(0)" class="pull-right mt-4" (click)="showBookingConflictModal=!showBookingConflictModal">                                               
+                                                    <i [ngClass]="this.bookingConflitList && this.bookingConflitList.length > 3?'bookingBtn':''" class="fa fa-calendar pull-right"></i>
+                                                </a>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let booking of bookingConflitList; let i=index">
+                                            <td *ngIf="i<=2">
+                                                <h5 class="name">{{booking.functionName}}
+                                                    <span class="subName">{{'Edit Suit' | translate}}</span>
+                                                </h5>
+                                            </td>
+                                        </tr>
+                                      
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <!-- Signatures -->
+                    <div class="grid">
+                        <div class="grid-body">
+                            <div class="table-responsive">
+                                <table class="table signatureData common-Table">
+                                    <thead>
+                                        <tr>
+                                            <th>{{'Signatures' | translate}}
+                                                <a href="javascript:void(0)" class="pull-right mt-4">
+                                                    <!-- <i class="fa fa-calendar pull-right"></i> -->
+                                                </a>
+                                            </th>
+                                            <th>&nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <h5 class="name">David Fowler
+                                                    <span class="subName">{{'Director' |translate}}</span>
+                                                </h5>
+                                            </td>
+                                            <td class="text-right">
+                                                <span class="signApproved signUnApproved"><i class="fa fa-check" aria-hidden="true"></i></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h5 class="name">Ian Smith
+                                                    <span class="subName">{{'Postprod Supervisor' |translate}}</span>
+                                                </h5>
+                                            </td>
+                                            <td class="text-right">
+                                                <span class="signApproved signUnApproved"><i class="fa fa-check" aria-hidden="true"></i></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h5 class="name">Susan Leight
+                                                    <span class="subName">{{'Executive Supervisor' |translate}}</span>
+                                                </h5>
+                                            </td>
+                                            <td class="text-right">
+                                                <span class="signApproved signUnApproved"><i class="fa fa-check" aria-hidden="true"></i></span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <hr/>
+
+        <!-- Projects -->
+        <div class=""> 
+
+            <h3 class="Title">{{'Projects' | translate}}</h3>
+
+            <div class="row">
+                <div class="col-md-6 col-lg-3">
+                    <div class="card commom-card">
+
+                        <div class="card-head">{{'Actual vs Budget' |translate}} <!-- <span class="pull-right">Export</span>--></div>
+
+                        <div class="card-body">
+                            <div class="graph-Div">
+                                <!-- <img src="../../assets/img/volume-chart1.png" alt=""/> -->
+                                <div class="" [chart]="pieChart" style="height: 249px;"></div>
+                                <ul class="doughnut-legend">
+                                    <li><span style="background-color:#FC7256;"></span> {{'Exceed ' |translate}}</li>
+                                    <li><span style="background-color:#50CEFF;"></span> {{'Lower' |translate}} </li>
+                                    <li><span style="background-color:#8ED06C;"></span> {{'On budget' |translate}} </li>
+                                </ul>
+                            </div>
+                            <ul class="countDown">
+                                <li style="background-color:#FC7256;">{{formatedActualPieCharDataWithStatus && formatedActualPieCharDataWithStatus['Exceed'] ? formatedActualPieCharDataWithStatus['Exceed'].y : '0'}}</li>
+                                <li style="background-color:#00a4d7;">{{formatedActualPieCharDataWithStatus && formatedActualPieCharDataWithStatus['Lower'] ? formatedActualPieCharDataWithStatus['Lower'].y : '0'}}</li>
+                                <li style="background-color:#6ebb47;">{{formatedActualPieCharDataWithStatus && formatedActualPieCharDataWithStatus['On Budget'] ? formatedActualPieCharDataWithStatus['On Budget'].y : '0'}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card" (click)="openActualModalData()">
+                        <div class="card-head">{{'Actual' | translate}}</div>
+                        <div class="card-body pt-5" style="min-height: 84px;">
+                            <div class="avgAmt">{{(actualData?actualData.Actual:0) | currency}} <i class="fa fa-caret-up" style="color: #e20f00;"></i></div>
+                            <p class="lastMonthAvg">Budget {{(actualData?actualData.Budget:0) | currency}}</p>
+                        </div>
+                    </div>
+                    <div class="card" (click)="openBudgetingModalData()">
+
+                        <div class="card-head">{{'Budgeting' |translate}}</div>
+                        <div class="card-body pt-5">
+
+                            <div class="avgAmt">{{(budetingData?budetingData.CurrentMonthData:0) | currency}} <i class="fa fa-caret-down" style="color: #e20f00;"></i></div>
+                            <p class="lastMonthAvg">{{'Last Month' | translate}} {{(budetingData?budetingData.PreviousMonthData:0) | currency}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6" (click)="showBusinessFunctionModal=!showBusinessFunctionModal">
+                    <div class="card common-card">
+                        <div class="card-head">{{'Business Function' | translate}}</div>
+                        <div class="card-body">
+                            <div class="graph-Div">
+                                <ul class="doughnut-legend">
+                                    <!-- <li><span style="background-color:#7b72e9;border-radius:0 ;"></span> Last </li>
+                                    <li><span style="background-color:#55dae1;border-radius:0;"></span> Current </li> -->
+                                </ul>
+                                <!-- <img src="../../assets/img/bar.png" alt="" /> -->
+                                <div class="" [chart]="businessFunctionChart" style="height: 249px;"></div>
+
+                            </div>
+                            <!-- <ul class="countDown" style="margin-top: 16px;">
+                                <li style="background-color:#7b72e9;">86%</li>
+                                <li style="background-color:#55dae1;">14%</li>
+                            </ul>
+                            <div style="padding: 12px 10px;">
+                                <h4 class="titleText">Outsource</h4>
+                                <div class="avgAmt">$ 26,980</div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Tables-->
+            <div class="row">
+                <div class="col-md-4">
+                    <!-- Document Date -->
+                    <div class="grid">
+                        <div class="grid-body">
+                            <div class="table-responsive">
+                                <table class="table common-Table">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="2">{{'Equipement Date' |translate}}</th>
+                                            <th>
+                                                <a href="javascript:void(0)" class="pull-right ml-10 mt-4">
+                                                    <i class="fa fa-refresh pull-right"></i>
+                                                </a>
+                                                <a href="javascript:void(0)" class="pull-right mt-4">
+                                                    <i class="fa fa-calendar pull-right"></i>
+                                                </a>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <h5 class="name">{{'License' |translate}}
+                                                    <span class="subName">{{'Avid MC 14' |translate}}</span>
+                                                </h5>
+                                            </td>
+                                            <td>
+                                                <h5 class="name">5/23/18</h5>
+                                            </td>
+                                            <td class="text-right">
+                                                <a href="javascript:void(0);" class="">
+                                                    <i class="fa fa-ellipsis-h"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h5 class="name">{{'SLA' |translate}}
+                                                    <span class="subName">Camera ENG#14</span>
+                                                </h5>
+                                            </td>
+                                            <td>
+                                                <h5 class="name">5/26/18</h5>
+                                            </td>
+                                            <td class="text-right">
+                                                <a href="javascript:void(0);" class="">
+                                                    <i class="fa fa-ellipsis-h"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>          
+                </div>
+                <div class="col-md-4">
+                    <!-- Equipement Function -->
+                    <div class="grid">
+                        <div class="grid-body">
+                            <div class="table-responsive">
+                                <table class="table common-Table">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="2">{{'Equipement Function' |translate}}</th>
+                                            <th>
+                                                <a href="javascript:void(0)" class="pull-right ml-10 mt-4">
+                                                    <i class="fa fa-refresh pull-right"></i>
+                                                </a>
+                                                <a href="javascript:void(0)" class="pull-right mt-4">
+                                                    <i class="fa fa-calendar pull-right"></i>
+                                                </a>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- <tr>
+                                            <td>
+                                                <h5 class="name">License
+                                                    <span class="subName">Avid MC 14</span>
+                                                </h5>
+                                            </td>
+                                            <td>
+                                                <h5 class="name">5/23/18</h5>
+                                            </td>
+                                            <td>
+                                                <a href="javascript:void(0);" class="">
+                                                    <i class="fa fa-ellipsis-h"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h5 class="name">SLA
+                                                    <span class="subName">Camera ENG#14</span>
+                                                </h5>
+                                            </td>
+                                            <td>
+                                                <h5 class="name">5/26/18</h5>
+                                            </td>
+                                            <td>
+                                                <a href="javascript:void(0);" class="">
+                                                    <i class="fa fa-ellipsis-h"></i>
+                                                </a>
+                                            </td>
+                                        </tr> -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>          
+                </div>
+            </div>
+
+        </div>
+        <!-- <img src="../../assets/img/dashboard_page.jpg" alt="" style="width:100%;"> -->
+    </div>
+
+    <!-- MODAL START -->
+    <div *ngIf="showDataModal" class="showDataModal">
+        <div  class="modal fade in" style="display:block;background: rgba(0, 0, 0, 0.6);">
+            <div class="modal-dialog modal-md">
+                <!-- Modal content-->
+                <div class="modal-content mdlUpdateConfig mdlConfInfo">
+                    <div class="modal-header">
+                        <button (click)="showDataModal=false" type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">
+                            {{projectModalData?projectModalData.status:''}}
+                            <!-- <p class="sub-Title">Format</p> -->
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <!-- tab Content Start -->
+                        <div class="text-right mb-20">
+                        <a (click)="downloadSheet()" title="Download Sheet" href="javascript:void(0)" class="btn btn-first btn-exl ripple">
+                            {{'Export' | translate}} {{'To' | translate}} <i class="fa fa-file-excel-o"></i>
+                        </a>
+                        </div>
+
+                        <div class="projectStatus-Sec">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">
+                                            Period - {{projectModalData ?  projectModalData.period : ''}}
+                                        </th>
+                                        <th colspan="2">
+                                            Exported - {{projectModalData ?  projectModalData.timestamp : ''}}
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>{{'Project Team Id' |translate}}</th>
+                                        <th>{{'Project Title' |translate}}</th>
+                                        <th>{{'Project Date' |translate}}</th>
+                                        <th>{{'Status' |translate}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let project of projectModalData.projects">
+                                        <td>{{project.id}}</td>
+                                        <td>{{project.title}}</td>
+                                        <td>{{getFormateddate(project.date)}}</td>
+                                        <td>{{project.status}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                    <!-- <div class="modal-footer">
+                         <a (click)="downloadSheet()" title="Download Sheet" href="javascript:void(0)" class="btn btn-first btn-exl ripple">
+                            Export to <i class="fa fa-file-excel-o"></i>
+                        </a>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- REVENUE MODAL START -->
+    <app-revenue-modal *ngIf="showRevenueModal" [revenueModalData]="revenueModalData" (closeModalEvent)="hideRevenueModal($event)"></app-revenue-modal>
+    <!-- ACTUAL BUDGET MODAL START -->
+    <app-actual-budget-modal *ngIf="showActualBudgetModal" [actualBudgetModalData]="actualBudgetModalData" (closeModalEvent)="hideActualBudgetModal($event)"></app-actual-budget-modal>
+     <!-- BUSINESS FUNCTION MODAL START -->
+     <app-business-function-modal *ngIf="showBusinessFunctionModal" [businessFunctionModalData]="businessFunctionModalData" (closeModalEvent)="hideBusinessFunctionModal($event)"></app-business-function-modal>
+
+     <!-- BUDGETING MODAL START -->
+     <app-budgeting-modal *ngIf="showBudgetingModal" [budgetingModalData]="budgetingModalData" (closeModalEvent)="hideBudgetingModal($event)"></app-budgeting-modal>
+     <!-- EQUIPMENT/PERSONNEL MODAL START -->
+     <app-equipment-personal-modal *ngIf="showResourceModal" [resourceModalData]="resourceModalData" (closeModalEvent)="hideResourceModal($event)"></app-equipment-personal-modal>
+     <!--BOOKING MODAL START-->
+     <app-bookingconflict-modal *ngIf="showBookingConflictModal" [bookingConflitList]="bookingConflitList" (closeModalEvent)="hideBookingConflictModal($event)"></app-bookingconflict-modal>
+
+</div>

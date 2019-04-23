@@ -1,0 +1,427 @@
+@import '../../variables';
+.equipment-list,
+.project-list,
+.dashboard {
+    font-size: 14px;
+    .filter-header {
+        display: table;
+        width: 100%;
+        margin-bottom: 25px;
+        border-bottom: 1px solid $lite-color;
+        padding-bottom: 15px !important;
+        .title {
+            display: inline-block;
+            font-size: 22px;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+        .filter {
+            display: inline-block;
+            float: right;
+            position: relative;
+            .arrow {
+                width: 0;
+                height: 0;
+                border-left: 12px solid transparent;
+                border-right: 12px solid transparent;
+                border-bottom: 12px solid $lite-color;
+                position: absolute;
+                left: auto;
+                right: 20px;
+                margin: auto;
+                top: -12px;
+                &:after {
+                    content: "";
+                    width: 0;
+                    height: 0;
+                    border-left: 10px solid transparent;
+                    border-right: 10px solid transparent;
+                    border-bottom: 10px solid $white-color;
+                    display: inline-block;
+                    position: relative;
+                    left: -10px;
+                    top: -1px;
+                }
+            }
+            .filter-search {
+                position: relative;
+                .input-search {
+                    border: 0px solid $dark-color3;
+                    padding: 6px 15px 6px 20px;
+                    outline: 0;
+                    width: 165px;
+                    height: 34px;
+                    margin-right: 15px;
+                    border-bottom: 1px solid $first-color;
+                }
+                .fa-search {
+                    position: absolute;
+                    left: 0px;
+                    top: 9px;
+                    color: $first-color;
+                }
+                a {
+                    display: inline-block;
+                    color: $first-color;
+                    height: 36px;
+                    position: relative;
+                    top: 0;
+                    min-width: 70px;
+                    line-height: 34px;
+                    text-align: center;
+                    text-decoration: none;
+                    margin-left: 15px;
+                    .fa {
+                        margin-left: 5px;
+                    }
+                    &:focus,
+                    &:hover {
+                        text-decoration: none;
+                    }
+                    &+a {
+                        border-left: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.custom-table {
+    thead {
+        tr {
+            th {
+                border-bottom-width: 0px;
+                vertical-align: middle;
+            }
+        }
+    }
+    tbody {
+        tr {
+            td {
+                vertical-align: middle;
+                border: 0;
+                word-break: break-all;
+            }
+            th {
+                border: 0;
+            }
+        }
+    }
+    .brand {
+        display: block;
+        font-weight: normal;
+        font-size: 11px;
+        color: $dark-color3;
+    }
+}
+
+// MODAL
+.view-details-card {
+    font-size: 13px;
+    padding: 10px 10px;
+    right: 0;
+    z-index: 2;
+    caption {
+        padding: 0;
+        color: $dark-color;
+        font-size: 13px;
+        font-weight: bold;
+        margin-bottom: 2px;
+    }
+    .table {
+        margin-bottom: 15px;
+        tr {
+            td {
+                padding: 0;
+            }
+        }
+    }
+    .card-header {
+        padding: 7px 15px;
+        border-bottom: 1px solid $lite-color;
+        position: relative;
+        z-index: 2;
+        .close {
+            position: relative;
+            z-index: 2;
+        }
+        .modal-title {
+            position: relative;
+            padding-left: 50px;
+            font-size: 13px;
+            font-weight: bold;
+            min-height: 40px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            img {
+                position: absolute;
+                left: 0px;
+                top: -1px;
+                width: 40px;
+            }
+        }
+        .subTitle {
+            display: block;
+            font-size: 12px;
+            color: $dark-color3;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+    }
+    .card-body {
+        padding: 15px 15px;
+        .description {
+            label {
+                font-weight: bold;
+                display: block;
+                color: $dark-color;
+            }
+            span {
+                display: block;
+                color: $dark-color2;
+            }
+        }
+    }
+    .card-footer {
+        text-align: center;
+        padding: 10px 5px;
+        margin-bottom: 15px;
+        button {
+            border-radius: 4px;
+        }
+    }
+    .table {
+        table-layout: fixed;
+        tr {
+            td {
+                border-top: 0;
+            }
+        }
+    }
+}
+
+.equipment-icon {
+    width: 50px;
+}
+
+.filter-box {
+    border: 1px solid $lite-color;
+    background: $white-color;
+    position: absolute;
+    top: 100%;
+    left: 75px;
+    z-index: 9999;
+    border-bottom: 0;
+    width: 215px;
+    margin-top: 10px;
+    font-size: 13px;
+    .filter-row {
+        position: relative;
+        border-bottom: 1px solid $lite-color;
+        .title4 {
+            font-size: 14px;
+            font-weight: bold;
+            margin: 0;
+            padding: 10px;
+            cursor: pointer;
+            &:hover {
+                background: $lite-color3;
+            }
+            .fa-angle-down {
+                float: right;
+                transition: all 0.2s ease-in-out;
+                transform: rotate(0deg);
+            }
+        }
+        &.collapse-ul {
+            .title4 {
+                .fa-angle-down {
+                    transform: rotate(-90deg);
+                }
+            }
+            .chk-list {
+                height: 0;
+                padding: 0 10px;
+                margin-bottom: 0px;
+                overflow: hidden;
+            }
+        }
+    }
+    ul.chk-list {
+        list-style: none;
+        margin-bottom: 10px;
+        padding: 10px 10px;
+        overflow: auto;
+        height: 150px;
+        li {
+            margin-bottom: 4px;
+            .checkbox {
+                margin: 0;
+            }
+        }
+    }
+    .date-inputs {
+        text-align: end;
+        .fa-calender {
+            font-size: 18px;
+            color: $dark-color2;
+        }
+        input {
+            width: 147px;
+            border: 1px solid $lite-color;
+            padding: 6px 10px;
+            border: 1px solid $lite-color;
+            padding: 6px 10px;
+            margin-left: 10px;
+            &:focus {
+                outline: 0;
+            }
+        }
+    }
+}
+
+.icon-img {
+    position: relative;
+    width: 150px;
+}
+
+.right-sidear {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 450px;
+    min-height: 500px;
+    border: 1px solid $lite-color;
+    background: $lite-color3;
+    z-index: 3;
+}
+
+.ribbon {
+    position: absolute;
+    right: 0px;
+    top: 15px;
+    z-index: 0;
+}
+
+.ribbon span {
+    font-size: 10px;
+    font-weight: bold;
+    color: $white-color;
+    text-transform: uppercase;
+    text-align: center;
+    display: block;
+    padding: 3px 12px;
+}
+
+.ribbon .basicUserRibbon {
+    background: #59c3ea;
+}
+
+.ribbon .activeRibbon {
+    background: #66c568;
+}
+
+.ribbon .enterpriseUserRibbon {
+    background: #848484;
+}
+
+
+/*============= ribbon end ================*/
+
+.smallToLarge {
+    padding-right: 0;
+    transition: all 0.3s ease-in-out;
+    .col-md-4,
+    .col-sm-6 {
+        padding: 0 7px;
+    }
+    .card-list-content {
+        padding: 0 15px;
+    }
+    .card-box {
+        background: $white-color;
+        color: $dark-color2;
+        position: relative;
+        border: 1px solid $lite-color;
+        margin-bottom: 15px;
+        // padding: 10px 10px 10px 85px !important;
+        padding: 10px 80px 10px 85px !important;
+        height: 140px;
+        border-radius: 4px;
+        @extend %ripple;
+        cursor: pointer;
+    }
+    .spImg {
+        width: 65px;
+        height: 65px;
+        border-radius: 4px;
+        overflow: hidden;
+        position: absolute;
+        left: 15px;
+        top: 13px;
+        img {
+            max-width: 65px;
+            width: 100%;
+        }
+    }
+    .spInfoContainer {
+        .spInfo {
+            h4 {
+                color: $dark-color;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+            }
+            .client-position {
+                color: $dark-color3;
+                font-size: 12px;
+                margin-bottom: 0;
+            }
+            .client-institute {
+                color: $dark-color3;
+                font-size: 14px;
+                font-weight: 400;
+                margin-bottom: 0;
+            }
+        }
+    }
+    &.view-details-card-active {
+        padding-right: 282px;
+        .visible-div {
+            right: 30px;
+            opacity: 1;
+        }
+    }
+}
+
+.visible-div {
+    position: fixed;
+    background: $white-color;
+    width: 275px;
+    border: 1px solid $lite-color;
+    transition: all 0.3s ease-in-out;
+    opacity: 0;
+    top: 165px;
+    z-index: 999;
+    right: -100%;
+    border-radius: 4px;
+}
+
+.card {
+    position: relative;
+    .view-details-card {
+        margin-top: 0;
+    }
+    &.flipped {
+        .card-box {
+            background: $lite-color3;
+        }
+    }
+}
+
+.sort {
+    color: #2f6f98;
+}

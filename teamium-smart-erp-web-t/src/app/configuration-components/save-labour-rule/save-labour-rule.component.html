@@ -1,0 +1,338 @@
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner> 
+<div  class="modal fade in" style="display:block;background:#000000a3;">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content mdlUpdateConfig">
+            <div class="modal-header">
+                <button (click)="hideLabourAgreementModal()" type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{modalText | translate}}
+                </h4>
+            </div>
+            <div class="modal-body">
+                <!-- tab Content Start -->
+                <div id="exTab1" class="ContentSec">	
+                    <ul  class="nav nav-pills">
+                        <li  [ngClass]="{'active':activeTab=='settings'}"><a href="javascript:void(0)" (click)="activeTab='settings'" data-toggle="tab">{{'Settings' |translate}}</a></li>
+                        <li  [ngClass]="{'active':activeTab=='holidays'}" ><a  href="javascript:void(0)"  [ngClass]="{'disable-anchor':selectedLabourRule && !selectedLabourRule.hasOwnProperty('labourRuleId')}" (click)="activeTab='holidays'" data-toggle="tab">Holidays</a></li>
+                        <li [ngClass]="{'active':activeTab=='approval'}"><a  href="javascript:void(0)" [ngClass]="{'disable-anchor':selectedLabourRule && !selectedLabourRule.hasOwnProperty('labourRuleId')}" (click)="activeTab='approval'" data-toggle="tab">Approval Process</a></li>
+                    </ul>
+                    <!-- *ngIf="selectedLabourRule && selectedLabourRule.hasOwnProperty('labourRuleId')" -->
+                
+                    <div class="tab-content clearfix">
+
+                        <!-- TAB-1 -->
+                        <div class="tab-pane" [ngClass]="{'active':activeTab=='settings'}" id="1a">
+                          <form [formGroup]="settingsForm">
+                            <div class="row mt-20">
+                                <div class="col-sm-9">
+                                    <div class="form-content">
+                                        <label>{{'Labour Agreement Name*' |translate}}</label>
+                                        <input type="text"  formControlName="labourAgreementName" class="form-control " autofocus placeholder=""/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="added-value-content">
+                                        <div class="description">
+                                            <label>&nbsp;</label>
+                                            <!-- <div class="text-left mt-0 p-0">
+                                                <button class="btn btn-first btn-plus">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="common-Sec">
+                                <ul class="common-Ul settingList list-scroll">
+                                    <li>
+                                        <span class="defaultText">{{'Overtime 1-4 hr' |translate}}</span>
+                                        <div class="settingControls pull-right">
+                                            <input type="text"  formControlName="overTime1to4"  class="form-control editableInput" placeholder=""/>
+                                            <span class="fixedLabel">%</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="defaultText">{{'Overtime 5-8 hr' |translate}}</span>
+                                        <div class="settingControls pull-right">
+                                            <input type="text"  formControlName="overTime5to8" class="form-control editableInput" placeholder=""/>
+                                            <span class="fixedLabel">%</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                      <span class="defaultText">{{'Overtime 9- hr' |translate}}</span>
+                                      <div class="settingControls pull-right">
+                                        <input type="text"  formControlName="overTime9toMore" class="form-control editableInput" placeholder=""/>
+                                        <span class="fixedLabel">%</span>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <span class="defaultText">{{'Night hours' |translate}}</span>
+                                      <div class="settingControls pull-right">
+                                        <input type="text"  formControlName="nightHours" class="form-control editableInput" placeholder=""/>
+                                        <span class="fixedLabel">%</span>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <span class="defaultText">{{'Sunday hours' |translate}}</span>
+                                      <div class="settingControls pull-right">
+                                        <input type="text"  formControlName="sundayHours" class="form-control editableInput" placeholder=""/>
+                                        <span class="fixedLabel">%</span>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <span class="defaultText">{{'Holiday hours' |translate}}</span>
+                                      <div class="settingControls pull-right">
+                                        <input type="text"  formControlName="holidayHours" class="form-control editableInput" placeholder=""/>
+                                        <span class="fixedLabel">%</span>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <span class="defaultText">{{'Special Holiday hours' |translate}}</span>
+                                      <div class="settingControls pull-right">
+                                        <input type="text"  formControlName="specialHolidayHours" class="form-control editableInput" placeholder=""/>
+                                        <span class="fixedLabel">%</span>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <span class="defaultText">{{'Lunch break' |translate}}</span>
+                                      <div class="settingControls pull-right">
+                                        <input type="text"  formControlName="lunchBreak" class="form-control editableInput" placeholder=""/>
+                                        <span class="fixedLabel">{{'hr' |translate}}</span>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <span class="defaultText">{{'Working hour per day' |translate}}</span>
+                                      <div class="settingControls pull-right">
+                                        <input type="text"  formControlName="workingHourPerDay" class="form-control editableInput" placeholder=""/>
+                                        <span class="fixedLabel">hr</span>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <span class="defaultText">{{'Maximum working hour per day' |translate}}</span>
+                                      <div class="settingControls pull-right">
+                                        <input type="text"  formControlName="maximumWorkingHourPerDay" class="form-control editableInput" placeholder=""/>
+                                        <span class="fixedLabel">hr</span>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <span class="defaultText">{{'Average weekly hours' |translate}}</span>
+                                      <div class="settingControls pull-right">
+                                        <input type="text"  formControlName="averageWeeklyHours" class="form-control editableInput" placeholder=""/>
+                                        <span class="fixedLabel">{{'hr' |translate}}</span>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <span class="defaultText">{{'Maximum weekly hours' |translate}}</span>
+                                      <div class="settingControls pull-right">
+                                        <input type="text"  formControlName="maximumWeeklyHours" class="form-control editableInput" placeholder=""/>
+                                        <span class="fixedLabel">{{'hr' |translate}}</span>
+                                      </div>
+                                    </li>
+                                    <li>
+                                      <span class="defaultText">{{'Maximum monthly hours' |translate}}</span>
+                                      <div class="settingControls pull-right">
+                                        <input type="text"  formControlName="maximumMonthlyHours" class="form-control editableInput" placeholder=""/>
+                                        <span class="fixedLabel">{{'hr' |translate}}</span>
+                                      </div>
+                                    </li>
+
+                                    <li>
+                                      <span class="defaultText">{{'Rest time between booking' |translate}}</span>
+                                      <div class="settingControls pull-right">
+                                        <input type="text"  formControlName="restTimeBetweenBooking" class="form-control editableInput" placeholder=""/>
+                                        <span class="fixedLabel">{{'hr' |translate}}</span>
+                                      </div>
+                                    </li>
+                                    <!-- <li>
+                                        <span class="defaultText">Morning start time</span>
+                                       
+                                        <p-calendar class="form-control editableInput" placeholder="10AM" formControlName="morningStartTime" [timeOnly]="true" class="timer"></p-calendar>
+                                      </li>
+                                      <li>
+                                        <span class="defaultText">Morning end time</span>
+                                       
+                                        <p-calendar class="editableInput" placeholder="7PM" formControlName="morningEndTime" [timeOnly]="true" class="timer"></p-calendar>
+                                      </li>-->
+                                    <li> 
+                                      <span class="defaultText">{{'Night start time' |translate}}</span>
+                                      <!-- <input type="text"  formControlName="nightStartTime" class="editableInput" placeholder="10PM"/> -->
+                                      <p-calendar hourFormat="12"  placeholder="" formControlName="nightStartTime" [timeOnly]="true" styleClass="timerClass"  [inputStyle]="{'width':'75px','height': '22px','float': 'right'}"></p-calendar>
+                                    </li>
+                                    <li>
+                                      <span class="defaultText">{{'Night end time' |translate}}</span>
+                                      <!-- <input type="text"  formControlName="nightEndTime" class="editableInput" placeholder="7AM"/> -->
+                                      <p-calendar hourFormat="12" placeholder="" formControlName="nightEndTime" [timeOnly]="true" [inputStyle]="{'width':'75px','height': '22px','float': 'right'}"></p-calendar>
+                                    </li>
+                                    <li>
+                                      <span class="defaultText">{{'Maximum freelance working days' |translate}}</span>
+                                      <div class="settingControls pull-right">
+                                         <input type="text"  formControlName="maximumFreelanceWorkingDays" class="form-control editableInput" placeholder=""/>
+                                      </div>
+                                  </li>
+                                    
+                                    <li>
+                                        <span class="defaultText">{{'Maximum extra hour per annum day' |translate}}</span>
+                                        <div class="settingControls pull-right">
+                                            <input type="text"  formControlName="maximumExtraHourPerAnnumDay" class="form-control editableInput" placeholder=""/>
+                                        </div>
+                                    </li>
+                                    <li>
+                                      <span class="defaultText">{{'Distance to production' |translate}} </span>
+                                      <div class="settingControls pull-right">
+                                        <input type="text"  formControlName="distanceToProduction" class="form-control editableInput" placeholder=""/>
+                                        <span class="fixedLabel">{{'km' |translate}}</span>
+                                      </div>
+                                  </li>
+
+                                  <li>
+                                    <span class="defaultText">{{'Travel time period' |translate}}</span>
+                                    <div class="settingControls pull-right">
+                                        <input type="text"  formControlName="travelTimePeriod" class="form-control editableInput" placeholder=""/>
+                                        <span class="fixedLabel">{{'hr' |translate}}</span>
+                                    </div>
+                                </li>
+                                    
+                                    
+                                </ul>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" *ngIf="selectedLabourRule && selectedLabourRule.hasOwnProperty('labourRuleId')" (click)="showDeleteModal=!showDeleteModal" class="btn btn-first ripple pull-left" data-dismiss="modal" style="background-color: darkred;">{{'Delete' |translate}}</button> 
+                                <button type="button" (click)="saveLabourRuleSettings()" class="btn btn-first ripple" data-dismiss="modal">{{'Save' | translate}}</button>
+                            </div>
+                            
+                          </form>
+                        </div>
+
+                        <!-- TAB-2 -->
+                        <div class="tab-pane " [ngClass]="{'active':activeTab=='holidays'}" id="2a">
+                            <form [formGroup]="holidaysForm">
+                              <div class="row mt-20">
+                                  <div class="col-sm-5">
+                                      <div class="form-content">
+                                          <label>{{'Holiday Name*' |translate}}</label>
+                                          <input type="text" formControlName="holidayName"  class="form-control " placeholder=""/>
+                                      </div>
+                                  </div>
+                                  <div class="col-sm-5">
+                                      <div class="form-content">
+                                          <label>{{'Holiday Date' |translate}}</label>
+                                          <!-- <input type="text"   class="form-control " placeholder=""/> -->
+                                          <!-- formControlName="morningStartTime" -->
+                                          <p-calendar class="editableInput" formControlName="holidayDate" placeholder="10AM"   class="timer"></p-calendar>
+                                          
+                                      </div>
+                                  </div>
+                                  <div class="col-sm-2">
+                                      <div class="form-content">
+                                          <label>&nbsp;</label>
+                                          <button class="btn btn-first btn-plus" (click)="saveLabourRuleHolidays()">
+                                              <i class="fa fa-plus" ></i>
+                                          </button>
+                                          <!-- <button type="button" class="btn btn-first ripple" data-dismiss="modal">Save</button> -->
+                                      </div>
+                                  </div>
+                              </div>
+                           </form>
+                            <div class="common-Sec" *ngIf="holidayList && holidayList.length>0">
+                                <ul class="common-Ul holidayList list-scroll">
+                                    <li class="holidayListContent" *ngFor="let holiday of holidayList ">
+                                        <div class="leftContent" *ngIf="!holidayEditObject[holiday.id]">
+                                            <span class="defaultText">{{holiday.holidayName}}</span>  -  
+                                            <span class="editableInput">{{convertDateStringToDate(holiday.holidayDate)}}</span>
+                                        </div>  
+
+                                
+                                        <div class="leftContent" *ngIf="holidayEditObject[holiday.id]">               
+                                            <input [(ngModel)]="holiday.newNameValue" type="text" class="form-control editControlStyle" placeholder=""/>
+                                            <p-calendar  [(ngModel)]="holiday.newDateValue" (onSelect)="onChangeHolidayDate()"  placeholder="10AM" [style]="{'display':'inline'}" [inputStyle]="{'width':'100px','height': '28px','display': 'inline-block !important','margin-right':'10px'}"></p-calendar>
+                                        </div>
+
+                                        <div class="rightContent text-right">
+                                            <a href="javascript:void(0);"><i *ngIf="!holidayEditObject[holiday.id]" class="fa fa-pencil-square-o" aria-hidden="true" (click)="holidayEditObject[holiday.id]= true"></i></a>
+                                            <a href="javascript:void(0);"><i *ngIf="holidayEditObject[holiday.id]" class="fa fa-floppy-o ml-10" aria-hidden="true" (click)="updateLabourRuleHolidays(holiday)"></i></a>
+                                            <a href="javascript:void(0);"><i *ngIf="holidayEditObject[holiday.id]" class="fa fa-times ml-10" aria-hidden="true" (click)="cancelUpdate(holiday)" ></i></a>
+                                            <a href="javascript:void(0);"><i class="fa fa-trash ml-10" aria-hidden="true" (click)="deleteHoliday(holiday)"></i></a>
+                                        </div>
+                                        <!-- <input type="text" class="editableInput" placeholder="01/01/19"/> -->
+                                    </li>
+                                    <!-- <li>
+                                        <span class="defaultText">Holi</span>
+                                        <input type="text" class="editableInput" placeholder="03/21/19"/>
+                                    </li>
+                                    <li>
+                                        <span class="defaultText">Mathma Gandhi Jayanti</span>
+                                        <input type="text" class="editableInput" placeholder="10/02/19"/>
+                                    </li> -->
+                                </ul>
+                            </div>
+                            <!-- <div class="modal-footer">
+                                <button type="button" class="btn btn-first ripple" data-dismiss="modal">Save</button>
+                            </div> -->
+                        </div>
+                        <!-- TAB-3 -->
+                        <div class="tab-pane" [ngClass]="{'active':activeTab=='approval'}" id="3a">
+                            <form [formGroup]="approvalForm">
+                              <div class="row mt-20">
+                                  <div class="col-sm-5">
+                                      <div class="form-content">
+                                          <label>{{'Select Staff' |translate}}</label>
+                                          <select class="form-control" formControlName="selectedStaff">
+                                              <option [ngValue]="null">{{'Select One' |translate}}</option>
+                                              <option *ngFor="let staff of staffList" [ngValue]="staff.id">{{staff.firstName}}</option>
+                                              
+                                          </select> 
+
+                                          <!-- <select class="form-control " formControlName="language">
+                                              <option value="null" >Select language</option>
+                                              <option *ngFor="let language of dropdownData.languagesList"  value={{language}} >{{language}}</option>
+                                          </select> -->
+                                      </div>
+                                  </div>
+                                  <div class="col-sm-2">
+                                      <div class="form-content">
+                                          <label>&nbsp;</label>
+                                          <button class="btn btn-first btn-plus" (click)="saveLabourRuleApproval()">
+                                              <i class="fa fa-plus"></i>
+                                          </button>
+                                      </div>
+                                  </div>
+                              </div>
+                            </form>
+                            <div class="common-Sec" *ngIf="approvalList && approvalList.length>0">
+                                <ul class="common-Ul approvalList list-scroll">
+                                    <li *ngFor="let staff of approvalList">
+                                        <h5 class="name">{{staff.firstName}} {{ staff.lastName}}
+                                            <a class="pull-right" href="javascript:void(0);">
+                                                <i class="fa fa-trash" aria-hidden="true" (click)="deleteStaff(staff)"></i>
+                                            </a>
+                                            <span class="subName">{{'HR Manager' |translate}}</span>
+                                        </h5>
+
+                                    </li>
+                                    <!-- <li>
+                                        <h5 class="name">Susan Leight <span class="subName">Postprod Supervisor</span></h5>
+                                    </li>
+                                    <li>
+                                        <h5 class="name"> <span class="subName">{{'Freelance' | translate}}r</span></h5>
+                                    </li> -->
+                                </ul>
+                            </div>
+                            <!-- <div class="modal-footer">
+                                <button type="button" class="btn btn-first ripple" data-dismiss="modal">Save</button>
+                            </div> -->
+                        </div>
+
+                    </div>
+                </div>
+                <!-- tab Content End -->
+            </div>
+            <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-first ripple" data-dismiss="modal">Save</button>
+            </div> -->
+        </div>
+    </div>
+</div>
+<app-delete-confirm-modal *ngIf="showDeleteModal" [componentName]="componentName" (deleteDataEvent)="deleteLabourRuleSettings($event)" (closeModalEvent)="closeDeleteConfirmModal($event)"></app-delete-confirm-modal>

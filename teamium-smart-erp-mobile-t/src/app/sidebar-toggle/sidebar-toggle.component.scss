@@ -1,0 +1,14 @@
+
+@import '../../variables.scss';
+.menuToggler {
+    position: absolute;
+    // top:4px;
+    // left: 0;
+    top: 1px;
+    left: -6px;
+    font-size: 22px;
+    color: $white-color;
+    img {
+        width: 32px;
+    }
+}

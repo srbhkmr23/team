@@ -1,0 +1,82 @@
+<!-- SIGNUP PAGE -->
+<div class="signin" >
+    <div class="container-center">
+        <div class="inner-page">
+
+            <!-- <h4 class="title3">Sign Up</h4> -->
+
+            <div class="page-logo">
+                <!-- <img src="assets/img/signin-icon-white.png" alt="" class="logo1"> -->
+                <div class="img-div">
+                    <img src="assets/img/Teamium-Freelance-1.png" alt="" class="logo2">
+                </div>
+                <div class="logo-div">
+                    <img src="assets/img/logo-white2.png" alt="" class="teamium-logo">
+                </div>
+                <!-- <p>PRODUCTION PLATFORM</p> -->
+            </div>
+
+            <!-- basic-form -->
+            <div class="basic-form">
+
+                <!--User Name-->
+                <div class="form-ctrl-row">
+                    <mat-form-field class="dummy-input-field">
+                        <span class="icon"><i class="fa fa-user"></i></span>
+                        <input matInput placeholder="User Name" class="dummy-input-style">
+                    </mat-form-field>
+                </div>
+
+                <!-- <div class="form-control-row">
+                    <span class="icon"><i class="fa fa-user"></i></span>
+                    <input type="text" name="username" class="form-control">
+                    <label>User Name</label>
+                </div> -->
+                <!-- <div style="color: #FF5722;text-align: left;font-size: 14px;margin-top: 5pt;">The Username Name field is required.</div> -->
+
+                <!--Email-->
+                <div class="form-ctrl-row">
+                    <mat-form-field class="dummy-input-field">
+                        <span class="icon"><i class="fa fa-envelope-o"></i></span>
+                        <input matInput placeholder="Email" class="dummy-input-style">
+                    </mat-form-field>
+                </div>
+                
+                <!-- <div class="form-control-row">
+                    <span class="icon"><i class="fa fa-envelope-o"></i></span>
+                    <input type="text" name="username" class="form-control">
+                    <label>Email</label>
+                </div> -->
+
+                <!-- <div style="color: #FF5722;text-align: left;font-size: 14px;margin-top: 5pt;">The Username Name field is required.</div> -->
+
+                <!--Password-->
+                <div class="form-ctrl-row">
+                    <mat-form-field class="dummy-input-field">
+                        <span class="icon"><i class="fa fa-key"></i></span>
+                        <input matInput placeholder="Password" class="dummy-input-style">
+                    </mat-form-field>
+                </div>
+
+                <!-- <div class="form-control-row" >
+                    <span class="icon"><i class="fa fa-key"></i></span>
+                    <input type="password" class="form-control" name="password">
+                    <label>Password</label>
+                </div> -->
+
+                <!-- <div style="color: #FF5722;text-align: left;font-size: 14px;margin-top: 5pt;">The Password field is required.</div> -->
+
+                <!--Error Message-->
+                <!-- <div style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">errorMessage</div> -->
+            </div>
+
+            <!--basic-form-footer-->
+            <div class="basic-form-footer">
+                <button class="btn btn-first btn-lg mt-35 mb-15 font-bold ripple">{{'Sign Up' | translate}}</button>
+                <p class="info mt-35">{{'Already have an account? ' | translate}}<a (click)="goToSignin()" href="javascript:void(0)" class="link">{{'Log In' | translate}}</a></p>
+                <!-- <p class="info"><a href="javascript:void(0)" class="link" (click)="goForgotPassword()">Forget Password ?</a></p> -->
+            </div>
+
+        </div>
+    </div>
+</div>

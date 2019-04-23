@@ -1,0 +1,81 @@
+
+<div appOuterClick (executeFunction)="commonDataService.hideSideBar()"  [ngClass]="commonDataService.isSideBarActive?'menu-backdrop':''">
+    <aside   class="sideBar" [ngClass]="commonDataService.isSideBarActive?'':'sideBarInActive'">
+        <div class="teamium-logo-div">
+            <img src="assets/img/logo-white2.png" alt=""/>
+            <span (click)="commonDataService.hideSideBar()" class="close-ico ripple"><i class="fa fa-arrow-left"></i></span>
+        </div>
+        <ul id="sideBar" class="main-nav">
+            <li>
+                <a (click)="redirectTo('/teamium')" href="javascript:void(0);">
+                    <span class="icon"><img src="assets/img/home-ico-active.png" alt=""/></span>
+                    <span>{{'Home' | translate}}</span>
+                </a>
+            </li>
+            <!-- <li>
+                <a  (click)="redirectTo('/teamium')" href="javascript:void(0);">
+                    <span class="icon"><img src="assets/img/home-ico.png" alt=""/></span>
+                    <span>Assign To Me</span>
+                </a>
+            </li>
+            <li>
+                <a (click)="redirectTo('/teamium/jobs')" href="javascript:void(0);">
+                    <span class="icon"><img src="assets/img/bussiness-ico.png" alt=""/></span> 
+                    <span>My Jobs</span>
+                </a>
+            </li>
+            <li>
+                <a (click)="redirectTo('/teamium/task')" href="javascript:void(0);">
+                    <span class="icon"><img src="assets/img/home-ico.png" alt=""/></span> 
+                    <span>Task</span>
+                </a>
+            </li>
+            <li>
+                <a (click)="redirectTo('/teamium/task-details')" href="javascript:void(0);">
+                    <span class="icon"><img src="assets/img/home-ico.png" alt=""/></span> 
+                    <span>Task Details</span>
+                </a>
+            </li> -->
+            <li>
+                <a  href="javascript:void(0);">
+                    <span class="icon"><img src="assets/img/calender-ico.png" alt=""/></span> 
+                    <span>{{'Roster' | translate}}</span>
+                </a>
+            </li>
+            <li>
+                <a  href="javascript:void(0);">
+                    <span class="icon"><img src="assets/img/contract-ico.png" alt=""/></span> 
+                    <span>{{'Contract' | translate}}</span>
+                </a>
+            </li>
+            <li>
+                <a  href="javascript:void(0);">
+                    <span class="icon"><img src="assets/img/timers-ico.png" alt=""/></span> 
+                    <span>{{'Time Report' | translate}}</span>
+                </a>
+            </li>
+            <li>
+                <a  href="javascript:void(0);">
+                    <span class="icon"><img src="assets/img/process-ico.png" alt=""/></span> 
+                    <span>{{'Process' | translate}}</span>
+                </a>
+            </li>
+            <li>
+                <a  href="javascript:void(0);">
+                    <span class="icon"><img src="assets/img/home-ico.png" alt=""/></span> 
+                    <span>......</span>
+                </a>
+            </li>
+        </ul>
+        <!-- log-Out -->
+        <div class="log-Out text-center">
+            <!-- <div class="user-Img img-position">
+                <img src="assets/img/user-img.png" alt="" />
+            </div> -->
+            <a (click)="logOut()" href="javascript:void(0);" class="logOut-ico ripple">
+                <i class="fa fa-power-off" aria-hidden="true"></i> <span class="log-Out-Title">{{'Logout' | translate}}</span>
+            </a>
+        </div><!-- log-Out End -->
+
+    </aside>
+</div> 

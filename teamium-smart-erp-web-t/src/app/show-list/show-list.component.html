@@ -1,0 +1,289 @@
+<app-create-show *ngIf="showSaveShowModal" (closeModalEvent)="closeModal($event)" ></app-create-show>
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner>
+<div class="project-list">
+    <!-- FILTER HEADER   -->
+    <div class="filter-header">
+        <div class="container-fluid">
+            <h1 class="title">{{'Shows' | translate}}</h1> 
+
+            <div class="filter">
+
+                <div class="filter-search">
+                    <input type="text" [(ngModel)]="searchText" class="input-search" placeholder="Search...">
+                    <i class="fa fa-search"></i>
+
+                    <a href="javascript:void(0)" class="ml-5" (click)="showSaveShowModal=(!showSaveShowModal)">
+                        <i class="fa fa-plus"></i> {{'Add' | translate}}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+    <div class="project-content">
+
+        <div class="card-list-content">
+            <div class="smallToLarge">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="recentDiv">
+                            <h4 class="title">{{'Recently viewed' | translate}}</h4>
+                            <div class="row">
+                                <div class="col-sm-3" *ngFor="let show of recentViewedShows |showSearch:searchText:searchList">
+
+                                    <div class="RecentSec">
+
+                                        <div class="card">
+                                            <div class="card-box cardInfoSec">
+                                                <div class="spInfoContainer">
+                                                    <div class="spInfo">
+                                                        <h4 class="">{{show.title}}</h4>
+                                                        <p class="client-position">{{show.category}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="showbannerImg" *ngIf="show.document">
+                                                        <img [src]="show.document.url" alt=""/>
+                                                 </div>
+                                            </div>
+                                            <a href="javascript:void(0)" class="goBtn" (click)="goToDetails(show.id)">
+                                                <i class="fa fa-chevron-right"></i>
+                                            </a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-sm-3">
+
+                                    <div class="RecentSec">
+
+                                        <div class="card">
+                                            <div class="card-box">
+                                                <div class="spInfoContainer">
+                                                    <div class="spInfo">
+                                                        <h4 class="">Amex and Apple Pay</h4>
+                                                        <p class="client-position">Post Production </p>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <a href="javascript:void(0)" class="goBtn">
+                                                <i class="fa fa-chevron-right"></i>
+                                            </a>
+
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                        <!-- <div class="row">
+                            <div class="col-sm-4">
+
+                                <div class="toDOSec"  droppable (onDrop)="onItemDropInToDo($event)">
+                                    <h4 class="title">To DO <span class="count">2</span></h4>
+                                    <div draggable class="card">
+                                        <div class="card-box">
+                                            <div class="spInfoContainer">
+                                                <div class="spInfo">
+                                                    <h4 class="">Amex and Apple Pay</h4>
+                                                    <p class="client-position">Post Production </p>
+                                                    <span class="badge">5</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="javascript:void(0)" class="goBtn"><i class="fa fa-chevron-right"></i></a>
+
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-box">
+                                            <div class="spInfoContainer">
+                                                <div class="spInfo">
+                                                    <h4 class="">Amex and Apple Pay</h4>
+                                                    <p class="client-position">Post Production </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="javascript:void(0)" class="goBtn"><i class="fa fa-chevron-right"></i></a>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-box">
+                                            <div class="spInfoContainer">
+                                                <div class="spInfo">
+                                                    <h4 class="">Amex and Apple Pay</h4>
+                                                    <p class="client-position">Post Production </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="javascript:void(0)" class="goBtn"><i class="fa fa-chevron-right"></i></a>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-4">
+
+                                <div class="inProgressSec"  droppable (onDrop)="onItemDropInProgress($event)">
+                                    <h4 class="title">In Progess <span class="count">1</span></h4>
+                                    <div draggable class="card">
+                                        <div class="card-box">
+                                            <div class="spInfoContainer">
+                                                <div class="spInfo">
+                                                    <h4 class="">Amex and Apple Pay</h4>
+                                                    <p class="client-position">Post Production </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="javascript:void(0)" class="goBtn"><i class="fa fa-chevron-right"></i></a>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-box">
+                                            <div class="spInfoContainer">
+                                                <div class="spInfo">
+                                                    <h4 class="">Amex and Apple Pay</h4>
+                                                    <p class="client-position">Post Production </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="javascript:void(0)" class="goBtn"><i class="fa fa-chevron-right"></i></a>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-box">
+                                            <div class="spInfoContainer">
+                                                <div class="spInfo">
+                                                    <h4 class="">Amex and Apple Pay</h4>
+                                                    <p class="client-position">Post Production </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="javascript:void(0)" class="goBtn"><i class="fa fa-chevron-right"></i></a>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-4">
+
+                                <div class="sucessSec" droppable (onDrop)="onItemDropInDone($event)">
+                                    <h4 class="title">Done <span class="count">3</span></h4>
+                                    <div draggable class="card">
+                                        <div class="card-box">
+                                            <div class="spInfoContainer">
+                                                <div class="spInfo">
+                                                    <h4 class="">Amex and Apple Pay</h4>
+                                                    <p class="client-position">Post Production </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="javascript:void(0)" class="goBtn"><i class="fa fa-chevron-right"></i></a>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-box">
+                                            <div class="spInfoContainer">
+                                                <div class="spInfo">
+                                                    <h4 class="">Amex and Apple Pay</h4>
+                                                    <p class="client-position">Post Production </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="javascript:void(0)" class="goBtn"><i class="fa fa-chevron-right"></i></a>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-box">
+                                            <div class="spInfoContainer">
+                                                <div class="spInfo">
+                                                    <h4 class="">Amex and Apple Pay</h4>
+                                                    <p class="client-position">Post Production </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="javascript:void(0)" class="goBtn"><i class="fa fa-chevron-right"></i></a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div> -->
+                        <div class="row" *ngIf="showsObject">
+
+                            <!-- To Do -->
+                            <div class="col-sm-4">
+                                <div class="toDOSec" droppable (onDrop)="onItemDropInToDo($event)">
+                                    <h4 class="title">{{'To Do' | translate}}
+                                        <span class="count">{{ showsObject['To Do']?showsObject['To Do'].length:0}}</span>
+                                    </h4>
+                                    <div draggable class="card" *ngFor="let show of showsObject['To Do'] |showSearch:searchText:searchList" [dragData]="show">
+                                        <div class="card-box cardInfoSec">
+                                            <div class="spInfoContainer">
+                                                <div class="spInfo">
+                                                    <h4 class="">{{ show.title }}</h4>
+                                                    <p class="client-position"> </p>
+                                                    <span class="badge">{{show.pendingProjects?show.pendingProjects:''}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="showbannerImg" *ngIf="show.document">
+                                                    <img [src]="show.document.url" alt=""/>
+                                             </div>
+                                        </div>
+                                        <a href="javascript:void(0)" class="goBtn" (click)="goToDetails(show.id)">
+                                            <i class="fa fa-chevron-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- In Progess -->
+                            <div class="col-sm-4">
+                                <div class="inProgressSec" droppable (onDrop)="onItemDropInProgress($event)">
+                                    <h4 class="title">{{'In Progress' | translate}}
+                                        <span class="count">{{ showsObject['In Progress']? showsObject['In Progress'].length:0 }}</span>
+                                    </h4>
+                                    <div draggable class="card" *ngFor="let show of showsObject['In Progress'] |showSearch:searchText:searchList" [dragData]="show">
+                                        <div class="card-box cardInfoSec">
+                                            <div class="spInfoContainer">
+                                                <div class="spInfo">
+                                                    <h4 class="">{{ show.title }}</h4>
+                                                    <p class="client-position"></p>
+                                                    <span class="badge">{{show.pendingProjects?show.pendingProjects:''}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="showbannerImg" *ngIf="show.document">
+                                                    <img [src]="show.document.url" alt=""/>
+                                             </div>
+                                        </div>
+                                        <a href="javascript:void(0)" class="goBtn" (click)="goToDetails(show.id)">
+                                            <i class="fa fa-chevron-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Done -->
+                            <div class="col-sm-4">
+                                <div class="sucessSec" droppable (onDrop)="onItemDropInDone($event)">
+                                    <h4 class="title">{{'Done' | translate}}
+                                        <span class="count">{{ showsObject['Done']?showsObject['Done'].length:0 }}</span>
+                                    </h4>
+                                    <div draggable class="card" *ngFor="let show of showsObject['Done'] |showSearch:searchText:searchList" [dragData]="show">
+                                        <div class="card-box cardInfoSec">
+                                            <div class="spInfoContainer">
+                                                <div class="spInfo">
+                                                    <h4 class="">{{ show.title }}</h4>
+                                                    <p class="client-position"> </p>
+                                                    <span class="badge">{{show.pendingProjects?show.pendingProjects:''}}</span>
+                                                </div>
+                                                <div class="showbannerImg" *ngIf="show.document">
+                                                        <img [src]="show.document.url" alt=""/>
+                                                 </div>
+                                            </div>
+                                        </div>
+                                        <a href="javascript:void(0)" class="goBtn" (click)="goToDetails(show.id)">
+                                            <i class="fa fa-chevron-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,339 @@
+<!--     Spinner component-->
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner>
+ 
+
+<div class="edit-equipment project-Budgeting project-invoice open-side-modal">
+
+    <div class="filter-header">
+        <div class="container-fluid pad-0">
+            <h1 class="title">{{'Invoicing' | translate}}
+                <!-- <span>{{projectDetail.title}}</span> -->
+            </h1>
+            <div class="button-set">
+                <button class="btn btn-edit"> {{'Edit' | translate}} </button>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="inner-content">
+        <div class="equipment-info-content">
+            <ul class="equipment-current-status">
+                <li class="inProgress">
+                    <h5 class="name">{{'In Progess' | translate}}
+                        <span class="subName">{{'Project status' | translate}}</span>
+                    </h5>
+                </li>
+                <li class="approved">
+                    <h5 class="name">{{'Approved' | translate}}
+                        <span class="subName">{{'Financial status' | translate}}</span>
+                    </h5>
+                </li>
+                <li>
+                    <div class="team-name">
+                        <h5 class="name">{{'TEAM-74' | translate}}
+                            <span class="subName">{{'NR23775544' | translate}}</span>
+                        </h5>
+                    </div>
+                </li>
+                <li>
+                    <h5 class="name">{{'Audrey Han' | translate}}
+                        <span class="subName">{{'Managed By' | translate}}</span>
+                    </h5>
+                </li>
+                <li>
+                    <h5 class="name">{{'NRCS' | translate}}
+                        <span class="subName">{{'Origin' | translate}}</span>
+                    </h5>
+                </li>
+
+                <li>
+                    <h5 class="name">{{'News Dpt' | translate}}
+                        <span class="subName">{{'Company' | translate}}</span>
+                    </h5>
+                </li>
+                <li>
+                    <h5 class="name">{{'US$' | translate}}
+                        <span class="subName">{{'Currency' | translate}}</span>
+                    </h5>
+                </li>
+                <li>
+                    <h5 class="name">{{'Eng' | translate}}
+                        <span class="subName">{{'Language' | translate}}</span>
+                    </h5>
+                </li>
+                <!-- <li class="text-right">
+
+                    <div class="equipment-on">
+                        <img alt="" src="../../assets/img/lg-market-place.png">
+                        <label class="switch">
+                            <input type="checkbox" disabled [(ngModel)]="equipmentDetail.marketplace">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="equipment-on pull-left">
+                        <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                        <label class="switch">
+                            <input type="checkbox" disabled [(ngModel)]="equipmentDetail.available">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </li> -->
+            </ul>
+        </div>
+
+        <div class="row">
+
+            <!-- BOOKING DETAILS -->
+            <div class="col-lg-12 col-md-12">
+                <div class="grid bookingTable">
+                    <div class="grid-body">
+                        <div class="table-responsive">
+                            <table class="table text-center common-Table">
+                                <thead>
+                                    <tr>
+                                        <th colspan="5">{{'Billable items' | translate}}
+                                            <!-- <div class="filter">
+                                                <div class="filter-search">
+                                                    <input type="text" class="input-search" placeholder="Search...">
+                                                    <i class="fa fa-search"></i>
+                                                </div>
+                                            </div> -->
+                                        </th>
+                                        <th class="text-right">{{'Price' | translate}}</th>
+                                        <th class="text-center width-150">
+                                            <button type="button" class="btn btn-first btn-New ripple">{{'Budget' | translate}}</button>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-left">
+                                            <h5 class="name">{{'Post Prod ' | translate}}
+                                                <span class="subName">{{'Edit Suite ' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <h5 class="name" >{{'1' | translate}}
+                                                <span class="subName">{{'x' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <h5 class="name" >{{'4' | translate}}
+                                                <span class="subName">{{'day' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <h5 class="name" >{{'13/02/2019  ' | translate}}
+                                                <span class="subName">{{'9:00AM ' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <h5 class="name" >{{'13/02/2019  ' | translate}}
+                                                <span class="subName">{{'13/02/2019  ' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                        <td class="text-right">
+                                            <h5 class="name">{{'$ 1000' | translate}}
+                                                <span class="subName">{{'$ 723 ' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                        <td class="width-150 text-center">
+                                          <span class="chkOpt">
+                                            <span class="checkbox m-0">
+                                                <input formcontrolname="feedByUrl" id="a1" type="checkbox" value="1" ng-reflect-name="feedByUrl" class="ng-valid ng-dirty ng-touched">
+                                                <label class="chk" for="a1"></label>
+                                                <label _ngcontent-c46="" for="a1"></label>
+                                            </span>
+                                            <a href="javascript:void(0);" class="ml-10" style="position: relative;top: -5px;">
+                                                <i class="fa fa-pencil-square-o"></i>
+                                            </a>
+                                          </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">
+                                            <h5 class="name">{{'Post Prod ' | translate}}
+                                                <span class="subName">{{'Edit Suite ' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <h5 class="name" >{{'1' | translate}}
+                                                <span class="subName">{{'x' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <h5 class="name" >{{'4' | translate}}
+                                                <span class="subName">{{'day' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <h5 class="name" >{{'13/02/2019  ' | translate}}
+                                                <span class="subName">{{'9:00AM ' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <h5 class="name" >{{'13/02/2019  ' | translate}}
+                                                <span class="subName">{{'13/02/2019  ' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                        <td class="text-right">
+                                            <h5 class="name">{{'$ 1000' | translate}}
+                                                <span class="subName">{{'$ 723 ' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                        <td class="width-150 text-center">
+                                          <span class="chkOpt">
+                                            <span class="checkbox m-0">
+                                                <input formcontrolname="feedByUrl" id="a1" type="checkbox" value="1" ng-reflect-name="feedByUrl" class="ng-valid ng-dirty ng-touched">
+                                                <label class="chk" for="a1"></label>
+                                                <label for="a1"></label>
+                                            </span>
+                                            <a href="javascript:void(0);" class="ml-10" style="position: relative;top: -5px;">
+                                                <i class="fa fa-pencil-square-o"></i>
+                                            </a>
+                                          </span>
+                                        </td>
+                                    </tr>
+                                    <tr >
+                                        <td class="text-left">
+                                            <h5 class="name">{{'Post Prod ' | translate}}
+                                                <span class="subName">{{'Edit Suite ' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <h5 class="name" >{{'1' | translate}}
+                                                <span class="subName">{{'x' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <h5 class="name" >{{'4' | translate}}
+                                                <span class="subName">{{'day' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <h5 class="name" >{{'13/02/2019  ' | translate}}
+                                                <span class="subName">{{'9:00AM ' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <h5 class="name" >{{'13/02/2019  ' | translate}}
+                                                <span class="subName">{{'13/02/2019  ' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                        <td class="text-right">
+                                            <h5 class="name">{{'$ 1000' | translate}}
+                                                <span class="subName">{{'$ 723 ' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                        <td class="width-150 text-center">
+                                          <span class="chkOpt">
+                                            <span class="checkbox m-0">
+                                                <input formcontrolname="feedByUrl" id="a1" type="checkbox" value="1" ng-reflect-name="feedByUrl" class="ng-valid ng-dirty ng-touched">
+                                                <label class="chk" for="a1"></label>
+                                                <label for="a1"></label>
+                                            </span>
+                                            <a href="javascript:void(0);" class="ml-10" style="position: relative;top: -5px;">
+                                                <i class="fa fa-pencil-square-o"></i>
+                                            </a>
+                                          </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <!-- Amount PANEL -->
+            <div class="col-lg-4">
+                <div class="grid">
+                    <div class="grid-body">
+                        <div class="table-responsive">
+                            <table class="table common-Table">
+                                <thead>
+                                    <tr>
+                                        <th>{{'Amount' | translate}}</th>
+                                        <th>&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-left"><h5 class="name"> {{'Sub Total ' | translate}}</h5></td>
+                                        <td class="text-right"><h5 class="name"> {{' $ 1800' | translate}}</h5></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left"><h5 class="name"> {{'Tax 10% ' | translate}}</h5></td>
+                                        <td class="text-right"><h5 class="name">{{' $ 180 ' | translate}}</h5></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left"><h5 class="name">{{' Total with Tax ' | translate}}</h5></td>
+                                        <td class="text-right"><h5 class="name">{{' $ 1980 ' | translate}}</h5></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left"><h5 class="name">{{'Amount Invoiced ' | translate}}</h5></td>
+                                        <td class="text-right"><h5 class="name">{{' $ 1980 ' | translate}}</h5></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left"><h5 class="name"> {{' Balance ' | translate}}</h5></td>
+                                        <td class="text-right"><h5 class="name"> {{' $ 0  ' | translate}}</h5></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Invoices PANEL -->
+            <div class="col-lg-4">
+                <div class="grid">
+                    <div class="grid-body">
+                        <div class="table-responsive">
+                            <table class="table common-Table">
+                                <thead>
+                                    <tr>
+                                        <th>{{'Invoices ' | translate}}</th>
+                                        <th class="text-right">
+                                            <button type="button" class="btn btn-first btn-New ripple" (click)="invoiceModal = !invoiceModal">{{'New' | translate}}</button>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <h5 class="name light-blue">{{'Invoice Down Payment : $ 1000' | translate}}
+                                                <span class="subName">{{'11/07/2018' | translate}}</span>
+                                                <span class="payment-Status">{{'P' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h5 class="name light-blue">{{'Invoice : $ 980' | translate}}
+                                                <span class="subName">{{'11/07/2018' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+      </div>
+
+    </div>
+
+</div>
+
+<!-- <app-invioce-modal *ngIf= "invoiceModal"></app-invioce-modal> -->
+
+<app-invioce-modal *ngIf="invoiceModal" (closeModalEvent)="hideInvoiceModal($event)"></app-invioce-modal>

@@ -1,0 +1,129 @@
+@import '../../../variables.scss';
+
+::ng-deep .common-modal-view {
+    // max-width:250px;
+    //min-height: 300px;
+    ::ng-deep .mat-dialog-container {
+        //border-radius: 5px;
+        padding: 0px !important;
+        overflow: inherit;
+        .mat-dialog-title {
+            background: $dark-blue;
+            padding: 5px 15px;
+            font-size: 16px;
+            color: $white-color;
+            margin: 0;
+            .close {
+                color: #d7d7d7 !important;
+                text-decoration: none;
+                float: right; 
+                &:hover {
+                    text-decoration: none;
+                    color:#000;
+                }
+                &:focus {
+                    outline :0;
+                }
+            }
+        }
+        .mat-dialog-content {
+            padding: 0 15px;
+            margin: 0 !important;
+            .added-value {
+                position: relative;
+                padding-top: 15px;
+                padding-right: 40px;
+                .dummy-input-field {
+                    position: relative;
+                    width:100%;
+                    ::ng-deep .mat-form-field-wrapper {
+                        .mat-form-field-flex {
+                            padding-left: 0px !important;
+                            .mat-form-field-infix {
+                                padding: 8px 0 !important;
+                                .mat-form-field-label-wrapper {
+                                    .mat-form-field-label {
+                                        color: #000 !important;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                .mat-form-field.mat-focused {
+                    .mat-form-field-label {
+                        color: #000 !important;
+                    }
+                    ::ng-deep .mat-form-field-ripple {
+                        background-color: #000 !important;
+                    }
+                    ::ng-deep .mat-form-field-underline {
+                        height: 1px;
+                        background-color: #000 !important;
+                    }
+                }
+                .mat-form-field-appearance-legacy { 
+                    .mat-form-field-label {
+                        color: #000 !important;
+                    }
+                    ::ng-deep .mat-form-field-underline {
+                        height: 1px;
+                        background-color: #000 !important;
+                    }
+                }
+                /*======= btn-Add ======*/
+                .btn-Add {
+                    padding: 8px 10px;
+                    border-radius: 3px;
+                    position: absolute;
+                    bottom: 20px;
+                    right: 0;
+                }
+            }
+            .added-value-content {
+                margin-bottom: 15px;
+                max-height: 80px;
+                overflow-y: auto !important;
+                .added-value {
+                    position: relative;
+                    padding-right: 20px;
+                    display: inline-block;
+                    border: 1px solid #d7d7d7;
+                    padding: 3px 25px 3px 8px;
+                    margin-right: 5px;
+                    border-radius: 20px;
+                    background: #f0f0f0;
+                    font-size: 13px;
+                    margin-bottom: 5px;
+                    label {
+                        font-weight: normal;
+                        margin-bottom: 0;
+                        vertical-align: top;
+                    }
+                    .close {
+                        position: absolute;
+                        right: 5px;
+                        top: 0px;
+                        opacity: 1;
+                        color: #999;
+                        font-size: 18px;
+                        text-decoration: none;
+                        &:hover {
+                            text-decoration: none;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+        .mat-dialog-actions {
+            justify-content: center;
+            padding: 10px 15px;
+            border-top: 1px solid #d7d7d7;
+            margin-bottom: 0px;
+            .btn-save {
+                border-radius: 20px;
+            }
+        }
+    }
+}

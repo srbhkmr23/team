@@ -1,0 +1,223 @@
+<!--MAIN HEADER -->
+<header class="header header-fixed-top">
+    <div class="navbar-menu">
+        <!--toggle-->
+        <app-sidebar-toggle></app-sidebar-toggle>
+
+        <!--Page Title Text-->
+        <h4 class="title">{{'Project Detail' | translate}}</h4>
+
+        <!--user-Img-->
+        <app-profile-pic></app-profile-pic>
+    </div>
+    
+    <!-- Sub-Menu -->
+    <!-- <div class="sub-Menu subMenu-filter">
+        <div class="search-filter">
+          <i class="fa fa-search"></i>
+          <input type="text" class="form-control input-search" placeholder="Search"/>
+        </div>
+        <span class="notepad-ico ripple"><img src="../assets/img/notepad-ico.png" alt=""/></span>
+    </div> -->
+</header>
+  
+  <!-- WRAPPER -->
+  <div id="wrapper" class="wrapper" style="padding-top:73px !important;">
+    <!--sideBar-->
+    <app-sidebar></app-sidebar>
+  
+    <!-- Main Section -->
+    <section class="main-section">
+        <!-- Add Your Content Inside -->
+        <div class="content pad-btm-50">
+  
+          <div class="usersContent personnel-edit project-Details ">
+
+              <!---->
+              <div class="mb-20">
+                  <div class="c-des">
+                      <h4 class="c-Text">
+                        <span class="c-Name">
+                            <a  href="javascript:void(0);" class="arrow"><i class="fa fa-chevron-left"></i></a>
+                            {{"Amex Apple Pay" | translate}}
+                        </span>
+
+                        <!--rightside icon start-->
+                        <span class="group-icons pull-right">
+                            <a href="javascript:void(0);" class="link-icon ripple">
+                                <i class="fa fa-ellipsis-v"></i>
+                            </a>
+                        </span>
+                        <!--rightside icon end-->
+                      </h4>
+                  </div>
+              </div>
+
+              <div class="project-Des mb-20">
+                    <div class="switch-field switch-buttons">
+                        <div>
+                            <input type="radio" id="switch_left" name="switch_2" value="yes" checked/>
+                            <label for="switch_left">{{"Actual" | translate}}</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="switch_right" name="switch_2" value="no" />
+                            <label for="switch_right">{{"Budget" | translate}}</label>
+                        </div>
+                    </div>
+                    <span class="project-status in-progress pull-right">In-progress</span>
+              </div>
+
+              <!-- Details Div -->
+              <div class="mb-20">
+                    <div class="client-Details">
+                        <ul>
+                            <li>
+                                <h5 class="name">{{'Ogilvy' | translate}}
+                                    <span class="subName">{{'David Fowler' | translate}}</span>
+                                </h5>
+                            </li>
+                            <li>
+                                <h5 class="name">{{'Amex Compaign Spring 18' | translate}}
+                                    <span class="subName">{{'Commercial' | translate}}</span>
+                                </h5>
+                            </li>
+                            <li>
+                                <h5 class="name">{{'4K / CBS' | translate}}
+                                    <span class="subName">{{'USA Version' | translate}}</span>
+                                </h5>
+                            </li>
+                            <li>
+                                <h5 class="name">{{'New York, NY' | translate}}
+                                    <span class="subName">{{'USA' | translate}}</span>
+                                </h5>
+                            </li>
+                        </ul>
+                    </div>
+              </div>
+              
+              <!-- client-Details -->
+              <div class="production-Dtl mb-20">
+                    <p class="text-center title-Text">{{'Production' | translate}}</p>
+                    <div class="client-Details pd-Details">
+                        <ul>
+                            <li class="text-center">
+                                <h5 class="name">14/03/2019
+                                    <span class="subName">{{'Due Date' | translate}}</span>
+                                </h5>
+                            </li>
+                            <li class="text-center">
+                                <h5 class="name">14/03/2019
+                                    <span class="subName">{{'PostProduction' | translate}}</span>
+                                </h5>
+                            </li>
+                            <li class="text-center">
+                                <h5 class="name">04/21/2019
+                                    <span class="subName">{{'Production' | translate}}</span>
+                                </h5>
+                            </li>
+                        </ul>
+                    </div>
+              </div>
+
+              <!-- client-Details -->
+              <div class="mb-20">
+                  <div class="table-filter-Head">
+                        <span class="calendar-Img"><img src="assets/img/calender-ico-active.png" alt=""/></span>
+                        <div class="search-filter">
+                            <i class="fa fa-search"></i>
+                            <input type="text" class="form-control input-search" placeholder="Search"/>
+                        </div>
+                        <span class="templeted"><i class="fa fa-star"></i></span>
+                  </div>
+                  <table class="table common-table table-Scroll">
+                        <!-- <thead>
+                            <tr>
+                                <th></th>
+                            </tr>
+                        </thead> -->
+                        <tbody>
+                            <tr>
+                                <td class="text-left">
+                                    <h5 class="name">{{'PostProd' | translate}}
+                                        <span class="subName">{{'Edit Suite' | translate}}</span>
+                                    </h5>
+                                </td>
+                                <td class="text-center">
+                                    <h5 class="name">
+                                        <span class="resource">{{'Room 14' | translate}}</span>
+                                        <!-- <span class="book-recource">{{'Book' | translate}}</span> -->
+                                        <span class="subName">1x5 {{'days' | translate}}</span>
+                                    </h5>
+                                </td>
+                                <td class="text-center">
+                                    <h5 class="name">04/21/18
+                                        <span class="subName">09:00 - 06:00</span>
+                                    </h5>
+                                </td>
+                                <td class="width-25 text-right">
+                                    <a href="javascript:void(0);" class="go-to-link"><i class="fa fa-angle-right"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">
+                                    <h5 class="name">{{'PostProd' | translate}}
+                                        <span class="subName">{{'GFX Talent' | translate}}</span>
+                                    </h5>
+                                </td>
+                                <td class="text-center">
+                                    <h5 class="name">
+                                        <span class="resource">{{'Peter Smith ' | translate}}</span>
+                                        <!-- <span class="book-recource">{{'Book' | translate}}</span> -->
+                                        <span class="subName">1x5 {{'days' | translate}}</span>
+                                    </h5>
+                                </td>
+                                <td class="text-center">
+                                    <h5 class="name">04/21/18
+                                        <span class="subName">09:00 - 06:00</span>
+                                    </h5>
+                                </td>
+                                <td class="width-25 text-right">
+                                    <a href="javascript:void(0);" class="go-to-link"><i class="fa fa-angle-right"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">
+                                    <h5 class="name">{{'Service' | translate}}
+                                        <span class="subName">{{'File Transfer' | translate}}</span>
+                                    </h5>
+                                </td>
+                                <td class="text-center">
+                                    <h5 class="name">
+                                        <!-- <span class="resource">Room 14</span> -->
+                                        <span class="book-recource">Book</span>
+                                        <span class="subName">1x5 {{'days' | translate}}</span>
+                                    </h5>
+                                </td>
+                                <td class="text-center">
+                                    <h5 class="name">04/21/18
+                                        <span class="subName">09:00 - 06:00</span>
+                                    </h5>
+                                </td>
+                                <td class="width-25 text-right">
+                                    <a href="javascript:void(0);" class="go-to-link"><i class="fa fa-angle-right"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                  </table>
+              </div> 
+
+          </div>
+  
+        </div>
+        <!-- /.content -->
+    </section>
+    <!-- /.main-section -->
+  </div>
+  <!-- /#wrapper -->
+  
+  <!-- MANU FOOTER -->
+  <app-footer></app-footer>
+  
+  <!-- MANU FOOTER -->
+  
+

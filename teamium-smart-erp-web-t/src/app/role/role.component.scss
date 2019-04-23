@@ -1,0 +1,16 @@
+@import '../clients/clients.component';
+@import '../../variables';
+
+.role-list {
+    .see-More {
+        text-decoration: none;
+        color: #2f6f98;
+        position: absolute;
+        right: 7px;
+        bottom: 7px;
+        cursor: pointer;
+        &:hover {
+            color: #77c5f7;
+        }
+    }
+}

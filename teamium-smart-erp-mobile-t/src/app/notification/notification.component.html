@@ -1,0 +1,110 @@
+<!--MAIN HEADER -->
+<header class="header header-fixed-top">
+    <div class="navbar-menu">
+        <!--toggle-->
+        <app-sidebar-toggle></app-sidebar-toggle>
+
+        <!--Page Title Text-->
+        <h4 class="title">{{'Notification' | translate}}</h4>
+
+        <!--user-Img-->
+        <app-profile-pic></app-profile-pic>
+    </div>
+    
+    <!-- Sub-Menu -->
+    <div class="sub-Menu">
+        <div class="search-filter">
+          <i class="fa fa-search"></i>
+          <input type="text" class="form-control input-search" placeholder="Search"/>
+        </div>
+    </div>
+</header>
+  
+  <!-- WRAPPER -->
+  <div id="wrapper" class="wrapper">
+    <!--sideBar-->
+    <app-sidebar></app-sidebar>
+  
+    <!-- Main Section -->
+    <section class="main-section">
+        <!-- Add Your Content Inside -->
+        <div class="content pad-btm-50">
+  
+          <div class="usersContent notification personnel-edit">
+
+              <div class="Notifications">
+                  <!-- cards-->
+                  <div class="card">
+                      <div class="card-header">
+                          <h4 class="title"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> {{'Notification' | translate}}
+                            <span class="timeText">{{'9m ago' | translate}}</span>
+                          </h4>
+                      </div>
+                      <div class="card-body">
+                          <div class="production-Info">
+                              <h4 class="pDuration">{{'Double Check Battery Charge' | translate}}</h4>
+                          </div>
+                      </div>
+                      <!-- <div class="card-footer">
+                          <button class="btn btn-first btn-accept ripple">Accept</button>
+                          <a href="javascript:void(0);" class="see-more mt-5">See More</a>
+                      </div> -->
+                  </div>
+                  <!-- cards end -->
+              </div>
+
+              <!-- Old Notifications -->
+              <div class="old-Notifications">
+                <h4 class="titleText">{{'Old Notifications' | translate}}</h4>
+                <!-- cards-->
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="title"><i class="fa fa-cog"></i> {{'Reminder' | translate}}
+                          <span class="timeText">{{'2days ago' | translate}}</span>
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="production-Info">
+                            <h4 class="pDuration">{{'Expenses report for Project id:1234' | translate}}</h4>
+                        </div>
+                    </div>
+                    <!-- <div class="card-footer">
+                        <button class="btn btn-first btn-accept ripple">Accept</button>
+                        <a href="javascript:void(0);" class="see-more mt-5">See More</a>
+                    </div> -->
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="title"><i class="fa fa-cog"></i> {{'Reminder' | translate}}
+                          <span class="timeText">{{'2days ago' | translate}}</span>
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="production-Info">
+                            <h4 class="pDuration">{{'Expenses report for Project id:1234' | translate}}</h4>
+                        </div>
+                    </div>
+                    <!-- <div class="card-footer">
+                        <button class="btn btn-first btn-accept ripple">Accept</button>
+                        <a href="javascript:void(0);" class="see-more mt-5">See More</a>
+                    </div> -->
+                </div>
+                <!-- cards end -->
+              </div>
+
+          </div>
+  
+        </div>
+        <!-- /.content -->
+    </section>
+    <!-- /.main-section -->
+  </div>
+  <!-- /#wrapper -->
+  
+  <!-- MANU FOOTER -->
+  <app-footer></app-footer>
+  
+  <!-- MANU FOOTER -->
+  
+

@@ -1,0 +1,81 @@
+@import '../../../variables';
+@import '../../create-function/create-function.component';
+
+.openEditTaskPopup {
+  border:1px solid #ddd;
+  margin: 0 auto;
+    .header-content {
+      padding: 15px 10px;
+      background:#2f6f98;
+      .title {
+        font-size: 20px;
+        color: #fff;
+        margin:0px;
+      }
+    }
+  }
+
+  .content-body {
+      padding: 15px;
+      .form-content {
+        .row {
+          margin-left: -10px;
+          margin-right: -10px;
+        }
+        .col-md-4,
+        .col-md-5,
+        .col-md-6,
+        .col-md-12,
+        .col-md-1,
+        .col-xs-3,
+        .col-xs-6 {
+            padding: 0 8px;
+        }
+        label {
+            color: #666;
+            font-size: 12px;
+        }
+    }
+  }
+  .content-footer {
+    border-top:1px solid #ddd;
+    padding: 15px 10px;
+  }
+
+
+.taskBookingName {
+  position: relative;
+  padding-left: 45px;
+  //width: 250px;
+  .trackIco {
+    position: absolute;
+    left: 0px;
+    top: 0;
+    .fa {
+      font-size: 42px;
+      color:#2f6f98;
+    }
+  }
+}
+
+.nbCreator {
+  position: relative;
+  padding-left: 45px;
+  label {
+    font-size: 14px;
+    color: #666;
+  }
+  .fIco {
+    position: absolute;
+    left: 0px;
+    top: 22px;
+    .fa {
+      font-size: 42px;
+      color:#2f6f98;
+    }
+  }
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}

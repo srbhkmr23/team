@@ -1,0 +1,204 @@
+<!--     Spinner component-->
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner>
+
+
+<div class="edit-equipment scheduler-page project-Budgeting invoce-details open-side-modal">
+
+    <!-- FILTER HEADER   -->
+    <div class="filter-header">
+        <div class="container-fluid pad-0">
+            <h1 class="title">{{'Invoice' | translate}}
+              <!-- <span class="projecttitle">{{'Invoice' | translate}}</span> -->
+            </h1>
+        </div>
+    </div>
+
+    <div class="inner-content">
+
+        <div class="equipment-info-content">
+            <ul class="equipment-current-status">
+                <li class="inProgress">
+                    <h5 class="name">{{'In Progess' | translate}}
+                        <span class="subName">{{'Project status' | translate}}</span>
+                    </h5>
+                </li>
+                <li class="approved">
+                    <h5 class="name">{{'Approved' | translate}}
+                        <span class="subName">{{'Financial status' | translate}}</span>
+                    </h5>
+                </li>
+                <li>
+                    <div class="team-name">
+                        <h5 class="name">{{'TEAM-74' | translate}}
+                            <span class="subName">{{'NR23775544' | translate}}</span>
+                        </h5>
+                    </div>
+                </li>
+                <li>
+                    <h5 class="name">{{'Audrey Han' | translate}}
+                        <span class="subName">{{'Managed By' | translate}}</span>
+                    </h5>
+                </li>
+                <li>
+                    <h5 class="name">{{'NRCS' | translate}}
+                        <span class="subName">{{'Origin' | translate}}</span>
+                    </h5>
+                </li>
+
+                <li>
+                    <h5 class="name">{{'News Dpt' | translate}}
+                        <span class="subName">{{'Company' | translate}}</span>
+                    </h5>
+                </li>
+                <li>
+                    <h5 class="name">{{'US$' | translate}}
+                        <span class="subName">{{'Currency' | translate}}</span>
+                    </h5>
+                </li>
+                <li>
+                    <h5 class="name">{{'Eng' | translate}}
+                        <span class="subName">{{'Language' | translate}}</span>
+                    </h5>
+                </li>
+                <!-- <li class="text-right">
+
+                    <div class="equipment-on">
+                        <img alt="" src="../../assets/img/lg-market-place.png">
+                        <label class="switch">
+                            <input type="checkbox" disabled [(ngModel)]="equipmentDetail.marketplace">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="equipment-on pull-left">
+                        <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                        <label class="switch">
+                            <input type="checkbox" disabled [(ngModel)]="equipmentDetail.available">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </li> -->
+            </ul>
+        </div>
+
+        <div class="row mb-30">
+          <div class="col-lg-12">
+              <h4 class="title">{{'Invoice' | translate}}
+                <!-- <span class="lastModifyText">{{'Invoice' | translate}}</span> -->
+              </h4>
+          </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-12">
+
+                <!-- Info In Progress -->
+                <div class="col-lg-7 col-md-12 mb-30" >
+                    <!-- <div class="callSheet-Sec text-center">
+                        <img src="../../assets/img/callsheet.JPG" alt="" class=""/>
+                    </div> -->
+
+                    <div  class='embed-responsive' style="padding-bottom:100%;">
+                        <img src="../../assets/img/pdf_logo.jpg" alt=""/>
+                    </div>
+                    <div  class='embed-responsive' style='padding-bottom:100%'>
+                        <object  type="application/pdf" id="pdfObj" target="_parent" width="320" height="240"></object>
+                    </div>
+
+                    <!-- <div  class='embed-responsive' style='padding-bottom:100%;' *ngIf="this.fileCleanUrl === undefined">
+                        <img src="../../assets/img/pdf_logo.jpg" alt=""/>
+                    </div>
+                    <div  class='embed-responsive' style='padding-bottom:100%' *ngIf="this.fileCleanUrl !== undefined">
+                        <object [data]="fileCleanUrl" type="application/pdf" id="pdfObj" target="_parent" width="320" height="240">
+                        </object>
+                    </div> -->
+
+                </div>
+
+                <!-- BOOKING DETAILS -->
+                <div class="col-lg-5 col-md-12">
+                    <!-- <div class="groupBtn-options">
+                        <button class="btn btn-first ripple" type="button">Notify</button>
+                        <button class="btn btn-first ripple ml-20" type="button">Email</button>
+                        <button class="btn btn-first ripple ml-20" type="button">Print</button>
+                    </div> -->
+
+                    <!-- Contact -->
+                    <div class="">
+                        <div class="table-responsive">
+                            <table class="table text-center common-Table">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <span class="pull-left">{{'Contacts' | translate}}</span>                                                
+                                        </th>
+                                        <th class="text-center">
+                                            &nbsp;
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr >
+                                        <th>{{'Moin Shifu' | translate}}</th>
+                                        <th class="text-right"><button class="btn btn-first printBtn ripple" >{{'Print' | translate}}</button></th>
+                                    </tr>
+                                    <tr>
+                                        <th>{{'Moin Shifu' | translate}}</th>
+                                        <th class="text-right"><button class="btn btn-first printBtn ripple"  >{{'Print' | translate}}</button></th>
+                                    </tr>
+                                    <tr >
+                                        <th>{{'Moin Shifu' | translate}}</th>
+                                        <th class="text-right"><button class="btn btn-first printBtn ripple"  >{{'Print' | translate}}</button></th>
+                                    </tr>
+                                    <tr >
+                                        <th>{{'Moin Shifu' | translate}}</th>
+                                        <th class="text-right"><button class="btn btn-first printBtn ripple"  >{{'Print' | translate}}</button></th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- invoices-sec -->
+                    <div class="invoices-sec">
+                      <ul class="pdf-list-view">
+                        <li>
+                            <p class="dateNtime">{{'15/02/19, 5:13 PM' | translate}}</p>
+                            <div class="pdf-Div">
+                                <img src="../../assets/img/pdf_logo.jpg" alt=""/>
+                                <p class="pdfName">{{'Pdf-4..' | translate}}</p>
+                            </div>
+                        </li>
+                        <li>
+                            <p class="dateNtime">{{'15/02/19, 5:13 PM' | translate}}</p>
+                            <div class="pdf-Div">
+                                <img src="../../assets/img/pdf_logo.jpg" alt=""/>
+                                <p class="pdfName">{{'Pdf-4..' | translate}}</p>
+                            </div>
+                        </li>
+                        <li>
+                            <p class="dateNtime">{{'15/02/19, 5:13 PM' | translate}}</p>
+                            <div class="pdf-Div">
+                                <img src="../../assets/img/pdf_logo.jpg" alt=""/>
+                                <p class="pdfName">{{'Pdf-4..' | translate}}</p>
+                            </div>
+                        </li>
+                        <li>
+                            <p class="dateNtime">{{'15/02/19, 5:13 PM' | translate}}</p>
+                            <div class="pdf-Div">
+                                <img src="../../assets/img/pdf_logo.jpg" alt=""/>
+                                <p class="pdfName">{{'Pdf-4..' | translate}}</p>
+                            </div>
+                        </li>
+                      </ul>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+

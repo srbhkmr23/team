@@ -1,0 +1,59 @@
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner> 
+<div  class="modal fade in" style="display:block;background: rgba(0, 0, 0, 0.6);">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content mdlUpdateConfig mdlConfInfo">
+            <div class="modal-header">
+                <button (click)="hideColorModal()" type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{'Color' |translate}}
+                    <!-- <p class="sub-Title">hjkhkj</p> -->
+                </h4>
+            </div>
+            <div class="modal-body">
+                <!-- tab Content Start -->
+                <div class="InfoContentSec">
+                    <div class="common-Sec">
+                        <div class="row mb-30">
+                            <div class="col-xs-6">
+                                <div class="input-row ">
+                                    <label>{{'Theme' |translate}}</label>
+                                    <input class="form-control" [value]="selectedColor" [style.background]="selectedColor" [(colorPicker)]="selectedColor" />
+                                </div>
+                            </div>
+                            <div  class="col-xs-6">
+                                <div class="input-row">
+                                    <label>&nbsp;</label>
+                                    <div class="text-left">
+                                        <button class="btn btn-first btn-plus ripple">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="colorOptionDiv">
+                            <div class="picker-samples">
+                                <div class="color-samples cs-Active" style="background: red;"></div>
+                                <div class="color-samples" style="background: yellow;"></div>
+                                <div class="color-samples" style="background: black;"></div>
+                                <div class="color-samples" style="background: grey;"></div>
+                                <div class="color-samples" style=""></div>
+                                <div class="color-samples" style=""></div>
+                                <div class="color-samples" style=""></div>
+                                <div class="color-samples">
+                                    <div class="add-icon"><i class="fa fa-plus"></i></div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                         </div>
+                    </div>
+                </div> 
+                <!-- tab Content End -->
+            </div>
+            <div class="modal-footer">
+                <button  type="button" class="btn btn-first ripple pull-left" data-dismiss="modal" style="background-color: darkred;">{{'Delete' |translate}}</button>
+                <button type="button" class="btn btn-first ripple" data-dismiss="modal">{{'Save' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>

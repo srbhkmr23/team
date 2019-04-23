@@ -1,0 +1,186 @@
+@import '../assign-to-me/assign-to-me.component';
+@import '../../variables.scss';
+
+.subMenu-filter {
+    position: relative;
+    padding-right: 35px;
+    .notepad-ico {
+        position: absolute;
+        top: 3px;
+        right:0;
+        img {
+            width: 30px;
+        }
+    }
+}
+.personnel-edit {
+    // ======= Client ====== //
+    .c-des {
+        border-bottom: 1px solid $lite-color;
+        padding-bottom: 10px;
+        .c-Text {
+            margin: 0;
+            font-weight: normal;
+            .arrow {
+                margin-right: 5px;
+                position: relative;
+                top: -1px;
+                .fa {
+                    font-size: 13px;
+                    color: $dark-blue;
+                }
+            }
+            .c-Name {
+                font-size: 18px;
+                width: 195px;
+                display: inline-block;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+            }
+
+            // ============ //
+            .group-icons {
+                .link-icon {
+                    display: inline-block;
+                    width: 25px;
+                    //margin-left: 10px;
+                    img {
+                        width:100%;
+                    }
+                }
+            }
+        }
+    }
+
+    //======= client-status =======//
+    .client-status {
+        position: relative;
+        padding: 15px 0px 15px 50px;
+        min-height: 50px;
+        .user-Img {
+            width: 44px;
+            height: 44px;
+            img {
+                border: 1px solid #ddd;
+                border-radius: 50%;
+                width:100%;
+                height:100%;
+            }
+        }
+        & .img-position {
+            position: absolute;
+            top:3px;
+            left:0;
+        }
+        .title {
+            margin-top: 0;
+            margin-bottom: 0;
+            .user-text {
+                font-size: 16px;
+                font-weight: normal;
+            }
+            .add-link {
+                float: right;
+                text-decoration: none;
+                background: $white-color;
+                padding: 4px 4px;
+                box-shadow: 0px 0px 10px #ccc;
+                border-radius: 50%;
+                width: 23px;
+                height: 23px;
+                text-align: center;
+                vertical-align: middle;
+                position: relative;
+                top: -2px;
+                color: $dark-color3;
+            }
+        }
+    }
+
+    .function-Div {
+        //=== add-more ===//
+        .add-more {
+            margin: 0;
+            margin-bottom: 10px;
+            text-align: right;
+            a {
+                font-size: 12px;
+                text-decoration: none;
+                background: $dark-blue;
+                color: $white-color;
+                border-radius: 20px;
+                padding: 5px 8px;
+                min-width: 100px;
+                display: inline-block;
+                text-align: center;
+            }
+        }
+        //==== UL ===//
+        ul {
+            max-height: 150px;
+            overflow-y: auto;
+            li {
+                padding: 8px 10px 8px 10px !important;
+            }
+        }
+    }
+    //========= client-Details ========//
+    .client-Details {
+        border-radius: 5px;
+        border:1px solid $lite-color;
+        // ====List === //
+        ul {
+            margin: 0;
+            list-style: none;
+            padding-left: 0;
+            li {
+                min-height: 50px;
+                padding: 8px 25px 8px 8px;
+                //padding: 8px 10px;
+                border-bottom: 1px solid $lite-color;
+                display: -webkit-box;
+                display: -moz-box;
+                display: -ms-flexbox;
+                display: -webkit-flex;
+                display: flex;
+                justify-content: center;
+                -webkit-justify-content: center;
+                -moz-flex-direction: column;
+                -webkit-flex-direction: column;
+                flex-direction: column;
+                -webkit-box-orient: vertical;
+                -webkit-box-align: center;
+                -ms-flex-align: center;
+                -webkit-box-pack: center;
+                -ms-flex-pack: center;
+                transition: all 0.4s ease-in-out;
+                position: relative;
+                //=========== arrow ===========//
+                .arrow {
+                    position: absolute;
+                    top:15px;
+                    right:10px;
+                    .fa {
+                        font-size: 16px;
+                        color: $dark-color3;
+                    }
+                }
+                // ======= for star ========//
+                .rating {
+                    .checked {
+                        color: orange;
+                    }
+                }
+                .switch-toggle {
+                    position: absolute;
+                    top: 3px;
+                    right: 0;
+                }
+            }
+            & li:last-child {
+                border-bottom: 0;
+            }
+        }
+    }
+}

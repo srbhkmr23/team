@@ -1,0 +1,280 @@
+<!--     Spinner component-->
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner>
+ 
+
+<div class="equipment-list role-list">
+
+    <div class="filter-header">
+        <div class="container-fluid">
+            <h1 class="title">{{'Roles' | translate}}</h1>
+
+            <div class="filter">
+
+                <div class="filter-search">
+                    <input type="text" [(ngModel)]="searchText" class="input-search" placeholder="Search...">
+                    <i class="fa fa-search"></i>
+
+                    <a href="javascript:void(0)" id="filter-id" (click)="isfiterClicked = !isfiterClicked">
+                        {{'Filter By' |translate}}
+                        <i class="fa fa-sliders"></i>
+                    </a>
+
+                    <a href="javascript:void(0)" id="sort-id" (click)="isSortByClicked =!isSortByClicked">
+                        {{'Sort By' |translate}}
+                        <i class="fa fa-sort"></i>
+                    </a>
+
+                    <a href="javascript:void(0)" class="ml-5" (click)="addClientModal()">
+                        <i class="fa fa-plus"></i> {{'Add' |translate}}
+
+                    </a>
+                </div>
+
+                <div class="filter-box" id="filter-id" [ngClass]="!isfiterClicked ? 'hide':''">
+                    <div class="arrow"></div>
+                    <!-- <div class="filter-row" [ngClass]="!isFilterByFunctionClicked?'collapse-ul':''">
+                        <h4 class="title4" (click)="isFilterByFunctionClicked = !isFilterByFunctionClicked">Function
+                            <i class="fa fa-angle-down"></i>
+                        </h4>
+                        <ul class="chk-list ">
+
+                            <li *ngFor="let functionCheckBox of functionCheckBoxList; let i = index">
+                                <div class="checkbox">
+                                    <input type="checkbox" id={{i}} (click)="doCheckbox(functionCheckBox)">
+                                    <label for={{i}} class="chk"></label>
+                                    <label for={{i}}>{{functionCheckBox.label}}</label>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div> -->
+                    <!-- <div class="filter-row" id="filter-id" [ngClass]="!isFilterByModelClicked?'collapse-ul':''">
+
+                        <h4 class="title4" (click)="isFilterByModelClicked =!isFilterByModelClicked">Model
+                            <i class="fa fa-angle-down"></i>
+                        </h4>
+                        <ul class="chk-list ">
+
+                            <li *ngFor="let modelCheckBox of modelCheckBoxList;let modelIndex = index">
+                                <div class="checkbox">
+                                    <input type="checkbox" id={{modelCheckBox.label}}{{modelIndex}} (click)="addSelectedModelCheckbox(modelCheckBox)">
+                                    <label for={{modelCheckBox.label}}{{modelIndex}} class="chk"></label>
+                                    <label for={{modelCheckBox.label}}{{modelIndex}}>{{modelCheckBox.label}}</label>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div> -->
+                    <!-- <div class="filter-row" id="filter-id" [ngClass]="!isFilterByLocationClicked?'collapse-ul':''">
+                        <h4 class="title4" (click)="isFilterByLocationClicked =!isFilterByLocationClicked">Location
+                            <i class="fa fa-angle-down"></i>
+                        </h4>
+                        <ul class="chk-list ">
+
+                            <li *ngFor="let location of locationCheckBoxList;let locationIndex =index">
+                                <div class="checkbox">
+                                    <input type="checkbox" id={{locationIndex}}{{location.label}} (click)='addSelectedLocationCheckbox(location)'>
+                                    <label for={{locationIndex}}{{location.label}} class="chk"></label>
+                                    <label for={{locationIndex}}{{location.label}}>{{location.label}}</label>
+                                </div>
+                            </li>
+
+
+                        </ul>
+                    </div> -->
+
+                    <div class="filter-row" [ngClass]="!isFilterByFunctionClicked?'collapse-ul':''">
+                        <h4 class="title4" (click)="isFilterByFunctionClicked = !isFilterByFunctionClicked">{{'Category' |translate}}
+                            <i class="fa fa-angle-down"></i>
+                        </h4>
+                        <ul class="chk-list ">
+
+                            <li *ngFor="let domain of dropdownData.domain; let i = index">
+                                <div class="checkbox">
+                                    <input type="checkbox" id={{i}} [checked]="selectedDomainCheckBoxList.indexOf(domain)>=0"  (click)="onFilter(domain,'domain')">
+                                    <label for={{i}} class="chk"></label>
+                                    <label for={{i}}>{{domain}}</label>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div> 
+
+                    <div class="filter-row" id="filter-id" [ngClass]="!isFilterByModelClicked?'collapse-ul':''">
+    
+                        <h4 class="title4" (click)="isFilterByModelClicked =!isFilterByModelClicked">{{'Country' |translate}}
+                            <i class="fa fa-angle-down"></i>
+                        </h4>
+                        <ul class="chk-list ">
+
+                            <li *ngFor="let country of dropdownData.countryList;let countryIndex = index">
+                                <div class="checkbox">
+                                    <input type="checkbox" id={{country}}{{countryIndex}} [checked]="selectedCountryCheckBoxList.indexOf(country)>=0" (click)="onFilter(country,'country')">
+                                    <label for={{country}}{{countryIndex}} class="chk"></label>
+                                    <label for={{country}}{{countryIndex}}>{{country}}</label>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div> 
+
+                    <div class="filter-row" id="filter-id" [ngClass]="!isFilterByLocationClicked?'collapse-ul':''">
+                        <h4 class="title4" (click)="isFilterByLocationClicked =!isFilterByLocationClicked">{{'Location' |translate}}
+                            <i class="fa fa-angle-down"></i>
+                        </h4>
+                        <ul class="chk-list ">
+
+                            <li *ngFor="let city of dropdownData.cities;let cityIndex =index">
+                                <div class="checkbox">
+                                    <input type="checkbox" id={{cityIndex}}{{city}} [checked]="selectedCityCheckBoxList.indexOf(city)>=0" (click)="onFilter(city,'city')">
+                                    <label for={{cityIndex}}{{city}} class="chk"></label>
+                                    <label for={{cityIndex}}{{city}}>{{city}}</label>
+                                </div>
+                            </li>
+
+
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="filter-box" id="sort-id" [ngClass]="!isSortByClicked ? 'hide':''" style="left: 160px;">
+                    <div class="arrow"></div>
+                    <ul class="chk-list " style="height:auto;">
+
+                        <!-- <li>
+                            <div (click)="sort('model')" [ngClass]="(sortBy=='model'&&sortValue== 1)?'sort':''">
+                                <i class="fa fa-sort" aria-hidden="true"></i>
+                                <label for='model' class="chk" style="margin-left:10px"></label>
+                                <label for='model'>Model</label>
+                            </div>
+                        </li> -->
+                        <!-- <li>
+                            <div (click)="sort('location')" [ngClass]="(sortBy=='location'&&sortValue== 1)?'sort':''">
+                                <i class="fa fa-sort " aria-hidden="true"></i>
+                                
+                                <label for='location' class="chk" style="margin-left:10px"></label>
+                                <label for='location'>Location</label>
+                            </div>
+                        </li> -->
+
+                        <li>
+                            <div (click)="sort('name')" [ngClass]="(sortBy=='name'&&sortValue== 1)?'sort':''">
+                                <i class="fa fa-sort " aria-hidden="true"></i>
+                                <!-- <input type="radio" id='location'  (click)="sortBy='location'" name="sort"> -->
+                                <label for='name' class="chk" style="margin-left:10px"></label>
+                                <label for='name'>{{'Client Name' |translate}}</label>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div (click)="sort('profile')" [ngClass]="(sortBy=='profile'&&sortValue== 1)?'sort':''">
+                                <i class="fa fa-sort" aria-hidden="true"></i>
+                                <!-- <i class="fa fa-angle-up" aria-hidden="true"></i> -->
+                                <!-- <input type="radio" id='model' (click)="sortBy='model'" name="sort"> -->
+                                <label for='profile' class="chk" style="margin-left:10px"></label>
+                                <label for='profile'>{{'Category' |translate}}</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div (click)="sort('country')" [ngClass]="(sortBy=='country'&&sortValue== 1)?'sort':''">
+                                <i class="fa fa-sort" aria-hidden="true"></i>
+                                <!-- <i class="fa fa-angle-up" aria-hidden="true"></i> -->
+                                <!-- <input type="radio" id='model' (click)="sortBy='model'" name="sort"> -->
+                                <label for='country' class="chk" style="margin-left:10px"></label>
+                                <label for='country'>{{'Country' |translate}}</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div (click)="sort('city')" [ngClass]="(sortBy=='city'&&sortValue== 1)?'sort':''">
+                                <i class="fa fa-sort" aria-hidden="true"></i>
+                                <!-- <i class="fa fa-angle-up" aria-hidden="true"></i> -->
+                                <!-- <input type="radio" id='model' (click)="sortBy='model'" name="sort"> -->
+                                <label for='city' class="chk" style="margin-left:10px"></label>
+                                <label for='city'>{{'Location' |translate}}</label>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="smallToLarge">
+
+        <div class="card-list-content">
+            <div class="row">
+
+                <div class="col-md-4 col-sm-6">
+                    <div class="card">
+                        <div class="card-box cls-popover" (click)="clickEvent(client)">
+                            <span class="see-More">{{'See More' | translate}}</span>
+                            <div class="spImg">
+                                <img src="../assets/img/image_icon.png">
+                            </div>
+                            <div class="spInfoContainer">
+                                
+                                <div class="spInfo">
+                                    <h4 class="">{{'Admin' | translate}}</h4>
+                                    <p class="client-position">Booking</p>
+                                    <p class="client-position">Budget</p>
+                                    <p class="client-position">Project Scheduling</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6">
+                    <div class="card">
+                        <div class="card-box cls-popover" (click)="clickEvent(client)">
+                            <span class="see-More">{{'See More' | translate}}</span>
+                            <div class="spImg">
+                                <img src="../assets/img/image_icon.png">
+                            </div>
+                            <div class="spInfoContainer">
+                                
+                                <div class="spInfo">
+                                    <h4 class="">{{'ITManager' | translate}}</h4>
+                                    <p class="client-position">Booking</p>
+                                    <p class="client-position">Budget</p>
+                                    <p class="client-position">Project Scheduling</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6">
+                    <div class="card">
+                        <div class="card-box cls-popover" (click)="clickEvent(client)">
+                            <span class="see-More">{{'See More' | translate}}</span>
+                            <div class="spImg">
+                                <img src="../assets/img/image_icon.png">
+                            </div>
+                            <div class="spInfoContainer">
+                                
+                                <div class="spInfo">
+                                    <h4 class="">{{'Human Resource' | translate}}</h4>
+                                    <p class="client-position">Booking</p>
+                                    <p class="client-position">Budget</p>
+                                    <p class="client-position">Project Scheduling</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    
+</div>
+
+
+<app-create-role *ngIf="showSaveClientModal" [selectedClient]="selectedClient" (closeModalEvent)="editClientModal($event)"></app-create-role>
+<app-delete-confirm-modal *ngIf="showDeleteModal" [componentName]="componentName" (deleteDataEvent)="deleteClient($event)" (closeModalEvent)="closeDeleteConfirmModal($event)"></app-delete-confirm-modal>

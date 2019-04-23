@@ -1,0 +1,308 @@
+<!--     Spinner component-->
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner>
+
+
+<app-create-project-budgeting *ngIf="showEditProjectModal" (closeModalEvent)="closeModal($event)" [projectDetail]="projectDetail" [isApproved]="this.projectDetail.financialStatus==='Approved'"></app-create-project-budgeting>
+<div class="edit-equipment scheduler-page project-Budgeting open-side-modal" *ngIf="projectDetail">
+
+    <!-- FILTER HEADER   -->
+    <div class="filter-header">
+        <div class="container-fluid pad-0">
+            <h1 class="title">{{callsheetTitle}}&nbsp;&nbsp;&nbsp;&nbsp;<span class="projecttitle">{{projectTitle}}</span></h1>
+        </div>
+    </div>
+
+    <div class="inner-content">
+        <div class="equipment-info-content">
+            <ul class="equipment-current-status">
+                <li [ngClass]="projectDetail.status=='In Progress'?'inProgress':projectDetail.status=='To Do' ||  projectDetail.status=='Archived'?'rejected':'approved'">
+                    <h5 class="name">{{projectDetail.status |translate}}
+                        <span class="subName">{{'Project status' |translate}}</span>
+                    </h5>
+                </li>
+                <li [ngClass]="projectDetail.financialStatus=='Approved'?'approved':projectDetail.financialStatus=='Rejected'?'rejected':'inProgress'">
+                    <h5 class="name">{{projectDetail.financialStatus |translate}}
+                        <span class="subName">{{'Financial status' |translate}}</span>
+                    </h5>
+                </li>
+                <li>
+                    <div class="team-name">
+                        <h5 class="name">{{projectDetail.referenceInternal |translate}}
+                            <span class="subName">{{'Internal Refrence' |translate}}</span>
+                        </h5>
+                    </div>
+                </li>
+                <li>
+                    <h5 class="name">{{projectDetail.follower&&projectDetail.follower.firstName?projectDetail.follower.firstName:''}} {{projectDetail.follower&&projectDetail.follower.lastName?projectDetail.follower.lastName:''}}
+                        <span class="subName">{{'Managed By' |translate}}</span>
+                    </h5>
+                </li>
+                <li>
+                    <h5 class="name">{{projectDetail.origin |translate}}
+                        <span class="subName">{{'Origin' |translate}}</span>
+                    </h5>
+                </li>
+
+                <li>
+                    <h5 class="name">{{projectDetail.saleEntity?projectDetail.saleEntity.name:''}}
+                        <span class="subName">{{'Company' | translate}}</span>
+                    </h5>
+                </li>
+                
+                <li>
+                    <h5 class="name">{{projectDetail.language}}
+                        <span class="subName">{{'Language' | translate}}</span>
+                    </h5>
+                </li>
+                <!-- <li class="text-right">
+
+                    <div class="equipment-on">
+                        <img alt="" src="../../assets/img/lg-market-place.png">
+                        <label class="switch">
+                            <input type="checkbox" [(ngModel)]="equipmentDetail.marketplace">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="equipment-on pull-left">
+                        <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                        <label class="switch">
+                            <input type="checkbox" [(ngModel)]="equipmentDetail.available">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </li> -->
+            </ul>
+        </div>
+
+        <div class="row mb-30">
+          <div class="col-lg-12">
+              <h4 class="title">{{callsheetTitle}} <span class="lastModifyText"></span></h4>
+          </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-12">
+
+                <!-- Info In Progress -->
+                <div class="col-lg-7 col-md-12 mb-30" >
+                    <!-- <div class="callSheet-Sec text-center">
+                        <img src="../../assets/img/callsheet.JPG" alt="" class=""/>
+                    </div> -->
+                    <div  class='embed-responsive' style='padding-bottom:100%;' *ngIf="this.fileCleanUrl === undefined">
+                        <img src="../../assets/img/pdf_logo.jpg" alt=""/>
+                    </div>
+                    <div  class='embed-responsive' style='padding-bottom:100%' *ngIf="this.fileCleanUrl !== undefined">
+                            <object [data]="fileCleanUrl" type="application/pdf" id="pdfObj" target="_parent" width="320" height="240">
+                            </object>
+                        </div>
+                </div>
+
+                <!-- BOOKING DETAILS -->
+                <div class="col-lg-5 col-md-12">
+                    <!-- <div class="groupBtn-options">
+                        <button class="btn btn-first ripple" type="button">Notify</button>
+                        <button class="btn btn-first ripple ml-20" type="button">Email</button>
+                        <button class="btn btn-first ripple ml-20" type="button">Print</button>
+                    </div> -->
+                    <div class="grid bookingTable">
+                        <div class="grid-body">
+                            <div class="table-responsive">
+                                <table class="table text-center common-Table" *ngIf = "this.page !== 'purchase-order'">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <span class="pull-left">{{'Contacts' | translate}}</span>                                                
+                                            </th>
+                                            <th class="text-center">
+                                                &nbsp;
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let line of contactDetail ; let i = index;" [ngStyle]="{'background':selectedLine? (selectedLine.id===line.id ? '#c5e8ec' : ''):line.disabled? '#f4d7d7' :'' }" [ngClass]="pdfPrintContact[i]?'active':''" >
+                                            <th>{{line.firstName?line.firstName:""}}&nbsp;{{line.lastName?line.lastName:""}}</th>
+                                            <th  class="text-right"><button class="btn btn-first printBtn ripple" (click)="pdfOnClick(line.id, i)">Print</button></th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                                <!-- Order Table -->
+                            <div class="table-responsive">
+                                <table class="table text-center common-Table" *ngIf = "this.page === 'purchase-order'">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="3">
+                                                <span class="pull-left">{{'Orders' | translate}}</span>                                                
+                                            </th>
+                                            <th class="text-center">
+                                                &nbsp;
+                                            </th>                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let line of orderLists; let i = index;" [ngStyle]="{'background':selectedLine? (selectedLine.id===line.id ? '#c5e8ec' : ''):line.disabled? '#f4d7d7' :'' }" [ngClass]="pdfPrintOrder[i]?'active':''">
+                                            <td class="text-left"><h5 class="name">{{line.company?line.company.name:""}}</h5></td>
+                                            <td class="text-center">
+                                                <h5 class="name">{{line.totalPrice}}
+                                                    <span class="subName total">{{'Price' | translate}}</span>
+                                                </h5>
+                                            </td>
+                                            <td class="text-center">
+                                                <select class="form-control contactSelect" [(ngModel)]="contactId[i]">
+                                                    <option value="undefined">{{'Select Contact' | translate}}</option>
+                                                    <option [ngValue]="contact.id" *ngFor="let contact of line.company.contacts">{{contact.firstName}}&nbsp;{{contact.lastName}}</option>
+                                                </select>
+                                            </td>
+                                            <td class="text-center"><button class="btn btn-first ripple" (click)="pdfOnClick(line.id, i)">{{'Print' | translate}}</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                                <!-- Sinature Table -->
+                            <div class="table-responsive">
+                                <table class="table text-center common-Table">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <span class="pull-left" style="position:relative;top:5px;">{{'Signature' | translate}}</span>
+                                                <a title="Add Lines" href="javscript:void(0)" class="addCatalog-tag" *ngIf="!bookingExist" (click)="showAddLineModalView();isEditLineModalOpen=false">
+                                                    <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+                                                </a>
+                                            </th>
+                                            <th class="text-center">
+                                                &nbsp;
+                                            </th>
+                                            <th class="text-center">
+                                                {{'Approved' | translate}}
+                                            </th>
+                                            <th class="text-center">
+                                                {{'Rejected' | translate}}
+                                            </th>
+                                            <th class="text-center" style="width:50px;">
+                                                &nbsp;
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let line of projectDetail.lines|lineSearch:searchText,let i of index" [ngStyle]="{'background':selectedLine? (selectedLine.id===line.id ? '#c5e8ec' : ''):line.disabled? '#f4d7d7' :'' }" >
+                                            <td class="text-left">
+                                                <h5 class="name">{{line.function && line.function.parent? line.function.parent.value:''}}
+                                                    <span class="subName">{{line.function?line.function.value:''}}</span>
+                                                </h5>
+                                            </td>
+                                            <td>
+                                                <h5 class="name" >{{ line.from | date:"MM/dd/yy"}}
+                                                    <span class="subName">{{line.from| date:"shortTime"}}</span>
+                                                </h5>
+                                                <!-- <button class="btn btn-edit reminderBtn">Reminder</button> -->
+                                            </td>
+                                            <td class="text-center">
+                                                <span class="checkbox inline-block m-0">
+                                                    <input type="checkbox" id="1">
+                                                    <label class="chk" for="1"></label>
+                                                    <label for="1"></label>
+                                                </span>
+                                            </td>
+                                            <td class="text-center">
+                                                <span class="checkbox inline-block m-0">
+                                                    <input type="checkbox" id="2">
+                                                    <label class="chk" for="2"></label>
+                                                    <label for="2"></label>
+                                                </span>
+                                            </td>
+                                            <td class="text-center" style="width:50px;">
+                                                <a href="javascript:void(0);" class="approved-ico" (click)="showLineEditModal(line)">
+                                                    <i class="fa fa-check"></i>
+                                                </a>
+                                                <!-- <a href="javascript:void(0);" class="reminder-ico " (click)="showLineEditModal(line)">
+                                                    <i class="fa fa-check"></i>
+                                                </a> -->
+                                            </td>
+
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="booking-add-on" *ngIf="page=='booking'">
+                                <div class="location" *ngIf="tab != 'production-statement'">
+                                    <div class="title">{{'Location' | translate}}</div>
+                                    <input type="text" [(ngModel)]="location">
+                                </div>
+                                <div class="editor">
+                                    <div class="title">{{'Organization' | translate}}</div>
+
+                                    <!-- <p-editor (onTextChange)="getText($event)" [style]="{'height':'320px'}">
+                                    </p-editor> -->
+                                    <p-editor (onTextChange)="getText($event)" [style]="{'height':'320px'}">
+                                        <p-header>
+                                            <span class="ql-formats">
+                                                <select class="ql-size">
+                                                <option value="small">{{'Petit' | translate}}</option>
+                                                <option selected></option>
+                                                <option value="large">{{'Sous-titre' | translate}}</option>
+                                                <option value="huge">{{'Titre' | translate}}</option>
+                                                </select>
+                                            </span>
+                                            <span class="ql-formats">
+                                                <select class="ql-font">
+                                                        <option selected="">{{'Sans Serif' | translate}}</option>
+                                                        <option value="serif">{{'Serif' | translate}}</option>
+                                                        <option value="monospace">{{'Monospace' | translate}}</option>
+                                                </select>
+                                            </span>
+                                            
+                                            <span class="ql-formats">
+                                                <button class="ql-bold" aria-label="Bold"></button>
+                                                <button class="ql-italic" aria-label="Italic"></button>
+                                                <button class="ql-underline" aria-label="Underline"></button>
+                                                <!-- <button class="ql-strike" aria-label="Strike"></button> -->
+                                            </span>
+                                            <span class="ql-formats">
+                                                <select title="Text Color" class="ql-color" defaultValue="rgb(0, 0, 0)">
+                                                <option value="rgb(0, 0, 0)" label="rgb(0, 0, 0)"></option>
+                                                ...
+                                                <option value="rgb(61, 20, 102)" label="rgb(61, 20, 102)"></option>
+                                                </select>
+                                                <span class="ql-format-separator"></span>
+                                                <select title="Background Color" class="ql-background" defaultValue="rgb(255, 255, 255)">
+                                                <option value="rgb(0, 0, 0)" label="rgb(0, 0, 0)"></option>
+                                                ...
+                                                <option value="rgb(61, 20, 102)" label="rgb(61, 20, 102)"></option>
+                                                </select>
+                                            </span>
+                                            <span class="ql-formats">
+                                                <button class="ql-list" title="List" value="ordered"></button>
+                                                <button class="ql-list" title="Bullet" value="bullet"></button>
+                                                <!-- <select title="Text Alignment" class="ql-align" >
+                                                <option selected>Gauche</option>
+                                                <option value="center" label="Center"></option>
+                                                <option value="right" label="Right"></option>
+                                                <option value="justify" label="Justify"></option>
+                                                </select>             -->
+                                            </span> 
+                                            <!-- <span class="ql-formats">
+                                                <button aria-label="Link" class="ql-link"></button>
+                                                <button aria-label="Image" class="ql-image"></button>
+                                            </span> -->
+                                            </p-header>
+                                    </p-editor>
+                                </div>
+                                <div class="comments">
+                                    <div class="title">{{'Comments' | translate}}</div>
+                                    <textarea type="text" [(ngModel)]="comment"></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

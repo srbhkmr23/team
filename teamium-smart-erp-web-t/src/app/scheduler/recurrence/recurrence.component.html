@@ -1,0 +1,118 @@
+<!-- <daypilot-modal> -->
+
+
+    <div id="myModal" class="modal in fade add-personnel-modal" style="display: block;" *ngIf='isShow'>
+        <div class=" modal-dialog modal-md">
+      
+          <!-- Modal content-->
+          <div class="modal-content openEditTaskPopup">
+            <div class="modal-header ">
+              <button type="button " class="close " data-dismiss="modal" (click)="cancel()"> &times;</button>
+              <h4 class="title">{{'Recurrence Event' | translate}}</h4>
+      
+            </div>
+            <div class="modal-body">
+              <div class="create-personnel content-body">
+                <div class="">
+      
+                  <!-- 1 BASIC INFORMATION -->
+      
+                  <form [formGroup]="form">
+      
+                    <div class="row mb-12">
+                      <div class="col-md-6">
+                        <div class="input-row ">
+                          <label>{{'Start' | translate}}</label>
+                          <p-calendar formControlName="start"></p-calendar>
+                          <span *ngIf="errorStart" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{errorStart}}</span>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-row ">
+                          <label>{{'End' | translate}}</label>
+                          <p-calendar formControlName="end"></p-calendar>
+                          <span *ngIf="errorEnd" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{errorEnd}}</span>
+                        </div>
+                      </div>
+                    </div>
+      
+                    <div class="row mb-20">
+                      <!-- Days Satrt -->
+                      <div class="col-sm-6">
+                        <div class="checkbox">
+                          <input type="checkbox" id="a1" formControlName="mon" value="1">
+                          <label class="chk" for="a1"></label>
+                          <label for="a1" style="font-weight:bold;">{{'Monday' | translate}}</label>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="checkbox">
+                          <input type="checkbox" id="a2" formControlName="tue" value="1">
+                          <label class="chk" for="a2"></label>
+                          <label for="a2" style="font-weight:bold;">{{'Tuesday' | translate}}</label>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="checkbox">
+                          <input type="checkbox" id="a3" formControlName="wed" value="1">
+                          <label class="chk" for="a3"></label>
+                          <label for="a3" style="font-weight:bold;">{{'Wednesday' | translate}}</label>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="checkbox">
+                          <input type="checkbox" id="a4" formControlName="thu" value="1">
+                          <label class="chk" for="a4"></label>
+                          <label for="a4" style="font-weight:bold;">{{'Thursday' | translate}}</label>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="checkbox">
+                          <input type="checkbox" id="a5" formControlName="fri" value="1">
+                          <label class="chk" for="a5"></label>
+                          <label for="a5" style="font-weight:bold;">{{'Friday' | translate}}</label>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="checkbox">
+                          <input type="checkbox" id="a6" formControlName="sat" value="1">
+                          <label class="chk" for="a6"></label>
+                          <label for="a6" style="font-weight:bold;">{{'Saturday' | translate}}</label>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="checkbox">
+                          <input type="checkbox" id="a7" formControlName="sun" value="1">
+                          <label class="chk" for="a7"></label>
+                          <label for="a7" style="font-weight:bold;">{{'Sunday' | translate}}</label>
+                        </div>
+                      </div>
+                      <!-- Days End -->
+                    </div>
+      
+                    <div class="row mb-12">
+                      <div class="col-sm-12">
+                        <div class="weekUpdataion">
+                          <label class="leftText">{{'Every Over' | translate}}</label>
+                          <input class="form-control text-center" type="number" id="a8" formControlName="week" value="1" />
+                          <label class="rightText">{{'Weeks' | translate}}</label>
+                        </div>
+                      </div>
+                    </div>
+      
+                  </form>
+      
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer ">
+              <div class="button-set text-center ">
+                <!-- <button class="btn btn-edit "> Skip </button> -->
+                <button class="btn btn-first ripple" [disabled]="form.invalid || errorEnd || errorStart" (click)="submit()">{{'Save' | translate}}</button>
+                <button class="btn btn-first ripple ml-10" (click)="cancel()">{{'Cancel' | translate}}</button>
+              </div>
+            </div>
+          </div>
+      
+        </div>
+      </div>

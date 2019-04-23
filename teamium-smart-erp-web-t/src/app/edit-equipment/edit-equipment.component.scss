@@ -1,0 +1,190 @@
+@import '../equipment-list/equipment-list.component';
+@import '../../variables';
+.edit-equipment,
+.equipment-package {
+    .filter-header {
+        display: table;
+        width: 100%;
+        margin-bottom: 25px;
+        border-bottom: 1px solid $lite-color;
+        padding-bottom: 15px !important;
+        //padding-bottom: 0 !important;
+        .title {
+            display: inline-block;
+            font-size: 22px;
+            margin-top: 0;
+            margin-bottom: 0;
+            span {
+                font-size: 18px;
+                margin-left: 20px;
+                color: #2f6f98;
+            }
+        }
+        .button-set {
+            display: inline-block;
+            float: right;
+            .btn {
+                font-size: 14px;
+                border-radius: 20px;
+                margin-left: 6px;
+                padding: 6px 20px;
+                &:focus {
+                    outline: 0;
+                }
+            }
+        }
+    }
+    table {
+        thead {
+            background: $lite-color3;
+            tr {
+                th {
+                    border-bottom: 0;
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+    .grid {
+        min-height: 280px;
+        margin-top: 20px;
+        .grid-header {
+            padding: 0px;
+            color: $dark-color;
+            background: $lite-color3;
+            // padding: 8px 15px;
+            // font-weight: bold;
+            padding: 8px 15px;
+            font-size: 14px;
+            font-weight: bold;
+            font-weight: 600;
+            border-bottom: 1px solid $lite-color;
+            margin-bottom: 8px;
+            .title {
+                a {
+                    float: right;
+                }
+            }
+        }
+    }
+    .equipment-current-status {
+        list-style: none;
+        padding-left: 0;
+        display: table;
+        table-layout: fixed;
+        width: 100%;
+        border-collapse: collapse;
+        background: $dark-color3;
+        li {
+            display: table-cell;
+            padding: 12px 12px;
+            border: 1px solid $lite-color;
+            width: 1%;
+            vertical-align: middle;
+            position: relative;
+            .name {
+                margin: 0;
+                font-size: 16px;
+                color: $white-color;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+                .subName {
+                    display: block;
+                    font-size: 80%;
+                    color: $lite-color3;
+                    font-weight: bold;
+                    margin-top: 4px;
+                }
+            }
+            .equipment-on {
+                text-align: right;
+                display: inline-block;
+                img {
+                    position: relative;
+                    float: left;
+                }
+                .fa {
+                    color: $white-color;
+                    font-size: 21px;
+                }
+            }
+        }
+    }
+    .name {
+        margin: 0;
+        font-size: 14px;
+        color: $dark-color;
+        .contactLink {
+            position: absolute;
+            top: 5px;
+            right: 0;
+            color: #333;
+            font-size: 18px;
+        }
+        .subName {
+            display: block;
+            font-size: 80%;
+            color: $dark-color3;
+            font-weight: bold;
+            margin-top: 4px;
+        }
+    }
+    ul.equipment-info {
+        padding-left: 0;
+        list-style: none;
+        margin: 0;
+        li {
+            display: block;
+            position: relative;
+            padding: 10px 0px;
+            &+li {
+                border-top: 1px solid $lite-color;
+            }
+        }
+    }
+    .profile-img {
+        background: #f0f0f0;
+        text-align: center;
+        margin-bottom: 30px;
+        img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto;
+            position: relative;
+            top: 40px;
+        }
+    }
+}
+
+.name {
+    position: relative;
+    .milestone-arrow {
+        position: absolute;
+        font-size: 28px;
+        top: -4px;
+        right:5px;
+        &.red {
+            color: $alert-color;
+        }
+        &.yellow {
+            color: $yellow-color;
+        }
+    }
+}
+
+.loaded-attachment {
+    position: relative;
+    padding: 10px 12px 5px 65px;
+    img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 40px;
+    }
+}
+
+.table>tbody+tbody {
+    border-top: 1px solid #ddd !important;
+}

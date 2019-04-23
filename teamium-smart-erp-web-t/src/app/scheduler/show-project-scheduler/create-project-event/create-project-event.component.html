@@ -1,0 +1,66 @@
+<div id="myModal" class="modal in fade add-personnel-modal" style="display: block;" *ngIf='isShow'>
+  <div class=" modal-dialog modal-lg ">
+
+    <!-- Modal content-->
+    <div class="modal-content ">
+      <div class="modal-header ">
+        <button type="button " class="close " data-dismiss="modal" (click)="cancel()"> &times;</button>
+        <h4 class="title ">{{'Create Budget' | translate}}</h4>
+
+      </div>
+      <div class="modal-body ">
+        <div class="create-personnel ">
+          <div class="form-content">
+            <form [formGroup]="budgetInfo">
+
+              <div class="row mb-10">
+
+                <div class="col-md-6">
+                  <div class="input-row ">
+                    <label>{{'Project Title' | translate}} *</label>
+                    <input type="text " class="form-control " placeholder="Project Title" formControlName="title">
+                    <span *ngIf="budgetInfo.get('title').invalid && budgetInfo.get('title').touched" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{'Project Title is Required' | translate}}.</span>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="input-row ">
+                    <label>{{'Category' | translate}}</label>
+                    <select class="form-control " placeholder="Job Title" formControlName="category">
+                      <option value="null">{{'Select Category' | translate}}</option>
+                      <option *ngFor="let category of categories" value={{category}}>{{category}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-10">
+                <div class="col-md-6">
+                  <div class="input-row ">
+                    <label>{{'Start' | translate}}</label>
+                    <p-calendar formControlName="from" [showTime]="false" hourFormat="12"></p-calendar>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="input-row ">
+                    <label>{{'Theme' | translate}}</label>
+                    <input class="form-control" [value]="selectedColor" [style.background]="selectedColor" [(colorPicker)]="selectedColor" />
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer ">
+        <div class="button-set text-center ">
+          <!-- <button class="btn btn-edit "> Skip </button> -->
+          <button class="btn btn-first ripple"  [disabled]="budgetInfo.invalid"  (click)="submit()">{{'Save' | translate}}</button>
+          <button class="btn btn-first ripple ml-10" (click)="cancel()">{{'Cancel' | translate}}</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

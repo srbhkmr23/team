@@ -1,0 +1,102 @@
+<!--MAIN HEADER -->
+<header class="header header-fixed-top">
+  <div class="navbar-menu">
+      <app-sidebar-toggle></app-sidebar-toggle>
+      <!-- search-filter -->
+      <div class="search-filter">
+        <i class="fa fa-search"></i>
+        <input type="text" class="form-control input-search" placeholder="Search"/>
+      </div>
+      <app-profile-pic></app-profile-pic>
+  </div>
+  <!--sub-Menu-->
+  <div class="sub-Menu">
+      <button type="button" class="btn btn-first btn-lg btn-assign-me ripple">{{'Assigned to me' | translate}}</button>
+  </div>
+</header>
+
+
+
+<!-- WRAPPER -->
+<div id="wrapper" class="wrapper">
+  <!--sideBar-->
+  <app-sidebar></app-sidebar>
+
+  <!-- Main Section -->
+  <section class="main-section">
+
+        
+      <!-- Add Your Content Inside -->
+      <div class="content pad-btm-50">
+
+        <div class="usersContent">
+            
+            <!-- cards-->
+            <div class="card" *ngFor="let job of jobList">
+                <div class="card-header">
+                    <h4 class="title"> {{job.function ? job.function.qualifiedName:''}}
+                    <span class="timeText">9m ago</span></h4>
+                </div>
+                <div class="card-body">
+                    <div class="production-Info">
+                        <h4 class="pDuration">
+                            <!-- {{'One Production - 3 days outdoor 4k shooting' | translate}} -->
+                            {{job.projectTitle}}
+                        </h4>
+                        <p class="pTime">
+                            <!-- October 14th 10AM - 14th 6PM -->
+                            {{returnFromDate(job.from)}} - {{returnToDate(job.to)}}
+                        </p>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="button" (click)="assignToMe(job)" class="btn btn-first btn-accept ripple">{{'Accept' | translate}}</button>
+                    <!-- <a (click)="goToTaskDetails()" href="javascript:void(0);" class="see-more mt-5">See More</a> -->
+                </div>
+            </div>
+            <!-- cards-->
+            <!-- <div class="card">
+                <div class="card-header">
+                    <h4 class="title">Production-Cameraman <span class="timeText">9m ago</span></h4>
+                </div>
+                <div class="card-body">
+                    <div class="production-Info">
+                        <h4 class="pDuration">One Production - 3 days outdoor 4k shooting</h4>
+                        <p class="pTime">October 14th 10AM - 14th 6PM</p>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-first btn-accept ripple">Accept</button>
+                    <a href="javascript:void(0);" class="see-more mt-5">See More</a>
+                </div>
+            </div> -->
+            <!-- cards-->
+            <!-- <div class="card">
+                <div class="card-header">
+                    <h4 class="title">Production-Cameraman <span class="timeText">9m ago</span></h4>
+                </div>
+                <div class="card-body">
+                    <div class="production-Info">
+                        <h4 class="pDuration">One Production - 3 days outdoor 4k shooting</h4>
+                        <p class="pTime">October 14th 10AM - 14th 6PM</p>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-first btn-accept ripple">Accept</button>
+                    <a href="javascript:void(0);" class="see-more mt-5">See More</a>
+                </div>
+            </div> -->
+        </div>
+
+      </div>
+      <!-- /.content -->
+  </section>
+  <!-- /.main-section -->
+</div>
+<!-- /#wrapper -->
+
+<!-- MANU FOOTER -->
+<app-footer></app-footer>
+
+<!-- MANU FOOTER -->
+

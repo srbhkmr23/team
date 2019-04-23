@@ -1,0 +1,218 @@
+<div id="myModal" class="modal in fade add-personnel-modal" style="display: block;" >
+    <div class=" modal-dialog modal-lg">
+        <div class="modal-content ">
+            <div class="modal-header ">
+                <button type="button " class="close " data-dismiss="modal" (click)="closeClientEditModal()"> &times;</button>
+                <h4 class="title ">{{'Add Role' |translate}}</h4>
+            </div>
+            <div class="modal-body ">
+                <div class="create-personnel create-project-budgeting create-role">
+                    <div class="inner-content pad-20">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="input-row ">
+                                    <label>{{'Role Name' |translate}}</label>
+                                    <input class="form-control" type="text" placeholder="Role Name" formControlName="roleName" />
+                                </div>
+                            </div>
+                        </div>
+                        <!-- List -->
+                        <div class="row ">
+                            <div class="col-md-12 ">
+                                <div class="form-content "> 
+                                    <!-- SAVED DATA -->
+                                    <div class="added-function-list ">
+                                        <table class="table contactListTable roleListTable common-Table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-left">&nbsp;</th>
+                                                    <th class="text-center">{{'No Access' |translate}}</th>
+                                                    <th class="text-center">{{'Read Only' |translate}}</th>
+                                                    <th class="text-center">{{'Write' |translate}}</th>
+                                                    <th class="">&nbsp;</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody >
+                                                <tr>
+                                                    <td class="text-left">{{'Budget' | translate}}</td>
+                                                    <td class="text-center">
+                                                        <div class="checkbox">
+                                                            <input id="a1" type="checkbox" value="1" class="ng-valid ng-dirty ng-touched">
+                                                            <label _ngcontent-c15="" class="chk" for="a1"></label><label _ngcontent-c15="" for="a1"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <div class="checkbox">
+                                                            <input id="a1" type="checkbox" value="1" class="ng-valid ng-dirty ng-touched">
+                                                            <label class="chk" for="a1"></label><label for="a1"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <div class="checkbox">
+                                                            <input id="a1" type="checkbox" value="1" class="ng-valid ng-dirty ng-touched">
+                                                            <label class="chk" for="a1"></label><label for="a1"></label>
+                                                        </div>
+                                                    </td>
+                                                    <th class="">
+                                                        <div class="checkbox">
+                                                            <input id="a1" type="checkbox" value="1" class="ng-valid ng-dirty ng-touched">
+                                                            <label class="chk" for="a1"></label><label for="a1"></label>
+                                                        </div>
+                                                    </th>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-left">{{'Booking' | translate}}</td>
+                                                    <td class="text-center">
+                                                        <div class="checkbox">
+                                                            <input id="a1" type="checkbox" value="1" class="ng-valid ng-dirty ng-touched">
+                                                            <label _ngcontent-c15="" class="chk" for="a1"></label><label _ngcontent-c15="" for="a1"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <div class="checkbox">
+                                                            <input id="a1" type="checkbox" value="1" class="ng-valid ng-dirty ng-touched">
+                                                            <label class="chk" for="a1"></label><label for="a1"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <div class="checkbox">
+                                                            <input id="a1" type="checkbox" value="1" class="ng-valid ng-dirty ng-touched">
+                                                            <label class="chk" for="a1"></label><label for="a1"></label>
+                                                        </div>
+                                                    </td>
+                                                    <th class="">
+                                                        <div class="checkbox">
+                                                            <input id="a1" type="checkbox" value="1" class="ng-valid ng-dirty ng-touched">
+                                                            <label class="chk" for="a1"></label><label for="a1"></label>
+                                                        </div>
+                                                    </th>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-left">{{'Project Scheduling' | translate}}</td>
+                                                    <td class="text-center">
+                                                        <div class="checkbox">
+                                                            <input id="a1" type="checkbox" value="1" class="ng-valid ng-dirty ng-touched">
+                                                            <label _ngcontent-c15="" class="chk" for="a1"></label><label _ngcontent-c15="" for="a1"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <div class="checkbox">
+                                                            <input id="a1" type="checkbox" value="1" class="ng-valid ng-dirty ng-touched">
+                                                            <label class="chk" for="a1"></label><label for="a1"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <div class="checkbox">
+                                                            <input id="a1" type="checkbox" value="1" class="ng-valid ng-dirty ng-touched">
+                                                            <label class="chk" for="a1"></label><label for="a1"></label>
+                                                        </div>
+                                                    </td>
+                                                    <th class="">
+                                                        <div class="checkbox">
+                                                            <input id="a1" type="checkbox" value="1" class="ng-valid ng-dirty ng-touched">
+                                                            <label class="chk" for="a1"></label><label for="a1"></label>
+                                                        </div>
+                                                    </th>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-left">{{'Order' | translate}}</td>
+                                                    <td class="text-center">
+                                                        <div class="checkbox">
+                                                            <input id="a1" type="checkbox" value="1" class="ng-valid ng-dirty ng-touched">
+                                                            <label _ngcontent-c15="" class="chk" for="a1"></label><label _ngcontent-c15="" for="a1"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <div class="checkbox">
+                                                            <input id="a1" type="checkbox" value="1" class="ng-valid ng-dirty ng-touched">
+                                                            <label class="chk" for="a1"></label><label for="a1"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <div class="checkbox">
+                                                            <input id="a1" type="checkbox" value="1" class="ng-valid ng-dirty ng-touched">
+                                                            <label class="chk" for="a1"></label><label for="a1"></label>
+                                                        </div>
+                                                    </td>
+                                                    <th class="">
+                                                        <div class="checkbox">
+                                                            <input id="a1" type="checkbox" value="1" class="ng-valid ng-dirty ng-touched">
+                                                            <label class="chk" for="a1"></label><label for="a1"></label>
+                                                        </div>
+                                                    </th>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-left">{{'Freelance Contract' | translate}}</td>
+                                                    <td class="text-center">
+                                                        <div class="checkbox">
+                                                            <input id="a1" type="checkbox" value="1" class="ng-valid ng-dirty ng-touched">
+                                                            <label _ngcontent-c15="" class="chk" for="a1"></label><label _ngcontent-c15="" for="a1"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <div class="checkbox">
+                                                            <input id="a1" type="checkbox" value="1" class="ng-valid ng-dirty ng-touched">
+                                                            <label class="chk" for="a1"></label><label for="a1"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <div class="checkbox">
+                                                            <input id="a1" type="checkbox" value="1" class="ng-valid ng-dirty ng-touched">
+                                                            <label class="chk" for="a1"></label><label for="a1"></label>
+                                                        </div>
+                                                    </td>
+                                                    <th class="">
+                                                        <div class="checkbox">
+                                                            <input id="a1" type="checkbox" value="1" class="ng-valid ng-dirty ng-touched">
+                                                            <label class="chk" for="a1"></label><label for="a1"></label>
+                                                        </div>
+                                                    </th>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-left">{{'Project Financial' | translate}}</td>
+                                                    <td class="text-center">
+                                                        <div class="checkbox">
+                                                            <input id="a1" type="checkbox" value="1" class="ng-valid ng-dirty ng-touched">
+                                                            <label _ngcontent-c15="" class="chk" for="a1"></label><label _ngcontent-c15="" for="a1"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <div class="checkbox">
+                                                            <input id="a1" type="checkbox" value="1" class="ng-valid ng-dirty ng-touched">
+                                                            <label class="chk" for="a1"></label><label for="a1"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <div class="checkbox">
+                                                            <input id="a1" type="checkbox" value="1" class="ng-valid ng-dirty ng-touched">
+                                                            <label class="chk" for="a1"></label><label for="a1"></label>
+                                                        </div>
+                                                    </td>
+                                                    <th class="">
+                                                        <div class="checkbox">
+                                                            <input id="a1" type="checkbox" value="1" class="ng-valid ng-dirty ng-touched">
+                                                            <label class="chk" for="a1"></label><label for="a1"></label>
+                                                        </div>
+                                                    </th>
+                                                </tr> 
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer ">
+                <div class="row">
+                    <div class="button-set text-center" class="col-md-12">
+                        <button style="background-color: darkred;" class="btn btn-first pull-left" >{{'Delete' |translate}}</button>
+                        <button type="submit" class="btn btn-first" >{{'Save And Close' |translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

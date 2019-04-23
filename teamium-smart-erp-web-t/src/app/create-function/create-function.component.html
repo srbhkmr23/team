@@ -1,0 +1,397 @@
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner>
+
+<!--Main Page-->
+<div class="functionAndFolderList equipment-list" style="min-height: calc(100vh - 150px);">
+
+    <div class="filter-header">
+        <div class="container-fluid">
+            <h1 class="title">{{'Functions' |translate}}</h1>
+
+            <div class="filter">
+                <div class="filter-search">
+                    <select class="form-control selectField">
+                        <option>{{'Preset' |translate}}</option>
+                        <option>{{'Preset' |translate}}</option>
+                        <option>{{'Preset' |translate}}</option>
+                        <option>{{'Preset' |translate}}</option>
+                        <option>{{'Preset' |translate}}</option>
+                    </select>
+
+                    <a href="javascript:void(0)">
+                        <i class="fa fa-download" aria-hidden="true"></i> {{'Download' |translate}}
+                    </a>
+
+                    <a href="javascript:void(0)" class="ml-5" (click)="openModal()" *ngIf="selectedNode==null||(selectedNode!=null&&selectedNode.data.functionValue.type=='folder')">
+                        <i class="fa fa-plus"></i> {{'Add' |translate}}
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="smallToLarge" [ngClass]="selectedNode !=null?'view-details-card-active':''">
+        <!-- Function & Folder -->
+        <p-tree [value]="functionNode" layout="horizontal" selectionMode="single" [(selection)]="selectedNode" (onNodeSelect)="nodeSelect()"
+            *ngFor=" let functionNode of functionNodeList" styleClass="mb-15">
+            <!-- <ng-template let-node pTemplate="image">
+        <span>
+            <img style="width:40px;height:40px;" [src]="node.data.imagePath">
+        </span>
+        <span style="position: relative; bottom:13px;margin-left: 5px;">{{node.data.functinName}}</span>
+    </ng-template> -->
+        </p-tree>
+        <!-- <div style="margin-top:8px" (click)="changeValue()">Selected Node: {{selectedNode ? selectedNode.label : 'none'&#125;&#125;</div> -->
+
+
+        <!-- DETAILS WINDOW -->
+        <div class="visible-div">
+            <div class="view-details-card card">
+                <div class="card-header" *ngIf="selectedNode !=null">
+                    <a href="javascript:void(0)" class="close" data-dismiss="modal" (click)="selectedNode=null">&times;</a>
+
+                    <h4 class="modal-title">
+                        <!-- <input class="form-control edtiableInput" type="text" /> -->
+                        <span class="">{{selectedNode.label}}</span>
+                        <span class="subTitle">{{selectedNode.data.parentValue!=null?selectedNode.data.parentValue.value:''}}</span>
+                    </h4>
+                </div>
+                <div class="card-body" *ngIf="selectedNode !=null">
+                    <div class="table-responsive" *ngIf="selectedNode.data.functionValue.type !='folder'">
+                        <table class="table custom-table ">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <b>{{'Type' |translate}}</b>
+                                    </td>
+                                    <td>
+                                        <span>{{this.selectedNode.data.functionValue.type || ''}}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>{{'Keyword' |translate}}</b>
+                                    </td>
+                                    <td>
+                                        <span>{{this.selectedNode.data.functionValue.keyword || ''}}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>{{'Basis' |translate}}</b>
+                                    </td>
+                                    <td>
+                                        <span>{{selectedNode.data.functionValue.basis||''}}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>{{'Group' |translate}}</b>
+                                    </td>
+                                    <td>
+                                        <!-- <span>{{this.selectedNode.data.functionValue.type || ''}}</span> -->
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>{{'Display' |translate}}</b>
+                                    </td>
+                                    <td>
+                                        <span>{{selectedNode.data.functionValue.display || ''}}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>{{'Origin' |translate}}</b>
+                                    </td>
+                                    <td>
+                                        <span>{{selectedNode.data.functionValue.origine || ''}}</span>
+                                        <!-- <input class="form-control edtiableInput" type="text" value='Internal' /> -->
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>{{'Contract' |translate}}</b>
+                                    </td>
+                                    <td>
+                                        <span>{{selectedNode.data.functionValue.contract || ''}}</span>
+                                        <!-- <input class="form-control edtiableInput" type="text" value='None' /> -->
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>{{'Sale Tax' |translate}}</b>
+                                    </td>
+                                    <td>
+                                        <span>{{(selectedNode.data.functionValue.vat!=null?selectedNode.data.functionValue.vat.key:'')}}{{(selectedNode.data.functionValue.vat!=null?selectedNode.data.functionValue.vat.key!=null?'%':'':'')}}</span>
+                                        <!-- <input class="form-control edtiableInput" type="text" value='10%' /> -->
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b><Fieldset></Fieldset></b>
+                                    </td>
+                                    <td>
+                                        <span> {{selectedNode.data.functionValue.theme||''}}</span>
+                                        <!-- <input class="form-control edtiableInput" type="text" value='10%' /> -->
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>{{'Description' |translate}}</b>
+                                    </td>
+                                    <td>
+                                        <span> {{selectedNode.data.functionValue.description||''}}</span>
+                                        <!-- <input class="form-control edtiableInput" type="text" value='10%' /> -->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- <p class="description" *ngIf="selectedNode.data.functionValue.type !='folder'">
+                        <label>Description:</label>
+                        <span>{{selectedNode.data.functionValue.description || ''}}</span>
+                    </p> -->
+                </div>
+                <div class="card-footer" *ngIf="selectedNode !=null">
+                    <button type="button" class="btn btn-first ripple deleteBtn" (click)="showDeleteModal=!showDeleteModal">{{'Delete' | translate}}</button>
+                    <button type="button" class="btn btn-first ripple ml-10" (click)="openModal(true)">{{'Edit' | translate}}</button>
+                    <button type="button" class="btn btn-first ripple ml-10" *ngIf="selectedNode.data.functionValue.type=='folder'" (click)="openModal()">{{'Add Child' | translate}}</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Modal -->
+<div id="myModal" class="modal in fade add-personnel-modal create-function-modal" style="display: block;" *ngIf='openFunctionModal'>
+    <div class=" modal-dialog modal-lg ">
+        <form [formGroup]="functionForm" (submit)="saveFunction()">
+            <!-- Modal content-->
+            <div class="modal-content ">
+                <div class="modal-header ">
+                    <button type="button " class="close " data-dismiss="modal" (click)="closeModal()"> &times;</button>
+                    <h4 class="title " *ngIf='!editableModeOn'>Add {{checkedList.length==2?'Folder or Function':'Function'}}</h4>
+                    <h4 class="title " *ngIf='editableModeOn'>{{'Edit' | translate}} {{checkedValue=='folder'?'Folder ':'Function'}}</h4>
+
+                </div>
+                <div class="modal-body ">
+                    <div class="create-personnel ">
+                        <div class="inner-content ">
+
+                            <!-- 1 BASIC INFORMATION -->
+
+                            <div class="steps personal-info">
+                                <div class="row ">
+                                    <div class="col-md-12 ">
+                                        <div class="form-content ">
+                                            <div class="row ">
+                                                <div class="col-xs-12">
+                                                    <label *ngIf="checkedList.length==2">Select Option For Folder or Function</label>
+                                                </div>
+                                                <div class="col-xs-12">
+                                                    <div class="input-row ">
+
+                                                        <div *ngIf="checkedList.includes('folder')">
+                                                            <input id="radio-2" class="radio-custom" name="radio-group" type="radio" [checked]="checkedValue =='folder'" (change)="changeCheckedValue('folder')">
+                                                            <label for="radio-2" class="radio-custom-label">Folder</label>
+                                                        </div>
+                                                        <div *ngIf="checkedList.includes('function')">
+                                                            <input id="radio-1" class="radio-custom" name="radio-group" type="radio" [checked]="checkedValue =='function'" (change)="changeCheckedValue('function')">
+                                                            <label for="radio-1" class="radio-custom-label">{{'Function' |translate}}</label>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row " *ngIf="checkedValue =='folder'">
+                                                <div class="col-xs-6">
+                                                    <div class="input-row ">
+                                                        <label>{{'Folder Name *' |translate}}</label>
+                                                        <input type="text " class="form-control " (focusout)="clearSpace(functionForm,'name')" formControlName="name" placeholder="Folder Name">
+                                                    </div>
+                                                    <span *ngIf="functionNameError" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{functionNameError}}</span>
+
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <div class="input-row ">
+                                                        <label>{{'Theme' |translate}}</label>
+                                                        <input class="form-control" [value]="selectedColor" [style.background]="selectedColor" [(colorPicker)]="selectedColor" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="checkedValue =='function'">
+                                                <div class="row ">
+                                                    <div class="col-xs-6">
+                                                        <div class="input-row ">
+                                                            <label>{{'Function Name *' |translate}}</label>
+                                                            <input type="text " class="form-control " (focusout)="clearSpace(functionForm,'name')" formControlName="name" placeholder="Function Name">
+                                                        </div>
+                                                        <span *ngIf="functionNameError" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{functionNameError}}</span>
+
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <div class="input-row ">
+                                                            <label>{{'Keyword' |translate}}</label>
+                                                            <select class="form-control " formControlName="keyword">
+                                                                <option [ngValue]="null">{{'Select Keyword' |translate}}</option>
+                                                                <option *ngFor="let keyword of functionDropdownData.keywords" value="{{keyword}}">{{keyword}}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row ">
+                                                    <div class="col-xs-6">
+                                                        <div class="input-row ">
+                                                            <label>{{'Type*' |translate}}</label>
+                                                            <select class="form-control " formControlName="type">
+                                                                <option [ngValue]="null">{{'Select Type' |translate}}</option>
+                                                                <option *ngFor="let type of functionDropdownData.functionTypes" value="{{type}}">{{type}}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <div class="input-row ">
+                                                            <label>{{'Basis' |translate}}*</label>
+                                                            <select class="form-control " formControlName="basis">
+                                                                <option [ngValue]="null">{{'Select Basis' |translate}}</option>
+                                                                <option *ngFor="let basis of functionDropdownData.basis" value="{{basis}}">{{basis}}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row ">
+                                                    <div class="col-xs-6">
+                                                        <div class="input-row ">
+                                                            <label>{{'Group' |translate}}</label>
+                                                            <select class="form-control " formControlName="group">
+                                                                <option [ngValue]="null">{{'Select Group' |translate}}</option>
+                                                                <!-- <option *ngFor="let basis of functionDropdownData.basis" value="basis">{{basis}}</option> -->
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <div class="input-row ">
+                                                            <label>{{'Display' |translate}}</label>
+                                                            <input type="text " class="form-control " formControlName='display' placeholder="Display">
+                                                        </div>
+                                                        <span *ngIf="functionForm.get('display').invalid" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">Please enter only numbers.</span>
+
+                                                    </div>
+                                                </div>
+                                                <div class="row ">
+                                                    <div class="col-xs-6">
+                                                        <div class="input-row ">
+                                                            <label>{{'Origin' |translate}}</label>
+                                                            <select class="form-control " formControlName="origin">
+                                                                <option [ngValue]="null">{{'Select Origin' |translate}}</option>
+                                                                <option *ngFor="let origin of functionDropdownData.origines" value="{{origin}}">{{origin}}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <div class="input-row ">
+                                                            <label>{{'Contract' |translate}}</label>
+                                                            <select class="form-control " formControlName="contract">
+                                                                <option  [ngValue]="null">Select Contract</option>
+                                                                <option *ngFor="let contract of functionDropdownData.contracts" value="{{contract}}">{{contract}}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row ">
+                                                    <div class="col-xs-6">
+                                                        <div class="input-row ">
+                                                            <label>{{'Sale Tax' |translate}}</label>
+                                                            <input type="text " class="form-control" formControlName="tax" placeholder="Sale Tax">
+                                                        </div>
+                                                        <span *ngIf="functionForm.get('tax').invalid" style="color: #ad470c;text-align: left;font-size: 14px;margin-top: 5pt;">Please enter valid Sale Tax.</span>
+
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <div class="input-row ">
+                                                            <label>{{'Description' |translate}}</label>
+                                                            <input type="text " class="form-control" formControlName="description" placeholder="Description">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row ">
+                                                    <div class="col-xs-6">
+                                                        <div class="input-row ">
+                                                            <label>{{'Theme' |translate}}</label>
+                                                            <input class="form-control" [value]="selectedColor" [style.background]="selectedColor" [(colorPicker)]="selectedColor" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <!-- ADD ALUE FOR ACCOUNTING CODE-->
+
+                                        <div class="form-content " formGroupName="accoutingCode" *ngIf="checkedValue =='function'">
+                                            <h4 class="title mb-15">{{'Accounting Code' |translate}}</h4>
+                                            <div class="added-value-content">
+                                                <div class="added-value " *ngFor="let account of accoutingCode">
+                                                    <label>{{account.type}},
+                                                        <span>{{account.value}}</span>
+                                                    </label>
+                                                    <a href="javascript:void(0) " class="close " (click)="removeAccounting(account)">&times;</a>
+                                                </div>
+
+                                            </div>
+                                            <div class="row ">
+                                                <div class="col-xs-6">
+                                                    <div class="input-row ">
+                                                        <!-- <label>Type</label> -->
+                                                        <!-- <label>Accounting Code</label> -->
+                                                        <select class="form-control " formControlName="code">
+                                                            <option [ngValue]="null">{{'Select Accounting Code' |translate}}</option>
+                                                            <option *ngFor="let accounting of accountDropdownData" value="{{accounting}}">{{accounting}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-5">
+                                                    <div class="input-row ">
+                                                        <!-- <label>Value</label> -->
+                                                        <input type="text " class="form-control" formControlName="value" (focusout)="clearSpace(functionForm.get('accoutingCode'),'value')">
+                                                    </div>
+                                                    <span *ngIf="functionForm.get('accoutingCode').get('value').invalid && functionForm.get('accoutingCode').get('value').touched"
+                                                        style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">Value is Required.</span>
+
+                                                </div>
+                                                <div class="col-xs-1 ">
+                                                    <div>
+                                                        <button class="btn btn-first btn-plus " [disabled]="functionForm.get('accoutingCode').invalid || checkLenght()" (click)="addAccounting()">
+                                                            <i class="fa fa-plus "></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer ">
+                    <div class="button-set text-center ">
+                        <!-- <button class="btn btn-edit "> Skip </button> -->
+                        <button class="btn btn-first " type="submit" [disabled]="disableSaveButton()">{{'Save' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- CONFIRM Modal -->
+<app-delete-confirm-modal *ngIf="showDeleteModal" [componentName]="componentName" (deleteDataEvent)="deleteFunction($event)" (closeModalEvent)="hideDeleteModal($event)"></app-delete-confirm-modal>

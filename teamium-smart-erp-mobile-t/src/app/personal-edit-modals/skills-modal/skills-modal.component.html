@@ -1,0 +1,29 @@
+<div class="">
+    <h1 mat-dialog-title>{{'Add Skills' | translate}}
+        <a (click)="closeModal(false)" href="javascript:void(0);" class="close">x</a>
+    </h1>
+    <div mat-dialog-content>
+        <!-- <p>Add more skills.</p> -->
+        <div class="added-value">
+            <mat-form-field class="dummy-input-field">
+                <!-- Select Option-->
+                <mat-select [(value)]="selectedSkill" placeholder="Skills">
+                    <mat-option>{{'None' | translate}}</mat-option>
+                    <mat-option  *ngFor="let skill of skillDropDownList" [value]="skill">{{skill}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <!--button-->
+            <button type="button" (click)="addSkill(selectedSkill)" class="btn btn-first btn-Add ripple"><i class="fa fa-plus"></i></button>
+        </div>
+        <div class="added-value-content ng-star-inserted"><!--bindings={"ng-reflect-ng-for-of": ""}-->
+            <div *ngFor="let skill of selectedSkillList" class="added-value ng-star-inserted">
+              <label>{{skill}}</label>
+              <a (click)="removeSkill(skill)" class="close" href="javascript:void(0)">×</a>
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button type="button" (click)="onSave()" class="btn btn-first btn-save ripple">{{'Save' | translate}}</button>
+    </div>
+</div>
+

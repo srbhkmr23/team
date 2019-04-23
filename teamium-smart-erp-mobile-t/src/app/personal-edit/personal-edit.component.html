@@ -1,0 +1,262 @@
+<!--MAIN HEADER -->
+<header class="header header-fixed-top">
+        <div class="navbar-menu">
+            <!--toggle-->
+            <app-sidebar-toggle></app-sidebar-toggle>
+    
+            <!--Page Title Text-->
+            <h4 class="title">{{'Personnel Edit' | translate}}</h4>
+    
+            <!--user-Img-->
+            <app-profile-pic></app-profile-pic>
+        </div>
+        
+        <!-- Sub-Menu -->
+        <!-- <div class="sub-Menu subMenu-filter">
+            <div class="search-filter">
+              <i class="fa fa-search"></i>
+              <input type="text" class="form-control input-search" placeholder="Search"/>
+            </div>
+            <span class="notepad-ico ripple"><img src="../assets/img/notepad-ico.png" alt=""/></span>
+        </div> -->
+    </header>
+      
+      <!-- WRAPPER -->
+      <div id="wrapper" class="wrapper" style="padding-top:73px !important;">
+        <!--sideBar-->
+        <app-sidebar></app-sidebar>
+      
+        <!-- Main Section -->
+        <section class="main-section">
+            <!-- Add Your Content Inside -->
+            <div class="content pad-btm-50">
+      
+              <div class="usersContent personnel-edit">
+    
+                  <!---->
+                  <div class="mb-20">
+                      <div class="c-des">
+                          <h4 class="c-Text">
+                            <span class="c-Name" (click)="goBack()">
+                                <a href="javascript:void(0);" class="arrow"><i class="fa fa-chevron-left"></i></a>
+                                {{userName | translate}}
+                            </span>
+    
+                            <!--rightside icon start-->
+                            <span class="group-icons pull-right">
+                                <a href="javascript:void(0);" class="link-icon ripple">
+                                    <img src="assets/img/edit-ico.png" alt=""/>
+                                </a>
+                                <a href="javascript:void(0);" class="link-icon ripple ml-10">
+                                    <img src="assets/img/timer-ico.png" alt=""/>
+                                </a>
+                                <a href="javascript:void(0);" class="link-icon ripple ml-10">
+                                    <img src="assets/img/user-detail-ico.png" alt=""/>
+                                </a>
+                            </span>
+                            <!--rightside icon end-->
+                          </h4>
+                      </div>
+                  </div>
+    
+                  <!--client-ststus-->
+                  <div class="client-status mb-20">
+                      <div class="user-Img img-position"> 
+                          <img [src]="profilePicUrl ? profilePicUrl : 'assets/img/user-img.png'" alt="">
+                      </div>
+                      <h4 class="title ">
+                          <span class="user-text">{{primaryFunction | translate}}</span>
+                          <!--add-link-->
+                          <!-- <a href="javascript:void(0);" class="add-link">+</a> -->
+                      </h4>
+                  </div>
+    
+                  <!-- Function Div -->
+                  <div class="function-Div mb-20">
+                    <p class="add-more">
+                        <span class="pull-left">{{'Function' | translate}}</span>
+                        <a (click)="openFunctionDialog()" href="javascript:void(0);" class="">{{'+ Add Function' | translate}}</a>
+                    </p>
+                    <div class="client-Details">
+                        <ul>
+                            <li *ngFor="let function of functions">
+                                <h5 class="name">{{function && function.function ? function.function.value : ''}}
+                                    <!--rating-->
+                                    <span class="rating pull-right">
+                                        <i class="fa fa-star" *ngFor="let i of [1,2,3,4,5]" 
+                                        [ngClass]="function.rating >=i ? 'checked' : '' "
+                                        ></i>
+                                    </span>
+                                </h5>
+                            </li>
+                        </ul>
+                    </div>
+                  </div>
+    
+                  <!-- Skills Div -->
+                  <div class="function-Div mb-20">
+                        <p class="add-more">
+                            <span class="pull-left">{{'Skill' | translate}}</span>
+                            <a (click)="openSkillsDialog()" href="javascript:void(0);" class="">{{'+ Add Skills' | translate}}</a>
+                        </p>
+                        <div class="client-Details">
+                            <ul>
+                                <li *ngFor="let skill of skills">
+                                    <h5 class="name">{{skill.domain}}
+                                        <!--rating-->
+                                        <span class="rating pull-right">
+                                            <i class="fa fa-star" *ngFor="let i of [1,2,3,4,5]" 
+                                            [ngClass]="skill.rating >=i ? 'checked' : '' "
+                                            ></i>
+                                        </span>
+                                    </h5>
+                                </li>
+                            </ul>
+                        </div>
+                  </div>
+    
+                  <!-- Language Div -->
+                  <div class="function-Div mb-20">
+                        <p class="add-more"><a (click)="openLanguageDialog()" href="javascript:void(0);" class="">{{'+ Add Language' | translate}}</a></p>
+                        <div class="client-Details">
+                            <ul>
+                                <li>
+                                    <h5 class="name">{{'Language' | translate}}
+                                        <span class="subName">
+                                            <!-- <span *ngFor="let language of languages">{{language.join(',')}} </span>  -->
+                                            {{getLanguagesString(languages)}}
+                                        </span>
+                                    </h5>
+                                </li>
+                            </ul>
+                        </div>
+                  </div>
+    
+                  <!-- Group-Div -->
+                  <div class="function-Div mb-20">
+                        <div class="client-Details">
+                            <ul>
+                                <li>
+                                    <h5 class="name">{{'Group' | translate}}
+                                        <span class="subName">
+                                            <!-- <span *ngFor="let group of groups">{{group.name}}, </span> -->
+                                            {{getGroupString(groups)}}
+                                        </span>
+                                        
+                                    </h5>
+                                </li>
+                            </ul>
+                        </div><!--  -->
+                  </div>
+    
+                  <!-- Freelance-Details -->
+                  <div class="function-Div mb-20">
+                        <div class="client-Details">
+                            <ul>
+                                <li>
+                                    <h5 class="name relative">{{'Freelancer' | translate}}
+                                        <span class="subName">{{'ACE' | translate}}</span>
+                                        <!--Switch Toggle -->
+                                        <label class="switch-toggle">
+                                            <input disabled type="checkbox" [(ngModel)]="isFreelancer" (change)="onChangeFreelancer(isFreelancer)" id="togBtn">
+                                            <div class="slider round">
+                                                <!--ADDED HTML -->
+                                                <span class="on">{{'Yes' | translate}}</span>
+                                                <span class="off">{{'No' | translate}}</span>
+                                                <!--END-->
+                                            </div>
+                                        </label>
+                                    </h5>
+                                </li>
+                            </ul>
+                        </div><!--  -->
+                  </div>
+    
+                  <!-- client-Details -->
+                  <!-- <div class="client-Details mb-20">
+                      <ul>
+                          <li>
+                              <h5 class="name">Media Composer
+                                  <span class="rating pull-right">
+                                      <i class="fa fa-star checked"></i>
+                                      <i class="fa fa-star checked"></i>
+                                      <i class="fa fa-star checked"></i>
+                                      <i class="fa fa-star"></i>
+                                      <i class="fa fa-star"></i>
+                                  </span>
+                              </h5>
+                              <a href="javascript:void(0);" class="arrow pull-right"><i class="fa fa-chevron-right"></i></a>
+                          </li>
+                          <li>
+                              <h5 class="name">FCP
+                                  <span class="rating pull-right">
+                                      <i class="fa fa-star checked"></i>
+                                      <i class="fa fa-star checked"></i>
+                                      <i class="fa fa-star checked"></i>
+                                      <i class="fa fa-star"></i>
+                                      <i class="fa fa-star"></i>
+                                  </span>
+                              </h5>
+                              <a href="javascript:void(0);" class="arrow pull-right"><i class="fa fa-chevron-right"></i></a>
+                          </li>
+                          <li>
+                              <h5 class="name">Language
+                                  <span class="subName"><span>English</span>, <span>Spanish</span> </span>
+                              </h5>
+                              <a href="javascript:void(0);" class="arrow pull-right"><i class="fa fa-chevron-right"></i></a>
+                          </li>
+                          <li>
+                              <h5 class="name">Group
+                                  <span class="subName">Team A</span>
+                              </h5>
+                              <a href="javascript:void(0);" class="arrow pull-right"><i class="fa fa-chevron-right"></i></a>
+                          </li>
+                          <li>
+                              <h5 class="name relative">Freelancer
+                                  <span class="subName">ACE</span>
+                                    <label class="switch-toggle">
+                                        <input type="checkbox" id="togBtn">
+                                        <div class="slider round">
+                                            <span class="on">Yes</span>
+                                            <span class="off">No</span>
+                                        </div>
+                                    </label>
+                              </h5>
+                              <a href="javascript:void(0);" class="arrow pull-right"><i class="fa fa-chevron-right"></i></a>
+                          </li>
+                      </ul>
+                  </div> -->
+    
+                  <!-- cards-->
+                  <div class="card">
+                      <div class="card-header">
+                          <h4 class="title"><i class="fa fa-cog"></i> {{'Demo Reel' | translate}}
+                            <span class="timeText">{{'12days ago' | translate}}</span>
+                          </h4>
+                      </div>
+                      <div class="card-body">
+                          <div class="production-Info">
+                              <h4 class="pDuration">{{'ACME 45" Commercial' | translate}}</h4>
+                          </div>
+                      </div>
+                      <!-- <div class="card-footer">
+                          <button class="btn btn-first btn-accept ripple">Accept</button>
+                          <a href="javascript:void(0);" class="see-more mt-5">See More</a>
+                      </div> -->
+                  </div>
+    
+              </div>
+      
+            </div>
+            <!-- /.content -->
+        </section>
+        <!-- /.main-section -->
+      </div>
+      <!-- /#wrapper -->
+      
+      <!-- MANU FOOTER -->
+      <app-footer></app-footer>
+      
+      <!-- MANU FOOTER -->
+      
+    

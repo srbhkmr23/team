@@ -1,0 +1,750 @@
+<app-not-found-page [message]='bookingNotExistMessage' *ngIf="isBookingAvailabe">
+    </app-not-found-page>
+    
+    <!--     Spinner component-->
+    <app-spinner [blockedPanel]='blockedPanel'></app-spinner>
+    
+    <div class="edit-equipment project-Budgeting project-procurement open-side-modal" *ngIf="projectDetail">
+    
+        <div class="filter-header">
+            <div class="container-fluid pad-0">
+                <h1 class="title">{{'Procurement' | translate}}
+                    <span>{{projectDetail.title}}</span>
+                </h1>
+    
+    
+            </div>
+        </div>
+    
+    
+        <div class="inner-content">
+            <div class="equipment-info-content">
+                <ul class="equipment-current-status">
+                    <li [ngClass]="projectDetail.status=='In Progress'?'inProgress':projectDetail.status=='To Do' ||  projectDetail.status=='Archived'?'rejected':'approved'">
+                        <h5 class="name">{{projectDetail.status}}
+                            <span class="subName">{{'Project status' | translate}}</span>
+                        </h5>
+                    </li>
+                    <li [ngClass]="projectDetail.financialStatus=='Approved'?'approved':projectDetail.financialStatus=='Rejected'?'rejected':'inProgress'">
+                        <h5 class="name">{{projectDetail.financialStatus}}
+                            <span class="subName">{{'Financial status' | translate}}</span>
+                        </h5>
+                    </li>
+                    <li>
+                        <div class="team-name">
+                            <h5 class="name">{{projectDetail.referenceInternal}}
+                                <span class="subName">{{'Internal Refrence' | translate}}</span>
+                            </h5>
+                        </div>
+                    </li>
+                    <li>
+                        <h5 class="name">{{projectDetail.follower&&projectDetail.follower.firstName?projectDetail.follower.firstName:''}} {{projectDetail.follower&&projectDetail.follower.lastName?projectDetail.follower.lastName:''}}
+                            <span class="subName">{{'Managed By' | translate}}</span>
+                        </h5>
+                    </li>
+                    <li>
+                        <h5 class="name">{{'NRCS' | translate}}
+                            <span class="subName">{{'Origin' | translate}}</span>
+                        </h5>
+                    </li>
+    
+                    <li>
+                        <h5 class="name">{{projectDetail.saleEntity?projectDetail.saleEntity.name:''}}
+                            <span class="subName">{{'Company' | translate}}</span>
+                        </h5>
+                    </li>
+                    <li>
+                        <h5 class="name">{{projectDetail.currency}}{{getCurrencySymbol(projectDetail.currency,'wide')}}
+                            <span class="subName">{{'Currency' | translate}}</span>
+                        </h5>
+                    </li>
+                    <li>
+                        <h5 class="name">{{projectDetail.language}}
+                            <span class="subName">{{'Language' | translate}}</span>
+                        </h5>
+                    </li>
+                    <!-- <li class="text-right">
+            
+                                <div class="equipment-on">
+                                    <img alt="" src="../../assets/img/lg-market-place.png">
+                                    <label class="switch">
+                                        <input type="checkbox" disabled [(ngModel)]="equipmentDetail.marketplace">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                                <div class="equipment-on pull-left">
+                                    <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                                    <label class="switch">
+                                        <input type="checkbox" disabled [(ngModel)]="equipmentDetail.available">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                            </li> -->
+                </ul>
+            </div>
+    
+            <div class="row">
+    
+                <div class="col-lg-12">
+    
+                    <!-- BOOKING DETAILS -->
+                    <div class="col-lg-12 col-md-12">
+                        <div class="grid bookingTable">
+                            <div class="grid-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped text-center common-Table">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="7">
+                                                    <span>{{'Booking Items' | translate}}</span>
+                                                    <!-- <a href="javscript:void(0)" class="addCatalog-tag"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+                                                    </a>
+                                                    <a href="javscript:void(0)" class="template-tag"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                                    <div class="filter">
+                                                        <div class="filter-search">
+                                                            <input type="text" [(ngModel)]="searchText" class="input-search" placeholder="Search...">
+                                                            <i class="fa fa-search"></i>
+                                                        </div>
+                                                    </div> -->
+                                                    <!-- <a class="pull-right mt-4" href="javascript:void(0)"><i class="fa fa-calendar pull-right"></i></a> -->
+                                                </th>
+    
+                                                <th class="text-center">
+                                                </th>
+                                                
+                                                <!-- <th style="width:80px;">
+                                                    <a href="javascript:void(0);" class="btn btn-first btn-book ripple">Book</a>
+                                                </th> -->
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let externalLine of externlizedLines;let i of index">
+                                                <td>
+                                                    <div class="checkbox m-0">
+                                                        <input type="checkbox" [id]="externalLine.id" (click)="addOrRemoveBooking(externalLine)" [disabled]="externalLine.supplierName">
+                                                        <label class="chk" [for]="externalLine.id"></label>
+                                                        <label [for]="externalLine.id"></label>
+                                                    </div>
+                                                </td>
+                                                <td class="text-left">
+                                                    <h5 class="name">{{externalLine.function && externalLine.function.parent? externalLine.function.parent.value:''}}
+                                                        <span class="subName">{{externalLine.function?externalLine.function.value:''}}</span>
+                                                    </h5>
+                                                </td>
+                                                <td class="text-left">
+                                                    <a href="javascript:void(0);" class="ordered" *ngIf="externalLine.supplierName">{{externalLine.supplierName}}</a>
+                                                </td>
+                                                <!-- <td class="text-left">
+                                                    <h5 class="name">Group QC, Group XZ
+                                                        <span class="subName">Groups</span>
+                                                    </h5>
+                                                </td> -->
+                                                <td>
+                                                    <h5 class="name">{{ externalLine.from | date:"MM/dd/yy"}}
+                                                        <span class="subName">{{externalLine.from| date:"shortTime"}}</span>
+                                                    </h5>
+                                                </td>
+                                                <td>
+                                                    <h5 class="name">{{ externalLine.to| date:"MM/dd/yy"}}
+                                                        <span class="subName">{{externalLine.to| date:"shortTime"}}</span>
+                                                    </h5>
+                                                </td>
+                                                <td class="text-center">
+                                                    <h5 class="name">{{externalLine.occurrenceCount}}
+                                                        <span class="subName">{{'Quantity' | translate}}</span>
+                                                    </h5>
+                                                </td>
+                                                <td class="text-center">
+                                                    <h5 class="name">{{externalLine.totalLocalCost}}
+                                                        <span class="subName">{{'Unit' | translate}}</span>
+                                                    </h5>
+                                                </td>
+                                                <td >
+                                                    &nbsp;
+                                                    <!-- <a href="javascript:void(0);" class="bidRequest">news-x</a>
+                                                    <a href="javascript:void(0);" class="bidRequest ml-5">9-XM</a> -->
+                                                </td>
+                                                <!-- <td class="showFinalActive">
+                                                    <h5 class="name">
+                                                        <span>invoice :</span> $1000
+                                                        <span class="subName">Down Payment: $500</span>
+                                                    </h5>
+                                                </td>
+                                                <td>
+                                                    <a href="javascript:void(0);" class="">
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                    <a href="javascript:void(0);" class="ml-10" (click)="isEditLineModalOpen=!isEditLineModalOpen">
+                                                        <i class="fa fa-pencil-square-o"></i>
+                                                    </a>
+                                                </td> -->
+    
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="col-lg-12">
+                        <div class="Selected-Div">
+                            <h4 class="title">{{'Selected Vendors' | translate}}</h4>
+                            <div class="row">
+                                <div class="col-sm-3" *ngFor="let order of orders">
+    
+                                    <div class="RecentSec">
+    
+                                        <div class="card" (click)="openOrderWinodw(order)">
+                                            <div class="card-box selectedNewCard">
+                                                <div class="productImg">
+                                                    <img src="../../assets/img/vdoImg.png" alt="" />
+                                                </div>
+                                                <div class="spInfoContainer">
+                                                    <!-- <div class="spInfo">
+                                                        <h4 class="title4">{{ project.title }}</h4>
+                                                        <p class="compnay-name">{{project.company?project.company.name:''}} </p>
+                                                        <p class="production-name"> {{project.dueDateForListView}}</p>
+                                                        <div class="merge-text">
+                                                            <p class="date-duratoin">{{ project.category }} </p>
+                                                            <p class="City-name">{{ project.city }} </p>
+                                                            <p class="country-name">{{ project.country }} </p>
+                                                        </div>
+                                                    </div> -->
+                                                    <div class="spInfo">
+                                                        <h4 class="title4">{{order.company?order.company.name:''}}</h4>
+                                                        <p class="approvalStatus" >{{order.status}}</p>
+                                                        <p class="paymentStatus">$ {{order.totalPrice}}</p>
+                                                        <p class="production-name">{{order.domain}}</p>
+                                                        <div class="merge-text">
+    
+                                                            <!-- <p class="date-duratoin">dsaf</p> -->
+                                                            <p class="City-name">{{ order.company && order.company.address?order.company.address.city:''}}</p>
+                                                            <p class="country-name">{{ order.company &&order.company.address?order.company.address.country:''}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <a href="javascript:void(0)" class="goBtn" (click)="goToDetails(project.id)">
+                                                <i class="fa fa-chevron-right"></i>
+                                            </a>
+    
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <!-- VENDORS DETAILS -->
+                    <div class="col-lg-12 col-md-12">
+                        <div class="grid bookingTable">
+                            <div class="grid-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped text-center common-Table">
+                                        <thead>
+                                            <tr>
+                                                <th><span>{{'Vendors' | translate}} </span></th>
+                                                <th colspan="5">
+                                                    <div class="filter">
+    
+                                                        <div class="filter-search">
+                                                            <input type="text" [(ngModel)]="searchText" class="input-search bg-grey" placeholder="Search...">
+                                                            <i class="fa fa-search"></i>
+    
+                                                            <a href="javascript:void(0)" id="filter-id" (click)="isfiterClicked = !isfiterClicked">
+                                                                {{'Filter by' | translate}}
+                                                                <i class="fa fa-sliders"></i>
+                                                            </a>
+    
+                                                            <a href="javascript:void(0)" id="sort-id" (click)="isSortByClicked =!isSortByClicked">
+                                                                {{'Sort by' | translate}}
+                                                                <i class="fa fa-sort"></i>
+                                                            </a>
+    
+                                                        </div>
+    
+                                                        <div class="filter-box" id="filter-id" [ngClass]="!isfiterClicked ? 'hide':''">
+                                                            <div class="arrow"></div>
+                                                            <div class="filter-row" [ngClass]="!isFilterByFunctionClicked?'collapse-ul':''">
+                                                                <h4 class="title4" (click)="isFilterByFunctionClicked = !isFilterByFunctionClicked">{{'Category' | translate}}
+                                                                    <i class="fa fa-angle-down"></i>
+                                                                </h4>
+                                                                <ul class="chk-list ">
+    
+                                                                    <li *ngFor="let domain of dropdownData.domain; let i = index">
+                                                                        <div class="checkbox">
+                                                                            <input type="checkbox" id={{i}} [checked]="selectedDomainCheckBoxList.indexOf(domain)>=0" (click)="onFilter(domain,'domain')">
+                                                                            <label for={{i}} class="chk"></label>
+                                                                            <label for={{i}}>{{domain}}</label>
+                                                                        </div>
+                                                                    </li>
+    
+                                                                </ul>
+                                                            </div>
+                                                            <div class="filter-row" id="filter-id" [ngClass]="!isFilterByModelClicked?'collapse-ul':''">
+    
+                                                                <h4 class="title4" (click)="isFilterByModelClicked =!isFilterByModelClicked">{{'Country' | translate}}
+                                                                    <i class="fa fa-angle-down"></i>
+                                                                </h4>
+                                                                <ul class="chk-list ">
+    
+                                                                    <li *ngFor="let country of dropdownData.countryList;let countryIndex = index">
+                                                                        <div class="checkbox">
+                                                                            <input type="checkbox" id={{country}}{{countryIndex}} [checked]="selectedCountryCheckBoxList.indexOf(country)>=0" (click)="onFilter(country,'country')">
+                                                                            <label for={{country}}{{countryIndex}} class="chk"></label>
+                                                                            <label for={{country}}{{countryIndex}}>{{country}}</label>
+                                                                        </div>
+                                                                    </li>
+    
+                                                                </ul>
+                                                            </div>
+                                                            <div class="filter-row" id="filter-id" [ngClass]="!isFilterByLocationClicked?'collapse-ul':''">
+                                                                <h4 class="title4" (click)="isFilterByLocationClicked =!isFilterByLocationClicked">{{'City' | translate}}
+                                                                    <i class="fa fa-angle-down"></i>
+                                                                </h4>
+                                                                <ul class="chk-list ">
+    
+                                                                    <li *ngFor="let city of dropdownData.cities;let cityIndex =index">
+                                                                        <div class="checkbox">
+                                                                            <input type="checkbox" id={{cityIndex}}{{city}} [checked]="selectedCityCheckBoxList.indexOf(city)>=0" (click)="onFilter(city,'city')">
+                                                                            <label for={{cityIndex}}{{city}} class="chk"></label>
+                                                                            <label for={{cityIndex}}{{city}}>{{city}}</label>
+                                                                        </div>
+                                                                    </li>
+    
+    
+                                                                </ul>
+                                                            </div>
+    
+                                                        </div>
+
+                                                        <div class="filter-box" id="sort-id" [ngClass]="!isSortByClicked ? 'hide':''" style="left: 28%;">
+                                                            <div class="arrow"></div>
+                                                            <ul class="chk-list " style="height:auto;">
+    
+    
+                                                                <li>
+                                                                    <div (click)="sort('name')" [ngClass]="(sortBy=='name'&&sortValue== 1)?'sort':''">
+                                                                        <i class="fa fa-sort " aria-hidden="true"></i>
+                                                                        <!-- <input type="radio" id='location'  (click)="sortBy='location'" name="sort"> -->
+                                                                        <label for='name' class="chk" style="margin-left:10px"></label>
+                                                                        <label for='name'>{{'Company Name' | translate}}</label>
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <div (click)="sort('domain')" [ngClass]="(sortBy=='domain'&&sortValue== 1)?'sort':''">
+                                                                        <i class="fa fa-sort" aria-hidden="true"></i>
+                                                                        <!-- <i class="fa fa-angle-up" aria-hidden="true"></i> -->
+                                                                        <!-- <input type="radio" id='model' (click)="sortBy='model'" name="sort"> -->
+                                                                        <label for='domain' class="chk" style="margin-left:10px"></label>
+                                                                        <label for='domain'>{{'Domain' | translate}}</label>
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <div (click)="sort('country')" [ngClass]="(sortBy=='country'&&sortValue== 1)?'sort':''">
+                                                                        <i class="fa fa-sort" aria-hidden="true"></i>
+                                                                        <!-- <i class="fa fa-angle-up" aria-hidden="true"></i> -->
+                                                                        <!-- <input type="radio" id='model' (click)="sortBy='model'" name="sort"> -->
+                                                                        <label for='country' class="chk" style="margin-left:10px"></label>
+                                                                        <label for='country'>{{'Country' | translate}}</label>
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <div (click)="sort('city')" [ngClass]="(sortBy=='city'&&sortValue== 1)?'sort':''">
+                                                                        <i class="fa fa-sort" aria-hidden="true"></i>
+                                                                        <!-- <i class="fa fa-angle-up" aria-hidden="true"></i> -->
+                                                                        <!-- <input type="radio" id='model' (click)="sortBy='model'" name="sort"> -->
+                                                                        <label for='city' class="chk" style="margin-left:10px"></label>
+                                                                        <label for='city'>{{'City' | translate}}</label>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+    
+                                                        </div>
+    
+                                                    </div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let vendor of vendorsList | vendorFilter : selectedDomainCheckBoxList:selectedCountryCheckBoxList:selectedCityCheckBoxList | vendorSearch:searchText:searchList | globalSort:sortBy:sortValue">
+                                                <td class="text-left">
+                                                    <h5 class="name">{{vendor.name}}
+                                                        <!-- <span class="subName">Edit Suit</span> -->
+                                                    </h5>
+                                                </td>
+                                                <td class="" style="width:100px;">
+                                                    <div _ngcontent-c9="" class="rating">
+                                                        <a _ngcontent-c9="" href="javascript:void(0)">
+                                                            <i _ngcontent-c9="" class="fa fa-star" ng-reflect-ng-style="[object Object]"></i>
+                                                        </a>
+                                                        <a _ngcontent-c9="" href="javascript:void(0)">
+                                                            <i _ngcontent-c9="" class="fa fa-star" ng-reflect-ng-style="[object Object]"></i>
+                                                        </a>
+                                                        <a _ngcontent-c9="" href="javascript:void(0)">
+                                                            <i _ngcontent-c9="" class="fa fa-star" ng-reflect-ng-style="[object Object]"></i>
+                                                        </a>
+                                                        <a _ngcontent-c9="" href="javascript:void(0)">
+                                                            <i _ngcontent-c9="" class="fa fa-star" ng-reflect-ng-style="[object Object]"></i>
+                                                        </a>
+                                                        <a _ngcontent-c9="" href="javascript:void(0)">
+                                                            <i _ngcontent-c9="" class="fa fa-star" ng-reflect-ng-style="[object Object]"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">
+                                                    <!-- <a href="javascript:void(0);" class="">
+                                                            <img src="../../assets/img/uninvitation.png" alt="alt"/>
+                                                        </a> -->
+                                                    <a href="javascript:void(0);" class="vratecard">{{'Ratecard' | translate}}</a>
+                                                </td>
+                                                <td class="">
+                                                    <h5 class="name">{{vendor.address?vendor.address.city:''}}
+                                                        <span class="subName">{{vendor.address?vendor.address.country:''}}</span>
+                                                    </h5>
+                                                </td>
+                                                <td class="text-center">
+                                                    <!-- <a href="javascript:void(0);" class="">
+                                                            <img src="../../assets/img/invoice.png" alt="alt"/>
+                                                        </a> -->
+                                                    <a href="javascript:void(0);" class="bidRequest">{{'Request for bid' | translate}}</a>
+                                                    <a href="javascript:void(0);" class="bidding ml-5">{{'Bidding' | translate}}</a>
+                                                </td>
+                                                <!-- <td>
+                                                        <h5 class="name ">$ 1,000</h5>
+                                                    </td> -->
+                                                <td class="text-center">
+                                                    <div class="dropdown-parent">
+                                                        <a href="javascript:void(0);" class="numOfRate availableBtn"  [ngStyle]="{'background':vendor.orderDTO?'#009933':'#9e9e9e'}">
+                                                            <span  (click)="createOrder(vendor)">{{vendor.orderDTO?'Ordered':'Order'}}</span>
+                                                            <i class="fa fa-plus"   (click)="createOrder(vendor)" *ngIf="vendor.orderDTO"></i>
+                                                        </a>
+                                                    </div>
+                                                    <!-- <a href="javascript:void(0);" class="ordered" (click)="openOrderWinodw(vendor)">Ordered</a> -->
+                                                </td>
+                                                <!-- <td>
+                                                        <h5 class="name">04/17/2018
+                                                            <span class="subName">14:45</span>
+                                                        </h5>
+                                                    </td> -->
+                                                <!-- <td>
+                                                        <a href="javascript:void(0);" class=""><i class="fa fa-trash"></i></a>
+                                                        <a href="javascript:void(0);" class="ml-10"><i class="fa fa-pencil-square-o"></i></a>
+                                                    </td> -->
+                                            </tr>
+    
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                </div>
+    
+                <div class="col-lg-12">
+                    <!-- DESCRIPTION PANEL -->
+                    <div class="col-lg-4 col-md-12">
+                        <div class="grid">
+                            <div class="grid-header">{{'Description' | translate}}</div>
+                            <div class="grid-body">
+                                <textarea class="form-control" name="" id="" cols="30" rows="5" placeholder="Description">{{'Details' | translate}}</textarea>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <!-- ATTACHMENT PANEL -->
+                    <div class="col-lg-4 col-md-12">
+                        <div class="grid">
+                            <div class="grid-body">
+                                <div class="table-responsive">
+                                    <table class="table common-Table">
+                                        <thead>
+                                            <tr>
+                                                <th>{{'Attachments' | translate}}
+                                                    <i class="fa fa-paperclip"></i>
+                                                    <a class="pull-right" href="javascript:void(0)" style="height: 0;font-size: 18px;line-height: 1.2;">
+                                                        <i class="fa fa-plus-circle"></i>
+                                                    </a>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody *ngIf="personnelDetail && personnelDetail.attachments">
+                                            <tr *ngFor="let attachment of personnelDetail.attachments">
+                                                <td>
+                                                    <div class="loaded-attachment">
+                                                        <a href="{{attachment.url}}">
+                                                            <img [src]="attachment.extension==='pdf'?'../../assets/img/pdf_logo.jpg':'../../assets/img/image_icon.png'" alt="">{{attachment.type}}</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+            </div>
+    
+        </div>
+    
+    
+<!-- Modal -->
+
+<div class="modal in fade procurement-modal" style="display: block;" *ngIf="showOrderEditModal">
+    <div class="modal-dialog  modal-lg">
+            <form [formGroup]="orderForm">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button type="button" class="close" data-dismiss="true" (click)="closeOrderWinodw()">&times;</button>
+                    <div class="status-selection">
+                            
+                                <div class="status-Updated">
+                                        <select class="form-control " placeholder="Status" formControlName="orderStatus">
+                                                <option  value=null >{{'Select status' | translate}}</option>
+                                                <option *ngFor="let category of ['Approved','Rejected']" value={{category}} >{{category}}</option>
+                                        </select>
+                                </div>
+                            
+                                <button type="button" class="btn btn-first btn-order ripple">{{'Order' | translate}}</button>
+                            
+                        </div>
+                    <h5 class="name pull-left">{{selectedOrder.company?selectedOrder.company.name:''}}
+                        <span class="subName">{{selectedOrder.company?selectedOrder.company.domain:''}}</span>
+                    </h5>
+
+
+                </div>
+                
+                <div class="modal-body">
+                    
+                        <div class="table-responsive">
+                        
+                            <table class="table table-striped text-center">
+                                <thead>
+                                    <tr>
+                                        <th>&nbsp;</th>
+                                        <!-- <th>Item</th> -->
+                                        <th>{{'Quantity' | translate}}</th>
+                                        <th class="basis_td">{{'Basis' | translate}}</th>
+
+                                        <th>{{'Unit price' | translate}}</th>
+                                        <th>{{'Discount' | translate}}</th>
+                                        <th>{{'Amount' | translate}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody formArrayName="orderLines">
+
+                                    <tr *ngFor="let orderLine of orderForm.get('orderLines').controls; let i=index" [formGroupName]="i">
+                                        <td class="text-left">
+
+                                            <h5 class="name">{{orderLine.get('function').value.parent ? orderLine.get('function').value.parent.value:''}}
+                                                <span class="subName">{{orderLine.get('function').value ? orderLine.get('function').value.value:''}}</span>
+                                            </h5>
+                                        </td>
+                                        
+                                        <td>
+                                            <input type="text" readonly class="form-control" placeholder="Qty" formControlName="qtySoldPerOc">
+                                        </td>
+                                        <td class="basis_td">
+                                            <input type="text" class="form-control" placeholder="Qty" formControlName="basis">
+                                        </td>
+
+                                        <td>
+                                            <input type="text" class="form-control" type="number"  placeholder="Unit price" formControlName="unitPrice">
+                                        </td>
+                                        <td>
+                                            <div class="percentage-input">
+                                            <input type="text" class="form-control" type="number"   placeholder="Discount" formControlName="discountRate">
+                                                <span class="percentage">%</span>
+                                        </div>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" placeholder="Amount" formControlName="totalLocalPrice">
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--  END TABLE -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                    <p class="extra-label">
+                                            <label for="">{{'Delivery' | translate}}:</label>
+                                            <span class="ml-20">{{'Delivery' | translate}}</span>
+                                        </p>
+                                <div class="extra-label labelWithPercentageInput">
+                                    <label for="">{{'Terms' | translate}}:</label>
+                                    <div class="percentage-input">
+                                            <input type="text" class="form-control"   placeholder="Payment terms" formControlName="paymentTerms" >
+                                                
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                            <div class="col-md-6">
+                                <p class="extra-label">
+                                    <label for="">{{'Subtotal' | translate}}:</label>
+                                    <span class="ml-20">$ {{selectedOrder.totalPrice}}</span>
+                                </p>
+                                <div class="extra-label labelWithPercentageInput">
+                                    <label for="Tax">{{'Tax' | translate}}:</label>
+                                    <!-- <input type="text" id="Tax" class="form-control" min=0 placeholder="Unit price" formControlName="tax"> -->
+                                    <div class="percentage-input">
+                                            <input type="text" class="form-control" type="number"   placeholder="Discount" formControlName="tax">
+                                                <span class="percentage">%</span>
+                                        </div>
+                                    </div>
+                                <p class="extra-label">
+                                    <label for="">{{'Total' | translate}}:</label>
+                                    <span class="ml-20">$ {{this.withVat}}</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- <div class="row mt-25">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="title-header">Comment</label>
+                                    
+                                    <textarea class="form-control" rows="4" placeholder="Write here" formControlName="comment"></textarea>
+                                </div>
+                                
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-xs-9">
+                                        <div class="form-content">
+                                            <label class="title-header">Attachment name</label>
+                                            <div class="attachment-content">
+                                                <i class="fa fa-upload"></i>
+                                                <label for="">Drag Here</label>
+                                                <label for="">or Browse your computer</label>
+
+                                                <input type="file" class="fileType" (change)="onFileChange($event)">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <div class="added-value-content">
+                                            <div class="description">
+
+                                                <div class="text-left mt-0 p-0">
+                                                    <button class="btn btn-first btn-plus"  (click)="addContents('Attachment')">
+                                                        <i class="fa fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <div class="added-value mt-15" *ngFor="let attachment of attachments">
+                                                
+                                                <img [src]="getAttachmentImage(attachment)" alt="">
+                                                <label>
+                                                    <span>{{attachment.type}}</span>
+                                                </label>
+                                                <a href="javascript:void(0)" class="close" (click)="removeContents(attachment,'Attachment')">&times;</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="row mt-25">
+                            
+                                <div class="col-xs-6" formGroupName="attachment" >
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="form-content">
+                                                <div class="addImageDiv">
+                                                    <label class="title-header">{{'Attachment name' | translate}} <input type="text" formControlName="attachmentType" /></label>
+                                                    <div class="addImageIco mt-0 p-0">
+                                                        <button class="btn btn-first btn-plus" [disabled]="orderForm.get('attachment').invalid" (click)="addContents('Attachment')">
+                                                            <i class="fa fa-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="attachment-content">
+                                                    <i class="fa fa-upload"></i>
+                                                    <label for="">{{'Drag Here' | translate}}</label>
+                                                    <label for="">{{'or Browse your computer' | translate}}</label>
+                                                    <input  [disabled]="this.orderForm.get('attachment').get('feedByUrl').value"  type="file" class="fileType" (change)="onFileChange($event)"/>
+                                                </div>
+                                                <span *ngIf="addedAttachmentFileName" style="color: hsl(147, 78%, 18%);text-align: left;font-size: 14px;margin-top: 5pt;">{{addedAttachmentFileName}}</span>
+                                    <span *ngIf="invalidAttachmentFormatError" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{invalidAttachmentFormatError}}</span>
+                                                <div>
+                                                    <p class="or"></p>
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" id="a1" formControlName="feedByUrl" value="1">
+                                                        <label class="chk" for="a1"></label>
+                                                        <label for="a1">{{'Urls' | translate}}:</label>
+                                                    </div>
+                                                    <input type="text" class="form-control" (focusout)="clearSpace(orderForm.get('attachment'),'url')" formControlName="url">
+                                                    <span *ngIf="orderForm.get('attachment').get('url').invalid && orderForm.get('attachment').get('url').value !=null&& orderForm.get('attachment').get('url').value.length !=0"
+                                                        style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{'Please enter valid URL' | translate}}.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <div class="added-value-content" >
+                                                <!-- <div class="">
+                                                    <div class="text-left mt-0 p-0">
+                                                        <button class="btn btn-first btn-plus"  (click)="addContents('Attachment')">
+                                                            <i class="fa fa-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </div> -->
+                                                <div class="added-value uploadedImgDiv mt-15" *ngFor="let attachment of attachments">
+                                                    <!-- <img src="../../assets/img/equipment/edit-suit.jpg" alt=""> -->
+                                                    <a href="{{attachment.url}}" > <img [src]="getAttachmentImage(attachment)" alt=""></a> 
+                                                    <label>
+                                                        <span>{{attachment.type}}</span>
+                                                    </label>
+                                                    <a href="javascript:void(0)" class="close" (click)="removeContents(attachment,'Attachment')">&times;</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <!-- Description -->
+                                <div class="col-xs-6">
+                                    <div class="added-value-content">
+                                        <div class="description">
+                                            <div class="form-group">
+                                                <label class="title-header">{{'Comment' | translate}}</label>
+                                                <textarea class="form-control" rows="4" placeholder="Write here" formControlName="comment"></textarea>
+                                            </div>
+                                            <!-- <button class="btn btn-first" type="button">Save</button> -->
+                                        </div>
+                                    </div>
+                                </div><!-- Description -->
+    
+                            </div>
+    
+                            <div>
+                                    <hr>
+                            </div>
+    
+
+                        <div class="text-center">
+                            <button class="btn btn-first" style="padding: 6px 12px;min-width: 100px;" type="button" (click)="updateOrder()">{{'Save' | translate}}</button>
+                        </div>
+                    
+                </div>
+
+
+
+
+            </div>
+        </form>
+
+            
+        
+    </div>
+</div>

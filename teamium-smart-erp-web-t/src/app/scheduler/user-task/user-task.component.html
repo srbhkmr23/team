@@ -1,0 +1,150 @@
+<!-- <daypilot-modal> -->
+
+
+<div id="myModal" class="modal in fade add-personnel-modal" style="display: block;" *ngIf='isShow'>
+  <div class=" modal-dialog modal-md ">
+
+
+
+    <form [formGroup]="form">
+      <!-- Modal content-->
+      <div class="modal-content ">
+
+        <div class="modal-header " style="background: #d7d7d7;">
+
+          <button type="button " class="close " data-dismiss="modal" (click)="cancel()"> &times;</button>
+          <h4 class="title ">
+            <fieldset [disabled]="isEditable">
+              <div class="row mb-20">
+                <div class="col-sm-6">
+                    <div class="taskBookingName">
+                        <span class="trackIco">
+                          <i *ngIf="!isCreate&&isEditable" class="fa fa-folder-o" aria-hidden="true"></i>
+                          <i *ngIf="!isCreate&&!isEditable"class="fa fa-thumb-tack" aria-hidden="true"></i>
+                          <i *ngIf="isCreate" style="color:orange" class="fa fa-thumb-tack" aria-hidden="true"></i>
+                        </span>
+                        <input class="form-control" formControlName="name" type="text" placeholder="Enter a Job Designation">
+                        <span *ngIf="form.get('name').invalid && form.get('name').touched" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{'Task Name is Required' | translate}}.</span>
+                    </div>
+                  </div>
+                  <div class="col-sm-5">
+                      <input *ngIf="isEditable" class="form-control" formControlName="functionName" type="text" placeholder="Functiom Name">
+                  </div>
+              </div>
+
+              <div class="row mb-10">
+                <div *ngIf="isCreate" class="col-sm-6">
+                  <div class=" nbCreator">
+                      <span class="fIco">
+                        <i class="fa fa-folder-o" aria-hidden="true"></i>
+                      </span>
+                      <div class="input-row ">
+                          <label>{{'Project' | translate}}</label>
+                          <select class="form-control" formControlName="project">
+                            <option value="null">{{'Select Project' | translate}}</option>
+                            <option *ngFor="let it of projectList" [ngValue]="it.id">{{it.title}}</option>
+                          </select>
+                        </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="input-row " *ngIf="this.form.get('functionName').value">
+                    <label>{{'Function Name' | translate}}</label>
+                    <select class="form-control" formControlName="functionName">
+                      <option value="null">{{'Select Function' | translate}}</option>
+                      <option *ngFor="let it of functionList" [ngValue]="it.id">{{it.name}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </h4>
+
+        </div>
+
+        <div class="modal-body ">
+          <div class="create-personnel ">
+            <div class="inner-content " style="overflow:inherit;">
+
+              <!-- 1 BASIC INFORMATION -->
+
+              <div class="form-content">
+
+                <div>
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="input-row ">
+                        <label>{{'Start' | translate}}</label>
+                        <p-calendar formControlName="start" [disabled]="malnualUpdate" [showTime]="true" hourFormat="12"></p-calendar>
+                        <span *ngIf="errorStart" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{errorStart}}</span>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="input-row ">
+                        <label>{{'End' | translate}}</label>
+                        <p-calendar formControlName="end" [disabled]="malnualUpdate" [showTime]="true" hourFormat="12"></p-calendar>
+                        <span *ngIf="errorEnd" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{errorEnd}}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div class="row" *ngIf="(!isEditable&& !isCreate)">
+                    <div class="col-lg-12">
+                      <div class="input-row ">
+                        <label>Theme</label>
+                        <input class="form-control" [value]="selectedColor" [style.background]="selectedColor" [(colorPicker)]="selectedColor" />
+                      </div>
+                    </div>
+                  </div> -->
+
+                  <div class="row" *ngIf="(this.form.get('functionName').value==null)">
+                      <div class="col-lg-12">
+                        <div class="input-row ">
+                          <label>{{'Theme' | translate}}</label>
+                          <input class="form-control" [value]="selectedColor" [style.background]="selectedColor" [(colorPicker)]="selectedColor" />
+                        </div>
+                      </div>
+                    </div>
+                
+                  
+                  <!-- <div class="row mb-10">
+                            <div class="col-lg-12">
+                              <div class="input-row ">
+                                <label>End</label>
+                                <p-calendar formControlName="end" [disabled]="malnualUpdate" [showTime]="true" hourFormat="12"></p-calendar>
+                                <span *ngIf="errorEnd" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{errorEnd}}</span>
+                              </div>
+                            </div>
+                          </div> -->
+                </div>
+                <!-- <div class="checkbox"  *ngIf="(!isEditable && !isCreate)">
+                  <input type="checkbox" id="a1" formControlName="sick" value="1">
+                  <label class="chk" for="a1"></label>
+                  <label for="a1" style="font-weight:bold;">Sick</label>
+                </div> -->
+
+                <div class="checkbox"  *ngIf="(this.form.get('functionName').value==null)">
+                    <input type="checkbox" id="a1" formControlName="sick" value="1">
+                    <label class="chk" for="a1"></label>
+                    <label for="a1" style="font-weight:bold;">{{'Sick' | translate}}</label>
+                  </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer ">
+          <div class="button-set text-center ">
+            <!-- <button class="btn btn-edit "> Skip </button> -->
+            <!-- <button *ngIf="!freeze"class="btn btn-first ripple" (click)="submit()" [disabled]="form.get('eventInfo').invalid || errorEnd || errorStart">Save</button> -->
+            <button class="btn btn-first ripple" [disabled]="form.invalid|| errorEnd || errorStart " (click)="submit()">{{'Save' | translate}}</button>
+            <button class="btn btn-first ripple ml-10" (click)="cancel()">{{'Cancel' | translate}}</button>
+            <button class="btn btn-first ripple ml-10" *ngIf="!isEditable && !isCreate" (click)="delete()">{{'Delete' | translate}}</button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>

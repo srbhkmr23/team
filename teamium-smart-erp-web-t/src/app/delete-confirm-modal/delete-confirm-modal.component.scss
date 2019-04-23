@@ -1,0 +1,51 @@
+
+@import '../../variables';
+// ================= Confirmation-Modal ===============//
+.confirmation-Modal {
+    .modal-dialog {
+        max-width: 400px;
+        margin: 30px auto;
+        .modal-content {
+            border-radius: 0px !important;
+            .modal-header {
+                background: #b93a3a;
+                color: #fff;
+                padding: 15px 15px 0;
+                h4 {
+                    margin-top: 0;
+                    margin-bottom: 15px;
+                }
+            }
+            .modal-body {
+                .confirmationText {
+                    font-size: 16px;
+                    text-align: center;
+                }
+            }
+        }
+        .modal-footer {
+            .button-set {
+                padding: 0px 0px ;
+                .btn-confirm {
+                    &:hover {
+                        background: #1e628e;
+                    }
+                    &:focus {
+                        outline: 0;
+                    }
+                }
+                .btn-No {
+                    background: transparent;
+                    border:1px solid #2f6f98;
+                    color: #2f6f98;
+                    &:hover {
+                        background: #d7d7d7;
+                    }
+                    &:focus {
+                        outline: 0;
+                    }
+                }
+            }
+        }
+    }
+}

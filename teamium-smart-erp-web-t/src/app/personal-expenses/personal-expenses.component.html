@@ -1,0 +1,322 @@
+<!-- <app-not-found-page [message]='bookingNotExistMessage'></app-not-found-page> -->
+<div class="edit-equipment project-Budgeting project-procurement vendor-bidding dashboard user-dashboard personal-expenses open-side-modal">
+
+  <div class="filter-header">
+      <div class="container-fluid pad-0">
+          <h1 class="title">{{'Expenses' | translate}}
+              <span> {{selectedPersonnel.firstName}} {{selectedPersonnel.lastName}}</span>
+          </h1>
+          <div class="filter">
+              <div class="filter-search">
+                  <div class="dateFilter-auto">
+                        <div class="dateInputdiv">
+                            <label>{{'From' | translate}}</label>
+                            <p-calendar [showIcon]="true" [showTime]="false" class="inputStyle" [(ngModel)]="fromDate"></p-calendar>
+                        </div>
+                        <div class="dateInputdiv">
+                            <label>To</label>
+                            <p-calendar [showIcon]="true" [showTime]="false" class="inputStyle" [(ngModel)]="toDate"></p-calendar>
+                        </div>
+                  </div>
+                  
+                  <!-- <input type="text" class="inputStyle" placeholder="From">
+                  <input type="text" class="inputStyle" placeholder="To"> -->
+                  <a href="javascript:void(0)" class="ml-5" (click)="resetDateRange()">
+                      <i class="fa fa-refresh"></i> 
+                  </a>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="inner-content">
+
+      <div class="row">
+
+          <div class="col-md-12">
+              <!-- Document Date -->
+              <div class="grid">
+                  <div class="grid-body">
+                      <div class="table-responsive">
+                          <table class="table common-Table">
+                              <thead>
+                                  <tr>
+                                      <th colspan="3">{{'Expenses Report' | translate}}
+                                          <a href="javascript:void(0);" class="plusIcon" (click)="openExpensesReportModal(null)">
+                                              <i class="fa fa-plus-circle"></i>
+                                          </a>
+                                      </th>
+                                      <th class="text-center">{{'Company Amount' | translate}}</th>
+                                      <th class="text-center">{{'Personnel' | translate}}</th>
+                                      <th colspan="3">
+                                          <div class="filter-search pull-right">
+                                              <input type="text" [(ngModel)]="searchText" class="input-search bg-grey " placeholder="Search...">
+                                              <i class="fa fa-search"></i>
+                                          </div>
+                                      </th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr  *ngFor="let report of expensesReports|expensesReportFilter:searchText|expensesReportDateRangeFilter:fromDate:toDate;let i of index">
+                                      <td>
+                                          <h5 class="name">{{'ER' | translate}}{{report.id}}</h5>
+                                      </td>
+                                      <td>
+                                          <h5 class="name">{{'Team' | translate}}-{{report.project.id}}
+                                              <span class="subName">{{report.project.title}}</span>
+                                          </h5>
+                                      </td>
+                                      <td>
+                                          <h5 class="name">{{report.date|date:'dd/MM/yyyy'}}</h5>
+                                      </td>
+                                      <td class="text-center">
+                                        <h5 class="name bold greenText">$ {{report.totalCompanyCardExpenses}}
+                                          <!-- <span class="subName">Company Amount</span> -->
+                                        </h5>
+                                      </td>
+                                      <td class="text-center">
+                                        <h5 class="name bold yellowText">$ {{report.totalPersonalExpenses}}
+                                          <!-- <span class="subName">Personnel</span> -->
+                                        </h5>
+                                      </td>
+                                      <td class="text-center">
+                                        <h5 class="name">
+                                          <span class="subName"></span>
+                                        </h5>
+                                      </td>
+                                      <td class="text-center">
+                                          <button type="button" class="btn btn-first btn-submit ripple" [ngStyle]="{'background-color':report.status=='Approved'?'#0e8303':''}" (click)="changesExpensesReportStatus(report)">{{report.status=='Created'?'Submit':report.status=='Submitted'?'Approve':'Approved'}}</button>
+                                          
+                                      </td>
+                                      <td  class="text-center">
+                                              <span (click)="openExpensesReportModal(report)" class="rightText" title="Edit signature">
+                                                      <i aria-hidden="true" class="fa fa-pencil-square-o ng-star-inserted"></i>
+                                                  </span>
+                                      </td>
+                                  </tr>
+                                 
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+  </div>
+
+    <!-- Expense Modal -->
+    <div class="modal in fade procurement-modal user-dashboard-modal" style="display: block;background: rgba(0, 0, 0, 0.6);" *ngIf="showExpensesReportModal">
+        <div class="modal-dialog  modal-lg">
+
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button type="button" class="close" data-dismiss="true" (click)="closeShowExpensesReportModal()">&times;</button>
+                    <h5 class="name pull-left">{{'ER' | translate}}{{selectedExpensesReport?selectedExpensesReport.id:""}}
+                        <span class="subName">{{'Team' | translate}}-{{expensesReportForm.get('project').value}}</span>
+                    </h5>
+                </div>
+
+                <div class="modal-body">
+                    <form [formGroup]="expensesReportForm">
+
+                        <div class="table-responsive">
+                            <!-- <table class="table text-center">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">
+                                            <label>Project *</label>
+                                            <select class="form-control" formControlName="project">
+                                                <option [ngValue]=null>Select Project</option>
+                                                <option [ngValue]="project.id" *ngFor="let project of projectsForPersonalExpenses">{{project.title}}</option>
+                                            </select>
+                                        </th>
+                                        <th class="" colspan="2">&nbsp;</th>
+                                        <th class="text-right" colspan="2"> 
+                                            <button class="btn btn-first btn-print ripple" type="button">Print</button>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">
+                                            <h5 class="name"><span>Date -</span>  {{expensesReportForm.get('date').value|date:'dd/MM/yyyy'}}</h5>
+                                        </th>
+                                        <th>
+                                            <button class="btn btn-first btn-plus" (click)="addItemToExpenseReport()">
+                                                <i class="fa fa-plus"></i> Add Item
+                                            </button>
+                                        </th>
+                                        <th class="ttlAmt text-center">
+                                            <span class="cardText">Company Card</span>
+                                            <label class="labelTotal grey">$ {{expensesReportForm.get('totalCompanyCardExpenses').value}}</label>
+                                        </th>
+                                        <th class="ttlAmt text-center">
+                                            <span class="cardText">Personnel</span>
+                                            <label class="labelTotal yellow">$ {{expensesReportForm.get('totalPersonalExpenses').value}}</label>
+                                        </th>
+                                        <th>&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody formArrayName="expensesItems">
+                                    <tr class="headSec">
+                                        <td>&nbsp;</td>
+                                        <td class="boldText">Item Name *</td>
+                                        <td class="boldText">Date *</td>
+                                        <td class="boldText">Company amount</td>
+                                        <td class="boldText">Personal amount</td>
+                                        <td class="boldText">&nbsp;</td>
+                                    </tr>
+                                    <tr *ngFor="let expensesitem of expensesItemsForm.controls; let i=index" [formGroupName]="i">
+                                        <td class="text-left">
+                                            <h5 class="name">Item {{i +1}}</h5>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" placeholder="Qty" formControlName="name">
+                                        </td>
+                                        <td class="basis_td">
+                                            <div style="display: flex;">
+                                                <p-calendar [showIcon]="true" [showTime]="false" formControlName="date"></p-calendar>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input class="form-control" type="number" placeholder="Company Card Expense" formControlName="companyCardExpense">
+                                        </td>
+                                        <td>
+                                            <input type="number" class="form-control" placeholder="Personal Expense" formControlName="personalExpense">
+                                        </td>
+                                        <td>
+                                            <a href="javascript:void(0);" class="deleteIco" (click)="removeItemFromExpenseReport(i);">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="4">&nbsp;</td>
+                                        <td class="ttlAmt text-center">
+                                            <label class="labelTotal grey">$0</label>
+                                            <span class="cardText">Payments</span>
+                                        </td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                </tfoot>
+                            </table> -->
+                            
+                            <table class="table text-center mb-0 common-Table">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">
+                                            <label>{{'Project' | translate}} *</label>
+                                            <select class="form-control" formControlName="project">
+                                                <option [ngValue]=null>{{'Select Project' | translate}}</option>
+                                                <option [ngValue]="project.id" *ngFor="let project of projectsForPersonalExpenses">{{project.title}}</option>
+                                            </select>
+                                            <!-- <hr class="sapretor" /> -->
+                                        </th>
+                                        <th class="" colspan="2">&nbsp;</th>
+                                        <th class="text-right" colspan="2">
+                                            <button class="btn btn-first btn-print ripple" type="button" [disabled]="selectedExpensesReport.status !== 'Approved'" *ngIf="showPrintButton" (click)="printExpensesReport()">{{'Print' | translate}}</button>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">
+                                            <h5 class="name">
+                                                <span>{{'Date' | translate}} -</span>  
+                                                {{expensesReportForm.get('date').value|date:'dd/MM/yyyy'}}
+                                            </h5>
+                                        </th>
+                                        <th>
+                                            <button class="btn btn-first btn-plus" (click)="addItemToExpenseReport()">
+                                                <i class="fa fa-plus"></i>{{' Add Item ' | translate}}
+                                            </button>
+                                        </th>
+                                        <th class="ttlAmt text-center">
+                                            <span class="cardText">{{'Company Amount' | translate}}</span>
+                                            <label class="labelTotal grey">$ {{expensesReportForm.get('totalCompanyCardExpenses').value}}</label>
+                                        </th>
+                                        <th class="ttlAmt text-center">
+                                            <span class="cardText">{{'Personnel Amount' | translate}}</span>
+                                            <label class="labelTotal yellow">$ {{expensesReportForm.get('totalPersonalExpenses').value}}</label>
+                                        </th>
+                                        <th style="width: 80px;">&nbsp;</th>
+                                    </tr>
+                                    <tr class="headSec">
+                                        <th class="width-55">&nbsp;</th>
+                                        <th class="text-center boldText">{{'Item Name' | translate}} *</th>
+                                        <th class="text-center boldText">{{'Date' | translate}} *</th>
+                                        <th class="text-center boldText">{{'Company Amount' | translate}}</th>
+                                        <th class="text-center boldText">{{'Personal Amount' | translate}}</th>
+                                        <th class="width-40">&nbsp;</th>
+                                    </tr>
+                                </thead>
+                            </table>
+
+                            <!-- table-inner-content -->
+                            <div class="table-inner-content">
+                                <table class="table text-center tabledata mb-0">
+                                    <tbody formArrayName="expensesItems">
+                                        <tr *ngFor="let expensesitem of expensesItemsForm.controls; let i=index" [formGroupName]="i">
+                                            <td class="text-left  width-55">
+                                                <h5 class="name">{{'Item' | translate}} {{i +1}}</h5>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control" placeholder="Qty" formControlName="name">
+                                            </td>
+                                            <td class="basis_td">
+                                                <div style="display: flex;">
+                                                    <p-calendar [showIcon]="true" [showTime]="false" formControlName="date"></p-calendar>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <input class="form-control" type="number" placeholder="Company Card Expense" formControlName="companyCardExpense">
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control" placeholder="Personal Expense" formControlName="personalExpense">
+                                            </td>
+                                            <td class="width-40">
+                                                <a href="javascript:void(0);" class="deleteIco" (click)="removeItemFromExpenseReport(i);">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div><!-- table-inner-content -->
+                            <!-- footer-->
+                            <table class="table text-center tabledata mb-0">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="">&nbsp;</td>
+                                        <td colspan="">&nbsp;</td>
+                                        <td colspan="">&nbsp;</td>
+                                        <td colspan="">&nbsp;</td>
+                                        <td colspan="">&nbsp;</td>
+                                        <td class="ttlAmt text-center">
+                                            <label class="labelTotal grey">$0</label>
+                                            <span class="cardText">{{'Payments' | translate}}</span>
+                                        </td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- footer-->
+
+                        </div>
+
+                    </form>
+                </div>
+
+                <hr>
+                <div class="row">
+                    <div class="col-md-12 mb-20" style="padding: 0 25px;">
+                        <button style="background-color: darkred;" class="btn btn-first ripple pull-left" (click)="deleteExpensesReport()" style="background-color: darkred;">{{'Delete' | translate}}</button>
+                        <button class="btn btn-first ripple ml-5 pull-right" type="button" (click)="saveOrUpdateExpensesReport()">{{'Save' | translate}}</button>
+                    </div>
+                </div>
+
+            </div>
+    
+        </div>
+    </div><!-- Expense Modal -->
+
+</div>

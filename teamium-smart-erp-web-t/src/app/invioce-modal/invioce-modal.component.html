@@ -1,0 +1,106 @@
+<!-- Modal -->
+<div id="myModal" class="modal in fade add-personnel-modal create-function-modal invoice-modal" style="display: block;">
+    <div class=" modal-dialog modal-lg ">
+        <form>
+            <!-- Modal content-->
+            <div class="modal-content ">
+                <div class="modal-header ">
+                    <button type="button " class="close " data-dismiss="modal" (click)="closeModal()"> &times;</button>
+                    <h4 class="title ">{{'Add Invoice ' | translate}}</h4>
+                </div>
+                <div class="modal-body ">
+                    <div class="create-personnel ">
+                        <div class="inner-content ">
+
+                            <!-- 1 BASIC INFORMATION -->
+
+                            <div class="steps personal-info">
+                                <div class="row ">
+                                    <div class="col-md-12 ">
+                                        <div class="form-content ">
+                                            <div class="row ">
+                                                <div class="col-xs-12">
+                                                    <label>{{'Select Option For Invoice' | translate}}</label>
+                                                </div>
+                                            </div>
+
+                                            <!-- Progress Based -->
+
+                                            <div class="row ">
+                                                <div class="col-xs-4">
+                                                    <div class="input-row ">
+                                                        <div style="margin-top: 3px;">
+                                                            <input id="radio-2" class="radio-custom" name="radio-group" type="radio"/>
+                                                            <label for="radio-2" class="radio-custom-label">{{'Progress Based' | translate}}</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-8">
+                                                    <div class="input-row ">
+                                                        <div class="inline-flex">
+                                                            <label class="mr-10">{{'Percentage' | translate}}</label>
+                                                            <input type="text " class="form-control " placeholder="Percentage"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Period Based -->
+
+                                            <div class="row ">
+                                                <div class="col-xs-4">
+                                                    <div class="input-row ">
+                                                        <div style="margin-top: 4px;">
+                                                            <input id="radio-1" class="radio-custom" name="radio-group" type="radio"/>
+                                                            <label for="radio-1" class="radio-custom-label">{{'Period Based' | translate}}</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-8">
+                                                    <div class="input-row ">
+                                                        <div class="dateFilter-auto">
+                                                            <div class="dateInputdiv mr-10">
+                                                                <label>{{'From' | translate}}</label>
+                                                                <p-calendar [showIcon]="true" class="inputStyle" ></p-calendar>
+                                                            </div>
+                                                            <div class="dateInputdiv">
+                                                                <label>{{'To' | translate}}</label>
+                                                                <p-calendar [showIcon]="true" class="inputStyle mr-0" ></p-calendar>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Final Based-->
+
+                                            <div class="row ">
+                                                <div class="col-xs-12">
+                                                    <div class="input-row ">
+                                                        <div>
+                                                            <input id="radio-1" class="radio-custom" name="radio-group" type="radio" />
+                                                            <label for="radio-1" class="radio-custom-label">{{'Final' | translate}}</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer ">
+                    <div class="button-set text-center ">
+                        <!-- <button class="btn btn-edit "> Skip </button> -->
+                        <button class="btn btn-first " type="submit">{{'Save' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,73 @@
+@import '../personal-edit/personal-edit.component';
+@import '../../variables.scss';
+
+.call-sheet {
+    ul {
+        margin: 0;
+        padding-left: 0;
+        list-style: none;   
+        li.client-list {
+            min-height: 55px;
+            padding: 8px 60px 8px 50px;
+            border-bottom: 1px solid $lite-color;
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            justify-content: center;
+            -webkit-justify-content: center;
+            -moz-flex-direction: column;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-orient: vertical;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            transition: all 0.4s ease-in-out;
+            position: relative;
+            .user-Img {
+                width: 44px;
+                height: 44px;
+                img {
+                    border: 1px solid #ddd;
+                    border-radius: 50%;
+                    width:100%;
+                    height:100%;
+                }
+            }
+            & .img-position {
+                position: absolute;
+                top:4px;
+                left:0;
+            }
+            // ====== Name =====//
+            .name {
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+            }
+            //======== msg-link =========//
+            .msg-link {
+                position: absolute;
+                top: 12px;
+                right: 23px;
+                width: 30px;
+                img {
+                    width:100%;
+                }
+            }
+            //=========== arrow ===========//
+            .arrow {
+                position: absolute;
+                top:18px;
+                right:5px;
+                .fa {
+                    font-size: 10px;
+                    color: $dark-color3;
+                }
+            }
+        }
+    }
+}

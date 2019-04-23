@@ -1,0 +1,86 @@
+@import '../save-company/save-company.component';
+@import '../../../variables';
+
+.required-field{
+    color: red;
+}
+
+.filter-search {
+    position: relative;
+    .input-search {
+        border: 0px solid #999;
+        padding: 6px 15px 6px 20px;
+        outline: 0;
+        width: 165px;
+        height: 34px;
+        border-bottom: 1px solid #2f6f98;
+    }
+    .fa-search {
+        position: absolute;
+        left: 0px;
+        top: 9px;
+        color: #2f6f98;
+    }
+    
+    .bg-grey {
+        background: #f0f0f0 !important;
+    }
+}
+
+.checkbox {
+    margin-top: 8px;
+    margin-bottom: 0;
+}
+
+.channelTable {    
+    .width-35 {
+        width:35px;
+    }
+    .width-4{
+        width:4px;
+    }
+    .width-125 {
+        width:125px;
+        .name{
+            font-weight: 600;
+        }
+    }
+    .format-name {
+            margin-top: 5px;
+            font-size: 15px;
+    }
+    .wb {
+        word-break: break-word;
+    }
+    tbody {
+        display:block;
+        height:300px;
+        overflow-y:auto;
+    }
+    thead>tr, 
+    tbody>tr{
+        display:table;
+        table-layout: fixed;
+        width:100%;/* even columns width , fix width of table too*/
+    }
+}
+
+.grid{
+    border: 2px solid #2f6f98;
+    margin-top:20px;
+    thead{
+        // background-color: #f0f0f0;
+        border-bottom: none !important;
+    }
+}    
+
+.channelContent {
+    .grid-body {
+        .table>thead>tr>th{
+            border-bottom: none !important;
+            background: #f0f0f0;
+            vertical-align: middle;
+        }
+    }
+}
+// Custom Select Search style //

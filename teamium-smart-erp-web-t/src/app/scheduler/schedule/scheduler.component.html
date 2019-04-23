@@ -1,0 +1,301 @@
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner>
+
+<!-- <div class="head-Content">
+    <button (click)="print()">print</button> -->
+
+<div class="scheduler-page equipment-list">
+
+    <!-- FILTER HEADER   -->
+    <div class="filter-header" style="border-bottom:0;margin-bottom: 0;padding-bottom: 0;">
+        <div class="container-fluid pad-0" style="display: flex;align-items: center;">
+            <h1 class="title" style="    white-space: nowrap;">{{'Event Scheduler' | translate}}
+                <button pButton type="button" label='{{unscheduled.length}}' class="ui-button-rounded numofTask-Btn" (click)="isClick=isClick?false:true"></button>
+            </h1>
+            <!-- <span>Project 123</span> -->
+            <form *ngIf="timeLineForm" [formGroup]="timeLineForm" style="margin:0 15px;width:100%;">
+                <div class="form-content">
+                    <div class="row">
+
+                        <div class="col-xs-4">
+                            <div class="input-row ">
+                                <label>Type</label>
+                                <select class="form-control" formControlName="functionName">
+                                    <option [ngValue]="null">{{'Select Type' | translate}}</option>
+                                    <option *ngFor="let functionName of functionDropDown |lineSearch:searchText" [ngValue]="functionName">{{functionName.function.qualifiedName}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-4">
+                            <div class="input-row">
+                                <label>{{'Date' | translate}}</label>
+                                <div>
+                                    <p-calendar formControlName="date"></p-calendar>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-4">
+                            <div class="input-row ">
+                                <label>{{'Format' | translate}}</label>
+                                <select class="form-control" formControlName="format">
+                                    <option [ngValue]="null">{{'Select Type' | translate}}</option>
+                                    <option *ngFor="let format of formats" [ngValue]="format">{{format}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <!--filter-->
+            <div class="filter" style="min-width: 365px;">
+
+                <div class="filter-search">
+                    <input type="text" class="input-search" [(ngModel)]="searchText" placeholder="Search...">
+                    <i class="fa fa-search"></i>
+
+                    <!-- -->
+                    <div class="optionDiv">
+
+                        <a href="javascript:void(0)" class="ml-5" (click)="openOpion=!openOpion" id="option-id">
+                            <i class="fa fa-list-ul"></i> {{'Options' | translate}}
+                        </a>
+
+                        <form *ngIf="timeLineForm" [formGroup]="timeLineForm">
+
+                            <div class="optionsBox" id="option-id" *ngIf="openOpion">
+
+                                <div class="arrow"></div>
+
+                                 <!--statusNotifications-->
+                                 <h4 class="title4">{{'Status' | translate}} <i class="fa fa-angle-down"></i></h4>
+                                 <div class="statusNotifications">
+                                    <!-- <h4 class="titleText"><i class="fa fa-caret-down"></i> Event Status </h4> -->
+                                    <ul class="doughnut-legend">
+                                        <li><span style="background-color:green"></span> {{'Requested' | translate}} </li>
+                                        <li><span style="background-color:orange"></span> {{'Awaiting Confirmation' | translate}} </li>
+                                        <li><span style="background-color:grey"></span> {{'Penciled' | translate}} </li>
+                                        <li><span style="background-color:red"></span> {{'Hold' | translate}} </li>
+                                        <li><span style="background-color:#2f6f98"></span> {{'Confirmed' | translate}} </li>
+                                    </ul>
+                                </div>
+
+                                <!--chk-list-->
+                                <h4 class="title4">{{'Options' | translate}} <i class="fa fa-angle-down"></i></h4>
+
+                                <ul class="chk-list">
+                                    <li>
+                                        <div _ngcontent-c4="" class="checkbox">
+                                            <input _ngcontent-c4="" type="checkbox" id="0" formControlName="moveable">
+                                            <label _ngcontent-c4="" class="chk" for="0"></label>
+                                            <label _ngcontent-c4="" for="0">{{'Move' | translate}}</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div _ngcontent-c4="" class="checkbox">
+                                            <input _ngcontent-c4="" type="checkbox" id="1" formControlName="resizable">
+                                            <label _ngcontent-c4="" class="chk" for="1"></label>
+                                            <label _ngcontent-c4="" for="1">{{'Resize' | translate}}</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div _ngcontent-c4="" class="checkbox">
+                                            <input _ngcontent-c4="" type="checkbox" id="4" formControlName="link">
+                                            <label _ngcontent-c4="" class="chk" for="4"></label>
+                                            <label _ngcontent-c4="" for="4">{{'Show Link' | translate}}</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div _ngcontent-c4="" class="checkbox">
+                                            <input _ngcontent-c4="" type="checkbox" id="2">
+                                            <label _ngcontent-c4="" class="chk" for="2"></label>
+                                            <label _ngcontent-c4="" for="2">{{'Roster Unavailability' | translate}}</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div _ngcontent-c4="" class="checkbox">
+                                            <input _ngcontent-c4="" type="checkbox" id="3">
+                                            <label _ngcontent-c4="" class="chk" for="3"></label>
+                                            <label _ngcontent-c4="" for="3">{{'Unavailability' | translate}}</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div _ngcontent-c4="" class="checkbox">
+                                            <input _ngcontent-c4="" type="checkbox" id="5" formControlName="selectMultiple">
+                                            <label _ngcontent-c4="" class="chk" for="5"></label>
+                                            <label _ngcontent-c4="" for="5">{{'Select Multiple' | translate}}</label>
+                                        </div>
+                                    </li>
+                                </ul>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                    <!---->
+                    <a href="javascript:void(0)" class="ml-5" (click)="print()">
+                        <i class="fa fa-print"></i> {{'Print' | translate}}
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    
+
+    <!--chooseMultiSelection-->
+
+
+     <div class="chooseMultiSelection">
+        <div class="row">
+            <div class="col-md-8">
+                <task-scheduled-edit-dialog #editScheduled></task-scheduled-edit-dialog>
+                <app-createevent #createScheduled></app-createevent>
+                <app-recurrence #recurrenceSchedule></app-recurrence>
+            </div>
+        </div>
+    </div> 
+
+    <div *ngIf="isClick" [ngClass]="isClick?'column-left':''">
+        <div class="queue">
+            <!--<div class="queue-title">Unscheduled Tasks</div>-->
+            <button (click)="addToQueue()" class="addTaskBtn ">{{'Unsheduled Events' | translate}}</button>
+            <div class="" style="height: 665px;overflow-y: auto;">
+                <div *ngFor="let item of unscheduled" [draggableToScheduler]="{ theme:item.theme,text: item.text, externalHtml: item.text, duration: durationFromMinutes(item.duration), id: item.id }"
+                    (click)="queueEdit(item)" class="queue-item">
+                    <label>{{item.text}}</label>
+                    <br/>
+                    <span class="task-duration">{{'Start Date' | translate}} - {{formatTime(item.start)}}</span>
+                    <br/>
+                    <span class="task-duration">{{'End Date' | translate}} - {{formatTime(item.end)}}</span>
+                    <br/>
+                    <span class="task-duration">{{'Duration' | translate}} - {{formatDuration(item.duration)}}</span>
+                </div>
+                <div *ngIf="unscheduled.length === 0">{{'No tasks in queue' | translate}}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="scheduler-Sec" [ngClass]="isClick?'column-right':''">
+        <daypilot-scheduler [config]="config" [events]="events" #scheduler></daypilot-scheduler>
+    </div>
+
+    <div class="clear"></div>
+
+</div>
+
+<!-- CONFIRM Modal -->
+<div id="myModal" class="modal in fade add-personnel-modal" style="display: block;" *ngIf='splitEventValue'>
+    <div class=" modal-dialog modal-sm ">
+        <form [formGroup]="splitForm" (submit)="splitEvents()">
+            <!-- Modal content-->
+            <div class="modal-content ">
+                <div class="modal-header ">
+                    <button type="button " class="close " data-dismiss="modal" (click)="closeSplit()"> &times;</button>
+                    <h4 class="title ">{{'Split' | translate}}</h4>
+                </div>
+                <div class="modal-body ">
+                    <div class="create-personnel ">
+                        <div class="inner-content ">
+                            <div class="form-content">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="input-row">
+                                            <label>{{'Split' | translate}}</label>
+                                            <input class="form-control" placeholder="Split" formControlName="splitNumber" />
+                                        </div>
+                                        <span *ngIf="splitForm.get('splitNumber').invalid" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{'Please enter valid Number' | translate}}.</span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer ">
+                    <div class="button-set text-center ">
+                        <button class="btn btn-first" type="submit" [disabled]="splitForm.invalid"> {{'Yes' | translate}} </button>
+                        <button class="btn btn-first" (click)="closeSplit()">{{'No' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Link Event Modal-->
+<div id="myModal" class="modal in fade add-personnel-modal" style="display: block;" *ngIf='linkEventValue'>
+    <div class=" modal-dialog modal-sm ">
+        <form [formGroup]="linkEventForm" (submit)="saveLinkEvents()">
+            <!-- Modal content-->
+            <div class="modal-content ">
+                <div class="modal-header ">
+                    <button type="button " class="close " data-dismiss="modal" (click)="closeLinkSplit()"> &times;</button>
+                    <h4 class="title ">{{'Link Events' | translate}}</h4>
+                </div>
+                <div class="modal-body ">
+                    <div class="create-personnel ">
+                        <div class="inner-content ">
+                            <div class="form-content">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="input-row">
+                                            <label>{{'Linked Events' | translate}}</label>
+                                            <div class="added-value-content" *ngIf="events">
+                                                <div class="added-value" *ngFor="let event of linkedEventsList">
+                                                    <label>{{event.text}}
+                                                        <!-- <span>{{milestone.type}}</span> -->
+                                                    </label>
+                                                    <a href="javascript:void(0)" class="close" (click)="saveLinkEvents(event)">&times;</a>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class="input-row">
+                                                        <label>{{'Event' | translate}}</label>
+                                                        <select class="form-control" formControlName="eventName">
+                                                            <option [ngValue]="null">{{'Select Event' | translate}}</option>
+                                                            <option *ngFor="let eventName of linkingEventsList" [ngValue]="eventName">{{eventName.text}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-1">
+                                                    <label>&nbsp;</label>
+                                                    <div class="text-right mt-0 p-0">
+                                                        <!-- <button class="btn btn-first btn-plus" [disabled]="linkEventForm.get('eventName').invalid" (click)="linkEvents ()">
+                                                            <i class="fa fa-plus"></i>
+                                                        </button> -->
+                                                        <button class="btn btn-first" [disabled]="linkEventForm.get('eventName').invalid" type="submit"> {{'Save' | translate}} </button>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <!-- <input class="form-control" placeholder="Split" formControlName="splitNumber" /> -->
+                                        </div>
+                                        <!-- <span *ngIf="splitForm.get('splitNumber').invalid" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">Please enter valid Number.</span> -->
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer ">
+                    <div class="button-set text-center ">
+                        <!-- <button class="btn btn-first" type="submit"> Save </button> -->
+                        <button class="btn btn-first" (click)="closeLinkSplit()">{{'Close' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,208 @@
+<!--MAIN HEADER -->
+<header class="header header-fixed-top">
+    <div class="navbar-menu">
+        <!--toggle-->
+        <app-sidebar-toggle></app-sidebar-toggle>
+
+        <!--Page Title Text-->
+        <h4 class="title">Task Details</h4>
+
+        <!--user-Img-->
+        <app-profile-pic></app-profile-pic>
+    </div>
+    
+    <!-- Sub-Menu -->
+    <!-- <div class="sub-Menu subMenu-filter">
+        <div class="search-filter">
+          <i class="fa fa-search"></i>
+          <input type="text" class="form-control input-search" placeholder="Search"/>
+        </div>
+        <span class="notepad-ico ripple"><img src="../assets/img/notepad-ico.png" alt=""/></span>
+    </div> -->
+    
+</header>
+  
+  <!-- WRAPPER -->
+  <div id="wrapper" class="wrapper" style="padding-top: 73px !important;">
+    <!--sideBar-->
+    <app-sidebar></app-sidebar>
+  
+    <!-- Main Section -->
+    <section class="main-section">
+        <!-- Add Your Content Inside -->
+        <div class="content pad-btm-50">
+  
+          <div class="usersContent personnel-edit task-details task">
+
+              <!---->
+              <div class="mb-20">
+                  <div class="c-des">
+                      <h4 class="c-Text">
+                        <span class="c-Name" (click)="goBack()">
+                          <a href="javascript:void(0);" class="arrow"><i class="fa fa-chevron-left"></i></a>
+                          <!-- Amex and Apple Pay -->
+                          {{task && task.event ? task.event.text : ''}}
+                        </span>
+
+                        <!--rightside icon start-->
+                        <span class="group-icons pull-right">
+                            <a href="javascript:void(0);" class="link-icon ripple">
+                                <img src="assets/img/edit-ico.png" alt=""/>
+                            </a>
+                            <a href="javascript:void(0);" class="link-icon ripple ml-10">
+                                <img src="assets/img/timer-ico.png" alt=""/>
+                            </a>
+                            <a href="javascript:void(0);" class="link-icon ripple ml-10">
+                                <img src="assets/img/user-detail-ico.png" alt=""/>
+                            </a>
+                        </span>
+                        <!--rightside icon end-->
+                      </h4>
+                  </div>
+              </div>
+
+              <!-- cover graph -->
+              <div class="mb-20">
+                  <div class="timer-graph mb-20" *ngIf="task && task.event">
+                      <!-- <img src="assets/img/timer-graph.png" alt=""/> -->
+                      <circle-progress
+                        [percent]="task.event.completion"
+                        [radius]="33"
+                        [space]="-3"
+                        [outerStrokeWidth]="5"
+                        [innerStrokeWidth]="2"
+                        [outerStrokeColor]="'#ffffff'"
+                        [innerStrokeColor]="'#729db9'"
+                        [animation]="false"
+                        [animationDuration]="300"
+                        [showSubtitle]="false"
+                        [titleColor]="'#a7ce3c'"
+                        [unitsColor]="'#a7ce3c'"
+                        ></circle-progress>
+                  </div>
+
+                  
+
+            
+
+                  <div class="slider-div" *ngIf="task && task.event"> 
+                    <mat-slider class="mat-slider-style"
+                    [disabled]=" (task && !task.userStartTime) || (task && task.event.completion===100)" min="0" max="100"
+                    [color]="green"
+                    [(ngModel)]="task.event.completion"
+                    (change)="handleBookingCompletionChanges(task.event.completion,task)"
+                    (input)="onInputChange($event)"
+                    ></mat-slider>
+                    {{slideValue?slideValue:task.event.completion}}
+                  </div>
+
+              </div>
+
+              <!--task-timing-->
+              <div class="mb-20">
+                  <ul class="task-timing">
+                      <li class="task-list">
+                          <h5 class="name">Start
+                              <!-- <span class="subName">Postprod / Editor</span> -->
+                          </h5>
+                          <!--Time Report -->
+                          <div *ngIf="task && task.userStartTime" class="time-status">
+                              <span class="date-time"><img src="assets/img/calender-b.png" alt=""/>
+                                 <!-- 05/13/18 -->
+                                {{getFormatedDate(task.userStartTime)|date:'dd/MM/yyyy'}}
+                            </span>
+                              <span class="date-time ml-10"><img src="assets/img/watch-ico.png" alt=""/>
+                                 <!-- 10:00 AM -->
+                                {{getFormatedDate(task.userStartTime)| date:"shortTime"}}
+                              </span>
+                          </div>
+                          <!--forma-ico-->
+                          <a (click)="startOrEndUserBookingTime(task,true)" href="javascript:void(0);" class="forma-ico"><img src="assets/img/forma-ico.png" alt=""/></a>
+                      </li>
+                      <li class="task-list">
+                          <h5 class="name">End
+                              <!-- <span class="subName">Postprod / Editor</span> -->
+                          </h5>
+                          <!--Time Report -->
+                          <div *ngIf="task && task.userEndTime" class="time-status">
+                              <span class="date-time"><img src="assets/img/calender-b.png" alt=""/>
+                                 <!-- 05/13/18 -->
+                                {{getFormatedDate(task.userEndTime)|date:'dd/MM/yyyy'}}
+                                </span>
+                              <span class="date-time ml-10"><img src="assets/img/watch-ico.png" alt=""/> 
+                                <!-- 10:00 AM -->
+                                {{getFormatedDate(task.userEndTime)| date:"shortTime"}}
+                            </span>
+                          </div>
+                          <!--forma-ico-->
+                          <a (click)="startOrEndUserBookingTime(task,false)" href="javascript:void(0);" class="forma-ico"><img src="assets/img/forma-ico-1.png" alt=""/></a>
+                      </li>
+                  </ul>
+              </div>
+
+              <!-- ADD EQUIPEMENT -->
+              <div class="mb-20">
+                  <div class="add-equipement-btn">
+                      <span>Add Equipment</span>
+                      <a href="javascript:void(0);" class="add-link ml-5">+</a>
+                  </div>
+              </div>
+              <!--  -->
+              <div class="mb-20">
+                  <div class="equipement-deatils">
+                      <div class="product-des content-center">
+                          <div class="equip-img-div">
+                              <img src="assets/img/equip-cam.png" alt="" />
+                          </div>
+                          <h5 class="name">Production Camera
+                              <span class="subName">Sony DWW 320 P ENG3</span>
+                          </h5>
+                      </div>
+                      <!--WORK ORDER DETAIL -->
+                      <div *ngIf="task && task.workOrder && task.workOrder.keywords" class="work-order-sec">
+                          <h5 class="title">Work Order</h5>
+                          <div class="order-detail">
+                              <div *ngFor="let keyword of workOrderKeywordList" class="inline-flex">
+                                  <div class="inline-div left-text">{{keyword.keyword}}</div>
+                                  <div class="inline-div">{{keyword.keywordValue}}</div>
+                              </div>
+                              <!-- <div class="inline-flex">
+                                  <div class="inline-div left-text">Bit Rate</div>
+                                  <div class="inline-div">6Mbps</div>
+                              </div>
+                              <div class="inline-flex">
+                                  <div class="inline-div left-text">Aspect Ration</div>
+                                  <div class="inline-div">16:9</div>
+                              </div>
+                              <div class="inline-flex">
+                                  <div class="inline-div left-text">Vo</div>
+                                  <div class="inline-div">English (US)</div>
+                              </div> -->
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+              <!-- Comment -->
+              <div class="comment-box">
+                  <label class="label-Text">Comment</label>
+                  <textarea class="form-control textarea-style mt-5" name="" id="" rows="0" placeholder="Comment"></textarea>
+              </div>
+
+              
+
+          </div>
+  
+        </div>
+        <!-- /.content -->
+    </section>
+    <!-- /.main-section -->
+  </div>
+  <!-- /#wrapper -->
+  
+  <!-- MANU FOOTER -->
+  <app-footer></app-footer>
+  
+  <!-- MANU FOOTER -->
+  
+

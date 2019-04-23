@@ -1,0 +1,204 @@
+<!-- <daypilot-modal> -->
+
+
+<div id="myModal" class="modal in fade add-personnel-modal" style="display: block;" *ngIf='isShow'>
+    <div class=" modal-dialog modal-lg ">
+
+        <!-- Modal content-->
+        <div class="modal-content ">
+            <div class="modal-header ">
+                <button type="button " class="close " data-dismiss="modal" (click)="cancel()"> &times;</button>
+                <h4 class="title ">{{freeze?'View':'Edit'}} {{'Event' | translate}}</h4>
+
+            </div>
+            <div class="modal-body ">
+                <div class="create-personnel ">
+                    <div class="inner-content pad-20">
+
+                        <!-- 1 BASIC INFORMATION -->
+
+                        <div class="form-content">
+                            <fieldset [disabled]="freeze">
+                                <form [formGroup]="form">
+                                    <div formGroupName="eventInfo">
+                                        <div class="row mb-10">
+                                            <div class="col-md-4">
+                                                <div class="input-row ">
+                                                    <label>{{'Project' | translate}}*</label>
+                                                    <select class="form-control" formControlName="project">
+                                                        <option *ngFor="let it of projectList" [ngValue]="it.id">{{it.title}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-10">
+                                            <div class="col-md-4">
+                                                <div class="input-row ">
+                                                    <label>{{'Title' | translate}}*</label>
+                                                    <input class="form-control" formControlName="text" type="text" placeholder="Task Name">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="input-row ">
+                                                    <label>{{'Status' | translate}}:</label>
+                                                    <select class="form-control " formControlName="statusKey">
+                                                        <option value="null">{{'Select Status' | translate}}</option>
+                                                        <option *ngFor="let program of status" [ngValue]="program.statusKey">{{program.statusKey}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="input-row ">
+                                                    <label>{{'Theme' | translate}}</label>
+                                                    <input class="form-control" [value]="selectedColor" [style.background]="selectedColor" [(colorPicker)]="selectedColor" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row mb-10">
+                                            <div class="col-md-4">
+                                                <div class="input-row ">
+                                                    <label>{{'Start' | translate}}</label>
+                                                    <p-calendar formControlName="start" [disabled]="malnualUpdate" [showTime]="true" hourFormat="12"></p-calendar>
+                                                    <span *ngIf="errorStart" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{errorStart}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="input-row ">
+                                                    <label>{{'End' | translate}}</label>
+                                                    <p-calendar formControlName="end" [disabled]="malnualUpdate" [showTime]="true" hourFormat="12"></p-calendar>
+                                                    <span *ngIf="errorEnd" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{errorEnd}}</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4" style="padding-top: 25px;">
+                                                <div class="input-row ">
+                                                    <label>{{'Completion' | translate}} :</label>
+                                                    <span>{{form.get('eventInfo').get('completion').value}}</span>
+                                                    <p-slider formControlName="completion" [disabled]="freeze" [style]="{'width':'14em'}"></p-slider>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row mb-10">
+
+                                            <div class="col-md-4">
+                                                <div class="input-row ">
+                                                    <label>{{'Function Name' | translate}}*</label>
+                                                    <!-- <input class="form-control" formControlName="functionName" type="text" placeholder="Function Name" readonly> -->
+                                                    <select class="form-control" formControlName="functionId">
+                                                        <option [ngValue]="null">{{'Select Type' | translate}}</option>
+                                                        <option *ngFor="let functionId of functionDropdown" [ngValue]="functionId.function.id">{{functionId.function.qualifiedName}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="input-row ">
+                                                    <label>{{'Resource' | translate}}*</label>
+                                                    <select class="form-control" formControlName="resource">
+                                                        <option *ngFor="let it of mainResources" [ngValue]="it.id">{{it.name}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="input-row ">
+                                                    <label>{{'Comment' | translate}} :</label>
+                                                    <input class="form-control" formControlName="comment" type="text" placeholder="Comment">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div formArrayName="lines" *ngFor="let line of form.get('lines').controls; let i = index;">
+                                        <div [formGroupName]="i">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="input-row ">
+                                                        <label>{{'Function Name' | translate}}</label>
+
+                                                        <select class="form-control" formControlName="functionId" disabled=true>
+                                                            <option [ngValue]="null">{{'Select Type' | translate}}</option>
+                                                            <option *ngFor="let functionId of functionDropdown" [ngValue]="functionId.function.id">{{functionId.function.qualifiedName}}</option>
+                                                        </select>
+                                                        <!-- <input class="form-control" formControlName="functionValue" type="text" placeholder="Function Name" readonly> -->
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="input-row ">
+                                                        <label>{{'Resource' | translate}}</label>
+                                                        <select class="form-control" formControlName="resource">
+                                                            <option *ngFor="let it of getResources(i)" [ngValue]="it.id">{{it.name}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <label>&nbsp;</label>
+                                                    <div class="text-right mt-0 p-0">
+                                                        <button class="btn" (click)="deleteLine(i)">
+                                                            {{'Delete' | translate}}
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row " formGroupName="functionInfo">
+
+                                        <div class="col-md-4">
+                                            <div class="input-row ">
+                                                <label>{{'Function Name' | translate}}</label>
+                                                <select class="form-control" formControlName="functionValue">
+                                                    <option [ngValue]="null">{{'Select Type' | translate}}</option>
+                                                    <option *ngFor="let functionValue of functionDropdown" [ngValue]="functionValue.function">{{functionValue.function.qualifiedName}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="input-row ">
+                                                <label>{{'Resource' | translate}}</label>
+                                                <select class="form-control" formControlName="resourceValue">
+                                                    <option  [ngValue]="null">{{'Select Resource' | translate}}</option>
+
+                                                    <option *ngFor="let resourceValue of resources" [ngValue]="resourceValue.id">{{resourceValue.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label>&nbsp;</label>
+                                            <div class="text-right mt-0 p-0">
+                                                <button class="btn btn-first btn-plus" [disabled]="form.get('functionInfo').invalid" (click)="addFunction()">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </form>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer ">
+                <div class="button-set text-center ">
+                    <!-- <button class="btn btn-edit "> Skip </button> -->
+                    <button *ngIf="!freeze"class="btn btn-first ripple" (click)="submit()" [disabled]="form.get('eventInfo').invalid || errorEnd || errorStart">{{'Save' | translate}}</button>
+                    <button class="btn btn-first ripple ml-10" (click)="cancel()">{{'Cancel' | translate}}</button>
+                    <button class="btn btn-first ripple" (click)="showRecurrence()" >{{'Recurrence' | translate}}</button>
+                    <button class="btn btn-first ripple" *ngIf="showMaintenance">{{'Maintenance' | translate}}</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+<app-recurrence #recurrenceSchedule></app-recurrence>
+
+<!-- </daypilot-modal> -->

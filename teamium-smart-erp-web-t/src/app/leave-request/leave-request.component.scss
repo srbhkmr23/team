@@ -1,0 +1,101 @@
+@import '../equipment-list/equipment-list.component';
+@import '../edit-equipment/edit-equipment.component';
+@import '../personnel-edit/personnel-edit.component';
+@import '../create-personnel/create-personnel.component';
+@import '../dashboard/dashboard.component';
+@import '../project-budgeting/project-budgeting.component';
+@import '../vendor-bidding/vendor-bidding.component';
+@import '../user-dashboard/user-dashboard.component';
+@import '../../variables';
+
+.personnel-leave {
+    .editableSelect {
+        height: 28px;
+        padding: 4px 4px;
+        display: inline-block;
+    }
+    .editableInput {
+        height: 28px;
+        padding: 4px 4px;
+        display: inline-block;
+    }
+    .width-50 {
+        width:50px;
+    }
+    table {
+        thead {
+            tr {
+                th {
+                    vertical-align: middle;
+                }
+            }
+        }
+        tbody {
+            tr {
+                td {
+                    vertical-align: middle;
+                }
+            }
+        }
+    }
+    .orange {
+        color:#f28709;
+    }
+    .green {
+        color:#a5de37;
+    }
+}
+
+// modal style start //
+.mb-20 {
+    margin-bottom: 20px;
+}
+.ttlDays {
+    .labelTotal {
+        background: #a5de37;
+        color: #fff;
+        padding: 2px 4px;
+        border-radius: 4px;
+        line-height: 1.5;
+        text-align: center;
+        font-size: 20px;
+        min-width: 70px;
+        min-height: 35px;
+    }
+}
+.fa-save-disabled{
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+
+
+.user-dashboard-modal {
+    .modal-content {
+        .modal-header {
+            background: #2f6f98;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 5px 5px 0px 0px;
+            h4 {
+                //margin-top: 0;
+            }
+        }
+    }
+    .label-text {
+        font-size: 12px;
+    }
+    .col-md-5,
+    .col-xs-5,
+    .col-xs-4,
+    .col-md-6,
+    .col-md-8,
+    .col-md-12,
+    .col-xs-6,
+    .col-xs-12,
+    .col-xs-10,
+    .col-md-1,
+    .col-xs-1 {
+        padding: 0 8px;
+    }
+}

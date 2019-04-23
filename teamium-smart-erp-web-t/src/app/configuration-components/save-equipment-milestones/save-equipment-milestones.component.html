@@ -1,0 +1,32 @@
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner> 
+<div  class="modal fade in" style="display:block;background: rgba(0, 0, 0, 0.6);">
+    <div class="modal-dialog modal-sm">
+        <!-- Modal content-->
+        <div class="modal-content mdlUpdateConfig mdlConfInfo">
+            <div class="modal-header">
+                <button (click)="hideEquipmentMilestoneModal()" type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{modalText |translate}}
+                </h4>
+            </div>
+            <div class="modal-body">
+                <!-- tab Content Start -->
+                <div class="InfoContentSec">
+                    <form [formGroup]="equipmentMilestoneForm">
+                        <div class="common-Sec"> 
+                            <div>
+                                <label>{{'Equipment Milestone Name' |translate}}<span class="astrick">*</span> : </label>
+                                <input type="text" formControlName="equipmentMilestoneName" class="form-control"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- tab Content End -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" *ngIf="selectedEquipmentMilestone && selectedEquipmentMilestone.hasOwnProperty('id')" (click)="showDeleteModal=!showDeleteModal" class="btn btn-first ripple pull-left" data-dismiss="modal" style="background-color: darkred;">{{'Delete' |translate}}</button>
+                <button type="button" [disabled]="!equipmentMilestoneForm.valid" (click)="saveEquipmentMilestone()" class="btn btn-first ripple" data-dismiss="modal">{{'Save' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+<app-delete-confirm-modal *ngIf="showDeleteModal" [componentName]="componentName" (deleteDataEvent)="deleteEquipmentMilestone($event)" (closeModalEvent)="closeDeleteConfirmModal($event)"></app-delete-confirm-modal>

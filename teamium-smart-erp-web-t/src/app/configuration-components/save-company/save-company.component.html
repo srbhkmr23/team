@@ -1,0 +1,87 @@
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner> 
+<div  class="modal fade in" style="display:block;background: rgba(0, 0, 0, 0.6);">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content mdlUpdateConfig mdlConfInfo">
+            <div class="modal-header">
+                <button (click)="hideCompanyModal()" type="button" class="close" data-dismiss="modal">&times;</button>
+
+                <h4 class="modal-title">
+                    {{modalText | translate}}
+                </h4>
+            </div>
+            <div class="modal-body">
+                <!-- tab Content Start -->
+                <div class="inner-content pad-15">
+                    <div class="InfoContentSec">
+                        <div class="common-Sec"> 
+                            <form [formGroup]="companyForm">
+                            <ul class="common-Ul addressInfo">
+                                <li    [ngStyle]="showError?{'height': '50px', 'font-weight': condition? 'bold':'300'}:''">
+                                    <span class="defaultText">{{'Company Name' |translate}}<span class="astrick">*</span></span>
+                                    <div class="infoControls pull-right">
+                                        <input type="text"  (focusout)="clearSpace(companyForm,'companyName')" formControlName="companyName"  class="form-control editableInput width-200" placeholder=""/>
+                                        <span *ngIf="showError" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">Company name is Required.</span>
+                                    </div>
+                                </li>
+                                <li> 
+                                    <span class="defaultText">{{'Tax ID' |translate}}</span>
+                                    <div class="infoControls pull-right">
+                                        <input type="text"  formControlName="taxId"  class="form-control editableInput width-200" placeholder=""/>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="defaultText">{{'Address' |translate}}</span>
+                                    <div class="infoControls pull-right">
+                                        <input type="text"  formControlName="address"  class="form-control editableInput width-200" placeholder=""/>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="defaultText">{{'Billing Address' |translate}}</span>
+                                    <div class="infoControls pull-right">
+                                        <input type="text"  formControlName="bAddress"  class="form-control editableInput width-200" placeholder=""/>
+                                    </div>
+                                </li>
+                                <li class="hNf-commonStyl">
+                                    <span class="defaultText">{{'Header' |translate}}</span>
+                                    <div class="infoControls pull-right">
+                                        <textarea type="text"  formControlName="header"  class="form-control editableTextarea width-200" placeholder=""></textarea>
+                                    </div>
+                                </li>
+                                <li class="hNf-commonStyl">
+                                    <span class="defaultText">{{'Footer' |translate}}</span>
+                                    <div class="infoControls pull-right">
+                                        <textarea type="text"  formControlName="footer"  class="form-control editableTextarea width-200" placeholder=""></textarea>
+                                    </div>
+                                </li>
+                            </ul>
+                            </form>
+                        </div>
+                        <div class="row importImgSec">
+                        <div class="col-sm-12">
+                            <div class="text-center">
+                                <div class="importImg">
+                                    <img [src]="pictureUrl?pictureUrl:'../../../assets/img/demoImg.JPG'" alt="" />
+                                </div>
+                                <p class="prod-Catgry">{{'Logo' |translate}}</p>
+                                <div class="upload-btn-wrapper">
+                                    <button class="btn btn-Import">{{'Import' |translate}}</button>
+                                    <input type="file" name="myfile" class="fileInput" (change)="onLogoPictureChange($event)"/>
+                                </div>
+                                
+                            </div>
+                            <p *ngIf="invalidPhotoFormatError"  class="error-msg">{{invalidPhotoFormatError}}</p>
+                        </div> 
+                        </div>
+                    </div>
+                </div> 
+                <!-- tab Content End -->
+            </div>
+            <div class="modal-footer">
+                <button *ngIf="selectedCompany && selectedCompany.hasOwnProperty('id')" type="button" (click)="this.showDeleteModal=!this.showDeleteModal" class="btn btn-first ripple pull-left" data-dismiss="modal" style="background-color: darkred;">{{'Delete' | translate}}</button>
+                <button type="button" (click)="saveCompany()" class="btn btn-first ripple" [disabled]="companyForm.invalid || showError"data-dismiss="modal">{{'Save' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+<app-delete-confirm-modal *ngIf="showDeleteModal" [componentName]="componentName" (deleteDataEvent)="deleteCompany($event)" (closeModalEvent)="closeDeleteConfirmModal($event)"></app-delete-confirm-modal>

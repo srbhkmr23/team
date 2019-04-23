@@ -1,0 +1,191 @@
+@import '../../variables.scss';
+// SIGNIN
+.signin,
+.signup,
+.start-tour {
+    // background: rgb(9,184,204);
+    // background: linear-gradient(180deg, rgba(9,184,204,1) 5%, rgba(13,157,169,1) 18%, rgba(32,117,135,1) 43%, rgba(42,112,138,1) 68%, rgba(35,128,158,1) 88%, rgba(62,155,186,1) 98%);
+    background: $dark-blue;
+    background-size: cover;
+    min-height: 100%;
+    padding: 0 35px;
+    .container-center {
+        // position: fixed;
+        // top: 50%;
+        // left: 50%;
+        // width: 280px;
+        // -webkit-transform: translate(-50%, -50%);
+        // -moz-transform: translate(-50%, -50%);
+        // -ms-transform: translate(-50%, -50%);
+        // -o-transform: translate(-50%, -50%);
+        // transform: translate(-50%, -50%);
+        .inner-page {
+            max-width: 380px;
+            margin: 0 auto;
+            padding: 25px 0;
+            text-align: center;
+            color: $third-color;
+            .page-logo {
+                margin: 40px auto;
+                //margin: 65px auto;
+                .img-div {
+                    border-radius: 50%;
+                    background: #fff;
+                    padding: 25px;
+                    width: 130px;
+                    height: 130px;
+                    margin: 0 auto;
+                    img {
+                        display: block;
+                        max-width: 100%;
+                        //margin: 25px auto 5px;
+                        //width: 100px;
+                    }
+                }
+                .logo-div {
+                    margin-top: 20px;
+                    img {
+                        max-width: 130px;
+                    }
+                }
+            }
+            .title3 {
+                margin-top: 0;
+                color: $white-color;
+                font-weight: normal;
+            }
+            .basic-form {
+                max-width: 350px;
+                margin: 25px auto 65px;
+                .form-control-row {
+                    position: relative;
+                    margin-top: 15px;
+                    text-align: left;
+                    height: 50px;
+                    border-bottom: 1px solid $third-color;
+                    padding-left: 35px;
+                    padding-bottom: 10px;
+                    color: $third-color;
+                    .icon {
+                        font-size: 22px;
+                        position: absolute;
+                        left: 2px;
+                        bottom: 8px;
+                        color: $third-color;
+                    }
+                    label {
+                        position: relative;
+                        top: 22px;
+                        font-weight: normal;
+                        transition: all 0.6s ease-in-out;
+                        color: $white-color;
+                        margin-bottom: 0;
+                    }
+                    .form-control {
+                        height: 38px;
+                        width: 100%;
+                        background: $transparent;
+                        border-width: 0;
+                        box-shadow: none;
+                        border-radius: 0;
+                        color: $white-color;
+                        font-size: 14px;
+                        padding: 10px 0 10px 40px;
+                        //padding: 20px 0 20px 35px;
+                        position: absolute;
+                        left: 0;
+                        bottom: 0;
+                        z-index: 1;
+                        &:focus {
+                            outline: 0;
+                            &+label
+                            {
+                                top: 0px;
+                                color: $third-color;
+                            }
+                        }
+                    }
+                    &.valid {
+                        label {
+                            top: 0px;
+                            color: $third-color;
+                        }
+                    }
+                }
+
+                //========= Input style change =========//
+                .form-ctrl-row {
+                    .dummy-input-field {
+                        position: relative;
+                        width:100%;
+                        ::ng-deep .mat-form-field-wrapper {
+                            .mat-form-field-flex {
+                                padding-left: 35px !important;
+                                .mat-form-field-infix {
+                                    padding: 8px 0 !important;
+                                    .mat-form-field-label-wrapper {
+                                        .mat-form-field-label {
+                                            color: #c3dff2 !important;
+                                        }
+                                        
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .mat-form-field.mat-focused {
+                        .mat-form-field-label {
+                            color: #c3dff2 !important;
+                        }
+                        ::ng-deep .mat-form-field-ripple {
+                            background-color: #c3dff2 !important;
+                        }
+                        ::ng-deep .mat-form-field-underline {
+                            height: 1px;
+                            background-color: #c3dff2 !important;
+                        }
+                    }
+                    .mat-form-field-appearance-legacy { 
+                        .mat-form-field-label {
+                            color: #c3dff2 !important;
+                        }
+                        ::ng-deep .mat-form-field-underline {
+                            height: 1px;
+                            background-color: #c3dff2 !important;
+                        }
+                    }
+
+                    // ======= icon ====== // 
+                    .icon {
+                        font-size: 22px;
+                        position: absolute;
+                        left: -32px;
+                        bottom: 8px;
+                        color: $third-color;
+                    }
+                }
+                //========= Input style change =========//
+
+            }
+        }
+        // @include placeholder {
+        //     color: $white-color-7;
+        // }
+        .basic-form-footer {
+            font-size: 14px;
+            .link {
+                color: $white-color;
+                margin-left: 8px;
+                text-decoration: none;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.btn-lg {
+    border: 2px solid $white-color;
+    background: $white-color;
+    color:$dark-blue;
+    border-radius: 25px;
+}

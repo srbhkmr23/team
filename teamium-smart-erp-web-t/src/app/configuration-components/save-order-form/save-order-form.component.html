@@ -1,0 +1,92 @@
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner> 
+<div  class="modal fade in" style="display:block;background: rgba(0, 0, 0, 0.6);">
+    <div class="modal-dialog modal-md" >
+        <form [formGroup]="bookingOrderForm">
+        <!-- Modal content-->
+            <div class="modal-content mdlUpdateConfig mdlConfInfo">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" (click)="hideOrderModal()">&times;</button>
+                    <h4 class="modal-title">
+                            {{modalText | translate}}
+                        <!-- <input type="text" class="form-control" *ngIf="!showTemplateText" [(ngModel)]="templateName" placeholder="Teamplate Name"> -->
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <!-- tab Content Start -->
+                    <div class="InfoContentSec">
+                        <div class="row mb-20">
+                            <div class="col-sm-6">
+                                <label>{{'Form Type' |translate}} <span class="astrick">*</span></label>
+                                <input type="text" class="form-control" placeholder="Form type" formControlName="formType"/>
+                            </div>
+                        
+                            <div class="col-sm-6">
+                                <label>{{'Order Type' |translate}} <span class="astrick">*</span></label>
+                                <select class="form-control" placeholder="Order Type" formControlName="orderType">
+                                    <option value=null>{{'Select Order Type' |translate}}</option>   
+                                    <option value="WORK_ORDER">{{'Work Order' |translate}}</option>
+                                    <option value="TRAVEL_ORDER">{{'Travel Order' |translate}}</option>
+                                    <option value="MEDIA_ORDER">{{'Media Order' |translate}}</option>
+                                </select>
+                                <!-- <input type="text" class="form-control" placeholder="Order Type"/> -->
+                            </div>
+                        </div>
+                        <div class="common-Sec"> 
+                            
+                            <div class="row">
+                                <!-- SIGNATURE APPROVAL DETAILS -->
+                                
+                                    
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="grid">
+                                            <div class="grid-body">
+                                                <div class="table-responsive">
+                                                    <table class="table signaturetable keywordtable table-hover text-center">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="text-left" (click)="addKeywordToOrderForm()">
+                                                                    <span class="addmore"><i class="fa fa-plus-circle" ></i></span> 
+                                                                    <span>{{'Keyword' |translate}} <span class="astrick">*</span></span>
+                                                                </th>
+                                                                <th class="text-right">&nbsp;</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody  formArrayName="keyword">
+                                                            <tr *ngFor="let keyword of keywordForm.controls; let i=index" [formGroupName]="i">
+                                                                <td class="text-left">
+                                                                    <input type="text" class="form-control editableInput width-200" placeholder="Keyword" formControlName="key"/>
+                                                                </td>
+                                                                <td class="text-right">
+                                                                    <a class="deleteIco" href="javascript:void(0);" (click)="removeKeywordFromOrderForm(i)"><i class="fa fa-trash"></i></a>
+                                                                    <!-- <a class="ml-10" href="javascript:void(0);"><i class="fa fa-pencil-square-o"></i></a> -->
+                                                                </td>
+                                                            </tr>
+                                                           
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                
+                                <!-- SIGNATURE APPROVAL DETAILS END -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Content End -->
+                </div>
+                <div class="modal-footer ">
+                    <div class="row">
+                        <div class="button-set" class="col-md-12">
+
+                            <button *ngIf="selectedOrder && selectedOrder.hasOwnProperty('id')"  style="background-color: darkred;" class="btn btn-first pull-left" (click)="showDeleteModal=!showDeleteModal" >{{'Delete' | translate }}</button>
+                            <button type="submit"  class="btn btn-first pull-right" [disabled]="!bookingOrderForm.valid" (click)="saveOrderForm()">{{'Save' | translate}}</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<app-delete-confirm-modal *ngIf="showDeleteModal" [componentName]="componentName" (deleteDataEvent)="deleteOrderForm($event)" (closeModalEvent)="closeDeleteConfirmModal($event)"></app-delete-confirm-modal>

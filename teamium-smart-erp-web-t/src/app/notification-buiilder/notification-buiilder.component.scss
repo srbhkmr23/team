@@ -1,0 +1,146 @@
+@import '../equipment-list/equipment-list.component';
+@import '../edit-equipment/edit-equipment.component';
+@import '../personnel-edit/personnel-edit.component';
+@import '../personal-list/personal-list.component';
+@import '../create-function/create-function.component';
+@import '../project-budgeting/project-budgeting.component';
+@import '../../variables';
+
+.project-Budgeting,
+.edit-equipment,
+.notification-Builder {
+    .smallToLarge {
+        .card-list-content {
+            table {
+                thead {
+                    background: $lite-color3;
+                    tr {
+                        th {
+                            border-bottom: 0;
+                            font-size: 14px;
+                        }
+                    }
+                }
+            }
+            .grid {
+                // min-height: 280px;
+                margin-top: 20px;
+                .grid-header {
+                    padding: 0px;
+                    color: $dark-color;
+                    background: $lite-color3;
+                    // padding: 8px 15px;
+                    // font-weight: bold;
+                    padding: 8px 15px;
+                    font-size: 14px;
+                    font-weight: bold;
+                    font-weight: 600;
+                    border-bottom: 1px solid $lite-color;
+                    margin-bottom: 8px;
+                    .title {
+                        a {
+                            float: right;
+                        }
+                    }
+                }
+            }
+            .name {
+                margin: 0;
+                font-size: 14px;
+                color: $dark-color;
+                .contactLink {
+                    position: absolute;
+                    top: 5px;
+                    right: 0;
+                    color: #333;
+                    font-size: 18px;
+                }
+                .subName {
+                    display: block;
+                    font-size: 80%;
+                    color: $dark-color3;
+                    font-weight: bold;
+                    margin-top: 4px;
+                }
+            }
+            //=======================//
+            .notificationTable{
+                tr {
+                    td,th {
+                        vertical-align: middle;
+                    }
+                    td {
+                        .showStatus {
+                            font-size: 14px;
+                            color: #fff;
+                            padding: 2px 10px;
+                            border-radius: 20px;
+                            text-align: center;
+                            min-width: 80px;
+                            display: inline-block;
+                        }
+                        & .activated {
+                            background: chocolate;
+                        }
+                        & .enable {
+                            background: green;
+                        }
+                    }
+                    & .showApproval {
+                        background: #d9f3fac7;
+                    }
+                    .width-80 { width: 80px; }
+                }
+                & .activeTr {
+                    background: #c3dff2;
+                }
+            }
+        }
+    }
+    .view-details-card {
+        .card-header {
+            h4.modal-title{
+                padding: 0px !important;
+                font-size:14px;
+                .subName {
+                    display: block;
+                    font-size: 10px;
+                    color: #666;
+                }
+            }
+        }
+
+        .card-body {
+            .receiverDiv{
+                margin: 10px 0;
+                .added-value-content {
+                    margin-bottom: 15px;
+                    .added-value {
+                        position: relative;
+                        padding-right: 20px;
+                        display: inline-block;
+                        border: 1px solid #d7d7d7;
+                        padding: 3px 25px 3px 8px;
+                        margin-right: 5px;
+                        border-radius: 2px;
+                        background: #f0f0f0;
+                        font-size: 13px;
+                        margin-bottom: 5px;
+                        label {
+                            font-weight: normal;
+                            margin-bottom: 0;
+                        }
+                        .close {
+                            position: absolute;
+                            right: 5px;
+                            top: 3px;
+                            opacity: 1;
+                            color: #999;
+                            font-size: 18px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

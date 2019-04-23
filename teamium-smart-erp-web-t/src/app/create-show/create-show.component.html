@@ -1,0 +1,490 @@
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner>
+
+<!-- Modal -->
+<div id="myModal" class="modal in fade add-personnel-modal" style="display: block;" *ngIf="!blockedPanel">
+    <div class=" modal-dialog modal-lg ">
+            <form [formGroup]="budgetingForm">
+        <!-- Modal content-->
+        <div class="modal-content ">
+            <div class="modal-header ">
+                <button type="button " class="close " data-dismiss="modal" (click)="sendCloseEventToEditOrListComponent()"> &times;</button>
+                <h4 class="title ">{{modalHeading}}</h4>
+
+            </div>
+            <div class="modal-body ">
+                <!-- WIZARD STEPS -->
+                <div class="crumbs ">
+                    <ul>
+                        <li (click)="setSelectedStep(1)">
+                            <a [ngClass]="selectedStep==1?'active':''">
+                                <span class="Step-span">1. </span>{{"Show Info" | translate}}</a>
+                        </li>
+                        <li (click)="setSelectedStep(2)">
+                            <a [ngClass]="selectedStep==2?'active':''">
+                                <span class="Step-span">2. </span>{{"Contact" | translate}}</a>
+                        </li>
+                        <li (click)="setSelectedStep(3)">
+                            <a [ngClass]="selectedStep==3?'active':''">
+                                <span class="Step-span">3. </span>{{"Channels" | translate}}</a>
+                        </li>
+                        <li (click)="setSelectedStep(4)">
+                            <a [ngClass]="selectedStep==4?'active':''">
+                                <span class="Step-span">4. </span>{{"Attachment" | translate}}</a>
+                        </li>
+                        <li (click)="setSelectedStep(5)">
+                            <a [ngClass]="selectedStep==5?'active':''">
+                                <span class="Step-span">5. {{"Other" | translate}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="create-personnel create-project-budgeting">
+
+
+                    <div class="inner-content ">
+
+                        <!-- 1 BASIC INFORMATION -->
+                        <fieldset [disabled]="canNotModifyProjectDetail">
+                        <div class="steps personal-info" [ngClass]="selectedStep!=1?'hide':''" formGroupName="projectInfo">
+                            <div class="row ">
+                                <div class="col-md-12 ">
+                                    <div class="form-content ">
+
+                                        <div class="row ">
+
+
+
+                                            <div class="col-xs-6">
+                                                <div class="input-row ">
+                                                    <label>{{'Show Status' | translate}}</label>
+                                                    <select class="form-control " placeholder="Status" formControlName="projectStatus">
+                                                        
+                                                            <option *ngFor="let category of projectSatusDropdown" value={{category}} >{{category}}</option>
+                                                  </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="input-row ">
+                                                    <label>{{'Financial Status' | translate}}</label>
+                                                    <select class="form-control " placeholder="Status" formControlName="financialStatus">
+                                                            <option [ngValue]=null>Select Financial Status</option>
+                                                            <option  *ngFor="let fs of projectFinancialSatusDropdown" [ngValue]="fs">{{fs}}</option>
+                                                  </select>
+                                                </div>
+                                            </div>
+                                        </div>
+  
+                                        <div class="row ">
+                                            <div class="col-xs-6">
+                                                <div class="input-row ">
+                                                    <label>{{'Show Title' | translate}} <span class="astrick">*</span></label>
+                                                    <input type="text " class="form-control " placeholder="Show Title" formControlName="title">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="input-row ">
+                                                    <label>{{'Season'| translate}}</label>
+                                                    <input type="text " class="form-control " placeholder="Season" formControlName="season">
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-6">
+                                                <div class="input-row ">
+                                                    <label>{{'Year' | translate}} </label>
+                                                    <input type="text" (input)="validateYear($event)" class="form-control " placeholder="Year" formControlName="year">
+                                                    <span *ngIf="yearError" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{yearError}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <!-- <div class="input-row ">
+                                                    <label>Theme </label>
+                                                  <input [attr.disabled]="isProjetStatusDone == true? '': null" class="form-control" [value]="selectedColor" [style.background]="selectedColor" [(colorPicker)]="selectedColor" />
+                                                </div> -->
+                                                <div class="input-row ">
+                                                    <label>Client </label>
+                                                    <select class="form-control " placeholder="Job Title" formControlName="customer">
+                                                        <option value="null">{{'Select Client' | translate}}</option>
+                                                        <option *ngFor="let client of dropdownData.clients" [ngValue]="client.id"  >{{client.name}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row ">
+                                            
+                                            <div class="col-xs-6">
+                                                <div class="input-row ">
+                                                    <label>{{'Episode Duration' | translate}}</label>
+                                                    <input [textMask]="{mask: mask}" class="form-control" placeholder="HH:MM" type="text" formControlName="minuteDuration">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="input-row ">
+                                                    <label>{{'Program Reference' | translate}}</label>
+                                                    <input type="number "  min=0  class="form-control "  placeholder="Program Reference" formControlName="reference">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row ">
+                                            <div class="col-xs-6">
+                                                <div class="input-row ">
+                                                    <label>{{'Number of Sessions' | translate}}</label>
+                                                    <input type="number" min="0" class="form-control " placeholder="Number of Sessions" formControlName="nbSessions"  (blur)="updateSession()">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="input-row ">
+                                                    <label>{{'Number of Episodes' | translate}}</label>
+                                                    <input type="number" min="0" class="form-control " placeholder="Number of Episodes" formControlName="nbEpisodes" (blur)="updateSession()">
+                                                </div>
+                                            </div>
+                                           
+                                        </div>
+                                        <div class="input-row">
+
+                                            <label class="block">{{'Upload Image' | translate}}</label>
+
+                                            <div class="relative" title="{{profilePictureName ? profilePictureName : 'No file chosen'}}">
+                                                <div *ngIf="pictureUrl" class="upload-img" style="width:50px;height:50px">
+                                                    <input type="file" (change)="onProfilePictureChange($event)">
+                                                    <img [src]="pictureUrl" style="width: 100%;height: 100%;">
+                                                </div>
+
+                                                <div *ngIf="!pictureUrl" class="upload-img">
+                                                    <input type="file" (change)="onProfilePictureChange($event)">
+                                                    <i class="fa fa-file-image-o" aria-hidden="true"></i>
+                                                </div>
+
+                                                <i class="fa fa-plus-circle"></i>
+
+                                                <!-- Delete picture -->
+                                                <i *ngIf="pictureUrl" style="position: absolute;top: -6px;left: 44px;font-size: 18px;color: red;opacity: 1;cursor:pointer;" class="fa fa-times-circle" (click)='removePicture()'></i>
+
+                                                <div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <span *ngIf="addedPictureNameMessage" style="color: hsl(147, 78%, 18%);text-align: left;font-size: 14px;margin-top: 5pt;">{{addedPictureNameMessage}}</span>
+                                        <span *ngIf="invalidPhotoFormatError" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{invalidPhotoFormatError}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </fieldset>
+                        <fieldset [disabled]="canNotModifyProjectDetail">
+                        <!-- 2 FUNCTION & SPECIFICATOINS -->
+                        <div class="steps add-function add-contact " [ngClass]="selectedStep!=2?'hide':''" formGroupName="contacts">
+                            <div class="row ">
+                                <div class="col-md-12 ">
+                                    <div class="form-content ">
+
+                                        <!-- SAVED DATA -->
+                                        <div class="added-function-list ">
+                                            <table class="table common-Table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>{{'Name' | translate}}</th>
+                                                        <th>{{'Role' | translate}}</th>
+                                                        <th>&nbsp;</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let contact of contacts">
+                                                        <td>{{contact.firstName}} {{contact.lastName}}</td>
+                                                        <td>{{contact.jobTitle}}</td>
+                                                        <td><a href="javascript:void(0) " class="close " (click)="removeContents(contact,'Contacts')">&times;</a></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+
+                                        <div class="row">
+
+                                            <div class="col-xs-3">
+                                                <div class="input-row ">
+                                                    <label>{{'Contact Type' | translate}}</label>
+                                                    <select class="form-control ">
+                                                        <option>{{'Customer' | translate}}</option>
+                                                        <option>{{'Director' | translate}}</option>
+                                                        <option>{{'Other' | translate}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <div class="input-row ">
+                                                    <label>{{'Contact list' | translate}}</label>
+                                    
+                                                    <select class="form-control " formControlName="selectedContact" >
+                                                            <option value="null">{{'None' | translate}}</option>
+                                                            <option  *ngFor="let contact of contactDropDown" [ngValue]="contact">{{contact.firstName}} {{contact.lastName}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="col-xs-3">
+                                                <div class="input-row ">
+                                                    <label>Role</label>
+                                                    <select class="form-control ">
+                                                        <option>Role</option>
+                                                        <option>Role</option>
+                                                        <option>Role</option>
+                                                        <option>Role</option>
+                                                    </select>
+                                                </div>
+                                            </div> -->
+                                            <div class="col-xs-1 ">
+                                                <label>&nbsp;</label>
+                                                <div class="">
+                                                    <button class="btn btn-first btn-plus "  [disabled]="this.budgetingForm.get('contacts').get('selectedContact').invalid || isBooking" (click)="addContents('Contact')">
+                                                        <i class="fa fa-plus "></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        </fieldset>
+
+                        <!-- 3  Channels and Milestones DETAILS -->
+                        <div class="steps add-specification " [ngClass]="selectedStep!=3?'hide':''" formGroupName="milestones">
+                            <div class="row ">
+                                <div class="col-md-12 ">
+                                    <!-- ADD CHANNEL -->
+                                    <fieldset [disabled]="(projectDetail && canNotModifyProjectDetail )">
+                                    <div class="form-content ">
+                                        <h4 class="title ">{{'Add Channels' | translate}}</h4>
+
+                                        <div class="added-value-content " *ngIf="channelFormat">
+                                                <div class="added-value" *ngFor="let ch of channelFormat">
+                                                        <label>{{ch.channel.name}}:{{ch.format}}
+                                                          
+                                                        </label>
+                                                        <a href="javascript:void(0)" class="close" (click)="removeContents(ch,'Channel')">&times;</a>   
+                                                    </div>
+                                           
+                                        </div>
+
+                                        <div class="row ">
+                                            <div class="col-xs-5">
+                                                <div class="input-row ">
+                                                    <label>{{'Channel' | translate}}</label>
+                                                    <select class="form-control " placeholder="Channel"  formControlName="selectedChannel">
+                                                            <option  value="null">{{'Select Channel' | translate}}</option>
+                                                            <option *ngFor="let channel of dropdownData.channels" [ngValue]="channel" >{{channel.name}}</option>
+                                                        </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-5">
+                                                <div class="input-row ">
+                                                    <label>{{'Format' | translate}}</label>
+                                                    <select class="form-control " formControlName="selectedChannelFormat">
+                                                          
+                                                            <option  value="null">{{'Select Format' | translate}}</option>
+                                                            <option *ngFor="let format of formatDropDown"  [ngValue]="format" >{{format}}</option>
+                                                       
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-1 ">
+                                                <label>&nbsp;</label>
+                                                <div>
+                                                    <button class="btn btn-first btn-plus " [disabled]="this.budgetingForm.get('milestones').get('selectedChannelFormat').invalid || this.budgetingForm.get('milestones').get('selectedChannel').invalid "(click)="addContents('Channel')">
+                                                        <i class="fa fa-plus "></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                             </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- 4  ATTACHMENTS -->
+                       
+                        <div class="steps add-attachment " formGroupName="attachment" [ngClass]="selectedStep!=4?'hide':''">
+                            <fieldset [disabled]="canNotModifyProjectDetail">
+                            <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="form-content">
+                                            <label>{{'Attachment Name' | translate}} *</label>
+                                            <input type="text" class="form-control" placeholder="Attachment Name " (focusout)="clearSpace(budgetingForm.get('attachment'),'attachmentType')"
+                                                formControlName="attachmentType">
+                                            <div class="attachment-content">
+                                                <i class="fa fa-upload"></i>
+                                                <label for="">{{'Drag Here' | translate}}</label>
+                                                <label for="">{{'or Browse your computer' | translate}}</label>
+
+                                                <input [disabled]="this.budgetingForm.get('attachment').get('feedByUrl').value || disableAttachment" type="file" class="fileType" (change)="onFileChange($event)">
+                                            </div>
+
+
+                                            <span *ngIf="addedAttachmentFileName" style="color: hsl(147, 78%, 18%);text-align: left;font-size: 14px;margin-top: 5pt;">{{addedAttachmentFileName}}</span>
+                                            <span *ngIf="!budgetingForm.invalidAttachmentFormatError" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{invalidAttachmentFormatError}}</span>
+                                            <p class="or"></p>
+                                            <div class="checkbox">
+                                                <input type="checkbox" id="a1" formControlName="feedByUrl" value="1">
+                                                <label class="chk" for="a1"></label>
+                                                <label for="a1">{{'Urls' | translate}}:</label>
+
+                                            </div>
+                                            <input type="text" class="form-control" (focusout)="clearSpace(budgetingForm.get('attachment'),'url')" formControlName="url">
+                                            <span *ngIf="budgetingForm.get('attachment').get('url').invalid && budgetingForm.get('attachment').get('url').value !=null&& budgetingForm.get('attachment').get('url').value.length !=0"
+                                                style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{'Please enter valid URL' | translate}}.</span>
+                                        </div>
+
+
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="added-value-content">
+                                            <div class="description">
+                                                <label>&nbsp;</label>
+                                                <div class="text-left mt-0 p-0">
+                                                    <button class="btn btn-first btn-plus" [disabled]="budgetingForm.get('attachment').invalid || disableAttachment" (click)="addContents('Attachment')">
+                                                        <i class="fa fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="added-value mt-15" *ngFor="let attachment of attachments">
+                                                <!-- <img src="../../assets/img/equipment/edit-suit.jpg" alt=""> -->
+                                                <img [src]="getAttachmentImage(attachment)" alt="">
+                                                <label>
+                                                    <span>{{attachment.type}}</span>
+                                                </label>
+                                                <a href="javascript:void(0)" class="close" (click)="removeContents(attachment,'Attachment')">&times;</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </fieldset>
+                            </div>
+                        
+
+                        <fieldset [disabled]="(projectDetail && canNotModifyProjectDetail)">
+                        <!-- 5  OTHERS -->
+                        <div class="steps other-details  " [ngClass]="selectedStep!=5?'hide':''" formGroupName="others">
+                            <div class="row ">
+                                <div class="col-md-12 ">
+                                    <!-- ADD MILESTON -->
+
+                                    <div class="form-content ">
+                                        <div class="row ">
+                                            <div class="col-xs-6">
+                                                <div class="input-row ">
+                                                    <label>{{'Project Number' | translate}}</label>
+                                                    <input type="text " class="form-control " disabled [value]="projectDetail?projectDetail.id:0" formControlName="projectNumber"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="input-row ">
+                                                    <label>{{'Show Date' | translate}}</label>
+                                                    <p-calendar [showIcon]="true"  [showTime]="false"  formControlName="start"></p-calendar>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="input-row ">
+                                                    <label>{{'Managed By' | translate}}</label>
+                                                    <select class="form-control " formControlName="managedBy">
+                                                            <option  [ngValue]="0">{{'Select Sales Person' | translate}}</option>
+                                                            <option *ngFor="let managedBy of this.dropdownData.followers" [ngValue]="managedBy.id">{{managedBy.firstName}} {{managedBy.lastName}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                           
+                                            <div class="col-xs-6">
+                                                <div class="input-row ">
+                                                    <label>{{'Company Name' | translate}} <span class="astrick">*</span></label>
+                                                    <select class="form-control " formControlName="businessUnit">
+                                                            <option  [ngValue]="0">{{'Select Company Name' | translate}}</option>
+                                                            <option *ngFor="let businessUnit of dropdownData.saleEntities" [ngValue]="businessUnit.id">{{businessUnit.name}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="input-row ">
+                                                    <label>{{'Currency' | translate}}</label>
+                                                    <select class="form-control " formControlName="currency">
+                                                            <option *ngFor="let currency of extraDropdownData.currencyList"  [ngValue]="currency.defaultCurrency && !budgetingForm.get('others').get('currency').value?null:currency.code" >{{currency.code}}</option>                                                        
+                                                    </select>
+                                                </div>
+                                            </div>
+                                           
+                                            <div class="col-xs-6">
+                                                <div class="input-row ">
+                                                    <label>{{'Language' | translate}}</label>
+                                                    <select class="form-control " formControlName="language">
+                                                        <option value="null" >{{'Select Language' | translate}}</option>
+                                                        <option *ngFor="let language of extraDropdownData.languages"  value={{language}} >{{language}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-6">
+                                                <div class="input-row ">
+                                                    <label>{{'Accounting Number' | translate}}</label>
+                                                    <input type="text " class="form-control " placeholder="Accounting Number" formControlName="analyticAccountNumber">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-6">
+                                                <div class="input-row ">
+                                                    <label>{{'Theme' | translate}} </label>
+                                                    <input [attr.disabled]="isShowSelected == true? '': null" class="form-control" [value]="selectedColor" [style.background]="selectedColor" [(colorPicker)]="selectedColor" />
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <!-- ADD Descriptions -->
+                                    <div class="form-content">
+                                        <h4 _ngcontent-c8="" class="title">{{'Description' | translate }}</h4>
+                                        <div _ngcontent-c8="" class="row">
+                                            <div _ngcontent-c8="" class="col-md-12">
+                                                <textarea _ngcontent-c8="" class="form-control ng-untouched ng-pristine ng-valid" formControlName="comment" placeholder="Description" rows="10" style="height: 100px;" ng-reflect-name="description"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="modal-footer ">
+                <div class="row">
+                    <div class="button-set text-center" class="col-md-12">
+                            <button *ngIf="projectDetail" style="background-color: darkred;" class="btn btn-first pull-left" [ngClass]="selectedStep==1?'':'hide'"
+                            (click)="showDeleteModal=!showDeleteModal">{{'Delete' | translate}}</button>
+                        <button class="btn btn-first" [ngClass]="selectedStep>1?'':'hide'" (click)="selectedStep =selectedStep-1">{{'Prev' | translate}}</button>
+                        <button class="btn btn-first" [ngClass]="selectedStep==5?'hide':''" (click)="selectedStep =selectedStep+1">{{'Next' | translate}}</button>
+                        <button type="submit" class="btn btn-first" [ngClass]="selectedStep!=5?'hide':''" (click)="saveShow()">{{'Save And Close' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+</form>
+    </div>
+</div>
+<app-delete-confirm-modal *ngIf="showDeleteModal" [componentName]="componentName" (deleteDataEvent)="deleteShow($event)" (closeModalEvent)="closeDeleteConfirmModal($event)"></app-delete-confirm-modal>

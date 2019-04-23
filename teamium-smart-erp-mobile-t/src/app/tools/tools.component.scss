@@ -1,0 +1,136 @@
+@import '../personal-edit/personal-edit.component';
+@import '../../variables.scss';
+
+// ========= user-tool-Img =========//
+.toolsPageHead {
+    padding: 0px 30px 20px 30px !important;
+    .user-tool-Img {
+        text-align:center;
+        padding-top: 20px;
+        .user-Img {
+            position: relative;
+            display: inline-block;
+            img {
+
+            }
+            .settings-Icon {
+                background: $white-color;
+                padding: 0px;
+                position: absolute;
+                bottom: -2px;
+                right: -3px;
+                color: #5d86a6;
+                border-radius: 50%;
+                width: 17px;
+                height: 17px;
+                text-align: center;
+                text-align: center;
+                .fa {
+                    font-size: 14px;
+                }
+            }
+        }
+        .userName {
+            font-size: 16px;
+            font-weight: normal;
+            margin: 0;
+            text-align: center;
+            color: $white-color;
+            margin-top: 9px;
+        }
+    }
+}
+
+// ========= tools-Sec ======= //
+.tools-Sec {
+    .tools-card {
+        background: #fff;
+        text-align: center;
+        border-radius: 5px;
+        padding: 10px;
+        box-shadow: 0px 0px 10px #ccc;
+        width: 45%;
+        height: 130px;
+        margin-bottom: 16px;
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        justify-content: center;
+        -webkit-justify-content: center;
+        -moz-flex-direction: column;
+        -webkit-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-orient: vertical;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        transition: all 0.4s ease-in-out;
+        position: relative;
+        .tools-icon-div {
+            margin-bottom: 12px;
+            img {
+                width: 50px;
+            }
+        }
+        .tools-title {
+            margin: 0;
+        }
+    }
+}
+.flex-container {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    -webkit-flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+/* ##Device = Most of the Smartphones Mobiles (Portrait)
+   ##Screen = B/w 320px to 812px
+*/
+@media (min-width: 320px) and (max-width: 812px) and (orientation: landscape) {
+    .tools-Sec {
+        .tools-card {
+            width: 22%;
+            height: 130px;
+            margin-bottom: 16px;
+        }
+    }
+}
+
+/* 
+  ##Device = Tablets, Ipads (landscape)
+  ##Screen = B/w 768px to 1024px
+*/
+@media (min-width: 768px) and (max-width: 1024px) {
+    .tools-Sec {
+        .tools-card {
+            width: 22%;
+            height: 130px;
+            margin-bottom: 16px;
+        }
+    }
+}
+
+/* ##Device = Most of the Ipad (Portrait)
+   ##Screen = B/w 768px to 1024px
+*/
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    .tools-Sec {
+        .tools-card {
+            width: 22%;
+            height: 130px;
+            margin-bottom: 16px;
+        }
+    }
+}

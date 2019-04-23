@@ -1,0 +1,65 @@
+<div  class="showDataModal">
+    <div  class="modal fade in" style="display:block;background: rgba(0, 0, 0, 0.6);">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content mdlUpdateConfig mdlConfInfo" style="min-width: 1000px;">
+                <div class="modal-header">
+                    <button (click)="hideBudgetingModal()" type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">
+                        <!-- {{projectModalData?projectModalData.status:''}} -->
+                        {{resourceModalData.resourceName==='equipment'?'Project Equipment':'Project Personnel'}}
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="text-right mb-20">
+                        <a (click)="downloadSheet()" title="Download Sheet" href="javascript:void(0)" class="btn btn-first btn-exl ripple">
+                            {{'Export' | translate}} {{'To' | translate}} <i class="fa fa-file-excel-o"></i>
+                        </a>
+                    </div>
+
+                    <div class="projectStatus-Sec">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th colspan="3">
+                                        Period - {{resourceModalData ?  resourceModalData.period : ''}}
+                                    </th>
+                                    <th colspan="4">
+                                        Exported - {{resourceModalData ?  resourceModalData.timestamp : ''}}
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>Function</th>
+                                    <th *ngIf="resourceModalData.resourceName==='equipment'">{{'Equipment' | translate}}</th>
+                                    <th *ngIf="resourceModalData.resourceName==='personnel'">{{'Personnel' | translate}}</th>
+                                    <th>Project Id</th>
+                                    <th>Project Title</th>
+                                    <th>Type</th>
+                                    <th>Project Date</th>
+                                    <th>Number of Days</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let project of resourceModalData.widgetDataDTOs">
+                                    <td>{{project.function}}</td>
+                                    <td *ngIf="resourceModalData.resourceName==='equipment'">{{project.resource}}</td>
+                                    <td *ngIf="resourceModalData.resourceName==='personnel'">{{project.resource}}</td>
+                                    <td>{{project.projectTeamId}}</td>
+                                    <td>{{project.projectname}}</td>
+                                    <td>{{project.type}}</td>
+                                    <td>{{project.projectDate}}</td>
+                                    <td>{{project.numberOfDays}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- <div class="modal-footer">
+                    <a (click)="downloadSheet()" title="Download Sheet" href="javascript:void(0)" class="btn btn-first btn-exl ripple">
+                        Export to <i class="fa fa-file-excel-o"></i>
+                    </a>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>

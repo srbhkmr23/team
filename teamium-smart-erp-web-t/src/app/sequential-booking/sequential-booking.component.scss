@@ -1,0 +1,111 @@
+@import '../project-budgeting/project-budgeting.component';
+@import '../../variables';
+
+.sequentail-booking {
+    .panel-group {
+        .panel {
+            .panel-body {
+                padding: 0;
+                .sequential-table {
+                    max-height: 200px;
+                    overflow-y: auto;
+                    .table {
+                        margin-bottom: 0;
+                        tr {
+                            td {
+                                vertical-align: middle;
+                                .c-description {
+                                    position: relative;
+                                    padding-left: 35px;
+                                    .fa {
+                                        position: absolute;
+                                        top:0;
+                                        left:0;
+                                        font-size: 25px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .width-30 {
+        width:30px;
+    }
+    .progress {
+        height:10px;
+        border-radius: 0;
+        margin-top: 5px;
+        margin-bottom: 0;
+    }
+}
+
+// SideModal Style
+.Sequential-Mdl {
+    .mb-20 {
+        margin-bottom: 20px;
+    }
+    // buttons Style //
+    .btn-submit {
+        min-width:90px;
+        border-radius: 20px;
+        padding: 6px 15px;
+        &:focus {
+            outline: 0;
+        }
+    }
+    // buttons Style end //
+
+    // =================
+    .title {
+        .subName {
+            color: #2f6f98;
+        }
+    }
+    & .EstimatedTitle {
+        position: relative;
+        padding-left: 40px;
+        .fa {
+            position: absolute;
+            top:0;
+            left: 0;
+            font-size: 24px;
+        }
+
+        .close {
+            position: absolute;
+            top:0;
+            right: 0;
+        }
+
+    }
+    .c-linkName {
+        position: relative;
+        padding: 5px 0px 5px 35px;
+        .c-title {
+            font-size: 18px;
+            margin: 0;
+        }
+        img {
+            position: absolute;
+            top:0;
+            left:0;
+        }
+    }
+    .work-orde-tbl {
+        .fa {
+            margin-right: 10px;
+        }
+    }
+    .inline-lbl-input {
+        label {
+            width:70px;
+        }
+        .mediaInput {
+            width:200px;
+            display: inline-block;
+        }
+    }
+}

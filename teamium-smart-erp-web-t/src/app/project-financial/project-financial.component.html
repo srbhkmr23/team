@@ -1,0 +1,346 @@
+<!-- <app-create-project-budgeting *ngIf="showSaveEquipmentModal" (closeModalEvent)="closeModal($event)"></app-create-project-budgeting> -->
+<div class="edit-equipment project-Budgeting project-financial">
+
+    <div class="filter-header">
+        <div class="container-fluid pad-0">
+            <h1 class="title">{{'Financial' | translate}} <span>{{'Amex and Apple Pay' | translate}}</span></h1>
+            <div class="button-set">
+                <button class="btn btn-first" > {{'Export' | translate}} </button>
+                <button class="btn btn-edit" > {{'Edit' | translate}} </button>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="inner-content">
+        <div class="equipment-info-content">
+            <ul class="equipment-current-status">
+                <li class="inProgress">
+                    <h5 class="name">{{'In Progess' | translate}}
+                        <span class="subName">{{'Project status' | translate}}</span>
+                    </h5>
+                </li>
+                <li class="approved">
+                    <h5 class="name">{{'Approved' | translate}}
+                        <span class="subName">{{'Financial status' | translate}}</span>
+                    </h5>
+                </li>
+                <li>
+                    <div class="team-name">
+                        <h5 class="name">{{'TEAM' | translate}}-74
+                            <span class="subName">NR23775544</span>
+                        </h5>
+                    </div>
+                </li>
+                <li>
+                    <h5 class="name">Audrey Han
+                        <span class="subName">{{'Managed By' | translate}}</span>
+                    </h5>
+                </li>
+                <li>
+                    <h5 class="name">{{'NRCS' | translate}}
+                        <span class="subName">{{'Origin' | translate}}</span>
+                    </h5>
+                </li>
+
+                <li>
+                    <h5 class="name">News Dpt
+                        <span class="subName">{{'Company' | translate}}</span>
+                    </h5>
+                </li>
+                <li>
+                    <h5 class="name">{{'US' | translate}}$
+                        <span class="subName">{{'Currency' | translate}}</span>
+                    </h5>
+                </li>
+                <li>
+                    <h5 class="name">Eng
+                        <span class="subName">{{'Language' | translate}}</span>
+                    </h5>
+                </li>
+                <!-- <li class="text-right">
+
+                    <div class="equipment-on">
+                        <img alt="" src="../../assets/img/lg-market-place.png">
+                        <label class="switch">
+                            <input type="checkbox" disabled [(ngModel)]="equipmentDetail.marketplace">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="equipment-on pull-left">
+                        <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                        <label class="switch">
+                            <input type="checkbox" disabled [(ngModel)]="equipmentDetail.available">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </li> -->
+            </ul>
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-4 col-md-6">
+
+                <!-- Financial Actual Budget PANEL -->
+                <div class="col-lg-12">
+                    <div class="grid">
+                        <div class="grid-body">
+                            <div class="table-responsive">
+                                <table class="table financialTable common-Table">
+                                    <thead>
+                                        <tr>
+                                            <th>&nbsp;</th>
+                                            <th>{{'Actual' | translate}}</th>
+                                            <th class="text-center">{{'BUDGET' | translate}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <h5 class="name">{{'Staff' | translate}}
+                                                    <span class="subName">{{'Freelance' | translate}}</span>
+                                                </h5>
+                                            </td>
+                                            <td class="actualamtText">
+                                                <h5 class="name ">$2000
+                                                    <span class="subName">$1200</span>
+                                                </h5>
+                                            </td>
+                                            <td>
+                                              <h5 class="name">$2000</h5>
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h5 class="name">{{'Equipment' | translate}}
+                                                    <span class="subName">{{'Outsource' | translate}}</span>
+                                                </h5>
+                                            </td>
+                                            <td class="actualamtText">
+                                                <h5 class="name">$2000
+                                                    <span class="subName">$1200</span>
+                                                </h5>
+                                            </td>
+                                            <td>
+                                              <h5 class="name">$2000</h5>
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h5 class="name">{{'Service' | translate}}
+                                                    <span class="subName">{{'Outsource' | translate}}</span>
+                                                </h5>
+                                            </td>
+                                            <td class="actualamtText">
+                                                <h5 class="name">$2000
+                                                    <span class="subName">$1200</span>
+                                                </h5>
+                                            </td>
+                                            <td>
+                                              <h5 class="name">$2000</h5>
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td>
+                                              <h5 class="name">{{'T&E' | translate}}
+                                                  <span class="subName"></span>
+                                              </h5>
+                                          </td>
+                                          <td class="actualamtText">
+                                              <h5 class="name ">$0
+                                                  <span class="subName "></span>
+                                              </h5>
+                                          </td>
+                                          <td>
+                                            <h5 class="name">$0</h5>
+                                          </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                      <tr>
+                                        <td>
+                                            <h5 class="name"><b>{{'Total' | translate}}</b>
+                                                <span class="subName">{{'Outsource' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                        <td class="actualamtText">
+                                            <h5 class="name ">$7300
+                                                <span class="subName">$1200</span>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                          <h5 class="name"><b>$8200</b></h5>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td>
+                                            <h5 class="name"><b>{{'Margin' | translate}}</b>
+                                                <span class="subName"></span>
+                                            </h5>
+                                        </td>
+                                        <td class="actualamtText">
+                                            <h5 class="name ">$7300
+                                                <span class="subName">$1200</span>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                          <h5 class="name"><b>$3200</b></h5>
+                                          </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Financial Graph PANEL -->
+                <div class="col-lg-12">
+                    <div class="project-financial-Graph">
+                        <h4 class="title">{{'Financial Graph' | translate}}</h4>
+                        <div class="graph-Div text-center">
+                            <img src="../../assets/img/financialGraph.JPG" alt="graph" class="graphImg"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8 col-md-6">
+
+                <!-- Breakdown PerPhase PANEL -->
+                <div class="col-lg-6">
+                  <div class="grid">
+                      <div class="grid-body">
+                          <div class="table-responsive">
+                              <table class="table common-Table financialTable">
+                                  <thead>
+                                      <tr>
+                                          <th colspan="3">{{'BREAKDOWN' | translate}} <span>{{'Per phase' | translate}}</span></th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr>
+                                          <td>
+                                              <h5 class="name">{{'PreProduction' | translate}}
+                                                  <span class="subName">{{'Freelance' | translate}}</span>
+                                              </h5>
+                                          </td>
+                                          <td class="actualamtText">
+                                              <h5 class="name ">$2000
+                                                  <span class="subName">$1200</span>
+                                              </h5>
+                                          </td>
+                                          <td>
+                                            <h5 class="name">$2000</h5>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                          <td>
+                                              <h5 class="name">{{'Production' | translate}}
+                                                  <span class="subName">{{'Outsource' | translate}}</span>
+                                              </h5>
+                                          </td>
+                                          <td class="actualamtText">
+                                              <h5 class="name">$2000
+                                                  <span class="subName">$1200</span>
+                                              </h5>
+                                          </td>
+                                          <td>
+                                            <h5 class="name">$2000</h5>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                          <td>
+                                              <h5 class="name">{{'PostProduction' | translate}}
+                                                  <span class="subName">{{'Outsource' | translate}}</span>
+                                              </h5>
+                                          </td>
+                                          <td class="actualamtText">
+                                              <h5 class="name">$2000
+                                                  <span class="subName">$1200</span>
+                                              </h5>
+                                          </td>
+                                          <td>
+                                            <h5 class="name">$2000</h5>
+                                        </td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+
+                <!-- Breakdown PerFunction PANEL -->
+                <div class="col-lg-6">
+                  <div class="grid">
+                      <div class="grid-body">
+                          <div class="table-responsive">
+                              <table class="table common-Table financialTable">
+                                  <thead>
+                                      <tr>
+                                        <th colspan="3">{{'BREAKDOWN' | translate}} <span>{{'Per function' | translate}}</span></th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr>
+                                          <td>
+                                              <h5 class="name">{{'Edit' | translate}}
+                                                  <span class="subName">{{'Freelance' | translate}}</span>
+                                              </h5>
+                                          </td>
+                                          <td class="actualamtText">
+                                              <h5 class="name ">$2000
+                                                  <span class="subName">$1200</span>
+                                              </h5>
+                                          </td>
+                                          <td>
+                                            <h5 class="name">2 x day $2000</h5>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                          <td>
+                                              <h5 class="name">{{'Edit Suit' | translate}}
+                                                  <span class="subName">{{'Outsource' | translate}}</span>
+                                              </h5>
+                                          </td>
+                                          <td class="actualamtText">
+                                              <h5 class="name">$2000
+                                                  <span class="subName">$1200</span>
+                                              </h5>
+                                          </td>
+                                          <td>
+                                            <h5 class="name">2 x Day $2000</h5>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                          <td>
+                                              <h5 class="name">{{'QC' | translate}}
+                                                  <span class="subName">{{'Outsource' | translate}}</span>
+                                              </h5>
+                                          </td>
+                                          <td class="actualamtText">
+                                              <h5 class="name">$2000
+                                                  <span class="subName">$1200</span>
+                                              </h5>
+                                          </td>
+                                          <td>
+                                            <h5 class="name">$1200</h5>
+                                        </td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

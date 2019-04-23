@@ -1,0 +1,73 @@
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner>
+<div class="relative_main_div">
+
+    <div class="buttons mb-20">
+
+        <div class="btn-group">
+            <button type="button" class="btn btn-first ripple" (click)="changeDate(-1)"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+            <button type="button" class="btn btn-first ripple" (click)="changeDate(1)"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+        </div>
+        <div class="titleWithFilter">
+            <p>{{dateString}}</p>
+            <div class="filter">
+                <form *ngIf="timeLineForm" [formGroup]="timeLineForm">
+                <div class="filter-search">
+                    <div class="optionDiv">
+                        <a href="javascript:void(0)" (click)="openOpion=!openOpion" id="option-id">
+                            <i class="fa fa-chevron-down"></i>
+                        </a>
+                        <div class="optionsBox" id="option-id" *ngIf="openOpion">
+                            <div class="arrow"></div>
+                            <ul class="chk-list">
+
+                                <li>
+                                    <div _ngcontent-c4="" class="checkbox">
+                                        <input _ngcontent-c4="" type="checkbox" id="5" formControlName="weekend">
+                                        <label _ngcontent-c4="" class="chk" for="5"></label>
+                                        <label _ngcontent-c4="" for="5">{{'Show weekends' | translate}}</label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div _ngcontent-c4="" class="checkbox">
+                                        <input _ngcontent-c4="" type="checkbox" id="6">
+                                        <label _ngcontent-c4="" class="chk" for="6"></label>
+                                        <label _ngcontent-c4="" for="6">{{'Unavailability' | translate}}</label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div _ngcontent-c4="" class="checkbox">
+                                        <input _ngcontent-c4="" type="checkbox" id="7">
+                                        <label _ngcontent-c4="" class="chk" for="7"></label>
+                                        <label _ngcontent-c4="" for="7">{{'Personal' | translate}}</label>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+</form>
+            </div>
+        </div>
+        <div class="btn-group">
+            <button type="button" class="btn btn-first ripple" (click)="viewDay()" [ngClass]='{active:  this.configDay.visible}'>{{'Day' | translate}}</button>
+            <button type="button" class="btn btn-first ripple" (click)="viewWeek()" [ngClass]='{active:  this.configWeek.visible}'>{{'Week' | translate}}</button>
+            <button type="button" class="btn btn-first ripple" (click)="viewMonth()" [ngClass]='{active:  this.configMonth.visible}'>{{'Month' | translate}}</button>
+        </div>
+    </div>
+
+    <div class="fullscreen">
+        <div class="main-body">
+            <daypilot-calendar [config]="configDay" [events]="events" #day></daypilot-calendar>
+            <daypilot-calendar [config]="configWeek" [events]="events" #week></daypilot-calendar>
+            <daypilot-month [config]="configMonth" [events]="events" #month></daypilot-month>
+        </div>
+    </div>
+
+
+
+
+
+</div>
+
+<app-user-task #taskScheduled></app-user-task>

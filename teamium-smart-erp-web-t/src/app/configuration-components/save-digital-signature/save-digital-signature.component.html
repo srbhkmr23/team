@@ -1,0 +1,140 @@
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner> 
+<div  class="modal fade in" style="display:block;background: rgba(0, 0, 0, 0.6);">
+    <div class="modal-dialog modal-md">
+        <!-- Modal content-->
+        <div class="modal-content mdlUpdateConfig mdlConfInfo">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" (click)="hideSignatureModal()">&times;</button>
+                <h4 class="modal-title">
+                    <p class="sub-Title" *ngIf="showTemplateText">{{'Signature Approval' |translate}}</p>
+                    <div class="signatureTemp-Div">
+                        <label class="env">{{'Envelope Name' |translate}}<span class="required-field">*</span></label>
+                        <input type="text" class="form-control editableInput" [(ngModel)]="name" placeholder="Envelope Name"/>
+                    </div>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <!-- tab Content Start -->
+                <div class="InfoContentSec">
+                    <div class="common-Sec mt-0"> 
+                        <div class="row">
+                            <!-- SIGNATURE APPROVAL DETAILS -->
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="grid">
+                                        <div class="grid-body">
+                                            <div class=""><!--table-responsive-->
+                                                <table class="table signaturetable table-hover text-center mb-0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                <span>{{'Template' |translate}} <span class="required-field">*</span></span>
+                                                            </th>
+                                                            <th colspan="2">
+                                                                <select class="form-control editableSelect templateName" [(ngModel)]="templateName">
+                                                                    <option value = 'undefined'>{{'Select Template' |translate}}</option>
+                                                                    <option [ngValue]="template.templateName" *ngFor="let template of templateNameList">{{template.templateName}}</option>
+                                                                </select>
+                                                            </th>
+                                                            <th colspan="2">&nbsp;</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th class="width-27p">
+                                                                <span class="addmore"><i class="fa fa-plus-circle" (click)="addRecipient()"></i></span>
+                                                                <span>{{'Recipient' |translate}} <span class="required-field">*</span></span>
+                                                            </th>
+                                                            <th class="width-23p text-center">{{'Recipient Email' |translate}}</th>
+                                                            <th class="width-20p text-center">{{'Routing Order' |translate}}</th>
+                                                            <th class="width-23p text-center">{{'Approval Form' |translate}}</th>
+                                                            <th class=" text-center">&nbsp;</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngIf="showRecipient">
+                                                            <!-- <td class="text-left">
+                                                                <select class="form-control editableSelect" [(ngModel)]="staffName">
+                                                                    <option value = 'undefined' disabled>Select Personnel</option>
+                                                                    <option [ngValue]="staff.id" *ngFor="let staff of staffList">{{staff.firstName?staff.firstName:''}}&nbsp;{{staff.lastName?staff.lastName:""}}</option>
+                                                                </select>
+                                                            </td> -->
+                                                            <td class="width-28p text-left">
+                                                                <div class="select-Search large searchPeraonnel" tabindex="0">
+                                                                    <span class="value form-control searchPeraonnel" (click)="openList = !openList">{{personnelName}}</span>
+                                                                    <div class="list open searchPeraonnel" tabindex="-1" *ngIf="openList">
+                                                                        <div class="filter searchPeraonnel">
+                                                                            <input type="text" class="searchPeraonnel" placeholder="Search" [(ngModel)]="searchTextRecipient">
+                                                                        </div>
+                                                                        <ul class="searchPeraonnel">
+                                                                            <li (click)="getPersonnelName('selectPersonnel', null);">{{'Select Personnel' |translate}}</li>
+                                                                            <li *ngFor="let staff of staffList |globalSearch:searchTextRecipient;let i=index " data-value="i" (click)="getPersonnelName(staff, i);">{{staff.firstName?staff.firstName:''}}&nbsp;{{staff.lastName?staff.lastName:""}}</li>                                                                            
+                                                                        </ul>                                                                        
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td class="width-23p text-center">
+                                                                <h5 class="name">
+                                                                    {{'Primary Email' |translate}}
+                                                                </h5>
+                                                            </td>
+                                                            <td class="width-20p text-center">
+                                                                <input type="number" min="0" max="99" (change)="onRoutingOrderChange(order, null)" oninput="validity.valid||(value='')" class="form-control editableInput width-50 text-center" placeholder="" [(ngModel)]="order"/>
+                                                            </td>
+                                                            <td class="width-23p text-center">
+                                                                <span class="showStatus" (click)="approve(null)" [ngClass]="approved?'approved':'noApproved'">{{approved?'Yes':'No'}}</span>
+                                                            </td>
+                                                            <td>&nbsp;</td>
+                                                        </tr>
+                                                        <tr *ngFor = "let line of selectedSignature.signatureRecipientDTOs; let i = index;">
+                                                            <td class="width-28p text-left">
+                                                                <div class="select-Search large searchPeraonnel" tabindex="i">
+                                                                    <span class="value form-control searchPeraonnel" (click)="openStaffDropdown(i)">
+                                                                        {{line.recipient?line.recipient.firstName:'Select Personnel'}}&nbsp;{{line.recipient?line.recipient.lastName:''}}
+                                                                    </span>
+                                                                    <div id="staff{{i}}" class="list open searchPeraonnel" tabindex="-1" *ngIf="openPersonnel[i]">
+                                                                        <div class="search-filter">
+                                                                            <input type="text" class="searchPeraonnel" placeholder="Search" [(ngModel)]="searchText[i]">
+                                                                        </div>
+                                                                        <ul class="searchPeraonnel">
+                                                                                <li (click)="getStaffData('selectPersonnel', i);">{{'Select Personnel' |translate}}</li>
+                                                                            <li *ngFor="let staff of staffList |globalSearch:searchText[i];let j=index " data-value="j" (click)="getStaffData(staff, i)">{{staff.firstName?staff.firstName:''}}&nbsp;{{staff.lastName?staff.lastName:""}}</li>                                                                            
+                                                                        </ul>                                                                        
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td class="width-23p text-center">
+                                                                <h5 class="name">
+                                                                    {{getEmailData(line)}}
+                                                                </h5>
+                                                            </td>
+                                                            <td class="width-20p text-center">
+                                                                <input type="number" min="0" max="99" (change)="onRoutingOrderChange(line.routingOrder, i)" oninput="validity.valid" class="form-control editableInput width-50 text-center" placeholder="" [(ngModel)]="line.routingOrder"/>
+                                                            </td>
+                                                            <td class="width-23p text-center">
+                                                                <span class="showStatus" (click)="approve(line)" [ngClass]="line.approvalRequired?'approved':'noApproved'">{{line.approvalRequired?'Yes':'No'}}</span>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <a href="javascript:void(0);" class="deleteIco" (click)="deleteModal(line, i);"><i class="fa fa-trash"></i></a>
+                                                            </td>
+                                                        </tr> 
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                            <!-- SIGNATURE APPROVAL DETAILS END -->
+                        </div>
+                    </div>
+                </div>
+                <!-- Content End -->
+            </div>
+            <div class="modal-footer">
+                <button type="button"class="btn btn-first ripple pull-left" *ngIf="selectedSignature.id" data-dismiss="modal" (click)="showDeleteModal=!showDeleteModal" style="background-color: darkred;"> {{'Delete' |translate}}</button>
+                <button type="button"class="btn btn-first ripple" data-dismiss="modal" (click)="save()"> {{'Save' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CONFIRM Modal -->
+<app-delete-confirm-modal *ngIf="showDeleteModal" [componentName]="componentName" (deleteDataEvent)="deleteEnvelope($event)" (closeModalEvent)="hideDeleteModal($event)"></app-delete-confirm-modal>

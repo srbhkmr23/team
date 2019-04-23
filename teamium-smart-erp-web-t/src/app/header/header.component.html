@@ -1,0 +1,618 @@
+<div class="main-header" id="main-header" #mainHeader>
+    <div class="inner-page">
+        <div class="logo-header" (click)="liClick()">
+            <img src="../../assets/img/Teamium-white.png" alt="" class="default-logo">
+        </div>
+
+        <ul class="notification-list" id="notificaton">
+            <li>
+                <!-- USER CHAT -->
+                <a href="javascript:void(0)" (click)="show();">
+                    <i class="fa fa-envelope-o" aria-hidden="true" id="notificaton"></i>
+                    <span *ngIf="mainNotificationCount && mainNotificationCount>0" class="badge">
+                        {{mainNotificationCount?mainNotificationCount:''}}
+                    </span>
+                </a>
+
+                <div id="chatbar" class="page-chatbar open" *ngIf="notificationClick">
+                    <div class="box-arrow"></div>
+                    <div class="chatbar-contacts"
+                        [ngClass]="{'show-user-list':showUserList,'show-message':!showUserList}">
+                        <div class="contacts-search" id="contacts-search" #contactSearch>
+                            <input type="text" [(ngModel)]="searchUserKeyword" class="searchinput"
+                                placeholder="Search Contacts">
+                            <i class="searchicon fa fa-search"></i>
+                        </div>
+
+                        <!-- chat-log-status start-->
+                        <div class="chat-log-status">
+                            <ul class="status-icon-list">
+                                <li>
+                                    <a href="javascript:void(0);">
+                                        <!-- <img src="../assets/img/chat-ico.png" alt=""/> -->
+                                        <img src="../assets/img/chat-ico-active.png" alt="" />
+                                    </a>
+                                    <p class="ico-text">{{'Chat' | translate}}</p>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">
+                                        <img src="../assets/img/contact-ico.png" alt="" />
+                                        <!-- <img src="../assets/img/contact-ico-active.png" alt=""/> -->
+                                    </a>
+                                    <p class="ico-text">{{'Contact' | translate}}</p>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">
+                                        <img src="../assets/img/groups-ico.png" alt="" />
+                                        <!-- <img src="../assets/img/groups-ico-active.png" alt=""/> -->
+                                    </a>
+                                    <p class="ico-text">{{'Groups' | translate}}</p>
+                                </li>
+                            </ul>
+                        </div><!-- chat-log-status end-->
+
+                        <div class="slimScrollDiv" id="contactList" #contactList
+                            style="position: relative; overflow: auto; width: auto;max-height: calc(100% - 90px);">
+                            <ul class="contacts-list" style="overflow: auto; width: auto;">
+                                <ng-container *ngFor="let user of userList | globalSearch:searchUserKeyword:['fullName']">
+                                    <li *ngIf="user.id!=from" class="contact" (click)="onSelectFriend(user)">
+                                        <span
+                                            *ngIf="notificationsObject[user.id] && notificationsObject[user.id]['count']>0"
+                                            class="userMsgNotify">
+                                            {{notificationsObject[user.id]['count']}}
+                                        </span>
+                                        <div class="contact-avatar">
+                                            <img
+                                                [src]="user.hasOwnProperty('photo') && user['photo'].hasOwnProperty('url')?user['photo'].url:'../../assets/img/lg-avtar.png'">
+                                        </div>
+                                        <div class="contact-info">
+                                            <div class="contact-name">{{user.firstName + ' ' + user.lastName}}</div>
+                                            <div class="contact-status">
+                                                <div [ngClass]="{'online': allOnlineUsersList.hasOwnProperty(user.id),
+                                            'offline': !allOnlineUsersList.hasOwnProperty(user.id)
+                                            }">
+                                                </div>
+                                                <div class="status">
+                                                    {{
+                                                    allOnlineUsersList.hasOwnProperty(user.id)?'online':'offline'
+                                                }}
+                                                </div>
+                                            </div>
+                                            <div class="last-chat-time">
+                                                <!-- last week -->
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ng-container>
+                                <!-- <li class="contact">
+                                    <div class="contact-avatar">
+                                        <img src="../../assets/img/Nicolai-Larson.jpg">
+                                    </div>
+                                    <div class="contact-info">
+                                        <div class="contact-name">Adam Johnson</div>
+                                        <div class="contact-status">
+                                            <div class="offline"></div>
+                                            <div class="status">left 4 mins ago</div>
+                                        </div>
+                                        <div class="last-chat-time">
+                                            today
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="contact">
+                                    <div class="contact-avatar">
+                                        <img src="../../assets/img/John-Smith.jpg">
+                                    </div>
+                                    <div class="contact-info">
+                                        <div class="contact-name">John Smith</div>
+                                        <div class="contact-status">
+                                            <div class="online"></div>
+                                            <div class="status">online</div>
+                                        </div>
+                                        <div class="last-chat-time">
+                                            1:57 am
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="contact">
+                                    <div class="contact-avatar">
+                                        <img src="../../assets/img/Osvaldus-Valutis.jpg">
+                                    </div>
+                                    <div class="contact-info">
+                                        <div class="contact-name">Osvaldus Valutis</div>
+                                        <div class="contact-status">
+                                            <div class="online"></div>
+                                            <div class="status">online</div>
+                                        </div>
+                                        <div class="last-chat-time">
+                                            today
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="contact">
+                                    <div class="contact-avatar">
+                                        <img src="../../assets/img/Javi-Jimenez.jpg">
+                                    </div>
+                                    <div class="contact-info">
+                                        <div class="contact-name">Javi Jimenez</div>
+                                        <div class="contact-status">
+                                            <div class="online"></div>
+                                            <div class="status">online</div>
+                                        </div>
+                                        <div class="last-chat-time">
+                                            today
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="contact">
+                                    <div class="contact-avatar">
+                                        <img src="../../assets/img/Stephanie-Walter.jpg">
+                                    </div>
+                                    <div class="contact-info">
+                                        <div class="contact-name">Stephanie Walter</div>
+                                        <div class="contact-status">
+                                            <div class="online"></div>
+                                            <div class="status">online</div>
+                                        </div>
+                                        <div class="last-chat-time">
+                                            yesterday
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="contact">
+                                    <div class="contact-avatar">
+                                        <img src="../../assets/img/Sergey-Azovskiy.jpg">
+                                    </div>
+                                    <div class="contact-info">
+                                        <div class="contact-name">Sergey Azovskiy</div>
+                                        <div class="contact-status">
+                                            <div class="offline"></div>
+                                            <div class="status">offline since oct 24</div>
+                                        </div>
+                                        <div class="last-chat-time">
+                                            22 oct
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="contact">
+                                    <div class="contact-avatar">
+                                        <img src="../../assets/img/Lee-Munroe.jpg">
+                                    </div>
+                                    <div class="contact-info">
+                                        <div class="contact-name">Lee Munroe</div>
+                                        <div class="contact-status">
+                                            <div class="online"></div>
+                                            <div class="status">online</div>
+                                        </div>
+                                        <div class="last-chat-time">
+                                            today
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="contact">
+                                    <div class="contact-avatar">
+                                        <img src="../../assets/img/divyia.jpg">
+                                    </div>
+                                    <div class="contact-info">
+                                        <div class="contact-name">Divyia Philips</div>
+                                        <div class="contact-status">
+                                            <div class="online"></div>
+                                            <div class="status">online</div>
+                                        </div>
+                                        <div class="last-chat-time">
+                                            last week
+                                        </div>
+                                    </div>
+                                </li> -->
+                            </ul>
+                            <div class="slimScrollBar"
+                                style="background: rgb(45, 195, 232); width: 4px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; left: 1px; height: 857px;">
+                            </div>
+                            <div class="slimScrollRail"
+                                style="width: 4px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; left: 1px;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chatbar-messages ng-scope" style="display: block;">
+                        <div class="messages-contact text-left">
+                            <div class="contact-avatar">
+                                <img
+                                    [src]="toUserObject.hasOwnProperty('photo') && toUserObject['photo'].hasOwnProperty('url')?toUserObject['photo'].url:'../../assets/img/lg-avtar.png'">
+                            </div>
+                            <div class="contact-info">
+                                <div class="contact-name">
+                                    <!-- Divyia Philips -->
+                                    {{
+                                        toUserObject?toUserObject.firstName + ' ' + toUserObject.lastName:''
+                                    }}
+
+                                </div>
+                                <div class="contact-status">
+                                    <div [ngClass]="{'online': allOnlineUsersList.hasOwnProperty(toUserObject.id),
+                                    'offline': !allOnlineUsersList.hasOwnProperty(toUserObject.id)
+                                    }">
+                                    </div>
+                                    <div class="status">
+                                        {{
+                                            allOnlineUsersList.hasOwnProperty(toUserObject.id)?'online':'offline'
+                                        }}
+                                    </div>
+                                </div>
+                                <div class="last-chat-time">
+                                    <!-- a moment ago -->
+                                </div>
+                                <div class="back">
+                                    <i class="fa fa-arrow-circle-left" (click)="showUsersList()"></i>
+                                    <!-- <a href="javascript:void(0)" ><i class="fa fa-arrow-circle-left" (click)="showUsersList()"></i></a> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-msg-container">
+                            <div id="messages" class="slimScrollDiv"
+                                style=" height: 100%;position: relative; overflow: auto; width: auto; ">
+                                <ul class="messages-list" style="overflow: auto; width: auto; ">
+                                    <li *ngFor="let message of allMessageList"
+                                        [ngClass]="message.message_from == from?'text-left':'reply'" class="message">
+                                        <div class="message-info">
+                                            <div class="bullet"></div>
+                                            <div class="contact-name">
+                                                {{message.message_from == from?'Me': toUserObject.firstName + ' ' + toUserObject.lastName}}
+
+                                            </div>
+                                            <div class="message-time">{{getTimeFormat(message.message_send_time)}},
+                                                {{getDateFormat(message.message_send_time)}}</div>
+                                        </div>
+                                        <div class="message-body">
+                                            {{message.message}}
+                                            <!-- Hi, Hope all is good. Are we meeting today? -->
+                                        </div>
+                                    </li>
+                                    <!-- <li class="message reply">
+                                        <div class="message-info">
+                                            <div class="bullet"></div>
+                                            <div class="contact-name">Divyia</div>
+                                            <div class="message-time">10:15 AM, Today</div>
+                                        </div>
+                                        <div class="message-body">
+                                            Hi, Hope all is good. Are we meeting today?
+                                        </div>
+                                    </li>
+                                    <li class="message text-left">
+                                        <div class="message-info">
+                                            <div class="bullet"></div>
+                                            <div class="contact-name">Me</div>
+                                            <div class="message-time">10:14 AM, Today</div>
+                                        </div>
+                                        <div class="message-body">
+                                            Hi, Hope all is good. Are we meeting today?
+                                        </div>
+                                    </li>
+                                    <li class="message reply">
+                                        <div class="message-info">
+                                            <div class="bullet"></div>
+                                            <div class="contact-name">Divyia</div>
+                                            <div class="message-time">10:15 AM, Today</div>
+                                        </div>
+                                        <div class="message-body">
+                                            Hi, Hope all is good. Are we meeting today?
+                                        </div>
+                                    </li>
+                                    <li class="message text-left">
+                                        <div class="message-info">
+                                            <div class="bullet"></div>
+                                            <div class="contact-name">Me</div>
+                                            <div class="message-time">10:14 AM, Today</div>
+                                        </div>
+                                        <div class="message-body">
+                                            Hi, Hope all is good. Are we meeting today?
+                                        </div>
+                                    </li>
+                                    <li class="message reply">
+                                        <div class="message-info">
+                                            <div class="bullet"></div>
+                                            <div class="contact-name">Divyia</div>
+                                            <div class="message-time">10:15 AM, Today</div>
+                                        </div>
+                                        <div class="message-body">
+                                            Hi, Hope all is good. Are we meeting today?
+                                        </div>
+                                    </li> -->
+                                </ul>
+                                <div class="slimScrollBar"
+                                    style="background: rgb(45, 195, 232); width: 4px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; left: 1px;">
+                                </div>
+                                <div class="slimScrollRail"
+                                    style="width: 4px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; left: 1px;">
+                                </div>
+
+                            </div>
+
+                            <div *ngIf="!showUserList" class="send-message">
+                                <p class="usertypingText" *ngIf="isUserTyping">
+                                    <!--  is typing... -->
+                                    <!-- {{toUserObject.firstName + " is typing..."}} -->
+                                    {{returnTypingName(toUserObject) + " is typing..."}}
+                                    <!-- *ngIf="isUserTyping" -->
+                                </p>
+                                <span class="input-icon icon-right">
+                                    <textarea [(ngModel)]="msg" (keyup)="onKeyUp($event)" rows="4" class="form-control"
+                                        placeholder="Type your message"></textarea>
+                                </span>
+                                <!-- <i class="fa fa-camera themeprimary ml-10"></i> -->
+                                <!-- <span *ngIf="isUserTyping">
+                                    {{toUserObject.firstName + " is typing..."}}
+                                </span> -->
+
+                                <i class="fa fa-send themeprimary ml-10" (click)="sendMessage()"></i>
+                                <!-- <button type="button" (click)="sendMessage()">Send</button> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- USER NOTIFICATION -->
+                <a href="javascript:void(0)" id="message" (click)="messageListClick =!messageListClick"><i
+                        class="fa fa-bell-o" aria-hidden="true"></i>
+                    <div class="userNotificationDropDown" *ngIf="messageListClick" style="left:-240px;">
+                        <div class="box-arrow"></div>
+                        <ul class="userInfoList">
+                            <li class="notifyUserList">
+                                <img src="../../assets/img/lg-avtar.png" class="notifyUserImg" alt="">
+                                <h5 class="userName">Hi Yannick <span class="activeTime">2 minute ago</span></h5>
+                                <p>Please see this notification. Please see this notification. Please see this
+                                    notification. </p>
+                            </li>
+                            <li class="notifyUserList">
+                                <img src="../../assets/img/lg-avtar.png" class="notifyUserImg" alt="">
+                                <h5 class="userName">Hi Yannick <span class="activeTime">2 minute ago</span></h5>
+                                <p>Please see this notification. Please see this notification. Please see this
+                                    notification. </p>
+                            </li>
+                            <li class="notifyUserList">
+                                <img src="../../assets/img/lg-avtar.png" class="notifyUserImg" alt="">
+                                <h5 class="userName">Hi Yannick <span class="activeTime">2 minute ago</span></h5>
+                                <p>Please see this notification. Please see this notification. Please see this
+                                    notification. </p>
+                            </li>
+                            <li class="notifyUserList">
+                                <img src="../../assets/img/lg-avtar.png" class="notifyUserImg" alt="">
+                                <h5 class="userName">Hi Yannick <span class="activeTime">2 minute ago</span></h5>
+                                <p>Please see this notification. Please see this notification. Please see this
+                                    notification. </p>
+                            </li>
+                            <li class="notifyUserList">
+                                <img src="../../assets/img/lg-avtar.png" class="notifyUserImg" alt="">
+                                <h5 class="userName">Hi Yannick <span class="activeTime">2 minute ago</span></h5>
+                                <p>Please see this notification. Please see this notification. Please see this
+                                    notification. </p>
+                            </li>
+                            <li class="notifyUserList">
+                                <img src="../../assets/img/lg-avtar.png" class="notifyUserImg" alt="">
+                                <h5 class="userName">Hi Yannick <span class="activeTime">2 minute ago</span></h5>
+                                <p>Please see this notification. Please see this notification. Please see this
+                                    notification. </p>
+                            </li>
+                        </ul>
+                        <p class="seeMoreTextLink">{{'See more' | translate}}</p>
+                    </div>
+                </a>
+
+                <a href="javascript:void(0)"><img src="../../assets/img/market-place.png" alt=""></a>
+
+                <!-- USER NOTIFICATION -->
+                <a class="user-profile" href="javascript:void(0)" id="logOut" (click)="showLogOutModal()">
+                    <span class="user-img"><img [src]="pictureUrl" alt=""></span>
+                    <span class="user-name">{{loggedInUserData?loggedInUserData.firstName:''}}</span>
+                    <span class="down-Arrow"><i class="fa fa-caret-down"></i></span>
+                </a>
+
+                <!--My Account -->
+                <div class="userInfo-logoutDiv" id="logOut" [ngClass]="!showLogot?'hide':''">
+                    <form [formGroup]="userForm">
+                        <div class="box-arrow"></div>
+                        <ul class="userInfoList">
+                            <li>
+                                <h3><span class="title">{{'My Account' | translate}}</span>
+
+                                    <span class="tags-group">
+                                        <!-- <i class="fa fa-pencil-square"></i>
+                                        <i class="fa fa-pencil-square"></i>
+                                        <i class="fa fa-pencil-square"></i> -->
+                                        <!-- <a href="javascript:void(0)" style="border-left:0;" (click)="showDigitalSignatureModal=true">{{'Digital Signature' | translate}}</a> -->
+                                        <a href="javascript:void(0)" (click)="editable=!editable;disableFields();"
+                                            style="border-left:0;">{{'Edit' | translate}}</a>
+                                        <a href="javascript:void(0)" [ngStyle]="editable?{}:{'text-decoration': 'none'}"
+                                            (click)="editable?saveMyAccount():''">{{'Save' | translate}}</a>
+                                        <!-- <a href="javascript:void(0)" >Sign out</a> -->
+                                    </span>
+                                </h3>
+                            </li>
+                            <li>
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        <div class="inline-flex pull-left">
+                                            <span
+                                                class="form-control editableInput">{{loggedInUserData?loggedInUserData.userSettingDTO.login:''}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-8">
+                                        <div class="inline-flex pull-right">
+                                            <input type="text" class="form-control editableInput text-right mr-10"
+                                                placeholder="First Name" formControlName="firstName"
+                                                style="width:100px;" />
+                                            <input type="text" class="form-control editableInput text-right"
+                                                placeholder="Last Name" formControlName="lastName"
+                                                style="width:100px;" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <h4 class="infoText">Yannick Defrenne
+                                    <p>Editor</p>
+                                </h4> -->
+                            </li>
+                            <li>
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <input type="text" class="form-control editableInput" placeholder="City"
+                                            formControlName="city" />
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <!-- <input type="text" class="form-control editableInput text-right" placeholder="Country" formControlName="country"/> -->
+                                        <select class="form-control editableInput" formControlName="country"
+                                            style="text-align-last: right;">
+                                            <!-- <option *ngIf="showDefaultLanguage(languages)" [value]="'English'">English</option> -->
+                                            <option *ngFor="let country of dropDownData?dropDownData.countries:''" class="pull-right" value={{country}}>
+                                                {{country}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <div class="inline-flex pull-left">
+                                            <span class="form-control editableInput">{{'Role' | translate}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 pull-right"
+                                        *ngFor="let role of loggedInUserData?loggedInUserData.role.slice(0,2):'';let i = index;">
+                                        <div class="inline-flex pull-right">
+                                            <span class="form-control editableInput">{{role.roleName}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <h4 class="infoText">Yannick Defrenne
+                                    <p>Editor</p>
+                                </h4> -->
+                            </li>
+                            <li>
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        <div class="inline-flex pull-left">
+                                            <span
+                                                class="form-control editableInput">{{'Primary Function' | translate}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-8">
+                                        <div class="inline-flex pull-right">
+                                            <!-- <span class="form-control editableInput text-right" placeholder="Other Function" style="width:100px;"></span> -->
+                                            <!-- <span class="form-control editableInput ml-10 text-right" placeholder="Other Function"  *ngFor="let function of getOtherMaxTwoFunction()">{{function}}</span> -->
+                                            <span class="form-control editableInput"
+                                                [title]="getPrimaryFunction()">{{getPrimaryFunction()}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <h4 class="infoText">500 37th St, New York, NY
+                                    <p>USA</p>
+                                </h4> -->
+                            </li>
+                            <li>
+                                <div class="row">
+                                    <div class="col-xs-6 text-left">
+                                        <select class="form-control editableInput"
+                                            style="width: 150px;display: inline-block;" formControlName="primaryPhone">
+                                            <option *ngFor="let phone of loggedInUserData?loggedInUserData.userSettingDTO.telephones:''"
+                                                [value]="phone.telephone">{{phone.telephone}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <select class="form-control editableInput" style="display: inline-block;"
+                                            formControlName="primaryEmail" style="text-align-last: right;">
+                                            <option *ngFor="let email of loggedInUserData?loggedInUserData.userSettingDTO.emails:''"
+                                                [value]="email.email">{{email.email}}</option>
+                                        </select>
+                                        <!-- <input type="text" class="form-control editableInput text-right" placeholder="Email" formControlName="email"/> -->
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- <li>
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <input type="text" class="form-control editableInput" placeholder="Phone Number" formControlName="phoneNumber"/>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <input type="text" class="form-control editableInput text-right" placeholder="Reference" formControlName="reference"/>
+                                    </div>
+                                </div>
+                            </li> -->
+                            <li>
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <!-- <div class="thumbNail-Div">
+                                            <span class="user-img"><img [src]="imgSrc" alt=""></span>
+                                        </div> -->
+                                        <div class="thumbNail-Div">
+                                            <div class="relative">
+                                                <!-- <div *ngIf="pictureUrl"> -->
+                                                <!-- Delete picture -->
+                                                <i *ngIf="editable" style="position: absolute;top: -1px;left: 36px;font-size: 18px;color: red;opacity: 1;cursor:pointer;z-index: 1;" class="fa fa-times-circle" (click)='removeImage()'></i>
+                                            <!-- </div> -->
+                                                <div class="upload-img" >
+                                                    <input type="file" #inputImage (change)="onProfilePictureChange($event)">
+                                                    <i *ngIf="!pictureUrl" class="fa fa-file-image-o" aria-hidden="true"></i>
+                                                    <img [src]="pictureUrl" *ngIf="pictureUrl"
+                                                        style="width: 100%;height: 100%;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-9">
+                                        <span class="tags-group update-group">
+                                            <a href="javascript:void(0)" [ngStyle]="editable?{'border-left': '0px'}:{'border-left': '0px','text-decoration': 'none'}" (click)="editable?showResetPasswordModal=!showResetPasswordModal:''">{{'Reset Password' | translate}}</a>
+                                            <a href="javascript:void(0)" [ngStyle]="editable?{'padding-right': '0px !important'}:{'padding-right': '0px !important','text-decoration': 'none'}"
+                                                (click)="editable?showDigitalSignatureModal=true:''">{{'Digital Signature' | translate}}</a>
+                                            <!-- <a href="javascript:void(0)" >Sign out</a> -->
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- <h4 class="infoText">(646) 556 7233
+                                    <p>Reference</p>
+                                </h4> -->
+                            </li>
+                            <li>
+                                <div class="row">
+                                    <div class="col-xs-6 text-left">
+                                        <select class="form-control editableInput"
+                                            (change)="useLanguage($event.target.value)" style="width:150px;"
+                                            formControlName="language">
+                                            <!-- <option [value]="en" selected>Language</option>
+                                            <option [value]="en" >English</option>
+                                            <option [value]="fr">French</option> -->
+                                            <option *ngIf="showDefaultLanguage(languages)" [value]="'English'">English
+                                            </option>
+                                            <option *ngFor="let language of languages" value={{language}}>
+                                                {{language}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <select class="form-control editableInput" formControlName="timeZone"
+                                            style="text-align-last: right;">
+                                            <option *ngFor="let timeZone of timeZoneList" value={{timeZone.zoneName}}>
+                                                {{timeZone.zoneName}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- <h4 class="infoText">English
+                                    <p>Time Zone: EST</p>
+                                </h4> -->
+                            </li>
+                            <!-- <li>
+                                <button _ngcontent-c5="" class="btn btn-first logoutBtn ripple" type="button"><i class="fa fa-power-off"></i> Logout</button>
+                            </li> -->
+                        </ul>
+                        <div class="logout">
+                            <span (click)="logout()"><i class="fa fa-power-off"></i></span>
+                        </div>
+                    </form>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<app-digital-signature *ngIf="showDigitalSignatureModal" [staffId]="loggedInUserData.id"
+    (closeModalEvent)="showDigitalSignatureModal = false"></app-digital-signature>
+<app-reset-password-myaccount *ngIf="showResetPasswordModal" (closeModalEvent)="showResetPasswordModal = false"></app-reset-password-myaccount>

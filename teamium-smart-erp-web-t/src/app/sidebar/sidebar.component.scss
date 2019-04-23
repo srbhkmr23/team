@@ -1,0 +1,231 @@
+@import '../../variables';
+.sidebar {
+    position: fixed;
+    width: 220px;
+    min-height: 100%;
+    top: 53px;
+    left: 0;
+    background: $third-color;
+    z-index: 99;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+    &>ul {
+        list-style: none;
+        padding-left: 0;
+        min-height: 100vh;
+        background: $first-color;
+        width: 100%;
+        transition: all .5s ease-in-out;
+        position: relative;
+        z-index: 1;
+        li {
+            a {
+                color: $white-color;
+                text-decoration: none;
+                font-size: 14px;
+                display: block;
+                padding: 12px 15px 12px 50px;
+                position: relative;
+                border-bottom: 1px solid $third-color;
+                min-width: 200px;
+                white-space: nowrap;
+                .ActiveIcon {
+                    display: none;
+                }
+                .whiteIcon {
+                    display: inline-block;
+                }
+                .fa {
+                    font-size: 10px;
+                    position: absolute;
+                    right: 15px;
+                    top: 15px;
+                }
+                .leftIcon {
+                    left: 15px;
+                    font-size: 18px !important;
+                    position: absolute;
+                    top: 12px;
+                    right: auto;
+                    img {
+                        margin-top: -12px;
+                        width: 18px;
+                    }
+                }
+            }
+            &.active {
+                a {
+                    // background: $active-color;
+                    background: $third-color;
+                    color: $first-color;
+                    .ActiveIcon {
+                        display: inline-block;
+                    }
+                    .whiteIcon {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+    .title {
+        opacity: 1;
+        transition: opacity 0.5s ease-in;
+    }
+    .subMenu {
+        position: fixed;
+        left: -100%;
+        top: 50px;
+        padding: 15px 15px;
+        transition: all 0.5s ease-in-out;
+        width: 180px;
+        .menuTitle {
+            font-size: 18px;
+            margin-bottom: 20px;
+            padding-left: 6px;
+        }
+        .list {
+            p {
+                a {
+                    color: $dark-color2;
+                    font-size: 14px;
+                    padding: 6px 5px;
+                    display: block;
+                    position: relative;
+                    width: 100%;
+                    .fa {
+                        font-size: 9px;
+                        margin-left: 5px;
+                        position: absolute;
+                        //right: 10px;
+                        right: 5px;
+                        top: 11px;
+                    }
+                    &:focus {
+                        text-decoration: none;
+                        outline: none;
+                        outline-offset: 0;
+                    }
+                }
+                &.active,
+                &:hover {
+                    a {
+                        background: $second-color;
+                        color: $white-color;
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+    }
+    .innerSubMenu-Sec {
+        position: fixed;
+        left: -130px;
+        top: 53px;
+        padding: 15px 15px;
+        transition: all 0.10s ease-in-out;
+        width: 180px;
+        min-height: 100%;
+        background: $lite-color3;
+        .innerSubMenu {
+            .menuTitle {
+                font-size: 18px;
+                margin-bottom: 20px;
+                padding-left: 6px;
+                a.backSubMenu {
+                    color: #000;
+                    text-decoration: none;
+                    .fa {
+                        font-size: 12px;
+                        position: absolute;
+                        left: 20px !important;
+                        top: 21px !important;
+                    }
+                    span {
+                        padding-left: 20px;
+                    }
+                }
+            }
+            .list {
+                list-style: none;
+                padding-left: 0;
+                li {
+                    a {
+                        color: $dark-color2;
+                        font-size: 14px;
+                        padding: 6px 6px;
+                        display: block;
+                        position: relative;
+                        width: 100%;
+                        text-decoration: none;
+                        .fa {
+                            font-size: 9px;
+                            margin-left: 5px;
+                            position: absolute;
+                            right: 10px;
+                            top: 11px;
+                        }
+                        &:focus {
+                            background: $second-color;
+                            color: $white-color;
+                            text-decoration: none;
+                            outline: none;
+                            outline-offset: 0;
+                        }
+                    }
+                    &.active,
+                    &:hover {
+                        a {
+                            background: $second-color;
+                            color: $white-color;
+                            text-decoration: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    & .active {
+        left: 40px;
+        transition: all 0.5s ease-in-out;
+    }
+}
+
+//=====  tooltip style =====//
+.tooltipDiv {
+    .tooltiptext {
+      visibility: hidden;
+      min-width: 120px;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      border-radius: 2px;
+      padding: 6px 8px;
+      //position: absolute;
+      position: fixed;
+      z-index: 999;
+      //top: 5px;
+      left: 50px;
+      /* Fade in tooltip - takes 1 second to go from 0% to 100% opac: */
+      opacity: 0;
+      transition: opacity 1s;
+      &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: 100%;
+        margin-top: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent black transparent transparent;
+      }
+    }
+    &:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+.profile-panel {
+    background: #3996d3;
+    padding: 20px 15px
+}

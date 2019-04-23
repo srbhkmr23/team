@@ -1,0 +1,130 @@
+<div class="modal in fade procurement-modal user-dashboard-modal" style="display: block;background: rgba(0, 0, 0, 0.6);"
+  *ngIf="isShow">
+  <div class="modal-dialog  modal-md">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <button type="button" class="close" data-dismiss="true" (click)="cancel()">&times;</button>
+        <h5 class="name pull-left">{{'Leave Request' | translate}}
+        </h5>
+      </div>
+      <div class="modal-body" *ngIf="leaveForm">
+        <div class="inner-content pad-20">
+            <form [formGroup]="leaveForm">
+              <div class="text-right mb-20" *ngIf="!isLeave">
+                <div class="ttlDays pull-left">
+                  <label class="labelTotal">{{remainBalance}}</label>
+                </div>
+                <button class="btn btn-first btn-print ripple" type="button">{{'Print' | translate}}</button>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-content" *ngIf="!isLeave">
+                    <div class="row">
+                      <div class="col-xs-6">
+                        <div class="input-row">
+                          <label>Type*</label>
+                          <select class="form-control" formControlName="leaveRecordDTO">
+                            <option disabled [ngValue]="null">{{'Select Type' | translate}}</option>
+                            <option *ngFor="let type of userLeaveRecordDTO.availableLeaveRecordDTOs" value="{{type.leaveRecordId}}">{{type.leaveTypeDTO.type}}</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-xs-6">
+                        <div class="input-row">
+                          <label>No of Days*</label>
+                          <input type="number" class="form-control" placeholder="No of Days" formControlName="numberOfDay" min="0" oninput="validity.valid||(value='')">
+                          <span *ngIf="numOfDaysError && dayDiff!=0" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">Number of Days should be greater than 0 and less than or equal to {{dayDiff}}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-6">
+                        <div class="input-row">
+                          <label>Begin On*</label>
+                          <p-calendar formControlName="startTime"></p-calendar>
+                          <span *ngIf="errorStart" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{errorStart}}</span>
+                        </div>
+                      </div>
+                      <div class="col-xs-6">
+                        <div class="input-row">
+                          <label>End On*</label>
+                          <p-calendar formControlName="endTime"></p-calendar>
+                          <span *ngIf="errorEnd" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{errorEnd}}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- ADD DESCRIPTIONS -->
+                    <div class="row mb-20">
+                      <div class="col-md-12">
+                        <label class="title">{{'Comment' | translate}}</label>
+                        <textarea class="form-control" rows="10" style="height: 100px;" placeholder="Description" formControlName="comment"></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- For Attachment -->
+
+                  <div class="add-attachment ">
+                    <div class="row">
+
+                      <div class="col-md-8">
+                        <fieldset [disabled]="attachments.length!=0">
+                          <div class="form-content">
+                            <label>{{'Attachment Name' | translate}} *</label>
+                            <input type="text" class="form-control" placeholder="Attachment Name" formControlName="attachmentType">
+                            <div class="attachment-content">
+                              <i class="fa fa-upload"></i>
+                              <label for="">{{'Drag Here' | translate}}</label>
+                              <label for="">{{'or Browse your computer' | translate}}</label>
+
+                              <input type="file" class="fileType" (change)="onFileChange($event)">
+                            </div>
+                            <span *ngIf="addedAttachmentFileName" style="color: hsl(147, 78%, 18%);text-align: left;font-size: 14px;margin-top: 5pt;">{{addedAttachmentFileName}}</span>
+                            <span *ngIf="invalidAttachmentFormatError" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{invalidAttachmentFormatError}}</span>
+                          </div>
+                        </fieldset>
+                      </div>
+
+                      <div class="col-md-4">
+                        <div class="added-value-content">
+                          <div class="description">
+                            <label>&nbsp;</label>
+                            <div class="text-left mt-0 p-0">
+                              <button class="btn btn-first btn-plus" [disabled]="(!(leaveForm.get('attachmentType').value&&leaveForm.get('avatar').value)) || attachments.length!=0"
+                                (click)="addAttachment()">
+                                <i class="fa fa-plus"></i>
+                              </button>
+                            </div>
+                          </div>
+                          <div class="added-value mt-15" *ngFor="let attachment of attachments">
+                            <img [src]="getAttachmentImage(attachment.extension)" alt="">
+                            <label>
+                              <span>{{attachment.type}}</span>
+                            </label>
+                            <a href="javascript:void(0)" class="close" (click)="clearAttachment()">&times;</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- For Attachment End-->
+                </div>
+              </div>
+
+            </form>
+        </div>
+        
+      </div>
+
+      <hr>
+      
+        <div class="text-center mb-20">
+          <button *ngIf="!isLeave" class="btn btn-first ripple" [disabled]="leaveForm.invalid || errorEnd || errorStart " style="padding: 6px 12px;min-width: 80px;"
+            type="button" (click)="submit()">{{'Save' | translate}}</button>
+            <button *ngIf="isLeave" class="btn btn-first ripple" [disabled]="attachments.length==0" style="padding: 6px 12px;min-width: 80px;"
+            type="button" (click)="submit()">{{'Save' | translate}}</button>
+        </div>
+    </div>
+  </div>
+</div>

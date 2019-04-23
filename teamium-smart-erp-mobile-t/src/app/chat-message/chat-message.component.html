@@ -1,0 +1,147 @@
+<!--MAIN HEADER -->
+<header class="header header-fixed-top">
+    <div class="navbar-menu">
+        <!--toggle-->
+        <app-sidebar-toggle></app-sidebar-toggle>
+
+        <!--Page Title Text-->
+        <h4 class="title">{{'Message' | translate}}</h4>
+
+        <!--user-Img-->
+        <app-profile-pic></app-profile-pic>
+    </div>
+    
+    <!-- Sub-Menu -->
+    <div class="sub-Menu subMenu-filter">
+        <div class="search-filter">
+          <i class="fa fa-search"></i>
+          <input type="text" class="form-control input-search" placeholder="Search"/>
+        </div>
+        <div (click)="showUserList()" class="list-ico ripple"><img src="assets/img/list-ico.png" alt=""/></div>
+    </div>
+</header>
+  
+  <!-- WRAPPER -->
+  <div id="wrapper" class="wrapper">
+    <!--sideBar-->
+    <app-sidebar></app-sidebar>
+  
+    <!-- Main Section -->
+    <section class="main-section">
+        <!-- Add Your Content Inside -->
+        <div class="content pad-btm-50">
+  
+          <div class="usersContent chat-message">
+
+            <div class="chat">
+              <ul>
+                <li class="you">
+                  <div class="msg-div">
+                    <a class="user" href="javascript:void(0);"><img src="assets/img/user-img.png" alt="" /></a>
+                    <div class="date">{{'7 minutes ago ' | translate}} <span class="time">12/10/15, 10:00</span></div>
+                    <div class="message my-message">
+                      <!-- <div class="hider">
+                        <span>Click to read</span>
+                      </div> -->
+                      <p translate>Provident.</p>
+                    </div>
+                  </div>
+                </li>
+                <li class="other">
+                  <div class="msg-div">
+                    <a class="user" href="javascript:void(0);"><img src="assets/img/user-img-1.png" alt="" /></a>
+                    <div class="date">{{'2 minutes ago' | translate}} <span class="time">12/10/15, 10:00</span></div>
+                    <div class="message other-message "> <!--blur-->
+                      <!-- <div class="hider">
+                        <span>Click to read</span>
+                      </div> -->
+                      <p translate>Itaque quod et dolore accusantium. Labore aut similique ab voluptas rerum quia. Reprehenderit voluptas doloribus ut nam tenetur ipsam.</p>
+                    </div>
+                  </div>
+                </li>
+                <li class="other">
+                  <div class="msg-div">
+                    <a class="user" href="javascript:void(0);"><img src="assets/img/user-img-1.png" alt="" /></a>
+                    <div class="date">{{'2 minutes ago' | translate}} <span class="time">12/10/15, 10:00</span></div>
+                    <div class="message other-message">
+                      <!-- <div class="hider">
+                        <span>Click to read</span>
+                      </div> -->
+                      <p translate>
+                        Modi ratione aliquid non. Et porro deserunt illum sed velit necessitatibus. Quis fuga et et fugit consequuntur. Et veritatis fugiat veniam pariatur maxime iusto aperiam.
+                      </p>
+                    </div>
+                  </div>
+                </li>
+                <li class="you">
+                  <div class="msg-div">
+                    <a class="user" href="javascript:void(0);"><img src="assets/img/user-img.png" alt="" /></a>
+                    <div class="date">{{'2 minutes ago' | translate}} <span class="time">12/10/15, 10:00</span></div>
+                    <div class="message my-message">
+                      <!-- <div class="hider">
+                        <span>Click to read</span>
+                      </div> -->
+                      <p translate>
+                        Provident impedit atque nemo culpa et modi molestiae. Error non dolorum voluptas non a. Molestiae et nobis nisi sed.
+                      </p>
+                    </div>
+                  </div>
+                </li>
+                <li class="other">
+                  <div class="msg-div">
+                    <a class="user" href="javascript:void(0);"><img src="assets/img/user-img-1.png" alt="" /></a>
+                    <div class="date">{{'2 minutes ago' | translate}} <span class="time">12/10/15, 10:00</span></div>
+                    <div class="message other-message">
+                      <!-- <div class="hider">
+                        <span>Click to read</span>
+                      </div> -->
+                      <p translate>
+                        Id vel ducimus perferendis fuga excepturi nulla. Dolores dolores amet et laborum facilis. Officia magni ut non autem et qui incidunt. Qui similique fugit vero porro qui cupiditate.
+                      </p>
+                    </div>
+                  </div>
+                </li>
+                <li class="you">
+                  <div class="msg-div">
+                    <a class="user" href="javascript:void(0);"><img src="assets/img/user-img.png" alt="" /></a>
+                    <div class="date">{{'2 minutes ago' | translate}} <span class="time">12/10/15, 10:00</span></div>
+                    <div class="message my-message">
+                      <!-- <div class="hider">
+                        <span>Click to read</span>
+                      </div> -->
+                      <p translate>
+                        Est ut at eum sed perferendis ea hic. Tempora perspiciatis magnam aspernatur explicabo ea. Sint atque quod.
+                      </p>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+          
+          <!-- write -->
+          <div class="write">
+              <div class="input-write-div">
+                <a href="javascript:void(0);" class="attach"><img src="assets/img/link-ico.png" alt=""/></a>
+                <input class="form-control input-write" type="text" placeholder="Send Message"/>
+              </div>
+              <!-- <a href="javascript:;" class="write-link smiley"></a> -->
+              <a href="javascript:void(0);" class="send"><img src="assets/img/send-ico.png" alt=""/></a>
+          </div>
+  
+        </div>
+        <!-- /.content -->
+    </section>
+    <!-- /.main-section -->
+  </div>
+  <!-- /#wrapper -->
+  
+  <!-- MANU FOOTER -->
+  <app-footer></app-footer>
+  
+  <!-- MANU FOOTER -->
+
+  <!-- Right Sidebar for Chat Users -->
+
+<app-chat-user-list   [isUserListActive]="isUserListActive" (closeUserListEvent)="hideUserList($event)"></app-chat-user-list>

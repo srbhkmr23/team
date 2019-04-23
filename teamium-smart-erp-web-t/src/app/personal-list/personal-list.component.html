@@ -1,0 +1,296 @@
+<!--     Spinner component-->
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner>
+<!--     Component for save and create Personnel-->
+<app-create-personnel *ngIf="showSavePersonnelModal" (closeModalEvent)="closeModal($event)"></app-create-personnel>
+
+
+<div class="equipment-list personal-list">
+
+    <div class="filter-header">
+        <div class="container-fluid">
+            
+            <h1 class="title">{{'Personnel' | translate}}</h1>
+
+            <div class="filter">
+
+                <div class="filter-search">
+                    <input type="text" [(ngModel)]="searchText" class="input-search" placeholder="Search...">
+                    <i class="fa fa-search"></i>
+
+                    <a href="javascript:void(0)" id="filter-id" (click)="isfiterClicked = !isfiterClicked">
+                        {{'Filter by' | translate}}
+                        <i class="fa fa-sliders"></i>
+                    </a>
+
+                    <a href="javascript:void(0)" id="sort-id" (click)="isSortByClicked =!isSortByClicked">
+                        {{'Sort by' | translate}}
+                        <i class="fa fa-sort"></i>
+                    </a>
+                    <a *ngIf="isHumanResource" href="javascript:void(0)" class="ml-5" (click)="showSavePersonnelModal=(!showSavePersonnelModal)">
+                        <i class="fa fa-plus"></i> {{'Add' | translate}}
+                    </a>
+                </div>
+
+                <div class="filter-box" id="filter-id" [ngClass]="!isfiterClicked ? 'hide':''">
+                    <div class="arrow"></div>
+                    <div class="filter-row" [ngClass]="!isFilterByFunctionClicked?'collapse-ul':''">
+                        <h4 class="title4" (click)="isFilterByFunctionClicked = !isFilterByFunctionClicked">{{'Function' | translate}}
+                            <i class="fa fa-angle-down"></i>
+                        </h4>
+                        <ul class="chk-list ">
+
+                            <li *ngFor="let functionCheckBox of functionCheckBoxList; let i = index">
+                                <div class="checkbox">
+                                    <input type="checkbox" id={{i}} (click)="doCheckbox(functionCheckBox)">
+                                    <label for={{i}} class="chk"></label>
+                                    <label for={{i}}>{{functionCheckBox.label}}</label>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="filter-row" id="filter-id" [ngClass]="!isFilterBySkillClicked?'collapse-ul':''">
+
+                        <h4 class="title4" (click)="isFilterBySkillClicked =!isFilterBySkillClicked">{{'Skills' | translate}}
+                            <i class="fa fa-angle-down"></i>
+                        </h4>
+                        <ul class="chk-list ">
+
+                            <li *ngFor="let skillCheckBox of skillsCheckBoxList;let skillIndex = index">
+                                <div class="checkbox">
+                                    <input type="checkbox" id={{skillCheckBox.label}}{{skillIndex}} (click)="addSelectedSkillCheckbox(skillCheckBox)">
+                                    <label for={{skillCheckBox.label}}{{skillIndex}} class="chk"></label>
+                                    <label for={{skillCheckBox.label}}{{skillIndex}}>{{skillCheckBox.label}}</label>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+
+
+                    <div class="filter-row" id="filter-id" [ngClass]="!isFilterByFreelancerClicked?'collapse-ul':''">
+
+                        <h4 class="title4" (click)="isFilterByFreelancerClicked =!isFilterByFreelancerClicked">{{'Freelancer' | translate}}
+                            <i class="fa fa-angle-down"></i>
+                        </h4>
+                        <ul class="chk-list ">
+
+                            <li *ngFor="let freelancerCheckBox of freelancerCheckBoxList;let freelancerIndex = index">
+                                <div class="checkbox">
+                                    <input type="checkbox" id={{freelancerCheckBox.label}}{{freelancerIndex}} (click)="addSelectedFreelanceCheckbox(freelancerCheckBox)">
+                                    <label for={{freelancerCheckBox.label}}{{freelancerIndex}} class="chk"></label>
+                                    <label for={{freelancerCheckBox.label}}{{freelancerIndex}}>{{freelancerCheckBox.label}}</label>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                    <div class="filter-row" id="filter-id" [ngClass]="!isFilterByLocationClicked?'collapse-ul':''">
+                        <h4 class="title4" (click)="isFilterByLocationClicked =!isFilterByLocationClicked">{{'Location' | translate}}
+                            <i class="fa fa-angle-down"></i>
+                        </h4>
+                        <ul class="chk-list ">
+
+                            <li *ngFor="let location of locationCheckBoxList;let locationIndex =index">
+                                <div class="checkbox">
+                                    <input type="checkbox" id={{locationIndex}}{{location.label}} (click)='addSelectedLocationCheckbox(location)'>
+                                    <label for={{locationIndex}}{{location.label}} class="chk"></label>
+                                    <label for={{locationIndex}}{{location.label}}>{{location.label}}</label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                    <div class="filter-row" id="filter-id" [ngClass]="!isFilterByRateClicked?'collapse-ul':''">
+
+                        <h4 class="title4" (click)="isFilterByRateClicked =!isFilterByRateClicked">{{'Rate' | translate}}
+                            <i class="fa fa-angle-down"></i>
+                        </h4>
+                        <ul class="chk-list ">
+
+                            <h3 style="font-size:14px !important;margin-top:0px ">{{'Range' | translate}}: {{rates.rangeValues[0] + ' - ' + rates.rangeValues[1]}}</h3>
+                            <p-slider [disabled]='this.selectedFreelancerCheckBoxList.length==0' [(ngModel)]="rates.rangeValues" [min]="rates.minValue" [max]="rates.maxValue" [style]="{'width':'13.5em'}" [range]="true" (onChange)="handleChange(rates.rangeValues)"></p-slider>
+
+                        </ul>
+                    </div>
+
+                    <div class="filter-row" id="filter-id" [ngClass]="!isFilterByBookedStatusClicked?'collapse-ul':''">
+
+                        <h4 class="title4" (click)="isFilterByBookedStatusClicked =!isFilterByBookedStatusClicked">{{'Status' | translate}}
+                            <i class="fa fa-angle-down"></i>
+                        </h4>
+                        <ul class="chk-list ">
+
+                            <li *ngFor="let bookedCheckBox of bookedCheckBoxList;let bookedIndex = index">
+                                <div class="checkbox">
+                                    <input type="checkbox" id={{bookedCheckBox.label}}{{bookedIndex}} (click)="addSelectedBookedCheckbox(bookedCheckBox)">
+                                    <label for={{bookedCheckBox.label}}{{bookedIndex}} class="chk"></label>
+                                    <label for={{bookedCheckBox.label}}{{bookedIndex}}>{{bookedCheckBox.label}}</label>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+
+
+                <div class="filter-box" id="sort-id" [ngClass]="!isSortByClicked ? 'hide':''" style="left: 160px;">
+                    <div class="arrow"></div>
+                    <ul class="chk-list " style="height:auto;">
+                        <li>
+                            <div (click)="sort('firstName')" [ngClass]="(sortBy=='firstName'&&sortValue== 1)?'sort':''">
+                                <i class="fa fa-sort" aria-hidden="true"></i>
+                                <label for='name' class="chk" style="margin-left:10px"></label>
+                                <label for='name'>{{'Name' | translate}}</label>
+                            </div>
+                        </li>
+                        <!-- <li>
+              <div (click)="sort('rate')" [ngClass]="(sortBy=='rate'&&sortValue== 1)?'sort':''">
+                <i class="fa fa-sort " aria-hidden="true"></i>
+                <label for='rate' class="chk" style="margin-left:10px"></label>
+                <label for='rate'>Rate</label>
+              </div>
+            </li> -->
+                        <li>
+                            <div (click)="sort('location')" [ngClass]="(sortBy=='location'&&sortValue== 1)?'sort':''">
+                                <i class="fa fa-sort " aria-hidden="true"></i>
+                                <!-- <input type="radio" id='location'  (click)="sortBy='location'" name="sort"> -->
+                                <label for='location' class="chk" style="margin-left:10px"></label>
+                                <label for='location'>{{'Location' | translate}}</label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Container of Personal Started here  -->
+
+        <div class="container-fluid hide">
+            <ol class="breadcrumb">
+                <!-- <li>
+                    <a href="#">
+                        <em class="fa fa-home"></em>
+                    </a>
+                </li> -->
+                <li class="active">{{'Personal' | translate}}</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="smallToLarge" [ngClass]="selectedPersonal !=null?'view-details-card-active':''">
+
+        <div class="card-list-content">
+            <div class="row">
+                <div class="col-md-4 col-sm-6" *ngFor="let personal of personalList |personalFilter: searchList: selectedFunctionCheckBoxList:selectedSkillCheckBoxList:selectedLocationCheckBoxList:selectedFreelancerCheckBoxList:selectedRateCheckBoxList:selectedBookedCheckBoxList: rates|equipmentSearch:searchText:searchList|globalSort:sortBy:sortValue">
+
+                    <div class="card" [ngClass]="clickedId==personal.id?'flipped':''">
+                        <div class="card-box" (click)="clickEvent(personal)">
+                            <div class="ribbon" *ngIf="personal.freelance ===true">
+                                <span class="activeRibbon">{{'Freelancer' | translate}}</span>
+                            </div>
+                            <div class="spImg">
+                                <img [src]="personal.photo!=null?personal.photo.url:'../../assets/img/personal.png'">
+                            </div>
+                            <div class="spInfoContainer">
+                                <div class="spInfo">
+                                    <h4 class="">{{personal.firstName}} {{personal.lastName}}</h4>
+                    
+                                    <p class="client-institute">{{personal.address?personal.address.city:''}}</p>
+
+                                    <p class="client-institute" *ngIf="personal.mainFunction !=null">{{'Function' | translate}}: {{personal.mainFunction.value}}</p>
+
+                                    <p class="client-institute" *ngIf="personal.groupNames !=null">{{'Groups' | translate}}: {{personal.groupNames}}</p>
+                                </div>
+                                <!-- <div class="spInfo" *ngIf="personal.mainFunction !=null">
+                                    <h4 class="">Function: {{personal.mainFunction.value}}</h4>
+                                </div>
+                                <div class="spInfo" *ngIf="personal.groupNames !=null">
+                                    <h4 class="">Groups: {{personal.groupNames}}</h4>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- DETAILS WINDOW -->
+        <div class="visible-div">
+            <div class="view-details-card card">
+                <div class="card-header" *ngIf="selectedPersonal !=null">
+                    <a href="javascript:void(0)" class="close" data-dismiss="modal" (click)="clickEvent(null)">&times;</a>
+                    <h4 class="modal-title">
+                        <img [src]="selectedPersonal.photo!=null?selectedPersonal.photo.url:'../../assets/img/personal.png'" alt="">{{selectedPersonal.firstName}} {{selectedPersonal.lastName}}
+                        <!-- <span class="subTitle">{{selectedEquipment.model}} {{selectedEquipment.brand}}</span> -->
+                    </h4>
+                </div>
+                <div class="card-body" *ngIf="selectedPersonal !=null">
+                    <div class="table-responsive">
+                        <table class="table custom-table ">
+                            <tbody>
+                                <tr>
+                                    <td>{{'Functions' | translate}}</td>
+                                    <!-- <td>Lens</td> -->
+                                </tr>
+                                <tr *ngFor="let func of selectedPersonal.resource.functions">
+                                    <td>{{func.function.value}}</td>
+                                    <!-- <td>Bettery</td> -->
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table">
+                            <caption>{{'Specs' | translate}}</caption>
+                            <tbody>
+                                <tr>
+                                    <td>{{'Language' | translate}}</td>
+                                    <div *ngFor="let lang of selectedPersonal.languages">
+                                        <td>{{lang}}</td>
+                                    </div>
+                                </tr>
+                                <tr>
+                                    <td>{{'Group' | translate}}</td>
+                                    <td>{{selectedPersonal.groupNames}}</td>
+                                    
+                                    <!-- <td>{{selectedPersonal.resource.parent!=null?selectedPersonal.resource.parent.name:''}}</td> -->
+                                </tr>
+                                <!-- <tr>
+                                <td>{{'Freelance' | translate}}</td>
+                                <td>ACE</td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>{{'Skills' | translate}}</th>
+                                    <th>{{'Rating' | translate}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let skill of selectedPersonal.skills">
+                                    <td>{{skill.domain}}</td>
+                                    <td>
+                                        <div class="rating">
+                                            <a href="javascript:void(0)" *ngFor="let i of [1,2,3,4,5]">
+                                                <i class="fa fa-star" [ngStyle]="{'color':skill.rating >=i ? '' : 'silver' }"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="button" class="btn btn-first ripple" (click)="goToDetails(selectedPersonal)">{{'More Details' | translate}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

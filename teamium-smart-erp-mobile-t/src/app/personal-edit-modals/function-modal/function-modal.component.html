@@ -1,0 +1,28 @@
+<div class="">
+    <h1 mat-dialog-title>{{'Add Functions ' | translate}}
+        <a (click)="closeModal(false)" href="javascript:void(0);" class="close">x</a>
+    </h1>
+    <div mat-dialog-content>
+        <!-- <p>Add more functions.</p> -->
+        <div class="added-value">
+            <mat-form-field class="dummy-input-field">
+                <!-- Select Option-->
+                <mat-select [(value)]="selectedFunction" placeholder="Functions">
+                    <mat-option>{{'None' | translate}}</mat-option>
+                    <mat-option *ngFor="let function of functionDropDownList" [value]="function">{{function.value}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <!--button-->
+            <button type="button" (click)="addFunction(selectedFunction)" class="btn btn-first btn-Add ripple"><i class="fa fa-plus"></i></button>
+        </div>
+        <div class="added-value-content ng-star-inserted"><!--bindings={"ng-reflect-ng-for-of": ""}-->
+            <div *ngFor="let function of selectedFunctionList" class="added-value ng-star-inserted">
+              <label >{{function.value}}</label>
+              <a (click)="removeFunction(function)" class="close" href="javascript:void(0)">×</a>
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button type="button" (click)="onSave()" class="btn btn-first btn-save ripple">{{'Save' | translate}}</button>
+    </div>
+</div>

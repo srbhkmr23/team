@@ -1,0 +1,178 @@
+<!--     Spinner component-->
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner>
+
+<app-create-project-budgeting *ngIf="showSavePersonnelModal" (closeModalEvent)="closeModal($event)"></app-create-project-budgeting>
+
+<div class="project-list">
+    <!-- FILTER HEADER   -->
+    <div class="filter-header">
+        <div class="container-fluid">
+            <h1 class="title">{{'Projects' | translate}}</h1>
+
+            <div class="filter">
+
+                <div class="filter-search">
+                    <input type="text" [(ngModel)]="searchText" class="input-search" placeholder="Search...">
+                    <i class="fa fa-search"></i>
+
+                    <a href="javascript:void(0)" class="ml-5" (click)="showSavePersonnelModal=(!showSavePersonnelModal)">
+                        <i class="fa fa-plus"></i> {{'Add' | translate}}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="project-content">
+
+        <div class="card-list-content">
+            <div class="smallToLarge">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="recentDiv">
+                            <h4 class="title">{{'Recently viewed' | translate}}</h4>
+                            <div class="row">
+                                <div class="col-sm-3" *ngFor="let project of recentViewedProjects |projectSearch:searchText:searchList">
+                                    <div class="RecentSec">
+                                        <div class="card">
+                                            <div class="card-box projectNewCard" [ngClass]="{'templeteCard':project.hasOwnProperty('templateTitle')==true}" [title]="project.templateTitle?project.templateTitle:''" style="padding-left: 45px !important;">
+                                                <div class="template untempleted"></div>
+                                                <div class="spInfoContainer">
+                                                    <!-- <div class="spInfo">
+                                                        <h4 class="title4">{{ project.title }}</h4>
+                                                        <p class="compnay-name">{{project.company?project.company.name:''}} </p>
+                                                        <p class="production-name"> {{project.dueDateForListView}}</p>
+                                                        <div class="merge-text">
+                                                            <p class="date-duratoin">{{ project.category }} </p>
+                                                            <p class="City-name">{{ project.city }} </p>
+                                                            <p class="country-name">{{ project.country }} </p>
+                                                        </div>
+                                                    </div> -->
+                                                    <div class="spInfo">
+                                                        <h4 class="title4">{{ project.title }}</h4>
+                                                        <a href="javscript:void(0)" *ngIf="project.templateTitle" title={{project.templateTitle}} class="template-tag templeteStar-position">
+                                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                            </a>
+                                                        <p class="compnay-name" *ngIf="project.company">{{project.company?project.company.name:''}}</p>
+                                                        <p class="production-name">{{ project.category }} </p>
+                                                        <div class="merge-text">
+                                                            <p class="date-duratoin">{{project.dueDateForListView}} </p>
+                                                            <p class="City-name">{{ project.city }}</p>
+                                                            <p class="country-name">{{ project.country }}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <a href="javascript:void(0)" class="goBtn" (click)="goToDetails(project.id)"><i class="fa fa-chevron-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" *ngIf="projectsStatus">
+
+                            <!-- To Do -->
+                            <div class="col-sm-4">
+                                <div class="toDOSec" droppable (onDrop)="onItemDropInToDo($event)">
+                                    <h4 class="title">{{'To Do' | translate}} <span class="count">{{ projectsStatus['To Do']?projectsStatus['To Do'].length:0}}</span></h4>
+                                    <div draggable class="card" *ngFor="let project of projectsStatus['To Do'] |projectSearch:searchText:searchList" [dragData]="project">
+                                        <div class="card-box projectNewCard" [ngClass]="{'templeteCard':project.hasOwnProperty('templateTitle')==true}" [title]="project.templateTitle?project.templateTitle:''" style="padding-left: 45px !important;">
+                                            <div class="template"></div>
+                                            <div class="spInfoContainer">
+                                                <div class="spInfo">
+                                                    <h4 class="title4">{{ project.title }}</h4>
+                                                    <p class="compnay-name" *ngIf="project.company">{{project.company?project.company.name:''}}</p>
+                                                    <p class="production-name">{{ project.category }} </p>
+                                                    <div class="merge-text">
+                                                        <p class="date-duratoin">{{project.dueDateForListView}} </p>
+                                                        <p class="City-name">{{ project.city }}</p>
+                                                        <p class="country-name">{{ project.country }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="javascript:void(0)" class="goBtn" (click)="goToDetails(project.id)"><i class="fa fa-chevron-right" ></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- In Progess -->
+                            <div class="col-sm-4">
+                                <div class="inProgressSec" droppable (onDrop)="onItemDropInProgress($event)">
+                                    <h4 class="title">{{'In Progress' | translate}} <span class="count">{{ projectsStatus['In Progress']? projectsStatus['In Progress'].length:0 }}</span></h4>
+                                    <div draggable class="card" *ngFor="let project of projectsStatus['In Progress'] |projectSearch:searchText:searchList" [dragData]="project">
+
+                                        <div class="card-box projectNewCard" [ngClass]="{'templeteCard':project.hasOwnProperty('templateTitle')==true}" [title]="project.templateTitle?project.templateTitle:''" style="padding-left: 45px !important;">
+                                            <div class="template"></div>
+                                            <div class="spInfoContainer">
+                                                <div class="spInfo">
+                                                    <h4 class="title4">{{ project.title }}</h4>
+                                                    <p class="compnay-name" *ngIf="project.company">{{project.company?project.company.name:''}}</p>
+                                                    <p class="production-name">{{ project.category }} </p>
+                                                    <div class="merge-text">
+                                                        <p class="date-duratoin">{{project.dueDateForListView}} </p>
+                                                        <p class="City-name">{{ project.city }}</p>
+                                                        <p class="country-name">{{ project.country }}</p>
+                                                    </div>
+                                                    <span class="badge" *ngIf="project.pendingBookings!=0">{{project.pendingBookings}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="javascript:void(0)" class="goBtn" (click)="goToDetails(project.id)"><i class="fa fa-chevron-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Done -->
+                            <div class="col-sm-4">
+                                <div class="sucessSec" droppable (onDrop)="onItemDropInDone($event)">
+                                    <h4 class="title">{{'Done' | translate}} <span class="count">{{ projectsStatus['Done']?projectsStatus['Done'].length:0 }}</span></h4>
+                                    <div draggable class="card" *ngFor="let project of projectsStatus['Done'] |projectSearch:searchText:searchList" [dragData]="project">
+                                        <div class="card-box projectNewCard" [ngClass]="{'templeteCard':project.hasOwnProperty('templateTitle')==true}" [title]="project.templateTitle?project.templateTitle:''" style="padding-left: 45px !important;">
+                                            <div class="template"></div>
+                                            <div class="spInfoContainer">
+                                                <div class="spInfo">
+                                                    <h4 class="title4">{{ project.title }}</h4>
+                                                    <p class="compnay-name" *ngIf="project.company">{{project.company?project.company.name:''}}</p>
+                                                    <p class="production-name">{{ project.category }} </p>
+                                                    <div class="merge-text">
+                                                        <p class="date-duratoin">{{project.dueDateForListView}} </p>
+                                                        <p class="City-name">{{ project.city }}</p>
+                                                        <p class="country-name">{{ project.country }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="javascript:void(0)" class="goBtn" (click)="goToDetails(project.id)"><i class="fa fa-chevron-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- <h3>Transfer Data via Drag Drop</h3>
+        <div class="row">
+            <div class="col-sm-3">
+                <ul class="list-group">
+                    <li draggable *ngFor="let item of items" [dragData]="item" class="list-group-item">{{item.name}}</li>
+                </ul>
+            </div>
+            
+            <div class="col-sm-3">
+            <div class="panel panel-default" droppable (onDrop)="onItemDrop($event)">
+                <div class="panel-heading">Drop Items here</div>
+                    <div class="panel-body">
+                        <li *ngFor="let item of droppedItems" class="list-group-item">{{item.name}}</li>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+    </div>
+</div>

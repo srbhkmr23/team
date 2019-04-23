@@ -1,0 +1,14 @@
+@import '../create-function/create-function.component';
+@import '../../variables';
+
+.invoice-modal {
+    .mr-10 {
+        margin-right: 10px;
+    }
+    .inline-flex {
+        display: inline-flex;
+        label {
+            margin-top: 8px !important;
+        }
+    }   
+}   

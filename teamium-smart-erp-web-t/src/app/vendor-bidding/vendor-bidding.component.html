@@ -1,0 +1,499 @@
+
+<!-- <app-not-found-page [message]='bookingNotExistMessage'></app-not-found-page> -->
+<div class="edit-equipment project-Budgeting project-procurement vendor-bidding dashboard open-side-modal">
+
+    <div class="filter-header">
+        <div class="container-fluid pad-0">
+            <h1 class="title">Dashboardadfsdfsdgf <span>{{'June' | translate}} 18</span></h1>
+            <div class="filter">
+                <div class="filter-search">
+                    <!-- <i class="fa fa-calendar"></i>
+                    <input type="text" class="inputStyle" placeholder="From">
+                    <input type="text" class="inputStyle" placeholder="To">
+                    <a href="javascript:void(0)">+ Add Widget</a> -->
+                    <a href="javascript:void(0)" class="ml-5">
+                        <i class="fa fa-refresh"></i> {{'Reset' | translate}}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="inner-content">
+
+        <div class="row">
+            <!-- VENDORS DETAILS -->
+            <div class="col-lg-10 col-md-12">
+                    <div class="grid">
+                        <div class="grid-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped text-center vBiddingTable common-Table">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <span>{{'Vendors bidding' | translate}}</span>
+                                            </th>
+                                            <th> 
+                                                <div class="filter-search">
+                                                    <input type="text" [(ngModel)]="searchText" class="input-search bg-grey" placeholder="Search...">
+                                                    <i class="fa fa-search"></i>
+                                                </div>
+                                            </th>
+                                            <th>&nbsp;</th>
+                                            <th>&nbsp;</th>
+                                            <th class="text-center">{{'Summary' | translate}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr (click)="showOrderEditModal =!showOrderEditModal">
+                                            <td class="text-left">
+                                                <h5 class="name">{{'Company' | translate}} A
+                                                    <!-- <span class="subName">Edit Suit</span> -->
+                                                </h5>
+                                            </td>
+                                            <td class=""> 
+                                                <div class="rating">
+                                                    <a href="javascript:void(0)">
+                                                        <i class="fa fa-star" ng-reflect-ng-style="[object Object]"></i>
+                                                    </a>
+                                                    <a href="javascript:void(0)">
+                                                        <i class="fa fa-star" ng-reflect-ng-style="[object Object]"></i>
+                                                    </a>
+                                                    <a href="javascript:void(0)">
+                                                        <i class="fa fa-star" ng-reflect-ng-style="[object Object]"></i>
+                                                    </a>
+                                                    <a href="javascript:void(0)">
+                                                        <i class="fa fa-star" ng-reflect-ng-style="[object Object]"></i>
+                                                    </a>
+                                                    <a href="javascript:void(0)">
+                                                        <i class="fa fa-star" ng-reflect-ng-style="[object Object]"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="javascript:void(0);" class="projectId">{{'Project ID' | translate}} 123</a>
+                                            </td>
+                                            <td class="">
+                                                <h5 class="name">22/11/18
+                                                    <span class="subName">06:pm</span>
+                                                </h5>
+                                            </td>
+                                            <td>
+                                                <h5 class="name ">{{'Lighting Stage' | translate}}</h5>
+                                            </td>
+                                            <!-- <td>
+                                                <a href="javascript:void(0);" class=""><i class="fa fa-trash"></i></a>
+                                                <a href="javascript:void(0);" class="ml-10" (click)="isEditLineModalOpen =!isEditLineModalOpen"><i class="fa fa-pencil-square-o"></i></a>
+                                            </td> -->
+                                        </tr>
+                                        <tr (click)="showOrderEditModal =!showOrderEditModal">
+                                            <td class="text-left">
+                                                <h5 class="name">{{'Company' | translate}} B
+                                                    <!-- <span class="subName">Edit Suit</span> -->
+                                                </h5>
+                                            </td>
+                                            <td class="">
+                                                <div class="rating">
+                                                    <a href="javascript:void(0)">
+                                                        <i class="fa fa-star" ng-reflect-ng-style="[object Object]"></i>
+                                                    </a>
+                                                    <a href="javascript:void(0)">
+                                                        <i class="fa fa-star" ng-reflect-ng-style="[object Object]"></i>
+                                                    </a>
+                                                    <a href="javascript:void(0)">
+                                                        <i class="fa fa-star" ng-reflect-ng-style="[object Object]"></i>
+                                                    </a>
+                                                    <a href="javascript:void(0)">
+                                                        <i class="fa fa-star" ng-reflect-ng-style="[object Object]"></i>
+                                                    </a>
+                                                    <a href="javascript:void(0)">
+                                                        <i class="fa fa-star" ng-reflect-ng-style="[object Object]"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="javascript:void(0);" class="projectId">{{'Project ID' | translate}} 123</a>
+                                            </td>
+                                            <td class="">
+                                                <h5 class="name">22/11/18
+                                                    <span class="subName">06:pm</span>
+                                                </h5>
+                                            </td>
+                                            <td>
+                                                <h5 class="name ">{{'Lighting Stage' | translate}}</h5>
+                                            </td>
+                                            <!-- <td>
+                                                <a href="javascript:void(0);" class=""><i class="fa fa-trash"></i></a>
+                                                <a href="javascript:void(0);" class="ml-10"><i class="fa fa-pencil-square-o"></i></a>
+                                            </td> -->
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-5">
+                <!-- Signatures -->
+                <div class="grid">
+                    <div class="grid-body">
+                        <div class="table-responsive">
+                            <table class="table signatureData common-Table">
+                                <thead>
+                                    <tr>
+                                        <th>{{'Signatures' | translate}}</th>
+                                        <th>
+                                            <div class="filter-search pull-right">
+                                                <input type="text" [(ngModel)]="searchText" class="input-search bg-grey" placeholder="Search...">
+                                                <i class="fa fa-search"></i>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <h5 class="name">David Fowler
+                                                <span class="subName">{{'Director' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                        <td class="text-right">
+                                            <span class="signApproved signUnApproved"><i class="fa fa-check" aria-hidden="true"></i></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h5 class="name">Ian Smith
+                                                <span class="subName">{{'Postprod Supervisor' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                        <td class="text-right">
+                                            <span class="signApproved signUnApproved"><i class="fa fa-check" aria-hidden="true"></i></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h5 class="name">Susan Leight
+                                                <span class="subName">{{'Executive Supervisor' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                        <td class="text-right">
+                                            <span class="signApproved signUnApproved"><i class="fa fa-check" aria-hidden="true"></i></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+ 
+  
+    <!-- Modal -->
+    
+    <div class="modal in fade procurement-modal vendor-modal " style="display: block;background: rgba(0, 0, 0, 0.6);" *ngIf="showOrderEditModal">
+        <div class="modal-dialog  modal-lg">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button type="button" class="close" data-dismiss="true" (click)="closeOrderWinodw()">&times;</button>
+                    
+                    <h5 class="name pull-left">APTN
+                        <span class="subName">{{'PRODUCTION' | translate}}</span>
+                    </h5>
+
+                    <div class="status-selection">
+                        <div class="status-Updated">
+                            <select class="form-control">
+                                <option selected>{{'Select One' | translate}}</option>
+                                <option>{{'Approved' | translate}}</option>
+                                <option>{{'Rejected' | translate}}</option>
+                            </select>
+                        </div>
+                        <button type="button" class="btn btn-first btn-order ripple ml-10">{{'Order' | translate}}</button>
+                    </div>
+
+                </div>
+                
+                <div class="modal-body">
+                    <div class="inner-content pad-20">
+                        <form [formGroup]="orderForm">
+                            <div class="mb-20">
+                                <div class="table-responsive">
+                                    <table class="table table-striped text-center mb-0 common-Table">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">&nbsp;</th>
+                                                <!-- <th>Item</th> -->
+                                                <th class="text-center">{{'Quantity' | translate}}</th>
+                                                <th class="text-center basis_td">{{'Basis' | translate}}</th>
+                                                <th class="text-center">{{'Unit price' | translate}}</th>
+                                                <th class="text-center">{{'Discount' | translate}}</th>
+                                                <th class="text-center">{{'Amount' | translate}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody formArrayName="orderLines">
+                                            <tr *ngFor="let orderLine of orderForm.get('orderLines').controls; let i=index" [formGroupName]="i">
+                                                <td class="text-left">
+                                                    <h5 class="name">{{orderLine.get('function').value.parent ? orderLine.get('function').value.parent.value:''}}
+                                                        <span class="subName">{{orderLine.get('function').value ? orderLine.get('function').value.value:''}}</span>
+                                                    </h5>
+                                                </td>
+                                            
+                                                <td>
+                                                    <input type="text" readonly class="form-control" placeholder="Qty" formControlName="qtySoldPerOc">
+                                                </td>
+                                                <td class="basis_td">
+                                                    <input type="text" class="form-control" placeholder="Qty" formControlName="basis">
+                                                </td>
+
+                                                <td>
+                                                    <input type="text" class="form-control" type="number"  placeholder="Unit price" formControlName="unitPrice">
+                                                </td>
+                                                <td>
+                                                    <div class="percentage-input">
+                                                        <input type="text" class="form-control" type="number"   placeholder="Discount" formControlName="discountRate">
+                                                        <span class="percentage">%</span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="Amount" formControlName="totalLocalPrice">
+                                                </td>
+
+                                            </tr>
+                                            <tr >
+                                                <td class="text-left">
+                                                    <h5 class="name">{{'Camera' | translate}}
+                                                        <span class="subName">{{'production' | translate}}</span>
+                                                    </h5>
+                                                </td>
+                                            
+                                                <td>
+                                                    <input type="text" readonly class="form-control" placeholder="Qty" formControlName="qtySoldPerOc">
+                                                </td>
+                                                <td class="basis_td">
+                                                    <input type="text" class="form-control" placeholder="Qty" formControlName="basis">
+                                                </td>
+
+                                                <td>
+                                                    <input type="text" class="form-control" type="number"  placeholder="Unit price" formControlName="unitPrice">
+                                                </td>
+                                                <td>
+                                                    <div class="percentage-input">
+                                                    <input type="text" class="form-control" type="number"   placeholder="Discount" formControlName="discountRate">
+                                                        <span class="percentage">%</span>
+                                                </div>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="Amount" formControlName="totalLocalPrice">
+                                                </td>
+        
+                                            </tr>
+                                            <tr >
+                                                <td class="text-left">
+
+                                                        <h5 class="name">{{'Camera' | translate}}
+                                                                <span class="subName">{{'production' | translate}}</span>
+                                                            </h5>
+                                                </td>
+                                            
+                                                <td>
+                                                    <input type="text" readonly class="form-control" placeholder="Qty" formControlName="qtySoldPerOc">
+                                                </td>
+                                                <td class="basis_td">
+                                                    <input type="text" class="form-control" placeholder="Qty" formControlName="basis">
+                                                </td>
+
+                                                <td>
+                                                    <input type="text" class="form-control" type="number"  placeholder="Unit price" formControlName="unitPrice">
+                                                </td>
+                                                <td>
+                                                    <div class="percentage-input">
+                                                    <input type="text" class="form-control" type="number"   placeholder="Discount" formControlName="discountRate">
+                                                        <span class="percentage">%</span>
+                                                </div>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" placeholder="Amount" formControlName="totalLocalPrice">
+                                                </td>
+        
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!--  END TABLE -->
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                        <p class="extra-label">
+                                                <label for="">{{'Delivery' | translate}}:</label>
+                                                <span class="ml-20">{{'Delivery' | translate}}</span>
+                                            </p>
+                                    <div class="extra-label labelWithPercentageInput">
+                                        <label for="">{{'Terms' | translate}}:</label>
+                                        <div class="percentage-input">
+                                                <input type="text" class="form-control"   placeholder="Payment terms" formControlName="paymentTerms" >
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                            
+                                <div class="col-md-6">
+                                    <p class="extra-label">
+                                        <label for="">{{'Subtotal' | translate}}:</label>
+                                        <span class="ml-20">$ {{selectedOrder.totalPrice}}</span>
+                                    </p>
+                                    <div class="extra-label labelWithPercentageInput">
+                                        <label for="Tax">Tax:</label>
+                                        <!-- <input type="text" id="Tax" class="form-control" min=0 placeholder="Unit price" formControlName="tax"> -->
+                                        <div class="percentage-input">
+                                                <input type="text" class="form-control" type="number"   placeholder="Discount" formControlName="tax">
+                                                    <span class="percentage">%</span>
+                                            </div>
+                                        </div>
+                                    <p class="extra-label">
+                                        <label for="">{{'Total' | translate}}:</label>
+                                        <span class="ml-20">$ {{this.withVat}}</span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- <div class="row mt-25">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="title-header">Comment</label>
+                                    
+                                        <textarea class="form-control" rows="4" placeholder="Write here" formControlName="comment"></textarea>
+                                    </div>
+                                
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-xs-9">
+                                            <div class="form-content">
+                                                <label class="title-header">Attachment name</label>
+                                                <div class="attachment-content">
+                                                    <i class="fa fa-upload"></i>
+                                                    <label for="">Drag Here</label>
+                                                    <label for="">or Browse your computer</label>
+
+                                                    <input type="file" class="fileType" (change)="onFileChange($event)">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <div class="added-value-content">
+                                                <div class="description">
+
+                                                    <div class="text-left mt-0 p-0">
+                                                        <button class="btn btn-first btn-plus"  (click)="addContents('Attachment')">
+                                                            <i class="fa fa-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                                <div class="added-value mt-15" *ngFor="let attachment of attachments">
+                                                
+                                                    <img [src]="getAttachmentImage(attachment)" alt="">
+                                                    <label>
+                                                        <span>{{attachment.type}}</span>
+                                                    </label>
+                                                    <a href="javascript:void(0)" class="close" (click)="removeContents(attachment,'Attachment')">&times;</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="row mt-25">
+                                
+                                <div class="col-xs-6" formGroupName="attachment" >
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="form-content">
+                                                <div class="addImageDiv">
+                                                    <label class="title-header">{{'Attachment name' | translate}}</label>
+                                                    <div class="addImageIco mt-0 p-0">
+                                                        <button class="btn btn-first btn-plus"  (click)="addContents('Attachment')">
+                                                            <i class="fa fa-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="attachment-content">
+                                                    <i class="fa fa-upload"></i>
+                                                    <label for="">{{'Drag Here' | translate}}</label>
+                                                    <label for="">{{'or Browse your computer' | translate}}</label>
+                                                    <input  type="file" class="fileType" (change)="onFileChange($event)"/>
+                                                </div>
+                                                <div>
+                                                    <p class="or"></p>
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" id="a1" formControlName="feedByUrl" value="1">
+                                                        <label class="chk" for="a1"></label>
+                                                        <label for="a1">{{'Urls' | translate}}:</label>
+                                                    </div>
+                                                    <input type="text" class="form-control" (focusout)="clearSpace(orderForm.get('attachment'),'url')" formControlName="url">
+                                                    <span *ngIf="orderForm.get('attachment').get('url').invalid && orderForm.get('attachment').get('url').value !=null&& orderForm.get('attachment').get('url').value.length !=0"
+                                                        style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{'Please enter valid URL' | translate}}.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <div class="added-value-content">
+                                                <!-- <div class="">
+                                                    <div class="text-left mt-0 p-0">
+                                                        <button class="btn btn-first btn-plus"  (click)="addContents('Attachment')">
+                                                            <i class="fa fa-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </div> -->
+                                                <div class="added-value uploadedImgDiv mt-15" *ngFor="let attachment of attachments">
+                                                    <!-- <img src="../../assets/img/equipment/edit-suit.jpg" alt=""> -->
+                                                    <img [src]="getAttachmentImage(attachment)" alt="">
+                                                    <label>
+                                                        <span>{{attachment.type}}</span>
+                                                    </label>
+                                                    <a href="javascript:void(0)" class="close" (click)="removeContents(attachment,'Attachment')">&times;</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <!-- Description -->
+                                <div class="col-xs-6">
+                                    <div class="added-value-content">
+                                        <div class="description">
+                                            <div class="form-group">
+                                                <label class="title-header">{{'Comment' | translate}}</label>
+                                                <textarea class="form-control" rows="4" placeholder="Write here"></textarea>
+                                            </div>
+                                            <!-- <button class="btn btn-first" type="button">Save</button> -->
+                                        </div>
+                                    </div>
+                                </div><!-- Description -->
+        
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!--footer -->
+                <div> <hr></div>
+                <div class="text-center mb-20">
+                    <button class="btn btn-first" style="padding: 6px 12px;min-width: 100px;" type="button" (click)="updateOrder()">Save</button>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+

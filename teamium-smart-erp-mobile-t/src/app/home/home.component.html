@@ -1,0 +1,101 @@
+<!--MAIN HEADER -->
+<header class="header header-fixed-top">
+    <div class="navbar-menu">
+        <app-sidebar-toggle></app-sidebar-toggle>
+        <div class="search-filter">
+          <i class="fa fa-search"></i>
+          <input type="text" class="form-control input-search" placeholder="Search"/>
+        </div>
+        <app-profile-pic></app-profile-pic>
+    </div>
+    <div class="sub-Menu">
+        <!-- <button type="button" class="btn btn-first btn-lg btn-assign-me ripple">Assigned to me</button> -->
+
+        <div class="switch-field">
+            <div>
+              <input type="radio" id="switch_left" name="switch_2" value="yes" checked/>
+              <label for="switch_left">{{"You're Hiring" | translate}}</label>
+            </div>
+            <div>
+              <input type="radio" id="switch_right" name="switch_2" value="no" />
+              <label for="switch_right">{{"You're Freelancing" | translate}}</label>
+            </div>
+        </div>
+
+    </div>
+</header>
+  
+  <!-- WRAPPER -->
+  <div id="wrapper" class="wrapper">
+
+    <!--sideBar-->
+    <app-sidebar></app-sidebar>
+  
+    <!-- Main Section -->
+    <section class="main-section">
+        <!-- Add Your Content Inside -->
+        <div class="content pad-btm-50">
+  
+          <div class="usersContent">
+              <!-- cards-->
+              <div class="card">
+                  <div class="card-header">
+                      <h4 class="title">{{'Production-Cameraman' | translate}} <span class="timeText">{{'9m ago' | translate}}</span></h4>
+                  </div>
+                  <div class="card-body">
+                      <div class="production-Info">
+                          <h4 class="pDuration">{{'One Production - 3 days outdoor 4k shooting' | translate}}</h4>
+                          <p class="pTime">{{'October 14th 10AM - 14th 6PM' | translate}}</p>
+                      </div>
+                  </div>
+                  <div class="card-footer">
+                      <!-- <button class="btn btn-first btn-accept ripple">Accept</button> -->
+                      <a href="javascript:void(0);" class="see-more mt-5">{{'See More' | translate}}</a>
+                  </div>
+              </div>
+              <!-- cards-->
+              <div class="card">
+                  <div class="card-header">
+                      <h4 class="title">{{'Production-Cameraman' | translate}} <span class="timeText">{{'9m ago' | translate}}</span></h4>
+                  </div>
+                  <div class="card-body">
+                        <div class="production-Info">
+                            <h4 class="pDuration">{{'One Production - 3 days outdoor 4k shooting' | translate}}</h4>
+                            <p class="pTime">{{'October 14th 10AM - 14th 6PM' | translate}}</p>
+                        </div>
+                  </div>
+                  <div class="card-footer">
+                      <!-- <button class="btn btn-first btn-accept ripple">Accept</button> -->
+                      <a href="javascript:void(0);" class="see-more mt-5">{{'See More' | translate}}</a>
+                  </div>
+              </div>
+              <!-- cards-->
+              <div class="card">
+                  <div class="card-header">
+                      <h4 class="title">{{'Production-Cameraman' | translate}} <span class="timeText">{{'9m ago' | translate}}</span></h4>
+                  </div>
+                  <div class="card-body">
+                        <div class="production-Info">
+                            <h4 class="pDuration">{{'One Production - 3 days outdoor 4k shooting' | translate}}</h4>
+                            <p class="pTime">{{'October 14th 10AM - 14th 6PM' | translate}}</p>
+                        </div>
+                  </div>
+                  <div class="card-footer">
+                      <!-- <button class="btn btn-first btn-accept ripple">Accept</button> -->
+                      <a href="javascript:void(0);" class="see-more mt-5">{{'See More' | translate}}</a>
+                  </div>
+              </div>
+          </div>
+  
+        </div>
+        <!-- /.content -->
+    </section>
+    <!-- /.main-section -->
+  </div>
+  <!-- /#wrapper -->
+  
+  <!-- MANU FOOTER -->
+  <app-footer></app-footer>
+  
+  <!-- MANU FOOTER -->
+  

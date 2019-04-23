@@ -1,0 +1,78 @@
+@import '../project-budgeting/project-budgeting.component';
+@import '../../variables';
+
+.project-invoice {
+    .btn-New {
+        padding: 4px 15px;
+        border-radius: 20px;
+        &:focus {
+            outline: 0;
+        }
+    }
+
+    .light-blue {
+        color: $second-color !important;
+        .subName {
+            color:$second-color !important;
+        }
+    }
+
+    .width-150 {
+        width: 150px;
+    }
+
+    .chkOpt {
+        /*-- primaryOption CheckBox --*/
+        .checkbox {
+            position: relative;
+            padding-left: 0px;
+            display: inline-block;
+            margin: 0;
+            input {
+                margin-left: 0 !important;
+                &:checked+.chk {
+                    background: $first-color;
+                    border-color: $first-color;
+                    &:after {
+                        display: inline-block;
+                    }
+                }
+            }
+            .chk {
+                top: 1px;
+                border-radius: 0px;
+                border: solid 1px #2f6f98;
+                &:after {
+                    left: 5px;
+                    top: 1px;
+                    width: 5px;
+                    height: 10px;
+                    border: solid $white-color;
+                    border-width: 0 2px 2px 0;
+                    -webkit-transform: rotate(45deg);
+                    transform: rotate(45deg);
+                    content: "";
+                    position: absolute;
+                    display: none;
+                }
+            }
+        }
+        /*-- primaryOption CheckBox --*/
+    }
+
+    .payment-Status {
+        background: #A5DE37;
+        box-shadow: 0px 3px 10px #ddd;
+        border-radius: 20px;
+        padding: 5px 5px;
+        color: #fff;
+        font-size: 15px;
+        text-align: center;
+        width: 25px;
+        height: 25px;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+}

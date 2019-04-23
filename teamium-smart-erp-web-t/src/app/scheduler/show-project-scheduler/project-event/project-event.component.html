@@ -1,0 +1,3 @@
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner>
+<p-schedule [events]="events" [header]="header"  [defaultView]="'agendaWeek'" (onEventClick)="handleEventClick($event)" (onDayClick)="handleDayClick($event)" [editable]="false"></p-schedule>
+<app-create-project-event #projectEvent></app-create-project-event>

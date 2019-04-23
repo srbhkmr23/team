@@ -1,0 +1,432 @@
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner>
+<app-create-equipment *ngIf="showSaveEquipmentModal" [equipmentDetails]="equipmentDetail" (closeModalEvent)="closeModal($event)"></app-create-equipment>
+<div class="edit-equipment" *ngIf="equipmentDetail">
+
+    <div class="filter-header">
+        <div class="container-fluid pad-0">
+            <h1 class="title">{{'Equipment' | translate}}</h1>
+            <div *ngIf="isEquipmentManager" class="button-set">
+                <button class="btn btn-edit" (click)="showSaveEquipmentModal=(!showSaveEquipmentModal)"> {{'Edit' | translate}} </button>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="inner-content">
+
+
+        <div class="equipment-info-content">
+            <ul class="equipment-current-status">
+                <li>
+                    <h5 class="name">{{equipmentDetail.name}}
+                        <span class="subName">{{'Equipment' | translate}}</span>
+                    </h5>
+                </li>
+                <li>
+                    <div class="team-name">
+                        <!-- <div class="ribbon">
+                            <span class="activeRibbon">Available</span>
+                        </div> -->
+                        <h5 class="name">{{'TEAM-74' | translate}}
+                            <span class="subName">{{'New York' | translate}}, {{'NY' | translate}}</span>
+                        </h5>
+                    </div>
+                </li>
+                <li>
+                    <h5 class="name">{{equipmentDetail.location}}
+                        <span class="subName">{{'Location' | translate}}: {{'HQ' | translate}}</span>
+                    </h5>
+                </li>
+                <li>
+                    <h5 class="name">{{'ID' | translate}}: {{equipmentDetail.id}}
+                        <span class="subName">{{'IP' | translate}}: {{equipmentDetail.specsIp}}</span>
+                    </h5>
+                </li>
+
+                <li>
+                    <h5 class="name">{{equipmentDetail.format}}
+                        <span class="subName">{{'Format' | translate}}</span>
+                    </h5>
+                </li>
+                <li class="text-right">
+                    <div class="equipment-on">
+                        <img alt="" src="../../assets/img/lg-market-place.png">
+                        <label class="switch">
+                            <input type="checkbox" disabled [(ngModel)]="equipmentDetail.marketplace">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="equipment-on pull-left">
+                        <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                        <label class="switch">
+                            <input type="checkbox" disabled [(ngModel)]="equipmentDetail.available">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+
+                <!-- EQUIPMENT PANEL -->
+                <div class="grid">
+                    <div class="grid-header">
+                        {{'Basic info' | translate}}
+                    </div>
+                    <div class="grid-body">
+                        <div class="profile-img">
+                            <img [src]="equipmentDetail.photo?equipmentDetail.photo.url:'../../assets/img/image_icon.png'" alt="Equipment">
+                        </div>
+                        <ul class="equipment-info">
+                            <li>
+                                <h5 class="name">{{equipmentDetail.name}}
+                                    <span class="subName">{{'Equipment' | translate}}</span>
+                                </h5>
+                            </li>
+                            <li>
+                                <h5 class="name">{{equipmentDetail.serialNumber}}
+                                    <span class="subName">{{'Serial Number' | translate}}</span>
+                                </h5>
+                            </li>
+
+                            <li>
+                                <div class="team-name">
+                                    <h5 class="name">{{equipmentDetail.brand}}
+                                        <span class="subName">{{'Brand' | translate}}</span>
+                                    </h5>
+                                </div>
+                            </li>
+                            <li>
+                                <h5 class="name">{{equipmentDetail.type}}
+                                    <span class="subName">{{'Type' | translate}}</span>
+                                </h5>
+                            </li>
+                            <li>
+                                <h5 class="name">{{equipmentDetail.model}}
+                                    <span class="subName">{{'Model' | translate}}</span>
+                                </h5>
+                            </li>
+                            <li>
+                                <h5 class="name">{{equipmentDetail.reference}}
+                                    <span class="subName">{{'Reference' | translate}}</span>
+                                </h5>
+                            </li>
+                            <li>
+                                <h5 class="name">{{equipmentDetail.location}}
+                                    <span class="subName">{{'Location' | translate}}</span>
+                                </h5>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- PACKAGE PANEL -->
+                <div class="grid">
+                    <div class="grid-body">
+                        <div class="table-responsive">
+                            <table class="table common-Table">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">{{'Packages' |translate}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let e of packegeEquipmentList">
+                                        <td>{{e.name}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-lg-5 col-md-6">
+                <div class="grid">
+                    <div class="grid-body">
+                        <div class="table-responsive">
+                            <table class="table common-Table">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">{{'Function' | translate}}</th>
+                                        <th>{{'Rating' | translate}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor="let function of equipmentDetail.resource.functions |globalSort:'id':1">
+                                    <tr>
+                                        <td style="width:12px;">
+                                            <a href="javascript:void(0)" id="feature-id" *ngIf="function.function.functionKeyword && showFeactureIndex!=function.function.id"
+                                                (click)="showFeature(function.function.id)">
+                                                <i class="fa fa-angle-double-right" href="#demo" data-toggle="collapse"></i>
+                                            </a>
+                                            <a href="javascript:void(0)" id="feature-id" *ngIf="function.function.functionKeyword && showFeactureIndex==function.function.id"
+                                                (click)="showFeature(function.function.id)">
+                                                <i class="fa fa-angle-double-down" href="#demo" data-toggle="collapse"></i>
+                                            </a>
+                                           
+                                        </td>
+                                        <td>{{function.function.qualifiedName}}</td>
+                                        <td>
+                                            <div class="rating">
+                                                <a href="javascript:void(0)" *ngFor="let i of [1,2,3,4,5]">
+                                                    <i class="fa fa-star" [ngStyle]="{'color':function.rating >=i ? '' : 'silver' }"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                    <tr id="feature-id" *ngIf='showFeactureIndex==function.function.id'>
+                                        <td class="pad-0" colspan="4">
+                                            <table class="table innerTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th>{{'Features' | translate}}</th>
+                                                        <th>&nbsp;</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody *ngFor="let info of equipmentDetail.resource.informations">
+                                                    <tr *ngIf="info.functionId==function.function.id">
+                                                        <td>{{info.keyValue}}</td>
+                                                        <td>
+                                                            <div class="rating">
+                                                                <span>{{info.description}}</span>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="grid">
+                    <div class="grid-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+
+                                        <th>Features</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="equipmentDetail && equipmentDetail.resource">
+                                    <tr *ngFor="let info of equipmentDetail.resource.informations |globalSort:'id':1">
+                                        <td>{{info.keyValue}}</td>
+                                        <td>
+                                            <div class="rating">
+                                                <span>{{info.description}}</span>
+
+                                            </div>
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div> -->
+
+
+                <!-- BOOKING DETAILS -->
+                <div class="grid">
+                    <div class="grid-body">
+                        <div class="table-responsive">
+                            <table class="table common-Table">
+                                <thead>
+                                    <tr>
+                                        <th>{{'Bookings' | translate}}
+                                            <a href="javascript:void(0)" class="pull-right ml-10 mt-4">
+                                                <i class="fa fa-refresh pull-right"></i>
+                                            </a>
+                                            <a href="javascript:void(0)" class="pull-right mt-4">
+                                                <i class="fa fa-calendar pull-right"></i>
+                                            </a>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let booking of recentBookings">
+                                        <td>
+                                            <h5 class="name">{{booking.projectTitle}}
+                                                <span class="subName">{{booking.from| date:"MM/dd/yy HH:mm"}} - {{booking.to| date:"MM/dd/yy HH:mm"}}</span>
+                                            </h5>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- DESCRIPTION PANEL -->
+                <div class="grid">
+                    <div class="grid-header">{{'Description' | translate}}</div>
+                    <div class="grid-body">
+
+                        <textarea class="form-control" name="" id="" cols="30" rows="7" placeholder="Description" disabled>{{equipmentDetail.description}}</textarea>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="grid">
+                            <div class="grid-body">
+                                <div class="table-responsive">
+                                    <table class="table common-Table">
+                                        <thead>
+                                            <tr>
+                                                <th>{{'Milestones' | translate}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody *ngIf="equipmentDetail && equipmentDetail.milestones">
+                                            <tr *ngFor="let milestone of equipmentDetail.milestones">
+                                                <td>
+                                                    <h5 class="name">{{milestone.date| date:"MM/dd/yy"}}
+                                                        <span class="subName">{{milestone.type}}</span>
+                                                        <span class="milestone-arrow" [ngStyle]="{'color':milestone.expirationColor}">
+                                                            <i class="fa fa-caret-down"></i>
+                                                        </span>
+                                                    </h5>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="grid">
+                            <div class="grid-body">
+                                <div class="table-responsive">
+                                    <table class="table common-Table">
+                                        <thead>
+                                            <tr>
+                                                <th>{{'Value' | translate}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <h5 class="name">{{equipmentDetail.insurance|currency}}
+                                                        <span class="subName">{{'Insurance' | translate}}</span>
+                                                    </h5>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <h5 class="name">{{equipmentDetail.purchase|currency}}
+                                                        <span class="subName">{{'Purchase' | translate}}</span>
+                                                    </h5>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <h5 class="name"> {{equipmentDetail.ata|currency}}
+                                                        <span class="subName">{{'ATA' | translate}}</span>
+                                                    </h5>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SPECS PANEL -->
+                <div class="grid">
+                    <div class="grid-body">
+                        <div class="table-responsive">
+                            <table class="table common-Table">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">{{'Specs' | translate}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{'Consumption' | translate}}</td>
+                                        <td>{{equipmentDetail.specsConsumption}} {{'w' | translate}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'Weight' | translate}}</td>
+                                        <td>{{equipmentDetail.specsWeight}} {{'lbs' | translate}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'Size HxWxD' | translate}}</td>
+                                        <td>{{equipmentDetail.specsSize}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'Origin' | translate}}</td>
+                                        <td>{{equipmentDetail.specsOrign}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'IP Address' | translate}}</td>
+                                        <td>{{equipmentDetail.specsIp}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'Barcode' | translate}}</td>
+                                        <td>C{{'ode 39' | translate}}</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- ATTACHMENT PANEL -->
+                <div class="grid">
+                    <div class="grid-body">
+                        <div class="table-responsive">
+                            <table class="table common-Table">
+                                <thead>
+                                    <tr>
+                                        <th>{{'Attachments' | translate}}
+                                            <i class="fa fa-paperclip"></i>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="equipmentDetail && equipmentDetail.attachments">
+                                    <tr *ngFor="let attachment of equipmentDetail.attachments">
+                                        <td>
+                                            <div class="loaded-attachment">
+                                                <a href="{{attachment.url}}">
+                                                    <img [src]="getAttachmentImage(attachment)" alt="">{{attachment.type}}</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

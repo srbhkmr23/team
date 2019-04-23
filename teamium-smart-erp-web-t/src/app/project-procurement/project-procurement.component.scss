@@ -1,0 +1,346 @@
+@import '../equipment-list/equipment-list.component';
+@import '../edit-equipment/edit-equipment.component';
+@import '../personnel-edit/personnel-edit.component';
+@import '../personal-list/personal-list.component';
+@import '../project-budgeting/project-budgeting.component';
+@import '../vendors/vendors.component';
+@import '../create-equipment/create-equipment.component';
+@import '../../variables';
+.col-md-5,
+.col-xs-5,
+.col-xs-4,
+.col-md-6,
+.col-xs-6,
+.col-sm-4,
+.col-sm-3,
+.col-md-12,
+.col-xs-12,
+.col-xs-10,
+.col-md-1,
+.col-xs-1 {
+    padding: 0 8px;
+}
+
+.project-procurement {
+    .Selected-Div {
+        background: transparent;
+        padding: 0;
+        border: 0;
+        color: #000;
+        h4.title {
+            padding: 10px 0px;
+            font-size: 16px;
+            padding: 10px 15px;
+            margin-bottom: 17px;
+            background: #f0f0f0;
+        }
+        .card {
+            padding-right: 10px;
+            .card-box {
+                .productImg {
+                    position: absolute;
+                    top: 10px;
+                    left: 6px;
+                    width: 40px;
+                    height: 30px;
+                    img {
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+            }
+            .selectedNewCard {
+                padding: 6px 10px 6px 50px !important;
+                height: 80px;
+                border: 1px solid #ddd !important;
+                .spInfo {
+                    h4 {
+                        font-size: 14px;
+                        font-weight: 600;
+                        margin: 0 0 5px 0;
+                    }
+                }
+                .approvalStatus {
+                    font-size: 80%;
+                    // font-weight: bold;
+                    background: #3d9b29;
+                    color: #fff;
+                    position: absolute;
+                    right: 10px;
+                    top: 4px;
+                    padding: 2px 3px;
+                }
+                .paymentStatus {
+                    font-size: 90%;
+                    font-weight: bold;
+                    background: #d7d7d7;
+                    color: #000;
+                    position: absolute;
+                    right: 10px;
+                    bottom: 2px;
+                    padding: 2px 5px;
+                    margin: 0;
+                    cursor: pointer;
+                }
+                .production-name {
+                    // font-weight: bold;
+                    font-size: 80%;
+                    margin-bottom: 2px;
+                }
+                .merge-text {
+                    // display: table;
+                    p {
+                        // display: table-cell;
+                        // padding: 0 6px;
+                        font-size: 80%;
+                        padding-left: 0;
+                        margin: 0;
+                    }
+                }
+            }
+            .goBtn {
+                display: inline-block;
+                width: 28px;
+                height: 28px;
+                border-radius: 50%;
+                border: 1px solid #d7d7d7;
+                text-align: center;
+                line-height: 26px;
+                color: #d7d7d7;
+                position: absolute;
+                right: -3px;
+                top: 26px;
+                background: #fff;
+            }
+        }
+    }
+    .showFinalActive {
+        background: #B8E6F4;
+        border-left: 1px solid #fff;
+    }
+    .vratecard {
+        background: #3d9b29;
+        border-radius: 2px;
+        padding: 4px 8px;
+        color: #fff;
+        text-decoration: none;
+        font-size: 12px;
+    }
+    .bidRequest {
+        background: #327096;
+    }
+    .order,
+    .bidding {
+        background: #3d9b29;
+    }
+    .unordered {
+        background: #9e9e9e;
+        color: #fff;
+    }
+    .ordered {
+        background: #3d9b29;
+        color: #fff;;
+    }
+    .unordered,
+    .ordered,
+    .bidRequest,
+    .bidding {
+        border-radius: 20px;
+        padding: 4px 15px;
+        color: #fff;
+        text-decoration: none;
+        font-size: 12px;
+    }
+    .filter {
+        .filter-box {
+            top: 60px !important;
+            left: 24% !important;
+        }
+    }
+
+    .m-0 {
+        margin:0 !important;
+    }
+}
+
+.procurement-modal {
+    background: rgba($color: #000000, $alpha: .4);
+    .modal-header {
+        h5.name {
+            font-size: 18px !important;
+            display: inline-block;
+            span.subName {
+                // display: inline-block !important;
+                font-size: 72%;
+                font-weight: normal;
+            }
+        }
+    }
+    .status-Updated {
+        select {
+            height: 32px;
+            border-radius: 20px;
+            box-shadow: none;
+            background: #ddd;
+            .approved {
+                background: #3d9b29;
+                color:#fff;
+            }
+            .rejected {
+                background: red;
+                color:#fff;
+            }
+        }
+    }
+    .btn-order {
+        background: #929292;
+        color:#fff;
+        border-radius: 20px;
+        padding: 6px 25px;
+        &:focus {
+            outline: 0;
+        }
+    }
+    table {
+        thead {
+            background: #2f6f98;
+            color: #fff;
+        }
+        th {
+            font-size: 13px !important;
+        }
+        .form-control {
+            height: 28px;
+            line-height: 26px;
+            padding: 3px 8px;
+            font-size: 12px;
+        }
+        .basis_td {
+            min-width: 120px;
+        }
+        h5.name {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            max-width: 170px;
+        }
+    }
+    .extra-label {
+        font-size: 13px;
+        color: #666;
+        label {
+            min-width: 80px;
+            color: #333;
+        }
+    }
+    .addImageDiv {
+        position: relative;
+        padding: 0px 45px 0px 0px;
+        .addImageIco {
+            position: absolute;
+            right: 0;
+            top: 0;
+            .btn-plus {
+                width: 36px;
+                height: 36px;
+            }
+        }
+    }
+    .uploadedImgDiv {
+        width: 80px;
+        height: 80px;
+        img {
+            width:100%;
+        }
+    }
+}
+
+.add-attachment {
+    .added-value-content {
+        .added-value {
+            position: relative;
+            padding-right: 20px;
+            display: inline-block;
+            border: 1px solid #d7d7d7;
+            padding: 15px 25px 0px 60px;
+            margin-right: 5px;
+            border-radius: 2px;
+            background: #fff;
+            font-size: 13px;
+            margin-bottom: 5px;
+            height: 52px;
+            img {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 50px;
+                height: 50px;
+                padding: 5px;
+            }
+            label {
+                font-weight: normal;
+                margin-bottom: 0;
+                width: 75px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .close {
+                top: 17px;
+            }
+        }
+    }
+}
+
+.attachment-content {
+    border: 2px dashed #d7d7d7;
+    margin: 0px 0;
+    background: #fff;
+    text-align: center;
+    height: 94px;
+    border-style: dashed;
+    width: 100%;
+    color: #999;
+    padding-top: 13px;
+    position: relative;
+    .fileType {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        opacity: 0;
+    }
+    label {
+        font-weight: normal;
+        font-size: 14px;
+        display: block;
+        margin-bottom: 0;
+        line-height: 1.3;
+    }
+    .fa {
+        font-size: 16px;
+    }
+}
+
+.title-header {
+    background: #f0f0f0;
+    display: block;
+    padding: 8px 12px;
+    margin-bottom: 12px;
+}
+
+.labelWithPercentageInput {
+    display: table;
+    width:100%;
+    .percentage-input {
+        display: inline-block;
+    }
+}
+.status-selection {
+    display: inline-table;
+    .status-Updated {
+        display: table-cell;
+        padding-right: 10px;
+    }
+}

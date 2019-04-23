@@ -1,0 +1,297 @@
+
+<!--     Spinner component-->
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner> 
+<app-create-vendor *ngIf="showSaveVendorModal" [selectedVendor]="selectedVendor" (closeModalEvent)="closeModal($event)" ></app-create-vendor>
+<div class="equipment-list functionAndFolderList">
+
+    <div class="filter-header">
+        <div class="container-fluid">
+            <h1 class="title">{{'Vendors' | translate}}</h1>
+
+            <div class="filter">
+
+                <div class="filter-search">
+                    <input type="text" [(ngModel)]="searchText" class="input-search" placeholder="Search...">
+                    <i class="fa fa-search"></i>
+
+                    <a href="javascript:void(0)" id="filter-id" (click)="isfiterClicked = !isfiterClicked">
+                       {{' Filter by' | translate}}
+                        <i class="fa fa-sliders"></i>
+                    </a>
+
+                    <a href="javascript:void(0)" id="sort-id" (click)="isSortByClicked =!isSortByClicked">
+                       {{'Sort by' | translate}}
+                        <i class="fa fa-sort"></i>
+                    </a>
+
+                    <a  href="javascript:void(0)" class="ml-5" (click)="showSaveVendorModal = (!showSaveVendorModal)">
+                        <i class="fa fa-plus"></i> {{'Add' | translate}}
+    
+                    </a> 
+                </div>
+
+                <div class="filter-box" id="filter-id" [ngClass]="!isfiterClicked ? 'hide':''">
+                    <div class="arrow"></div>
+                    <div class="filter-row" [ngClass]="!isFilterByFunctionClicked?'collapse-ul':''">
+                        <h4 class="title4" (click)="isFilterByFunctionClicked = !isFilterByFunctionClicked">{{'Category' | translate}}
+                            <i class="fa fa-angle-down"></i>
+                        </h4>
+                        <ul class="chk-list ">
+
+                            <li *ngFor="let domain of dropdownData.domain; let i = index">
+                                <div class="checkbox">
+                                    <input type="checkbox" id={{i}} [checked]="selectedDomainCheckBoxList.indexOf(domain)>=0"  (click)="onFilter(domain,'domain')">
+                                    <label for={{i}} class="chk"></label>
+                                    <label for={{i}}>{{domain}}</label>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div> 
+                    <div class="filter-row" id="filter-id" [ngClass]="!isFilterByModelClicked?'collapse-ul':''">
+
+                        <h4 class="title4" (click)="isFilterByModelClicked =!isFilterByModelClicked">{{'Country' | translate}}
+                            <i class="fa fa-angle-down"></i>
+                        </h4>
+                        <ul class="chk-list ">
+
+                            <li *ngFor="let country of dropdownData.countryList;let countryIndex = index">
+                                <div class="checkbox">
+                                    <input type="checkbox" id={{country}}{{countryIndex}} [checked]="selectedCountryCheckBoxList.indexOf(country)>=0" (click)="onFilter(country,'country')">
+                                    <label for={{country}}{{countryIndex}} class="chk"></label>
+                                    <label for={{country}}{{countryIndex}}>{{country}}</label>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div> 
+                    <div class="filter-row" id="filter-id" [ngClass]="!isFilterByLocationClicked?'collapse-ul':''">
+                        <h4 class="title4" (click)="isFilterByLocationClicked =!isFilterByLocationClicked">{{'Location' | translate}}
+                            <i class="fa fa-angle-down"></i>
+                        </h4>
+                        <ul class="chk-list ">
+
+                            <li *ngFor="let city of dropdownData.cities;let cityIndex =index">
+                                <div class="checkbox">
+                                    <input type="checkbox" id={{cityIndex}}{{city}} [checked]="selectedCityCheckBoxList.indexOf(city)>=0" (click)="onFilter(city,'city')">
+                                    <label for={{cityIndex}}{{city}} class="chk"></label>
+                                    <label for={{cityIndex}}{{city}}>{{city}}</label>
+                                </div>
+                            </li>
+
+
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="filter-box" id="sort-id" [ngClass]="!isSortByClicked ? 'hide':''" style="left: 160px;">
+                    <div class="arrow"></div>
+                    <ul class="chk-list " style="height:auto;">
+
+                        
+                        <li>
+                            <div (click)="sort('name')" [ngClass]="(sortBy=='name'&&sortValue== 1)?'sort':''">
+                                <i class="fa fa-sort " aria-hidden="true"></i>
+                                <!-- <input type="radio" id='location'  (click)="sortBy='location'" name="sort"> -->
+                                <label for='name' class="chk" style="margin-left:10px"></label>
+                                <label for='name'>{{'Vendor Name' | translate}}</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div (click)="sort('domain')" [ngClass]="(sortBy=='domain'&&sortValue== 1)?'sort':''">
+                                <i class="fa fa-sort" aria-hidden="true"></i>
+                                <!-- <i class="fa fa-angle-up" aria-hidden="true"></i> -->
+                                <!-- <input type="radio" id='model' (click)="sortBy='model'" name="sort"> -->
+                                <label for='domain' class="chk" style="margin-left:10px"></label>
+                                <label for='domain'>{{'Category' | translate}}</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div (click)="sort('country')" [ngClass]="(sortBy=='country'&&sortValue== 1)?'sort':''">
+                                <i class="fa fa-sort" aria-hidden="true"></i>
+                                <!-- <i class="fa fa-angle-up" aria-hidden="true"></i> -->
+                                <!-- <input type="radio" id='model' (click)="sortBy='model'" name="sort"> -->
+                                <label for='country' class="chk" style="margin-left:10px"></label>
+                                <label for='country'>{{'Country' | translate}}</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div (click)="sort('city')" [ngClass]="(sortBy=='city'&&sortValue== 1)?'sort':''">
+                                <i class="fa fa-sort" aria-hidden="true"></i>
+                                <!-- <i class="fa fa-angle-up" aria-hidden="true"></i> -->
+                                <!-- <input type="radio" id='model' (click)="sortBy='model'" name="sort"> -->
+                                <label for='city' class="chk" style="margin-left:10px"></label>
+                                <label for='city'>{{'Location' | translate}}</label>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="container-fluid hide">
+            <ol class="breadcrumb">
+                <!-- <li>
+                    <a href="#">
+                        <em class="fa fa-home"></em>
+                    </a>
+                </li> -->
+                <li class="active">{{'Equipment' | translate}}</li>
+            </ol>
+        </div>
+    </div>  
+
+    <div class="smallToLarge" [ngClass]="(selectedVendor && selectedVendor.hasOwnProperty('id') )?'view-details-card-active':''">
+
+        <div class="card-list-content">
+            <div class="row">
+                <div class="col-md-4 col-sm-6" *ngFor="let vendor of vendorsList | vendorFilter : selectedDomainCheckBoxList:selectedCountryCheckBoxList:selectedCityCheckBoxList | vendorSearch:searchText:searchList | globalSort:sortBy:sortValue">
+                    
+                    <div class="card" [ngClass]="clickedId==vendor.id?'flipped':''">
+                        <div class="card-box" (click)="onClickVendor(vendor)">
+                            <div class="ribbon">
+                                <!-- <span class="activeRibbon" [ngStyle]="{'background-color':vendor.available?'':'red'}">{{vendor.available?'Available':'Unavailable'}}</span> -->
+                                <!-- <span *ngIf="vendor.rateCard && vendor.rateCard.length>0" class="activeRibbon" >Rate card</span> -->
+                                <span *ngIf="vendor.rateCard && vendor.rateCard.length>0" class="activeRibbon" >
+                                        {{'Rate card' | translate}} - {{
+                                        vendor.rateCard.length
+                                    }}
+                                </span>
+                                <!-- <span class="activeRibbon" [ngStyle]="{'background-color':vendor.totalProjects>0?'#2f6f98':'gray'}">Project</span> -->
+                                
+                                <span
+                                *ngIf="vendor.totalProjects == undefined || vendor.totalProjects==0"
+                                [ngStyle]="{'background-color':vendor.totalProjects>0?'#2f6f98':'gray'}"
+                                >
+                                    {{'Project' | translate}}
+                                </span>
+                                <span  
+                                    *ngIf="vendor.totalProjects>0"
+                                    [popover]="myPopover"
+                                    [popoverOnHover]="false"
+                                    [popoverCloseOnMouseOutside]="false"
+                                    popoverTitle="PROJECTS"
+                                    (click)="$event.stopPropagation()"
+                                    class="activeRibbon" [ngStyle]="{'background-color':vendor.totalProjects>0?'#2f6f98':'gray'}">{{'Project' | translate}}</span>
+
+
+                            </div>
+                            <div class="spImg">
+                                <img [src]="vendor && vendor.logo?vendor.logo.url:'../../assets/img/image_icon.png'">
+                            </div>
+                            <div class="spInfoContainer">
+                                <div class="spInfo">
+                                    <h4 class="">{{vendor.name}}</h4>
+                                    <!-- <p class="client-position">Company name - {{vendor.name}} </p> -->
+                                    <p class="client-position">{{'Category' | translate}} - {{vendor.domain}}</p>
+                                    <!-- <p class="client-position">Rate card - {{vendor.rateCard}}</p> -->
+                                    <p class="client-position">{{'Location' | translate}} - {{vendor.address? vendor.address.city : ''}}</p>
+                                    <p class="client-position">{{'Country' | translate}} - {{vendor.address? vendor.address.country : ''}}</p>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <popover-content
+                            
+                            (click)="$event.stopPropagation()" 
+                            #myPopover       
+                            placement="auto right"
+                            [animation]="true" 
+                            [closeOnClickOutside]="true" 
+                            class="cls-pop-body"
+                        >
+                            <!-- <b>Very</b> <span style="color: #C21F39">Dynamic</span> <span style="color: #00b3ee">Reusable</span>
+                            <b><i><span style="color: #ffc520">Popover With</span></i></b> <small>Html support</small>. -->
+                            <div *ngFor="let proj of vendor.projects">
+                                <a href="javascript:void(0)" (click)="redirectToProject(proj.id)">{{proj.title}}</a>
+                            </div>
+                        
+                        </popover-content>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- DETAILS WINDOW -->
+        <div class="visible-div" >
+            <div class="view-details-card card">
+                    <!-- class="card-header" -->
+                <div  *ngIf="selectedVendor && selectedVendor.hasOwnProperty('id') ">
+                    <a href="javascript:void(0)" class="close" data-dismiss="modal" (click)="onClickVendor(null)">&times;</a>
+                    <!-- <h4 class="modal-title">Amex
+                        <span class="subTitle">{{selectedVendor.name}}</span>
+                    </h4> -->
+                </div>
+                <div class="card-body" *ngIf="selectedVendor && selectedVendor.hasOwnProperty('id') ">
+                    <div class="table-responsive">
+                        <!-- <caption>Contact</caption> -->
+                        <table class="table custom-table ">
+                            <tbody>
+                                <!-- <tr>
+                                    <td><b>Name</b></td>
+                                    <td>{{selectedVendor.name}}</td>
+                                </tr> -->
+                                <tr>
+                                    <td><b>{{'Company' | translate}}</b></td>
+                                    <td>{{selectedVendor?selectedVendor.name:''}}</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>{{'Main Contact' | translate}}</b>
+                                    </td>
+                                    <td>{{selectedVendor && selectedVendor.hasOwnProperty('mainContact') == true ? selectedVendor.mainContact.firstName:''}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>{{'Job Title' | translate}}</b></td> 
+                                    <td>{{selectedVendor!= undefined && selectedVendor.mainContact?selectedVendor.mainContact.jobTitle:''}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>{{'City' | translate}}</b></td>
+                                    <td>{{selectedVendor && selectedVendor.address ? selectedVendor.address.city : ''}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>{{'Country' | translate}}</b></td>
+                                    <td>{{selectedVendor && selectedVendor.address ? selectedVendor.address.country : ''}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>{{'Telephone' | translate}}</b></td>
+                                    <td>{{selectedVendor && selectedVendor.number}}</td>
+                                </tr>
+                                <!-- <tr>
+                                    <td><b></b></td>
+                                    <td> 
+                                        <a *ngIf="selectedVendor.rateCard &&  selectedVendor.rateCard.length>0" (click)="goToRateCard(selectedVendor)" href="javascript:void(0)" routerLinkActive="active" style="background: #66c568" class="btn btn-first btn-ToRateCard ripple">RATE CARD</a>
+                                    </td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="description">
+                        <label>{{'Description' | translate}}:</label>
+                        <span>{{selectedVendor.comments}}</span>
+                    </p>
+                    <p class="text-center">
+                        <a  (click)="goToRateCard(selectedVendor)" href="javascript:void(0)" routerLinkActive="active" style="background: #66c568" class="btn btn-first btn-ToRateCard ripple">{{'RATE CARD' | translate}}</a>
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <button type="button" class="btn btn-first ripple" (click)="showSaveVendorModal=true">{{'More Details' | translate}}</button>
+                    <button type="button" class="btn btn-first" style="background-color: darkred;font-size: 12px;" (click)="showDeleteConfirmModal(selectedVendor)">{{'Delete Vendor' | translate}}</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div> 
+<app-delete-confirm-modal *ngIf="showDeleteModal" [componentName]="componentName" (deleteDataEvent)="deleteVendor($event)" (closeModalEvent)="closeDeleteConfirmModal($event)"></app-delete-confirm-modal>
+  
+    
+    
+    
+

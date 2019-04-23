@@ -1,0 +1,109 @@
+@import '../../variables.scss';
+
+// ======= Right Sidebar for Chat Users ====== //
+.rightsideUser {
+    width: 240px;
+    position: fixed;
+    opacity: .99;
+    top:0;
+    right: 0;
+    background: $lite-color2;
+    height: 100%;
+    box-shadow: 0px 4px 10px $lite-color;
+    overflow-y: auto;
+    z-index: 99;
+    -webkit-transition: all .25s ease-in-out;
+    -moz-transition: all .25s ease-in-out;
+    transition: all .25s ease-in-out;
+    .people-search {
+        position: fixed;
+        background: #eff4f7;
+        border-bottom: 1px solid #d7d7d7;
+        padding: 10px 10px 10px 40px;
+        z-index: 1;
+        .close-ico {
+            position: absolute;
+            left: 8px;
+            top: 15px;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            text-align: center;
+            padding: 3px 5px;
+            background: $white-color;
+            box-shadow: 0px 0px 10px;
+            .fa {
+               font-size: 14px;
+               color: $dark-blue;
+            }
+         }
+    }
+    .people {
+        margin: 0;
+        list-style: none;
+        padding-left: 0;
+        padding-top: 55px;
+        .person {
+            padding: 5px 10px;
+            cursor: pointer;
+            .p-details {
+                position: relative;
+                height:50px;
+                padding: 10px 5px 10px 55px;
+                img {
+                    position: absolute;
+                    top: 3px;
+                    left: 0;
+                    width: 45px;
+                    height: 45px;
+                    border-radius: 50%;
+                    background-color: #fff;
+                    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+                }
+                .p-Name {
+                    font-size: 14px;
+                    color: $dark-blue;
+                    font-weight: normal;
+                    margin-top: 0;
+                    margin-bottom: 5px;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
+                }
+                .status {
+                    font-size: 12px;
+                    color: #92959E;
+                    margin: 0;
+                    .online {
+                        color: #86BB71;
+                    }
+                    .offline {
+                        color: #E38968;
+                    }
+                    .online, .offline, .me {
+                        margin-right: 3px;
+                        font-size: 10px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// =========== @media Query ===========//
+
+@media (min-width: 320px) and (max-width: 812px) {
+    .rightsideUser-InActive {
+        top:0 !important;
+        right: -300px;
+        z-index: 99;
+    }
+    .menu-backdrop {
+      background: rgba(0, 0, 0, 0.63);
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      top:0;
+      z-index: 9;
+    }
+}

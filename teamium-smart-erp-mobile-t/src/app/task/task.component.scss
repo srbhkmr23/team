@@ -1,0 +1,117 @@
+@import '../call-sheet/call-sheet.component';
+@import '../../variables.scss';
+
+.task {
+    ul {
+        margin: 0;
+        padding-left: 0;
+        list-style: none;
+        li.task-list {
+            min-height: 50px;
+            padding: 8px 10px 8px 0px;
+            border-bottom: 1px solid $lite-color;
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            justify-content: center;
+            -webkit-justify-content: center;
+            -moz-flex-direction: column;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-orient: vertical;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            transition: all 0.4s ease-in-out;
+            position: relative;
+            // ====== Name =====//
+            .name {
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+                max-width: 160px;
+            }
+            //======== time-status =========//
+            .time-status {
+                position: absolute;
+                right: 12px;
+                top: 9px;
+                .date-time {
+                    color: $dark-blue;
+                    font-size: 12px;
+                    font-weight: 600;
+                    img {
+                        width: 20px;
+                        position: relative;
+                        top: 5px;
+                    }
+                }
+            }
+            //=========== arrow ===========//
+            .arrow {
+                position: absolute;
+                top:15px;
+                right:0px;
+                .fa {
+                    font-size: 10px;
+                    color: $dark-color3;
+                }
+            }
+        }
+    }
+}
+
+// ========== @media =========//
+
+@media (min-width: 320px) and (max-width: 568px) {
+    .task {
+        ul {
+            li.task-list {
+                //======== time-status =========//
+                .time-status {
+                    position: absolute;
+                    right: 12px;
+                    top: 12px;
+                    .date-time {
+                        color: $dark-blue;
+                        font-size: 9px;
+                        font-weight: 600;
+                        img {
+                            width: 16px;
+                            position: relative;
+                            top: 4px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 375px) and (max-width: 667px) {
+    .task {
+        ul {
+            li.task-list {
+                //======== time-status =========//
+                .time-status {
+                    position: absolute;
+                    right: 12px;
+                    top: 9px;
+                    .date-time {
+                        color: $dark-blue;
+                        font-size: 12px;
+                        font-weight: 600;
+                        img {
+                            width: 20px;
+                            position: relative;
+                            top: 5px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

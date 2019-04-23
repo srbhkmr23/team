@@ -1,0 +1,147 @@
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner>
+<div class="scheduler-page equipment-list">
+
+    <!-- FILTER HEADER   -->
+    <div class="filter-header">
+        <div class="container-fluid pad-0">
+            <h1 class="title">{{'Project' | translate}} {{'Agenda' | translate}}</h1>
+            <!-- <span>Project 123</span> -->
+
+            <div class="filter">
+
+                <div class="filter-search">
+                    <input type="text" class="input-search" [(ngModel)]="searchText" placeholder="Search...">
+                    <i class="fa fa-search"></i>
+                    <div class="optionDiv">
+
+                        <a href="javascript:void(0)" class="ml-5" (click)="openOpion=!openOpion" id="option-id">
+                            <i class="fa fa-list-ul"></i> {{'Options' | translate}}
+                        </a>
+
+                        <div class="optionsBox" id="option-id" *ngIf="openOpion">
+                            <div class="arrow"></div>
+                            <ul class="chk-list">
+                                <li>
+                                    <div _ngcontent-c4="" class="checkbox">
+                                        <input _ngcontent-c4="" type="checkbox" id="0">
+                                        <label _ngcontent-c4="" class="chk" for="0"></label>
+                                        <label _ngcontent-c4="" for="0">{{'Move' | translate}}</label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div _ngcontent-c4="" class="checkbox">
+                                        <input _ngcontent-c4="" type="checkbox" id="1">
+                                        <label _ngcontent-c4="" class="chk" for="1"></label>
+                                        <label _ngcontent-c4="" for="1">{{'Resize' | translate}}</label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div _ngcontent-c4="" class="checkbox">
+                                        <input _ngcontent-c4="" type="checkbox" id="4">
+                                        <label _ngcontent-c4="" class="chk" for="4"></label>
+                                        <label _ngcontent-c4="" for="4">{{'Show Link' | translate}}</label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div _ngcontent-c4="" class="checkbox">
+                                        <input _ngcontent-c4="" type="checkbox" id="2">
+                                        <label _ngcontent-c4="" class="chk" for="2"></label>
+                                        <label _ngcontent-c4="" for="2">{{'Roster Unavailability' | translate}}</label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div _ngcontent-c4="" class="checkbox">
+                                        <input _ngcontent-c4="" type="checkbox" id="3">
+                                        <label _ngcontent-c4="" class="chk" for="3"></label>
+                                        <label _ngcontent-c4="" for="3">{{'Unavailability' | translate}}</label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div _ngcontent-c4="" class="checkbox">
+                                        <input _ngcontent-c4="" type="checkbox" id="5">
+                                        <label _ngcontent-c4="" class="chk" for="5"></label>
+                                        <label _ngcontent-c4="" for="5">{{'Select Multiple' | translate}}</label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <a href="javascript:void(0)" class="ml-5">
+                        <i class="fa fa-print"></i> {{'Print' | translate}}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- comment -->
+<!-- <form *ngIf="timeLineForm" [formGroup]="timeLineForm">
+    <div class="form-content" class="timeLineForm">
+        <div class="row">
+            <div class="col-md-5">
+                <label>Number of Unscheduled Event </label>
+                <button pButton type="button" label='5' class="ui-button-rounded numofTask-Btn ml-10"></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-3">
+                <div class="input-row ">
+                    <label>Type</label>
+                    <select class="form-control" formControlName="functionName">
+                      <option [ngValue]="null">Select Type</option>
+                      <option *ngFor="let functionName of functionDropDown |lineSearch:searchText" [ngValue]="functionName">{{functionName.function.qualifiedName}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-3">
+                <div class="input-row ">
+                    <label>Resources</label>
+                    <div class="custom-select">
+                        <p class="value">Select</p>
+                        <div class="select-box">
+                            <ul>
+
+                                <li class="liHeader">
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="38">
+                                        <label class="chk" for="38"></label>
+                                        <label for="38">Select All</label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="32">
+                                        <label class="chk" for="32"></label>
+                                        <label for="32">Resource 2</label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="33">
+                                        <label class="chk" for="33"></label>
+                                        <label for="33">Resource 3</label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <input type="checkbox" id="34">
+                                        <label class="chk" for="34"></label>
+                                        <label for="34">Resource 4</label>
+                                    </div>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</form> -->
+
+<p-schedule [events]="events" [header]="header" [defaultView]="'agendaWeek'" (onEventClick)="handleEventClick($event)" (onDayClick)="handleDayClick($event)" [editable]="false"></p-schedule>
+<app-create-project-event #projectEvent></app-create-project-event>

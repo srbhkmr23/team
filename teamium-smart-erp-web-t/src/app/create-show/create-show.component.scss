@@ -1,0 +1,49 @@
+@import '../create-equipment/create-equipment.component';
+@import '../create-personnel/create-personnel.component';
+@import '../project-budgeting/project-budgeting.component';
+@import '../../variables';
+.create-project-budgeting {
+    font-size: 14px;
+    color: $dark-color2;
+    .inner-content {
+        .steps {
+            max-width: 550px;
+            margin: 0 auto;
+            &.add-contact {
+                max-width: 650px !important;
+            }
+        }
+    }
+}
+
+.row {
+    margin-left: -8px;
+    margin-right: -8px;
+}
+
+.col-md-5,
+.col-md-6,
+.col-md-12,
+.col-md-1,
+.col-xs-4,
+.col-xs-3,
+.col-xs-1,
+.col-xs-5,
+.col-xs-6 {
+    padding: 0 8px;
+}
+
+.without_ampm::-webkit-datetime-edit-ampm-field {
+    display: none;
+  }
+  input[type=time]::-webkit-clear-button,
+  input[type=time]::-webkit-inner-spin-button,
+  input[type=time]::-webkit-outer-spin-button{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    -ms-appearance:none;
+    appearance: none;
+    margin: -10px; 
+  }
+ 

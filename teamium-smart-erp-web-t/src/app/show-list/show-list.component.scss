@@ -1,0 +1,123 @@
+@import '../../variables';
+@import '../equipment-list/equipment-list.component';
+.col-md-5,
+.col-xs-5,
+.col-xs-4,
+.col-md-6,
+.col-xs-6,
+.col-sm-4,
+.col-sm-3,
+.col-md-12,
+.col-xs-12,
+.col-xs-10,
+.col-md-1,
+.col-xs-1 {
+    padding: 0 8px;
+}
+
+.row {
+    margin-left: -10px;
+    margin-right: -10px;
+}
+
+.project-list {
+    .count {
+        font-size: 14px;
+        float: right;
+    }
+    .recentDiv {
+        border-bottom: 1px solid #d7d7d7;
+        margin: 0 0 20px;
+        padding-bottom: 15px;
+        h4.title {
+            background: transparent;
+            padding: 0;
+            border: 0;
+            color: #2f6f98;
+        }
+    }
+    .goBtn {
+        display: inline-block;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: 1px solid #d7d7d7;
+        text-align: center;
+        line-height: 28px;
+        color: #d7d7d7;
+        position: absolute;
+        right: -3px;
+        top: 22px;
+        background: #fff;
+    }
+    h4.title {
+        padding: 10px 0px;
+        font-size: 16px;
+        border-left: 3px solid;
+        padding: 10px 15px;
+        margin-bottom: 17px;
+        background: #f0f0f0;
+    }
+    .card {
+        padding-right: 10px;
+        .badge {
+            top: 0px;
+            position: absolute;
+            right: 0px;
+            font-size: 10px;
+            padding: 3px 5px;
+            background: $alert-color;
+            border-radius: 0;
+        }
+        .card-box {
+            padding: 10px 10px 10px 10px !important;
+            height: 70px;
+            border-left: 3px solid;
+            .spInfo {
+                h4 {
+                    font-size: 16px;
+                    margin: 0 0 5px 0;
+                }
+            }
+        }
+        .cardInfoSec {
+            position: relative;
+            padding-right:100px!important;
+            .showbannerImg {
+                position: absolute;
+                top: 4px;
+                right: 15px;
+                width: 90px;
+                height: 60px;
+                img {
+                    width: 100%;
+                    height:100%;
+                }
+            }
+        }
+    }
+    .toDOSec {
+        .card-box {
+            border-left-color: $first-color;
+        }
+        h4.title {
+            border-left-color: $first-color;
+        }
+    }
+    .inProgressSec {
+        .card-box {
+            border-left-color: $yellow-color;
+        }
+        h4.title {
+            border-left-color: $yellow-color;
+        }
+    }
+    .sucessSec {
+        .card-box {
+            border-left-color: $green-color;
+        }
+        h4.title {
+            border-left-color: $green-color;
+        }
+    }
+}

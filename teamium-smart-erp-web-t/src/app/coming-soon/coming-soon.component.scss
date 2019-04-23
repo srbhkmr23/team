@@ -1,0 +1,17 @@
+.inProgress {
+    text-align: center;
+    color: #2f6f98;
+    .fa {
+        font-size: 8em;
+        display: block;
+    }
+}
+
+button {
+    display: table;
+    margin: 5% auto 0;
+    background: #2f6f98;
+    width: 140px;
+    padding: 10px 0;
+    border-radius: 4px;
+}

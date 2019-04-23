@@ -1,0 +1,51 @@
+@import '../../edit-equipment/edit-equipment.component';
+@import '../../equipment-list/equipment-list.component';
+@import '../../../variables';
+
+.showDataModal {
+    .modal {
+        .modal-content {
+            .modal-header {
+                background: #2f6f98;
+                border-radius: 5px 5px 0px 0px;
+                padding: 10px 15px;
+                color: #fff;
+            }
+            .modal-body {
+                .mb-20 {
+                    margin-bottom: 20px;
+                }
+                .btn-exl {
+                    // border-radius: 20px;
+                    padding: 5px 15px;
+                    &:focus {
+                        outline: 0;
+                    }
+                }
+                .projectStatus-Sec {
+                    max-height: calc(100vh - 250px);
+                    overflow: auto;
+                    .table {
+                        thead {
+                            tr {
+                                th {
+                                    background: #eeeeee;
+                                    vertical-align: middle;
+                                    font-size: 12px;
+                                }
+                            }
+                        }
+                        tbody {
+                            tr {
+                                td {
+                                    vertical-align: middle;
+                                    font-size: 12px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

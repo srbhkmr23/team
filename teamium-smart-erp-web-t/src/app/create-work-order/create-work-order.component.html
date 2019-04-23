@@ -1,0 +1,144 @@
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner>
+
+<!-- Modal -->
+<div id="myModal" class="modal in fade add-personnel-modal" style="display: block;">
+    <div class=" modal-dialog">
+        <form [formGroup]="orderForm">
+            <!-- Modal content-->
+            <div class="modal-content ">
+                <div class="modal-header ">
+                    <button type="button "  class="close " data-dismiss="modal" (click)="hideOrderModal()"> &times;</button>
+                    <h4 class="title ">{{modalText}}</h4>
+
+                </div>
+                <div class="modal-body ">
+                    <div class="create-personnel create-project-budgeting">
+                        <div class="">
+                            <fieldset>
+                                <!-- 5  OTHERS -->
+                                <div class="work-order-details">
+                                    <div class="row ">
+                                        <div class="col-md-12 ">
+                                            <div class="form-content ">
+                                                <div class="row ">
+                                                    <div class="col-xs-6" *ngIf="this.selectedOrder.id">
+                                                        <div class="input-row ">
+                                                            <label>{{orderType}} Number</label>
+                                                            <span class="ttl-Order ml-5">{{selectedOrder.id}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <div class="input-row">
+                                                             <label  *ngIf="this.selectedOrder.id">{{'Change Status' |translate}}:</label> 
+                                                            <button class="btn btn-first ml-5 ripple" *ngIf="this.selectedOrder.id" [ngClass]="selectedOrder.status===0?'btn-submit':selectedOrder.status===1?'btn-inprogress':'btn-done'"  (click)="changeStatus()">{{selectedOrder.status===0?'To Do':selectedOrder.status===1?'In Progress':'Done'}}</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row ">
+                                                    <div class="col-xs-6">
+                                                        <fieldset [disabled]=true>
+                                                        <div class="input-row ">
+                                                            <label>{{'Project ID' | translate}}</label>
+                                                            <input type="text " class="form-control " formControlName="projectId"/>
+                                                        </div>
+                                                        </fieldset>
+
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <fieldset [disabled]=disableOrder>
+                                                            <div class="input-row ">
+                                                                <label>{{'Media ID' |translate}}</label>
+                                                                <input type="text " class="form-control " formControlName="mediaId"/>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Search -->
+                                            <div class="form-content ">
+                                              <div class="row">
+                                                <div class="col-xs-6">
+                                                        <label>{{'Order Form Type' |translate}} <span class="astrick">*</span></label>
+                                                    <div class="select-Search large searchWorkOrder" tabindex="0">
+                                                        
+                                                      <span [ngClass]="disableOrder?'orderDisable':''" class="value" (click)="openFormList = !openFormList">{{selectedFormType}}</span>
+                                                      <div class="list open" tabindex="-1" *ngIf="openFormList">
+                                                        <div class="search-filter">
+                                                          <input type="text" placeholder="Search..." formControlName="searchText">
+                                                        </div>
+                                                        <ul>
+                                                                <li (click)="getSelectedFormName('Select Order Form',null);">{{'Select Order Form' |translate}}</li>
+                                                                <li *ngFor="let form of formList|globalSearch:orderForm.get('searchText').value ;let i=index " data-value="i" (click)="getSelectedFormName(form,i);">{{form.formType}}</li>                                                                            
+                                                            
+                                                        </ul>
+                                                        
+                                                      </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                        <div class="" style="margin-top: 28px;">
+                                                            <button class="btn btn-first btn-submit ripple"><i class="fa fa-envelope-o" aria-hidden="true"></i> {{'Notify' |translate}}</button>
+                                                            <button class="btn btn-first btn-submit ripple"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> {{'Create PDF' |translate}}</button>
+                                                        </div>
+                                                    
+                                                </div>
+                                              </div>
+
+                                                <!-- table -->
+                                                <div class="work-order-list">
+                                                    <table class="table" >
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="text-left">{{'Key' |translate}}</th>
+                                                                <th class="text-center">{{'Value' |translate}}</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody formArrayName="keywords">
+                                                            <tr *ngFor="let key of keywordsForm.controls; let i=index" [formGroupName]="i">
+                                                                   
+                                                                <td class="text-left"><input type="text"  readonly class="form-control editableCntrol" formControlName="keyword" /></td>
+                                                            
+                                                            
+                                                                <td class="text-center"><input type="text"  class="form-control editableCntrol" formControlName="keywordValue" /></td>
+                                                            
+                                                              </tr>
+                                                            <!-- <tr>
+                                                                <td class="text-left">ewrq</td>
+                                                                <td class="text-center"><input type="text" class="form-control editableCntrol" formConrolName="keywordValue" /></td>
+                                                                <td><a class="close " href="javascript:void(0) ">×</a></td>
+                                                              </tr> -->
+                                                        </tbody>
+                                                    </table>
+                                                </div> <!-- table -->
+                                            </div>
+
+                                            <!-- ADD Description -->
+                                            <div class="form-content">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <label>{{'Description' |translate}}</label>
+                                                        <textarea class="form-control ng-untouched ng-pristine ng-valid" formControlName="comment" placeholder="Description" rows="10" style="height: 100px;" ng-reflect-name="description"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer ">
+                    <div class="row">
+                        <div class="button-set text-center" class="col-md-12">
+                            <button style="background-color: darkred;" class="btn btn-first pull-left" *ngIf="selectedOrder.status === 0" (click)="deleteOrderForm()" >{{'Delete' | translate}}</button>
+                            <button type="submit" class="btn btn-first" *ngIf="selectedOrder.status !== 2" (click)="saveOrderForm()">{{'Save' | translate}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

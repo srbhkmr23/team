@@ -1,0 +1,789 @@
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner>
+<div class="project-list configuration-sec">
+    <!-- FILTER HEADER   -->
+    <div class="filter-header">
+        <div class="container-fluid">
+            <h1 class="title">{{'Configuration' | translate}}</h1>
+
+            <!-- <div class="filter">
+  
+                <div class="filter-search">
+                    <input type="text" [(ngModel)]="searchText" class="input-search" placeholder="Search...">
+                    <i class="fa fa-search"></i>
+  
+                    <a href="javascript:void(0);" class="ml-5" (click)="showSaveShowModal=(!showSaveShowModal)">
+                        <i class="fa fa-plus"></i> Add
+                    </a>
+                </div>
+            </div> -->
+        </div>
+    </div>
+
+    <div class="project-content">
+
+        <div class="card-list-content">
+
+            <div class="row">
+                <!-- List View -->
+                <div class="col-lg-3 col-md-4">
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingOne">
+                                <h4 class="panel-title">
+                                    <a (click)="companyExpand = !companyExpand" href="javascript:void(0);" data-toggle="collapse"
+                                        data-parent="#accordion" aria-expanded="true" aria-controls="collapseOne">
+                                        <i class="fa fa-caret-down mr-5"></i>
+                                        {{'Companies' | translate}}
+                                    </a>
+                                    <a title="{{'Add new company' | translate}}" href="javascript:void(0)" (click)="onShowCompany(null)"
+                                        class="plusIco">
+                                        <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div [ngClass]="{'in': companyExpand==true}" id="collapseOne" class="panel-collapse collapse"
+                                role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body pad-0">
+                                    <ul class="companyList">
+                                        <li *ngFor="let company of companyList">
+                                            <span class="companyCategory">{{company.name |translate}}</span>
+                                            <span (click)="onShowCompany(company)" class="rightText" title="{{'Edit company' | translate}}">
+                                                <i aria-hidden="true" class="fa fa-pencil-square-o ng-star-inserted"></i>
+                                            </span>
+                                        </li>
+                                        <!-- <li>
+                                        <span class="companyCategory">Company B</span> 
+                                        <span class="rightText">Edit</span>
+                                    </li>
+                                    <li>
+                                      <span class="companyCategory">Company C</span> 
+                                      <span class="rightText">Edit</span>
+                                    </li> -->
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingTwo">
+                                <h4 class="panel-title">
+                                    <a href="javascript:void(0);" class="collapsed" data-toggle="collapse" data-parent="#accordion"
+                                        aria-expanded="false" aria-controls="collapseTwo">
+                                        <i class="fa fa-caret-down mr-5"></i>
+                                        {{'Production Unit' | translate}}
+                                    </a>
+                                    <span class="plusIco">
+                                        <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                                    </span>
+                                </h4>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                <div class="panel-body">Anim pariatur cliche reprehenderit, enim eiusmod high life
+                                    accusamus terry richardson ad
+                                    squid.</div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingThree">
+                                <h4 class="panel-title">
+                                    <a (click)="channelExpand = !channelExpand" href="javascript:void(0)" class="collapsed"
+                                        data-toggle="collapse" data-parent="#accordion" aria-expanded="false"
+                                        aria-controls="collapseThree">
+                                        <i class="fa fa-caret-down mr-5"></i>
+                                        {{'Channels' | translate}}
+                                    </a>
+                                    <a title="{{'Add new channel' | translate}}" href="javascript:void(0)" (click)="onShowChannelModal(null)"
+                                        class="plusIco">
+                                        <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                <div class="panel-body">Anim pariatur cliche reprehenderit, enim eiusmod high life
+                                    accusamus terry richardson ad
+                                    squid. </div>
+                            </div>
+                            <div [ngClass]="{'in': channelExpand==true}" id="collapseOne" class="panel-collapse collapse"
+                                role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body pad-0">
+                                    <ul class="companyList">
+                                        <li *ngFor="let channel of channelList">
+                                            <span class="companyCategory">{{channel.name |translate}}</span>
+                                            <span (click)="onShowChannelModal(channel)" class="rightText" title="{{'Edit channel' | translate}}">
+                                                <i aria-hidden="true" class="fa fa-pencil-square-o ng-star-inserted"></i>
+                                            </span>
+                                        </li>
+                                        <!-- <li>
+                                      <span class="companyCategory">Company B</span> 
+                                      <span class="rightText">Edit</span>
+                                  </li>
+                                  <li>
+                                    <span class="companyCategory">Company C</span> 
+                                    <span class="rightText">Edit</span>
+                                  </li> -->
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingThree">
+                                <h4 class="panel-title">
+                                    <a href="javascript:void(0)" class="collapsed" data-toggle="collapse" data-parent="#accordion"
+                                        aria-expanded="false" aria-controls="collapseThree">
+                                        <i class="fa fa-caret-down mr-5"></i>
+                                        {{'Director' | translate}}
+                                    </a>
+                                    <span class="plusIco">
+                                        <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                                    </span>
+                                </h4>
+                            </div>
+                            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                <div class="panel-body">Anim pariatur cliche reprehenderit, enim eiusmod high life
+                                    accusamus terry richardson ad
+                                    squid. </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingThree">
+                                <h4 class="panel-title">
+                                    <a (click)="templateExpand = !templateExpand" href="javascript:void(0)" class="collapsed"
+                                        data-toggle="collapse" data-parent="#accordion" aria-expanded="false"
+                                        aria-controls="collapseThree">
+                                        <i class="fa fa-caret-down mr-5"></i>
+                                        {{'Templates' | translate}}
+                                    </a>
+                                    <a title="{{'Add new template' | translate}}" href="javascript:void(0)" (click)="onShowTemplate(null)"
+                                        class="plusIco">
+                                        <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                <div class="panel-body">Anim pariatur cliche reprehenderit, enim eiusmod high life
+                                    accusamus terry richardson ad
+                                    squid. </div>
+                            </div>
+                            <div [ngClass]="{'in': templateExpand==true}" id="collapseOne" class="panel-collapse collapse"
+                                role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body pad-0">
+                                    <ul class="companyList">
+                                        <li *ngFor="let template of templateList">
+                                            <span class="signatureCategory">{{template.templateName}}</span>
+                                            <span (click)="onShowTemplate(template)" class="rightText" title="{{'Edit Template' | translate}}">
+                                                <i aria-hidden="true" class="fa fa-pencil-square-o ng-star-inserted"></i>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingThree">
+                                <h4 class="panel-title">
+                                    <a (click)="signatureExpand = !signatureExpand" href="javascript:void(0)" class="collapsed"
+                                        data-toggle="collapse" data-parent="#accordion" aria-expanded="false"
+                                        aria-controls="collapseThree">
+                                        <i class="fa fa-caret-down mr-5"></i>
+                                        {{'Signature Delegation' | translate}}
+                                    </a>
+                                    <a title="{{'Add new digital signature' | translate}}" href="javascript:void(0)" (click)="onShowSignature(null)"
+                                        class="plusIco">
+                                        <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                <div class="panel-body">Anim pariatur cliche reprehenderit, enim eiusmod high life
+                                    accusamus terry richardson ad
+                                    squid. </div>
+                            </div>
+                            <div [ngClass]="{'in': signatureExpand==true}" id="collapseOne" class="panel-collapse collapse"
+                                role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body pad-0">
+                                    <ul class="companyList">
+                                        <li *ngFor="let signature of signatureList">
+                                            <span class="signatureCategory">{{signature.name}}</span>
+                                            <span (click)="onShowSignature(signature)" class="rightText" title="{{'Edit signature' | translate}}">
+                                                <i aria-hidden="true" class="fa fa-pencil-square-o ng-star-inserted"></i>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingThree">
+                                <h4 class="panel-title">
+                                    <a href="javascript:void(0)" (click)="orderformExpand = !orderformExpand" class="collapsed"
+                                        data-toggle="collapse" data-parent="#accordion" aria-expanded="false"
+                                        aria-controls="collapseThree">
+                                        <i class="fa fa-caret-down mr-5"></i>
+                                        {{'Order form' | translate}}
+                                    </a>
+                                    <span class="plusIco">
+                                        <i class="fa fa-plus-square-o" aria-hidden="true" (click)="onShowOrder(null)"
+                                            title="{{'Add order form' | translate}}"></i>
+                                    </span>
+                                </h4>
+                            </div>
+                            <div [ngClass]="{'in': orderformExpand==true}" id="collapseThree" class="panel-collapse collapse"
+                                role="tabpanel" aria-labelledby="headingThree">
+                                <!-- <div class="panel-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. </div> -->
+                                <ul class="companyList">
+                                    <li *ngFor="let form of bookingOrderForms">
+                                        <span class="companyCategory">{{form.formType}}</span>
+                                        <span (click)="onShowOrder(form)" class="rightText" title="{{'Edit Order Form' | translate}}">
+                                            <i aria-hidden="true" class="fa fa-pencil-square-o ng-star-inserted"></i>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingThree">
+                                <h4 class="panel-title">
+                                    <a href="javascript:void(0)" (click)="keywordExpand = !keywordExpand" class="collapsed"
+                                        data-toggle="collapse" data-parent="#accordion" aria-expanded="false"
+                                        aria-controls="collapseThree">
+                                        <i class="fa fa-caret-down mr-5"></i>
+                                        {{'Keyword' | translate}}
+                                    </a>
+                                    <span class="plusIco">
+                                        <i class="fa fa-plus-square-o" aria-hidden="true" title="{{'Add keyword' | translate}}" (click)="onShowKeyword(null)"></i>
+                                    </span>
+                                </h4>
+                            </div>
+                            <div [ngClass]="{'in': keywordExpand==true}" id="collapseThree" class="panel-collapse collapse"
+                                role="tabpanel" aria-labelledby="headingThree">
+                                <!-- <div class="panel-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
+                                    squid. </div> -->
+                                <ul class="companyList">
+                                    <li *ngFor="let keyword of keywordList">
+                                        <span class="companyCategory">{{keyword.keyword}}</span>
+                                        <span (click)="onShowKeyword(keyword)" class="rightText" title="{{'Edit keyword' | translate}}">
+                                            <i aria-hidden="true" class="fa fa-pencil-square-o ng-star-inserted"></i>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingThree">
+                                <h4 class="panel-title">
+                                    <a (click)="personnelSkillExpand = !personnelSkillExpand" href="javascript:void(0)"
+                                        class="collapsed" data-toggle="collapse" data-parent="#accordion" aria-expanded="false"
+                                        aria-controls="collapseThree">
+                                        <i class="fa fa-caret-down mr-5"></i>
+                                        {{'Personnel Skill' | translate}}
+                                    </a>
+                                    <a title="{{'Add new skill' | translate}}" href="javascript:void(0)" (click)="onShowPersonnelSkill(null)"
+                                        class="plusIco">
+                                        <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div [ngClass]="{'in': personnelSkillExpand==true}" id="collapseThree" class="panel-collapse collapse"
+                                role="tabpanel" aria-labelledby="headingThree">
+                                <ul class="companyList">
+                                    <li *ngFor="let skill of personnelSkillList">
+                                        <span class="companyCategory">{{skill.name}}</span>
+                                        <span (click)="onShowPersonnelSkill(skill)" class="rightText" title="{{'Edit Personnel Skill' | translate}}">
+                                            <i aria-hidden="true" class="fa fa-pencil-square-o ng-star-inserted"></i>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingThree">
+                                <h4 class="panel-title">
+                                    <a (click)="formatExpand = !formatExpand" href="javascript:void(0)" class="collapsed"
+                                        data-toggle="collapse" data-parent="#accordion" aria-expanded="false"
+                                        aria-controls="collapseThree">
+                                        <i class="fa fa-caret-down mr-5"></i>
+                                        {{'Format' | translate}}
+                                    </a>
+                                    <a title="{{'Add new format' | translate}}" href="javascript:void(0)" (click)="onShowFormat(null)"
+                                        class="plusIco">
+                                        <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div [ngClass]="{'in': formatExpand==true}" id="collapseThree" class="panel-collapse collapse"
+                                role="tabpanel" aria-labelledby="headingThree">
+                                <!-- <div class="panel-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. </div> -->
+                                <ul class="companyList">
+                                    <li *ngFor="let format of formatList">
+                                        <span class="companyCategory">{{format.name}}</span>
+                                        <span (click)="onShowFormat(format)" class="rightText" title="{{'Edit format' | translate}}">
+                                            <i aria-hidden="true" class="fa fa-pencil-square-o ng-star-inserted"></i>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingThree">
+                                <h4 class="panel-title">
+                                    <a (click)="categoryExpand = !categoryExpand" href="javascript:void(0)" class="collapsed"
+                                        data-toggle="collapse" data-parent="#accordion" aria-expanded="false"
+                                        aria-controls="collapseThree">
+                                        <i class="fa fa-caret-down mr-5"></i>
+                                        {{'Project Category' | translate}}
+                                    </a>
+                                    <a title="{{'Add new project category' | translate}}" href="javascript:void(0)" (click)="onShowCategory(null)"
+                                        class="plusIco">
+                                        <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                                    </a>
+
+                                    <!-- <span class="plusIco"><i class="fa fa-plus-square-o" aria-hidden="true"></i></span> -->
+                                </h4>
+                            </div>
+                            <div [ngClass]="{'in': categoryExpand==true}" id="collapseThree" class="panel-collapse collapse"
+                                role="tabpanel" aria-labelledby="headingThree">
+                                <!-- <div class="panel-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. </div> -->
+                                <ul class="companyList">
+                                    <li *ngFor="let category of categoryList">
+                                        <span class="companyCategory">{{category.name}}</span>
+                                        <span (click)="onShowCategory(category)" class="rightText" title="{{'Edit project category' | translate}}">
+                                            <i aria-hidden="true" class="fa fa-pencil-square-o ng-star-inserted"></i>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingThree">
+                                <h4 class="panel-title">
+                                    <a (click)="projectMilestoneExpand = !projectMilestoneExpand" href="javascript:void(0)"
+                                        class="collapsed" data-toggle="collapse" data-parent="#accordion" aria-expanded="false"
+                                        aria-controls="collapseThree">
+                                        <i class="fa fa-caret-down mr-5"></i>
+                                        {{'Project Milestone' | translate}}
+                                    </a>
+                                    <a title="{{'Add new project milestone' | translate}}" href="javascript:void(0)" (click)="onShowProjectMilestone(null)"
+                                        class="plusIco">
+                                        <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                                    </a>
+
+                                    <!-- <span class="plusIco"><i class="fa fa-plus-square-o" aria-hidden="true"></i></span> -->
+                                </h4>
+                            </div>
+                            <div [ngClass]="{'in': projectMilestoneExpand==true}" id="collapseThree" class="panel-collapse collapse"
+                                role="tabpanel" aria-labelledby="headingThree">
+                                <ul class="companyList">
+                                    <li *ngFor="let projectMilestone of projectMilestoneList">
+                                        <span class="companyCategory">{{projectMilestone.name}}</span>
+                                        <span (click)="onShowProjectMilestone(projectMilestone)" class="rightText"
+                                            title="{{'Edit project milestone' | translate}}">
+                                            <i aria-hidden="true" class="fa fa-pencil-square-o ng-star-inserted"></i>
+                                        </span>
+                                    </li>
+                                </ul>
+                                <!-- <div class="panel-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. </div> -->
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingThree">
+                                <h4 class="panel-title">
+                                    <a (click)="equipmentMilestoneExpand = !equipmentMilestoneExpand" href="javascript:void(0)"
+                                        class="collapsed" data-toggle="collapse" data-parent="#accordion" aria-expanded="false"
+                                        aria-controls="collapseThree">
+                                        <i class="fa fa-caret-down mr-5"></i>
+                                        {{'Equipment Milestone' | translate}}
+                                    </a>
+                                    <a title="{{'Add new equipment milestone' | translate}}" href="javascript:void(0)" (click)="onShowEquipmentMilestone(null)"
+                                        class="plusIco">
+                                        <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                                    </a>
+
+                                    <!-- <span class="plusIco"><i class="fa fa-plus-square-o" aria-hidden="true"></i></span> -->
+                                </h4>
+                            </div>
+                            <div [ngClass]="{'in': equipmentMilestoneExpand==true}" id="collapseThree" class="panel-collapse collapse"
+                                role="tabpanel" aria-labelledby="headingThree">
+                                <ul class="companyList">
+                                    <li *ngFor="let equipmentMilestone of equipmentMilestoneList">
+                                        <span class="companyCategory">{{equipmentMilestone.name}}</span>
+                                        <span (click)="onShowEquipmentMilestone(equipmentMilestone)" class="rightText"
+                                            title="{{'Edit equipment milestone' | translate}}">
+                                            <i aria-hidden="true" class="fa fa-pencil-square-o ng-star-inserted"></i>
+                                        </span>
+                                    </li>
+                                </ul>
+                                <!-- <div class="panel-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. </div> -->
+                            </div>
+                        </div>
+
+                        <!-- <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingThree">
+                                <h4 class="panel-title">
+                                <a href="javascript:void(0)" class="collapsed" data-toggle="collapse" data-parent="#accordion"  aria-expanded="false" aria-controls="collapseThree">
+                                    Equipment milestone
+                                </a>
+                                <span class="plusIco"><i class="fa fa-plus-square-o" aria-hidden="true"></i></span>
+                                </h4>
+                            </div>
+                            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                <div class="panel-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. </div>
+                            </div>
+                        </div> -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingThree">
+                                <h4 class="panel-title">
+                                    <a href="javascript:void(0)" (click)="expandCurrencyList()" class="collapsed"
+                                        data-toggle="collapse" data-parent="#accordion" aria-expanded="false"
+                                        aria-controls="collapseThree">
+                                        <i class="fa fa-caret-down mr-5"></i>
+                                        {{'Currency' | translate}}
+                                    </a>
+                                    <span class="plusIco">
+                                        <i class="fa fa-plus-square-o" aria-hidden="true" (click)="showCurrencyModal = true" title="Edit Currency List"></i>
+                                    </span>
+                                </h4>
+                            </div>
+                            <div [ngClass]="{'in': currencyExpand==true}" id="collapseThree" class="panel-collapse collapse"
+                                role="tabpanel" aria-labelledby="headingThree">
+                                <div class="panel-body pad-0">
+                                    <div class="filterInput-Div">
+                                        <div class="filterInput">
+                                            <i class="fa fa-search"></i>
+                                            <input [(ngModel)]="searchText" type="text" class="form-control input-search"
+                                                placeholder="{{'Search...' | translate}}" />
+                                        </div>
+                                    </div>
+                                    <ul class="companyList">
+                                        <li *ngFor="let currency of currencyList | currencySearch: searchText; let i = index;">
+                                            <span class="companyCategory">{{currency.code}}</span>
+                                            <i class="fa fa-check pull-right" *ngIf="currency.defaultCurrency"></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingThree">
+                                <h4 class="panel-title">
+                                    <a (click)="personnelDocumentExpand = !personnelDocumentExpand" href="javascript:void(0)"
+                                        class="collapsed" data-toggle="collapse" data-parent="#accordion" aria-expanded="false"
+                                        aria-controls="collapseThree">
+                                        <i class="fa fa-caret-down mr-5"></i>
+                                        {{'Personnel document' | translate}}
+                                    </a>
+                                    <a title="{{'Add new personnel document' | translate}}" href="javascript:void(0)" (click)="onShowPersonnelDocument(null)"
+                                        class="plusIco">
+                                        <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                                    </a>
+
+                                    <!-- <span class="plusIco"><i class="fa fa-plus-square-o" aria-hidden="true"></i></span> -->
+                                </h4>
+                            </div>
+                            <div [ngClass]="{'in': personnelDocumentExpand==true}" id="collapseThree" class="panel-collapse collapse"
+                                role="tabpanel" aria-labelledby="headingThree">
+                                <ul class="companyList">
+                                    <li *ngFor="let personnelDocument of personnelDocumentList">
+                                        <span class="companyCategory">{{personnelDocument.type}}</span>
+                                        <span (click)="onShowPersonnelDocument(personnelDocument)" class="rightText"
+                                            title="{{'Edit Personnel Document' | translate}}">
+                                            <i aria-hidden="true" class="fa fa-pencil-square-o ng-star-inserted"></i>
+                                        </span>
+                                    </li>
+                                </ul>
+                                <!-- <div class="panel-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. </div> -->
+                            </div>
+                        </div>
+
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingThree">
+                                <h4 class="panel-title">
+                                    <a href="javascript:void(0)" (click)="labourAgreementExpand = !labourAgreementExpand"
+                                        class="collapsed" data-toggle="collapse" data-parent="#accordion" aria-expanded="false"
+                                        aria-controls="collapseThree">
+                                        <i class="fa fa-caret-down mr-5"></i>
+                                        {{'Labour Agreement' | translate}}
+                                    </a>
+                                    <a title="{{'Add new rule' | translate}}" href="javascript:void(0)" (click)="onAddLabourRule()" class="plusIco">
+                                        <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div class="panel-collapse collapse" [ngClass]="{'in': labourAgreementExpand==true}" role="tabpanel"
+                                aria-labelledby="headingThree">
+                                <div class="panel-body pad-0">
+                                    <ul class="companyList">
+                                        <li *ngFor="let rule of labourRuleList">
+                                            <span class="companyCategory">{{rule.labourRuleName}}</span>
+                                            <span (click)="onEditLabourRule(rule)" class="rightText" title="{{'Edit rule' | translate}}">
+                                                <i aria-hidden="true" class="fa fa-pencil-square-o ng-star-inserted"></i>
+                                            </span>
+                                        </li>
+                                        <!-- <li>
+                                                  <span class="companyCategory">Journalist</span> 
+                                                  <span (click)="showLabourAgreementModal()" class="rightText">Edit</span>
+                                              </li>
+                                              <li>
+                                                <span class="companyCategory">Copy writer</span> 
+                                                <span (click)="showLabourAgreementModal()" class="rightText">Edit</span>
+                                              </li> -->
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingThree">
+                                <h4 class="panel-title">
+                                    <a href="javascript:void(0)" (click)="daysOffExpand = !daysOffExpand" class="collapsed"
+                                        data-toggle="collapse" data-parent="#accordion" aria-expanded="false"
+                                        aria-controls="collapseThree">
+                                        <i class="fa fa-caret-down mr-5"></i>
+                                        {{'Days Off' | translate}}
+                                    </a>
+                                    <a title="{{'Add new rule' | translate}}" href="javascript:void(0)" (click)="addDaysOff(null)" class="plusIco">
+                                        <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div class="panel-collapse collapse" [ngClass]="{'in': daysOffExpand==true}" role="tabpanel"
+                                aria-labelledby="headingThree">
+                                <div class="panel-body pad-0">
+                                    <ul class="companyList">
+                                        <li *ngFor="let days of daysOffList" [ngClass]='{"deactivated":!days.active}'>
+                                            <span class="companyCategory">{{days.type}}</span>
+                                            <span *ngIf="days.active" (click)="addDaysOff(days)" class="rightText"
+                                                title="{{'Edit Day off' | translate}}">
+                                                <i aria-hidden="true" class="fa fa-pencil-square-o ng-star-inserted"></i>
+                                            </span>
+                                            <span *ngIf="!days.active" (click)="restoreDayOff(days)" class="rightText"
+                                                title="{{'Restore Day off' | translate}}">
+                                                <i aria-hidden="true" class="fa fa-pencil-square-o ng-star-inserted"></i>
+                                            </span>
+                                        </li>
+                                        <!-- <li>
+                                                  <span class="companyCategory">Journalist</span> 
+                                                  <span (click)="showLabourAgreementModal()" class="rightText">Edit</span>
+                                              </li>
+                                              <li>
+                                                <span class="companyCategory">Copy writer</span> 
+                                                <span (click)="showLabourAgreementModal()" class="rightText">Edit</span>
+                                              </li> -->
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingThree">
+                                <h4 class="panel-title">
+                                    <a href="javascript:void(0)" class="collapsed" data-toggle="collapse" data-parent="#accordion"
+                                        aria-expanded="false" aria-controls="collapseThree">
+                                        <i class="fa fa-caret-down mr-5"></i>
+                                        {{'Color' |translate}}
+                                    </a>
+                                    <a title="{{'Add new rule' | translate}}" href="javascript:void(0)"  class="plusIco">
+                                        <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                <div class="panel-body pad-0">
+                                    <ul class="companyList">
+                                        <li *ngFor="let days of daysOffList" [ngClass]='{"deactivated":!days.active}'>
+                                            <span class="companyCategory">{{days.type}}</span>
+                                            <span *ngIf="days.active" (click)="addDaysOff(days)" class="rightText"
+                                                title="{{'Edit Day off' | translate}}">
+                                                <i aria-hidden="true" class="fa fa-pencil-square-o ng-star-inserted"></i>
+                                            </span>
+                                            <span *ngIf="!days.active" (click)="restoreDayOff(days)" class="rightText"
+                                                title="{{'Restore Day off' | translate}}">
+                                                <i aria-hidden="true" class="fa fa-pencil-square-o ng-star-inserted"></i>
+                                            </span>
+                                        </li>
+                                        <!-- <li>
+                                                  <span class="companyCategory">Journalist</span> 
+                                                  <span (click)="showLabourAgreementModal()" class="rightText">Edit</span>
+                                              </li>
+                                              <li>
+                                                <span class="companyCategory">Copy writer</span> 
+                                                <span (click)="showLabourAgreementModal()" class="rightText">Edit</span>
+                                              </li> -->
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- right side content -->
+                <div class="col-lg-9 col-md-8">
+                    <div class="row importImgSec">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="text-center">
+                                <div class="importImg">
+                                    <img src="../../assets/img/demoImg.JPG" alt="" />
+                                </div>
+                                <p class="prod-Catgry">{{'Equipement' | translate}}</p>
+                                <div class="upload-btn-wrapper">
+                                    <button class="btn btn-Import">{{"Import" |translate}}</button>
+                                    <input type="file" name="myfile" class="fileInput" #fileInput1 (click)="fileInput1.value = null"
+                                        (change)="onFileChange($event,'Equipement')" />
+                                </div>
+                                <p class="error-msg" *ngIf="invalidEquipementFormatError">{{invalidEquipementFormatError}}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="text-center">
+                                <div class="importImg">
+                                    <img src="../../assets/img/demoImg.JPG" alt="" />
+                                </div>
+                                <p class="prod-Catgry">{{'Personnel' | translate}}</p>
+                                <div class="upload-btn-wrapper">
+                                    <button class="btn btn-Import">{{'Import' | translate}}</button>
+                                    <input type="file" name="myfile" class="fileInput" #fileInput2 (click)="fileInput2.value = null"
+                                        (change)="onFileChange($event,'Personnel')" />
+                                </div>
+                                <p *ngIf="invalidStaffFormatError" class="error-msg">{{invalidStaffFormatError}}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="text-center">
+                                <div class="importImg">
+                                    <img src="../../assets/img/demoImg.JPG" alt="" />
+                                </div>
+                                <p class="prod-Catgry">{{'Client' | translate}}</p>
+                                <div class="upload-btn-wrapper">
+                                    <button class="btn btn-Import">{{'Import' | translate}}</button>
+                                    <input type="file" name="myfile" class="fileInput" #fileInput3 (click)="fileInput3.value = null"
+                                        (change)="onFileChange($event,'Client')" />
+                                </div>
+                                <p *ngIf="invalidClientFormatError" class="error-msg">{{invalidClientFormatError}}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="text-center">
+                                <div class="importImg">
+                                    <img src="../../assets/img/demoImg.JPG" alt="" />
+                                </div>
+                                <p class="prod-Catgry">{{'Vendor' | translate}}</p>
+                                <div class="upload-btn-wrapper">
+                                    <button class="btn btn-Import">{{'Import' | translate}}</button>
+                                    <input type="file" name="myfile" class="fileInput" #fileInput4 (click)="fileInput4.value = null"
+                                        (change)="onFileChange($event,'Vendor')" />
+                                </div>
+                                <p *ngIf="invalidVendorFormatError" class="error-msg">{{invalidVendorFormatError}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="manageLicense">
+                                <h4 class="titleText">{{'Manage License' | translate}}</h4>
+                                <ul class="lincenseList">
+                                    <li>
+                                        <span class="licenceType">{{'User Licenses' | translate}}</span>
+                                        <span class="rightText">10</span>
+                                    </li>
+                                    <li>
+                                        <span class="licenceType">{{'Collaborator Licenses' | translate}}</span>
+                                        <span class="rightText">150</span>
+                                    </li>
+                                    <li>
+                                        <span class="licenceType">{{'Data' | translate}}</span>
+                                        <span class="rightText">50Go</span>
+                                    </li>
+                                </ul>
+                                <p class="text-center mt-20">
+                                    <button type="button" class="btn btn-first btn-buy ripple">{{'Buy' | translate}}</button>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="manageLicense">
+                                <h4 class="titleText">{{'Activate Market place' | translate}}</h4>
+                                <div class="clientActivation">
+                                    <div class="equipment-on text-center">
+                                        <label class="switch switchLable">
+                                            <input type="checkbox">
+                                            <span class="slider round"></span>
+                                        </label>
+                                        <p class="clientText">{{'As buyer' | translate}}</p>
+                                    </div>
+                                    <div class="equipment-on text-center">
+                                        <label class="switch switchLable">
+                                            <input type="checkbox">
+                                            <span class="slider round"></span>
+                                        </label>
+                                        <p class="clientText">{{'As vendor' | translate}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="manageLicense mt-20">
+                                <h4 class="titleText">SSO</h4>
+                                <div class="clientActivation">
+                                    <div class="equipment-on">
+                                        <label class="switch">
+                                            <input type="checkbox">
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- panel-group -->
+
+        </div>
+
+        <!-- LABOUR MODAL -->
+        <app-save-labour-rule *ngIf="showAgreementModal == true" [selectedLabourRule]="selectedLabourRule" [staffList]="staffList"
+            (closeModalEvent)="closeModal($event)"></app-save-labour-rule>
+        <!-- COMPANY MODAL -->
+        <app-save-company *ngIf="showCompanyModal == true" [selectedCompany]="selectedCompany" (closeModalEvent)="hideCompanyModal($event)"></app-save-company>
+        <!-- Signature MODAL -->
+        <app-save-signature *ngIf="showSignatureModal == true" [selectedSignature]="selectedSignature"
+            (closeModalEvent)="hideSignatureModal($event)"></app-save-signature>
+        <!-- Format MODAL -->
+        <app-save-format *ngIf="showFormatModal == true" [selectedFormat]="selectedFormat" (closeModalEvent)="hideFormatModal($event)"></app-save-format>
+        <!-- Personnel Skill MODAL -->
+        <app-save-personnel-skill *ngIf="showPersonnelSkillModal == true" [selectedPersonnelSkill]="selectedPersonnelSkill"
+            (closeModalEvent)="hidePersonnelSkillModal($event)"></app-save-personnel-skill>
+
+        <!-- Order MODAL-->
+        <app-save-order *ngIf="showOrderModal == true" [selectedOrder]="selectedOrder" (closeModalEvent)="hideOrderModal($event)"></app-save-order>
+
+        <!-- Keyword MODAL-->
+        <app-save-keyword *ngIf="showKeywordModal == true" [selectedKeyword]="selectedKeyword" (closeModalEvent)="hideKeywordModal($event)"></app-save-keyword>
+
+        <!-- Category MODAL -->
+        <app-save-category *ngIf="showCategoryModal == true" [selectedCategory]="selectedCategory" (closeModalEvent)="hideCategoryModal($event)"></app-save-category>
+        <!-- Project milestone MODAL -->
+        <app-save-project-milestones *ngIf="showProjectMilestoneModal == true" [selectedProjectMilestone]="selectedProjectMilestone"
+            (closeModalEvent)="hideProjectMilestoneModal($event)"></app-save-project-milestones>
+        <!-- Equipment milestone MODAL -->
+        <app-save-equipment-milestones *ngIf="showEquipmentMilestoneModal == true" [selectedEquipmentMilestone]="selectedEquipmentMilestone"
+            (closeModalEvent)="hideEquipmentMilestoneModal($event)"></app-save-equipment-milestones>
+         <!-- Currency MODAL -->
+         <app-save-currency *ngIf="showCurrencyModal == true" (closeModalEvent)="hideCurrencyModal()"></app-save-currency>
+        <!-- Personnel Document MODAL -->
+        <app-save-personnel-document *ngIf="showPersonnelDocumentModal == true" [selectedPersonnelDocument]="selectedPersonnelDocument"
+            (closeModalEvent)="hidePersonnelDocumentModal($event)"></app-save-personnel-document>
+        <!-- Channel MODAL-->
+        <app-save-channel *ngIf="showSelectedChannel" [selectedChannel]="selectedChannel" (closeModalEvent)="hideChannelModal($event)"></app-save-channel>
+        <!-- Days Off -->
+        <app-save-days-off *ngIf="showDaysOff" [selectedDaysOff]="selectedDaysOff" (closeModalEvent)="hideDaysOffModal($event)"></app-save-days-off>
+        <!-- Color -->
+        <app-save-color *ngIf="showColorModal" [selectedColor]="selectedColor" (closeModalEvent)="hideColorModal($event)"></app-save-color>
+        <!-- Template -->
+        <app-save-template *ngIf="showTemplate" [selectedTemplate]="selectedTemplate" (closeModalEvent)="hideTemplateModal($event)"></app-save-template>
+    </div>
+</div>

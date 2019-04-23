@@ -1,0 +1,111 @@
+<div id="myModal" class="modal in fade add-personnel-modal" style="display: block;" *ngIf='isShow'>
+  <div class=" modal-dialog modal-lg ">
+
+    <!-- Modal content-->
+    <div class="modal-content ">
+      <div class="modal-header ">
+        <button type="button " class="close " data-dismiss="modal" (click)="cancel()"> &times;</button>
+        <h4 class="title ">{{ modalHeading | translate }}</h4>
+
+      </div>
+      <div class="modal-body ">
+        <div class="create-personnel ">
+            <div class="inner-content pad-20">
+                <div class="form-content">
+                  <form [formGroup]="eventInfo">
+                  
+                      <div class="form-content">
+                        <h4 class="title">{{'Add Resource' | translate}}</h4>
+                        <span *ngIf="resourceError" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{resourceError}}</span>
+                        <div class="added-value-content">
+                          <div class="added-value" *ngFor="let res of resources">
+                            <label>{{res.name}}
+                              <!-- <span>type</span> -->
+                            </label>
+                            <a href="javascript:void(0)" class="close" (click)="removeResource(res)">&times;</a>
+                          </div>
+                        </div>
+
+                        <div class="row mb-10">
+                          <div class="col-md-6">
+                            <div class="input-row ">
+                              <label>{{'Function' | translate}}*</label>
+                              <select class="form-control" formControlName="functionId">
+                                <option [ngValue]="null">{{'Select Type' | translate}}</option>
+                                <option *ngFor="let it of functionList" [ngValue]="it.function.id">{{it.function.qualifiedName}}</option>
+                              </select>
+                            </div>
+                          </div>
+
+                          <div class="col-md-5">
+                            <div class="input-row ">
+                              <label>{{'Resource' | translate}}</label>
+                              <select class="form-control" formControlName="resourceId">
+                                <option [ngValue]="null">{{'Select Type' | translate}}</option>
+                                <option *ngFor="let it of resourceList" [ngValue]="it.id">{{it.name}}</option>
+                              </select>
+                            </div>
+                          </div>
+
+                          <div class="col-md-1">
+                            <label>&nbsp;</label>
+                            <div class="text-right mt-0 p-0">
+                              <button class="btn btn-first btn-plus" [disabled]="eventInfo.get('resourceId').invalid" (click)="addResource()">
+                                <i class="fa fa-plus"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-10">
+                      <div class="col-md-6">
+                        <div class="input-row ">
+                          <label>{{'Start' | translate}}</label>
+                          <p-calendar formControlName="from" [showTime]="true" hourFormat="12" ></p-calendar>
+                          <span *ngIf="errorStart" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{errorStart}}</span>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-row ">
+                          <label>{{'End' | translate}}</label>
+                          <p-calendar formControlName="to" [showTime]="true" hourFormat="12"></p-calendar>
+                          <span *ngIf="errorEnd" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{errorEnd}}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row mb-10">
+                      <div class="col-md-6">
+                        <div class="input-row ">
+                          <label>{{'Quantity' | translate}}</label>
+                          <input class="form-control" formControlName="quantity" type="number" placeholder="Quantity">
+                        </div>
+                        <span *ngIf="quantityError" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{quantityError}}</span>
+                      </div>
+                      <!-- <div class="col-md-6">
+                        <div class="input-row ">
+                          <label>All Days</label>
+                          <br>
+                          <input type="checkbox" formControlName="allDay">
+                        </div>
+                      </div> -->
+                    </div>
+
+                  </form>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer ">
+        <div class="button-set text-center ">
+          <!-- <button class="btn btn-edit "> Skip </button> -->
+          <button class="btn btn-first ripple"[disabled]="quantityError||errorEnd||errorStart||resourceError||eventInfo.get('functionId').invalid" (click)="submit()">{{'Save' | translate}}</button>
+          <button class="btn btn-first ripple ml-10" (click)="cancel()">{{'Cancel' | translate}}</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

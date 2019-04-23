@@ -1,0 +1,79 @@
+@import '../save-labour-rule/save-labour-rule.component';
+@import '../../../variables';
+
+.InfoContentSec {
+    .common-Sec {
+        .mb-30 {
+            margin-bottom: 30px;
+        }
+        .btn-plus {
+            width: 38px;
+            height: 38px;
+            border-radius: 2px !important;
+            padding: 0;
+            font-size: 16px !important;
+            &:focus {
+                outline: 0;
+            }
+        }
+    }
+}
+
+// ======== Color picker Sec ==========
+.colorOptionDiv {
+    .picker-samples {
+        width:100%;
+        min-height: 100%;
+        transition: all 0.2s;
+        //position: relative;
+        //overflow: hidden;
+        .color-samples {
+            width: 40px;
+            height: 40px;
+            margin: 5px;
+            border: 1px solid #DDD;
+            float: left;
+            transition: all 0.2s;
+            position: relative;
+            &:hover {
+                cursor: pointer;
+                border-color: #BBB;
+                transform: scale(1.15);
+                border-radius: 3px;
+            }
+        }
+        & .cs-Active {
+            border-color: #999;
+        }
+        & .cs-Active:after {
+            content: '\f0d7';
+            font-family: FontAwesome;
+            position: absolute;
+            width: 100%;
+            /* height: 12px; */
+            color: #999;
+            font-size: 18px;
+            top: -19px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            z-index: 2;
+        }
+        .add-icon {
+            width: 100%;
+            height: 100%;
+            padding: 7px;
+            text-align: center;
+            vertical-align: middle;
+            position: relative;
+            box-shadow: inset 0px 0px 2px 0px #DDD;
+            .fa {
+                font-size: 28px;
+                color:#d7d7d7;
+            }
+        }
+    }
+}
+
+
+

@@ -1,0 +1,96 @@
+@import '../equipment-list/equipment-list.component';
+@import '../edit-equipment/edit-equipment.component';
+@import '../personnel-edit/personnel-edit.component';
+@import '../personal-list/personal-list.component';
+// @import '../project-budgeting/project-budgeting.component';
+@import '../../variables';
+.project-Budgeting,
+.project-financial {
+    .financialTable {
+        tbody,
+        tfoot {
+            tr {
+                td {
+                    vertical-align: middle;
+                    &:last-child {
+                        text-align: right;
+                        padding: 8px 20px 8px 8px;
+                    }
+                }
+                .actualamtText {
+                    background: #F9F7FE;
+                    h5 {
+                        color: $green-color !important;
+                        span {
+                            color: $green-color !important;
+                        }
+                    }
+                }
+            }
+        }
+        tfoot {
+            display: table;
+            table-layout: fixed;
+            width: 100%;
+            border-top:0 !important;
+            border:1px solid #d7d7d7;
+            background: #F9F7FE;
+            tr {
+                .actualamtText {
+                    background: #EFECFC;
+                }
+            }
+        }
+    }
+    .btn-book {
+        background: $yellow-color;
+        border: 1px solid $yellow-color;
+        color: $white-color;
+        border-radius: 4px;
+        padding: 4px 8px;
+        font-size: 12px;
+    }
+    .graphImg {
+        width:100%;
+    }
+    .project-financial-Graph {
+        h4.title {
+            padding: 0px;
+            color: #333;
+            background: #f0f0f0;
+            padding: 10px 15px;
+            font-size: 14px;
+            font-weight: 600;
+            border-bottom: 1px solid #d7d7d7;
+            margin: 0;
+        }
+        .graph-Div {
+            border-top:0 !important;
+            border:1px solid #d7d7d7;
+            padding: 10px;
+        }
+    }
+}
+
+.row {
+    margin-left: -10px;
+    margin-right: -10px;
+}
+.col-lg-4,
+.col-lg-6,
+.col-lg-8,
+.col-lg-12,
+.col-md-5,
+.col-xs-5,
+.col-xs-4,
+.col-md-6,
+.col-xs-6,
+.col-sm-4,
+.col-sm-3,
+.col-md-12,
+.col-xs-12,
+.col-xs-10,
+.col-md-1,
+.col-xs-1 {
+    padding: 0 8px;
+}

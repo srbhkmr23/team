@@ -1,0 +1,65 @@
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner>
+<div class="programme-scheduler-page equipment-list">
+    <div class="filter-header">
+        <div class="container-fluid pad-0">
+            <h1 class="title">{{'Program Scheduler' | translate}}</h1>
+            <!-- <span>Project 123</span> -->
+
+
+            <div class="filter">
+                <div class="filter-search">
+                    <input type="text" class="input-search" [(ngModel)]="searchText" placeholder="Search...">
+                    <i class="fa fa-search"></i>
+                    <a href="javascript:void(0)" class="ml-5" (click)="print()">
+                        <i class="fa fa-print"></i> {{'Print' | translate}}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="head-Content">
+        <form *ngIf="programForm" [formGroup]="programForm">
+            <div class="form-content">
+                <div class="row">
+
+                    <div class="col-xs-3">
+                        <div class="input-row ">
+                            <label>{{'Program' | translate}}</label>
+                            <select class="form-control" formControlName="program">
+                                <option [ngValue]="null">{{'Select Type' | translate}}</option>
+                                <option *ngFor="let program of programs | showProjectFilter:searchText:true" [ngValue]="program.id">{{program.title}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-xs-3">
+                        <div class="input-row">
+                            <label>{{'Date' | translate}}</label>
+                            <div>
+                                <p-calendar formControlName="date"></p-calendar>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-3">
+                        <div class="input-row ">
+                            <label>{{'Format' | translate}}</label>
+                            <select class="form-control" formControlName="format">
+                                <option [ngValue]="null">{{'Select Type' | translate}}</option>
+                                <option *ngFor="let format of formats" [ngValue]="format">{{format}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<daypilot-scheduler [config]="config" [events]="events" #scheduler></daypilot-scheduler>

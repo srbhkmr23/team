@@ -1,0 +1,802 @@
+<!--     Spinner component-->
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner>
+
+
+<app-create-show *ngIf="showEditProjectModal" (closeModalEvent)="closeModal($event)" [projectDetail]="projectDetail" [isApproved]="this.projectDetail.financialStatus==='Approved'"></app-create-show>
+<div class="edit-equipment project-Budgeting open-side-modal" *ngIf="projectDetail">
+
+    <div class="filter-header">
+        <div class="container-fluid pad-0">
+            <h1 class="title">{{'Show' | translate}}
+                <span>{{projectDetail.title}}</span>
+            </h1>
+            <div class="button-set">
+                <button class="btn btn-edit" (click)="showEditProjectModal=(!showEditProjectModal)"> {{'Edit' | translate}} </button>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="inner-content">
+        <div class="equipment-info-content">
+            <ul class="equipment-current-status">
+                <li [ngClass]="projectDetail.status=='In Progress'?'inProgress':projectDetail.status=='To Do' ||  projectDetail.status=='Archived'?'rejected':'approved'">
+                    <h5 class="name">{{projectDetail.status}}
+                        <span class="subName">{{'Project status' | translate}}</span>
+                    </h5>
+                </li>
+                <li [ngClass]="projectDetail.financialStatus=='Approved'?'approved':projectDetail.financialStatus=='Rejected'?'rejected':'inProgress'">
+                    <h5 class="name">{{projectDetail.financialStatus}}
+                        <span class="subName">{{'Financial status' | translate}}</span>
+                    </h5>
+                </li>
+                <li>
+                    <div class="team-name">
+                        <h5 class="name">{{projectDetail.nbSessions}}
+                            <span class="subName">{{'Session' | translate}}</span>
+                        </h5>
+                    </div>
+                </li>
+                <li>
+                    <div class="team-name">
+                        <h5 class="name">{{projectDetail.nbEpisodes}}
+                            <span class="subName">{{'Episode' | translate}}</span>
+                        </h5>
+                    </div>
+                </li>
+                <li>
+                    <h5 class="name">{{projectDetail.follower&&projectDetail.follower.firstName?projectDetail.follower.firstName:''}} {{projectDetail.follower&&projectDetail.follower.lastName?projectDetail.follower.lastName:''}}
+                        <span class="subName">{{'Managed By' | translate}}</span>
+                    </h5>
+                </li>
+                <li>
+                    <h5 class="name">{{'NRCS' | translate}}
+                        <span class="subName">{{'Origin' | translate}}</span>
+                    </h5>
+                </li>
+
+                <li>
+                    <h5 class="name">{{projectDetail.saleEntity?projectDetail.saleEntity.name:''}}
+                        <span class="subName">{{'Company' | translate}}</span>
+                    </h5>
+                </li>
+                <li>
+                    <h5 class="name">{{projectDetail.currency}}{{getCurrencySymbol(projectDetail.currency,'wide')}}
+                        <span class="subName">{{'Currency' | translate}}</span>
+                    </h5>
+                </li>
+                <li>
+                    <h5 class="name">{{projectDetail.language}}
+                        <span class="subName">{{'Language' | translate}}</span>
+                    </h5>
+                </li>
+                <!-- <li class="text-right">
+
+                    <div class="equipment-on">
+                        <img alt="" src="../../assets/img/lg-market-place.png">
+                        <label class="switch">
+                            <input type="checkbox" disabled [(ngModel)]="equipmentDetail.marketplace">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="equipment-on pull-left">
+                        <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                        <label class="switch">
+                            <input type="checkbox" disabled [(ngModel)]="equipmentDetail.available">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </li> -->
+            </ul>
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-12">
+
+                <!-- Info In Progress -->
+                <div class="col-lg-3 ">
+                    <!-- EQUIPMENT PANEL -->
+                    <div class="grid">
+                        <!-- <div class="grid-header">
+                            Basic info
+                        </div> -->
+                        <div class="grid-body">
+                            <ul class="equipment-info">
+                                <li >
+                                    <h5 class="name">{{projectDetail.season}}
+                                        <span class="subName">
+                                               
+                                        </span>
+                                    </h5>
+                                </li>
+                                <li *ngIf="projectDetail && projectDetail.company">
+                                        <h5 class="name">{{projectDetail.company.name}}
+                                            <span class="subName">{{primaryRecordContact}}</span>
+                                        </h5>
+                                    </li>
+                                <li>
+                                    <h5 class="name">{{'Accounting Number' | translate}} {{projectDetail.analyticAccountNumber}}
+                                        <span class="subName"></span>
+                                    </h5>
+                                </li>
+
+                                <li>
+                                    <div class="team-name">
+                                        <h5 class="name">{{'Duration' | translate}}:
+                                            <span>{{projectDetail.minuteDuration}}</span>
+                                            <span class="subName">
+                                                {{'Year' | translate}}:{{projectDetail.year}}</span>
+                                        </h5>
+                                    </div>
+                                </li>
+                                <li>
+                                    <h5 class="name">{{'Theme' | translate}}: <span [ngStyle]="{'background':projectDetail.theme}"> {{projectDetail.theme}} </span>
+                                        <span class="subName">{{projectDetail.country}}</span>
+                                    </h5>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Add Channel PANEL -->
+                <div class="col-lg-3">
+                    <div class="grid">
+                        <div class="grid-body">
+                            <div class="table-responsive">
+                                <table class="table common-Table">
+                                    <thead>
+                                        <tr>
+                                            <th>{{'Channels' | translate}}</th>
+                                            <th>{{'Format' | translate}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor=" let ch of projectDetail.channelFormat">
+                                            <td>{{ch.channel.name}}</td>
+                                            <td>{{ch.format}}</td>
+                                        </tr>
+                                      
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                  <!-- Contacts PANEL -->
+                  <div class="col-lg-3">
+                    <div class="grid">
+                        <div class="grid-body">
+                            <div class="table-responsive">
+                                <table class="table common-Table">
+                                    <thead>
+                                        <tr>
+                                            <th>{{'Contacts' | translate}}</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngIf="projectDetail">
+
+                                            <tr *ngFor="let contact of projectDetail.recordContacts">
+                                                <td>
+                                                    <h5 class="name">{{contact.firstName}} {{contact.lastName}}
+                                                        <span class="subName">{{contact.jobTitle}}</span>
+                                                        <a href="javascript:void(0);" class="contactLink">
+                                                            <i class="fa fa-ellipsis-h"></i>
+                                                        </a>
+                                                    </h5>
+                                                </td>
+                                            </tr>
+                                        <!-- <tr *ngFor="let contact of projectDetail.recordContacts">
+                                            <td>
+                                                <h5 class="name">{{contact.firstName}} {{contact.lastName}}
+                                                    <span class="subName">{{contact.jobTitle}}</span>
+                                                    <a href="javascript:void(0);" class="contactLink">
+                                                        <i class="fa fa-ellipsis-h"></i>
+                                                    </a>
+                                                </h5>
+                                            </td>
+                                        </tr> -->
+                                        <!-- <tr>
+                                            <td>
+                                                <h5 class="name">Ian Smith
+                                                    <span class="subName">Postprod Supervisor</span>
+                                                    <a href="javascript:void(0);" class="contactLink"><i class="fa fa-ellipsis-h"></i></a>
+                                                </h5>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h5 class="name">Susan Leight
+                                                    <span class="subName">Executive Producer</span>
+                                                    <a href="javascript:void(0);" class="contactLink"><i class="fa fa-ellipsis-h"></i></a>
+                                                </h5>
+                                            </td>
+                                        </tr> -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add Milestone PANEL -->
+                <div class="col-lg-3">
+                    <div class="text-center" style="max-width: 400px; height: 200px;">
+                        <img class="" [src]="projectDetail.document && projectDetail.document.url ? projectDetail.document.url : '../../assets/img/image_icon.png'" style="width:100%;height:100%;">
+                    </div>
+                </div>
+
+              
+
+                <!-- BOOKING DETAILS -->
+                <div class="col-lg-12 col-md-12">
+                    <div class="grid bookingTable">
+                        <div class="grid-body">
+                            <div class="table-responsive">
+                                <table class="table text-center">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="7">
+                                                <span class="pull-left" style="position:relative;top:5px;">{{'Booking Items' | translate}} </span>
+                                                <div class="filter">
+
+                                                    <div class="filter-search">
+                                                        <input type="text" [(ngModel)]="searchText" class="input-search" placeholder="Search...">
+                                                        <i class="fa fa-search"></i>
+                                                    </div>
+                                                </div>
+                                                <a title="Add Lines" href="javscript:void(0)" class="addCatalog-tag" *ngIf="!bookingExist" (click)="showAddLineModalView();isEditLineModalOpen=false">
+                                                    <i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+                                                </a>
+                                                <a href="javscript:void(0)" title="Create Template" class="template-tag">
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                </a>
+                                                <a href="javascript:void(0);" class="btn btn-first btn-book ripple"  (click)="createSession()" *ngIf="!bookingExist" [ngStyle]="{'background':projectDetail.financialStatus!='Approved'?'#666':''}">{{'Create Project' | translate}}</a>
+                                                <a href="javascript:void(0);" class="btn btn-first btn-book ripple"  (click)="createAllSessions()" *ngIf="!bookingExist" [ngStyle]="{'background':projectDetail.financialStatus!='Approved'?'#666':''}">{{'Create All Projects' | translate}}</a>
+                                                <!-- <a class="pull-right mt-4" href="javascript:void(0)"><i class="fa fa-calendar pull-right"></i></a> -->
+                                                
+                                                <button class="btn btn-edit" (click)="saveProject()" [disabled]="bookingExist" > {{'Save Lines' | translate}} </button>
+                                            </th>
+                                            <th class="text-center">
+                                                    <h5 class="name">{{'Comment' | translate}}
+                                                        <span class="subName"></span>
+                                                    </h5>
+                                                </th>
+                                            <th class="text-center">
+                                                <h5 class="name">{{getCurrencySymbol(projectDetail.currency,'wide')}}{{projectDetail.totalPriceIVAT}}
+                                                    <span class="subName">{{'Total Rate' | translate}}</span>
+                                                </h5>
+                                            </th>
+                                            <th>&nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let line of projectDetail.lines|lineSearch:searchText,let i of index" [ngStyle]="{'background':selectedLine? (selectedLine.id===line.id ? '#c5e8ec' : ''):line.disabled? '#f4d7d7' :'' }" >
+                                            <td class="text-left">
+                                                <h5 class="name">{{line.function && line.function.parent? line.function.parent.value:''}}
+                                                    <span class="subName">{{line.function?line.function.value:''}}</span>
+                                                </h5>
+                                            </td>
+                                            <td>
+                                                <div class="dropdown-parent">
+                                                    <a href="javascript:void(0);" class="numOfRate availableBtn" *ngIf="line.id" [ngStyle]="{'background':!line.defaultResource?'#009933':''}">
+                                                        <span (click)="goToSchedule(line.id)">{{line.resource && !line.defaultResource?line.resource.name:'Pre-Assign:'}} {{!line.defaultResource?'':line.availableResources?line.availableResources.length:0}}</span>
+                                                        <i class="fa fa-caret-down" (click)="showAvailableResources=i;show=!show" *ngIf="line.defaultResource && !bookingExist"></i>
+                                                    </a>
+
+                                                    <div class="dropdown-panel" *ngIf="(showAvailableResources==i) && show && line.availableResources">
+                                                        <div class="arrow"></div>
+                                                        <h4 class="title">{{'Resource' | translate}}</h4>
+                                                        <ul>
+                                                            <li *ngFor="let resource of line.availableResources">
+                                                                {{resource.name}}
+                                                                <button class="btn btn-xs" (click)="addResourceToLine(line,resource)" [disabled]="line.disabled">{{'Set' | translate}}</button>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <h5 class="name" >{{ line.from | date:"MM/dd/yy"}}
+                                                    <span class="subName">{{line.from| date:"shortTime"}}</span>
+                                                </h5>
+                                            </td>
+                                            <td>
+                                                <h5 class="name" *ngIf="line.to">{{ line.to| date:"MM/dd/yy"}}
+                                                    <span class="subName">{{line.to| date:"shortTime"}}</span>
+                                                </h5>
+                                            </td>
+                                            <td class="text-center">
+                                                <h5 class="name">{{line.occurrenceCount}}
+                                                    <span class="subName">{{'Qty' | translate}}</span>
+                                                </h5>
+                                            </td>
+                                            <td class="text-center">
+                                                <h5 class="name">{{line.totalLocalCost}}
+                                                    <span class="subName">{{line.unitPriceBasis ? line.unitPriceBasis : 'Day'}}</span>
+                                                </h5>
+                                            </td>
+                                            <td class="text-center">
+                                                <h5 class="name">{{line.extraCost}}
+                                                    <span class="subName">{{'Extra Cost' | translate}}</span>
+                                                </h5>
+                                            </td>
+                                            <td class="text-center">
+                                                <h5 class="name">
+                                                    <input type="text" style="border:0px;" [(ngModel)]="line.comment" placeholder="Put your comment here...">
+                                                </h5>
+                                            </td>
+                                            
+                                            <td>
+                                                <h5 class="name">{{getCurrencySymbol(projectDetail.currency,'wide')}}{{line.totalPriceWithOccurenceCount}}
+                                                    <span class="subName">{{getCurrencySymbol(projectDetail.currency,'wide')}} {{line.totalCostWithOccurenceCount}}</span>
+                                                </h5>
+                                            </td>
+                                            <td>
+
+                                                <a href="javascript:void(0);" class="ml-10" (click)="showLineEditModal(line)">
+                                                    <i class="fa fa-pencil-square-o"></i>
+                                                </a>
+                                            </td>
+
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DESCRIPTION PANEL -->
+                <div class="col-lg-4 col-md-12">
+                    <div class="grid">
+                        <div class="grid-header">{{'Description' | translate}}</div>
+                        <div class="grid-body">
+                            <textarea class="form-control" name="" id="" cols="30" rows="5" readonly placeholder="Description">{{projectDetail.information?projectDetail.information.comment:''}}</textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ATTACHMENT PANEL -->
+                <div class="col-lg-4 col-md-12">
+                    <div class="grid">
+                        <div class="grid-body">
+                            <div class="table-responsive">
+                                <table class="table common-Table">
+                                    <thead>
+                                        <tr>
+                                            <th>{{'Attachments' | translate}}
+                                                <!-- <i class="fa fa-paperclip"></i>
+                                                <a class="pull-right" href="javascript:void(0)" style="height: 0;font-size: 18px;line-height: 1.2;">
+                                                    <i class="fa fa-plus-circle"></i>
+                                                </a> -->
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngIf="projectDetail && projectDetail.attachments">
+                                        <tr *ngFor="let attachment of projectDetail.attachments">
+                                            <td>
+                                                <div class="loaded-attachment">
+                                                    <a href="{{attachment.url}}">
+                                                        <img [src]="attachment.extension==='pdf'?'../../assets/img/pdf_logo.jpg':'../../assets/img/image_icon.png'" alt="">{{attachment.type}}</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Modal Start -->
+    <div class="side-modal " *ngIf="isEditLineModalOpen || showAddLineModal" >
+            <!-- [ngStyle]="{'max-height':innerHeight}" style="overflow: auto;" -->
+        <div class="side-modal-inner" [ngStyle]="{'max-height':innerHeight}">
+    <!-- 1 ADD FUNCTION -->
+    <div class="add-resuorce-div " [ngClass]="!showAddLineModal?'hide':''">
+        <div class="text-header">
+                <h4 class="title">{{'Function Catalog' | translate}}
+                    <a href="javascript:void(0)" class="close pull-right" (click)="showAddLineModal=false">&times;</a>
+                </h4>
+            </div>
+            <div class="inner-content" style="max-height: calc(100vh - 120px);overflow-y: auto;">
+                <form [formGroup]="addLineForm">
+                    <div class="body-content" formGroupName="resource">
+                        <!-- Planning Div -->
+                        <div class="">
+                                <!-- <h4 class="title">Planning</h4> -->
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <div class="form-group">
+                                            <label>{{'Start Date' | translate}}</label>
+                                            <div style="display: flex;">
+                                                <p-calendar [showIcon]="true" [maxDate]="this.addLineForm.get('resource').get('to').value" formControlName="from" [showTime]="true"></p-calendar>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="form-group">
+                                            <label>{{'Due Date' | translate}}</label>
+                                            <p-calendar [showIcon]="true" [minDate]="this.addLineForm.get('resource').get('from').value"  formControlName="to" [showTime]="true" ></p-calendar>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- Planning Div -->
+                            <div class="form-group">
+                                    <label>{{'Resource' | translate}}</label>
+                                    <select class="form-control" formControlName="selectedResourceType">
+                                        <option [ngValue]="resourceType" *ngFor="let resourceType of resourceTypes">{{resourceType}}</option>
+                                    </select>
+                            </div>
+                            <div class="list-content">
+                                    <div class="filter">
+                                        <div class="filter-search">
+                                            <input type="text" class="input-search" placeholder="Search..." formControlName="searchBy">
+                                            <i class="fa fa-search"></i>
+                                        </div>
+                                    </div>
+                                    <ul class="resource-list" formArrayName="qtyOnFunction">
+                                
+                                            <div *ngIf="addLineForm.get('resource').get('selectedResourceType').value != 'Template'">
+                                                    <li *ngFor="let resource of resourceList|functionFilter:addLineForm.get('resource').get('searchBy').value; let i=index"  [formGroupName]="i">
+                                                        {{resource.qualifiedName}}
+                
+                                                        <div class="incDes-Quantity">
+                                                            <i class="fa fa-minus" (click)="decreaeseQtyOnFunction(i)"></i>
+                                                            <input type="number"  min="1" max="99" oninput="validity.valid||(value='')" #item (keypress)="onlyNumber(event,item.value)" class="form-control" formControlName="qty"/>
+                                                            <i class="fa fa-plus" (click)="increaseQtyOnFunction(i)"></i>
+                                                        </div>
+                
+                                                        <a href="javascript:void(0)" class="link" (click)="addLine(resource,i)">+ {{'Add' | translate}}</a>
+                                                    </li>
+                                            </div>
+                                            <div *ngIf="addLineForm.get('resource').get('selectedResourceType').value == 'Template'">
+                                                    <li *ngFor="let resource of resourceList |templateFilter:addLineForm.get('resource').get('searchBy').value;">
+                                                        {{resource.title}}
+                
+                                                        <!-- <div class="incDes-Quantity">
+                                                                <i class="fa fa-minus" (click)="decreaeseQtyOnFunction(i)"></i>
+                                                                <input type="number"  min=1 class="form-control" formControlName="qty"/>
+                                                                <i class="fa fa-plus" (click)="increaseQtyOnFunction(i)"></i>
+                                                            </div> -->
+                    
+                                                            <a href="javascript:void(0)" class="link" (click)="addTemplate(resource)">+ {{'Add' | translate}}</a>
+                                                    </li>
+                                            </div>
+                                    </ul>
+                            </div>
+                                
+                    </div>
+                </form>
+    </div>
+        </div>
+
+            <!--2 EDIT RATING  -->
+            <div class="edit-resources-div " *ngIf="selectedLine" [ngClass]="showAddLineModal?'hide':''">
+                <div class="text-header">
+                        <h4 class="title">{{selectedLine.function.qualifiedName}}
+                            <a href="javascript:void(0)" class="close pull-right" (click)="closeEditLineModal()">&times;</a>
+
+                            <div class="source-on">
+                                    {{'Deactivate' | translate}}
+                                <label class="switch">
+                                <input type="checkbox" [(ngModel)]="selectedLine.disabled" (onChange)="selectedLine.active= !selectedLine.disabled">
+                                <span class="slider round"></span>
+                            </label>
+                            </div>
+                        </h4>
+                    </div>
+                    <!--Scrolling Content-->
+                    <div class="inner-content" style="max-height: calc(100vh - 120px);overflow-y: auto;">
+                        <fieldset [disabled]="selectedLine.disabled || bookingExist">
+                            <form [formGroup]="editLineForm" >
+                                <div class="body-content">
+
+                                    <!-- Planning Div -->
+                                    <div class="form-content">
+                                        <!-- <h4 class="title">Planning</h4> -->
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="form-group">
+                                                    <label>{{'Comment' | translate}}</label>
+                                                    <textarea class="form-control" rows="10" style="height: 100px;" placeholder="Description" formControlName="description"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="form-group">
+                                                    <label>{{'Start Date' | translate}}</label>
+                                                    <div style="display: flex;">
+                                                        <p-calendar [showIcon]="true" formControlName="from" [disabled]="manualUpdate" [maxDate]="this.editLineForm.get('to').value" [showTime]="true"></p-calendar>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="form-group">
+                                                    <label>{{'Due Date' | translate}}</label>
+                                                    <p-calendar [showIcon]="true" formControlName="to" [minDate]="this.editLineForm.get('from').value" [showTime]="true" (onClose)="getDaysDiff()"></p-calendar>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12">
+                                                <div class="form-group">
+                                                    <button class="btn btn-first apply-booking-btn" type="button" [disabled]="manualUpdate" (click)="applyBookingDateToAllLines()">{{'Apply date to all booking' | translate}}</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Sale Div -->
+                                    <div class="form-content">
+
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <div class="form-group">
+                                                    <label>{{'Quantity' | translate}}</label>
+                                                    <input type="number" class="form-control" formControlName="occurrenceCount" placeholder="Quantity" />
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-3">
+                                                <div class="form-group">
+                                                    <label>{{'Rate Card' | translate}}</label>
+                                                    <select name="" id="" class="form-control" formControlName="rateCard">
+                                                        <option value="0">{{'None' | translate}}</option>
+                                                        <option [ngValue]="rate.id" *ngFor="let rate of rateOnSlectedFunction">{{rate.label}}</option>
+
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <div class="form-group">
+                                                    <label>{{'Basis' | translate}}</label>
+                                                    <select class="form-control" formControlName="basis">
+                                                        
+                                                        <option  *ngFor="let b of dropdownData.unitBasis" [ngValue]="b">{{b}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <div class="form-group">
+                                                    <label>{{'Currency' | translate}}</label>
+                                                    <select class="form-control" formControlName="currency">
+                                                        
+                                                        <option  *ngFor="let currency of dropdownData.currencyList" [ngValue]="currency.defaultCurrency && !editLineForm.get('currency').value?null:currency.code">{{currency.code}}</option>
+
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12 text-center">
+                                                <div class="equipment-on">
+                                                    <label class="switch">
+                                                        <input  formControlName="synQty" type="checkbox" ng-reflect-is-disabled="" ng-reflect-model="false"
+                                                            class="ng-untouched ng-pristine">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                    <span class="text">{{'Manual Update' | translate}}</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12">
+                                                <div class="row">
+                                                    <div class="col-xs-6">
+                                                        <h4 class="title-4">Sale</h4>
+                                                        <div class="row">
+                                                            <div class="col-xs-6">
+                                                                <label for="">{{'Billable Quantity' | translate}}</label>
+
+                                                                <input type="number" min=1 class="form-control" formControlName="qtySoldPerOc" [readonly]="!manualUpdate">
+                                                            </div>
+                                                            <div class="col-xs-6">
+                                                                <label for="">{{'Price' | translate}}</label>
+
+                                                                <input type="number" class="form-control" formControlName="unitPrice" [readonly]="!manualUpdate">
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <h4 class="title-4">{{'Cost' | translate}}</h4>
+                                                        <div class="row">
+                                                            <div class="col-xs-6">
+                                                                <label for="">{{'Bookable Quantity' | translate}}</label>
+
+                                                                <input type="number" class="form-control" formControlName="qtyUsedPerOc" [readonly]="!manualUpdate">
+                                                            </div>
+                                                            <div class="col-xs-6">
+                                                                <label for="">{{'Cost' | translate}}</label>
+
+                                                                <input type="number" class="form-control" formControlName="unitCost" [readonly]="!manualUpdate">
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                                <!-- extra Div -->
+                                <div class="form-content" style="padding: 0 15px;">
+                                    <!-- <h4 class="title"></h4> -->
+                                    <div class="row">
+
+                                        <div class="col-xs-12">
+                                            <p>
+                                                <a href="javascript:void(0)" (click)="addExtra(null)">+{{'Add Extra' | translate}}</a>
+                                            </p>
+
+                                            <div class="table-responsive extras-table" style="max-height: 350px;">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <td style="background: #fff;">&nbsp;</td>
+                                                            <td>{{'Extra Designation' | translate}}</td>
+                                                            <td>{{'Extra price' | translate}}</td>
+                                                            <td style="background: #fff;border:0;">&nbsp;</td>
+                                                            <td>{{'Extra cost' | translate}}</td>
+
+                                                            <td>&nbsp;</td>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody formArrayName="extras">
+                                                        <tr *ngFor="let phone of extrasForm.controls; let i=index" [formGroupName]="i">
+                                                            <td>&nbsp;</td>
+                                                            <td>
+                                                                <input class="form-control" type="text" formControlName="label" />
+                                                            </td>
+                                                            <td>
+                                                                <input class="form-control" type="number" formControlName="price" />
+                                                            </td>
+                                                            <td style="background: #fff;border:0;">&nbsp;</td>
+
+                                                            <td>
+                                                                <input class="form-control" type="number" formControlName="cost" />
+                                                            </td>
+
+                                                            <td>
+                                                                <a href="javascript:void(0);" class="deleteIco" styyle="font-size: 25px;" (click)="deleteExtra(i)">
+                                                                    <i class="fa fa-trash"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="6"></td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td colspan="6"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-right">{{'Discount' | translate}}</td>
+                                                            <td>
+                                                                <input class="form-control" type="number" formControlName="discountRate">
+
+                                                            </td>
+                                                            <td>
+                                                                <input class="form-control" type="number" formControlName="discountAmount" readonly>
+
+                                                            </td>
+                                                            <td style="background: #fff;border:0;">&nbsp;</td>
+                                                            <td style="background: #fff;border:0;">&nbsp;</td>
+
+                                                            <!-- <td>Unit price</td>
+                                                        <td>Percent price</td> -->
+                                                            <td>&nbsp;</td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-right">{{'Tax' | translate}}</td>
+                                                            <td>
+                                                                <input class="form-control" type="number" formControlName="vatRate">
+
+                                                            </td>
+                                                            <td>
+                                                                <input class="form-control" type="number" formControlName="vatAmount" readonly>
+
+                                                            </td>
+                                                            <td style="background: #fff;border:0;">&nbsp;</td>
+                                                            <td style="background: #fff;border:0;">&nbsp;</td>
+
+                                                            <!-- <td>Unit price</td>
+                                                        <td>Percent price</td> -->
+                                                            <td>&nbsp;</td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="2" class="text-right"><h5 class="name">{{'Price per Unit' | translate}}
+                                                                <span class="subName">({{'Including discount' | translate}})</span>
+                                                            </h5></td>
+                                                            <td>
+
+                                                                <input class="form-control" type="text" formControlName="totalLocalPrice" readonly>
+
+                                                            </td>
+                                                            <td style="background: #fff;border:0;"></td>
+                                                            <td> <input class="form-control" type="text" formControlName="totalLocalCost" readonly></td>
+
+                                                            <!-- <td>Unit price</td>
+                                                        <td>Percent price</td> -->
+                                                            <td>&nbsp;</td>
+
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td colspan="2" class="text-right"><h5 class="name">{{'Total price' | translate}}({{'Price per Unit X' | translate}} {{selectedLine.occurrenceCount}})
+                                                                <span class="subName">({{'Including discount' | translate}})</span>
+                                                            </h5></td>
+                                                            <td>
+                                                                <input class="form-control" type="text" formControlName="totalWithQuantity" readonly>
+
+                                                            </td>
+                                                            <td style="background: #fff;border:0;">&nbsp;</td>
+                                                            <td>
+                                                                <input class="form-control" type="text" formControlName="totalLocalCostWithQuantity" readonly>
+                                                            </td>
+
+                                                            <!-- <td>Unit price</td>
+                                                            <td>Percent price</td> -->
+                                                            <td>&nbsp;</td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="2" class="text-right"><h5 class="name">{{'Grand Total' | translate}}
+                                                                <span class="subName">({{'Including discount and taxes' | translate}})</span>
+                                                            </h5></td>
+                                                            <td>
+                                                                <input class="form-control" type="text" formControlName="totalWithVat" readonly>
+
+                                                            </td>
+                                                            <td style="background: #fff;border:0;">&nbsp;</td>
+                                                            <td style="background: #fff;border:0;">&nbsp;</td>
+
+                                                            <!-- <td>Unit price</td>
+                                                                <td>Percent price</td> -->
+                                                            <td>&nbsp;</td>
+
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </fieldset>
+                    </div><!--Scrolling Content-->
+
+                    <div class="form-content">
+                        <div class="row">
+                            <div class="col-xs-12 ">
+                                <div class="form-group text-center">
+                                    <button class="btn btn-danger ripple" type="button" (click)="removeLine(selectedLine)" *ngIf="!bookingExist">{{'Delete' | translate}}</button>
+                                    <button class="btn btn-first  ripple" type="button" (click)="saveLine()" *ngIf="!bookingExist"  >{{'Save' | translate}}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+</div>

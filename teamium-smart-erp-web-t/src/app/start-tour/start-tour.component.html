@@ -1,0 +1,18 @@
+<!-- START THE TOUR PAGE -->
+<div class="start-tour" (window:resize)="onResize($event)" [style.minHeight.px]="myInnerHeight">
+    <div class="inner-page">
+        <h3 class="title3">{{"Let's Start" | translate}}</h3>
+
+        <div class="page-logo">
+            <img src="assets/img/lg-signin-icon-white.png" alt="" class="logo1">
+            <img src="assets/img/Teamium-white.png" alt="" class="logo2">
+            <p>PRODUCTION PLATFORM</p>
+        </div>
+
+        <div class="basic-form-footer">
+            <button class="btn btn-first btn-lg mb-15" type="button" (click)="goToWelcomeScreen()">{{'Start the tour' | translate}}</button>
+
+        </div>
+    </div>
+
+</div>

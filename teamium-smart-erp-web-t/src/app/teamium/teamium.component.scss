@@ -1,0 +1,92 @@
+@import '../../variables';
+.dashboard {
+    padding-left: 220px;
+}
+
+.sub-header {
+    background-color: $third-color;
+    padding: 5px 5px 5px 0px;
+    // box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    .control-icons {
+        display: inline-block;
+        float: right;
+        padding-left: 0;
+        list-style: none;
+        margin-bottom: 0;
+        padding: 0 10px;
+        height: 100%;
+        li {
+            display: inline-block;
+            height: 100%;
+            a {
+                color: $white-color;
+                min-width: 28px;
+                height: 28px;
+                background: $first-color;
+                text-align: center;
+                line-height: 28px;
+                border-radius: 3px;
+                box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+                display: inline-block;
+                padding: 0 10px;
+                margin-top: 7px;
+                text-decoration: none;
+            }
+            &+li {
+                margin-left: 10px;
+            }
+            &.calendar-li {
+                .fa {
+                    font-size: 22px;
+                    top: 5px;
+                    position: relative;
+                    color: $first-color;
+                }
+                .inputStyle {
+                    border: 0;
+                    margin-left: 10px;
+                    background: transparent;
+                    border-bottom: 1px solid $first-color;
+                    color: $first-color;
+                    width: 120px;
+                    &:focus {
+                        outline: 0;
+                        box-shadow: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.breadcrumb {
+    padding: 10px 15px;
+    margin-bottom: 0px;
+    list-style: none;
+    border-radius: 0;
+    background: $transparent;
+    display: inline-block;
+    &>li {
+        color: $first-color;
+        a {
+            color: $first-color;
+        }
+        &+li {
+            &:before {
+                color: $first-color;
+            }
+        }
+    }
+}
+
+.page-content {
+    padding: 10px 15px;
+}
+
+.dashboard-pages-content {
+    background: $white-color;
+    padding: 15px;
+    margin-top: 60px;
+    border: 1px solid $lite-color;
+}

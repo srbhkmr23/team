@@ -1,0 +1,247 @@
+@import '../edit-equipment/edit-equipment.component';
+@import '../equipment-list/equipment-list.component';
+@import '../../variables';
+.dashboard {
+    .filter-search {
+        .inputStyle {
+            border: 0px solid #999;
+            outline: 0;
+            width: 100px;
+            height: 34px;
+            margin-right: 15px;
+            border-bottom: 1px solid #2f6f98;
+            &:focus {
+                outline: 0;
+                box-shadow: none;
+            }
+        }
+        .fa-calendar {
+            color: $first-color;
+            font-size: 21px;
+            margin-right: 6px;
+            position: relative;
+            top: 10px;
+        }
+        .btn-apply {
+            border-radius: 20px;
+            padding: 6px 15px;
+            &:focus {
+                outline: 0;
+            }
+        }
+    }
+    .dashboard-pages-content {
+        padding: 0 15px;
+        .card {
+            border: 1px solid #d1d1d1;
+            border-radius: 4px;
+            box-shadow: 0 6px 10px -4px rgba(0,0,0,.15);
+            background-color: #fff;
+            color: #252422;
+            margin-bottom: 16px;
+            position: relative;
+            transition: transform .3s cubic-bezier(.34,2,.6,1),box-shadow .2s ease;
+            .card-head {
+                color: #1e92a8;
+                padding: 4px 10px;
+                font-size: 18px;
+                line-height: 1.6em;
+                min-height: 40px;
+                background: #f0f0f0;
+                border-bottom: 1px solid #ddd;
+                a {
+                    color: #1e92a8;
+                    text-decoration: none;
+                    &:hover {
+                        color: #007ad9;
+                    }
+                }
+            }
+            .card-body {
+                padding: 10px 10px;
+                .graph-Div {
+                    text-align: center;
+                    img {
+                        width: 100%;
+                        max-width:248px;
+                    }
+                    .doughnut-legend{
+                        list-style: none;
+                        margin:0;
+                        padding-left:0;
+                        text-align: center;
+                        li {
+                            display: inline-block;
+                            font-size: 11px;
+                            margin-top: 10px;
+                            margin-right: 20px;
+                            span {
+                                display: inline-block;
+                                width: 8px;
+                                height: 8px;
+                                margin-right: 3px;
+                                border-radius: 20px;
+                            }
+                            &:last-child {
+                                margin-right: 0px;
+                            }
+                        }
+                    }
+                }
+                .countDown {
+                    list-style: none;
+                    margin:0;
+                    margin-bottom: 15px;
+                    padding-left:0;
+                    text-align: center;
+                    li {
+                        display: inline-block;
+                        min-width: 75px;
+                        padding: 10px 12px;
+                        border-radius: 4px;
+                        font-size: 20px;
+                        margin-top: 10px;
+                        margin-right: 8px;
+                        color: #fff;
+                        &:last-child {
+                            margin-right: 0px !important;
+                        }
+                    }
+                }
+                .avgAmt {
+                    color:#6f777a;
+                    font-size: 28px;
+                    font-weight: 600;
+                    text-align: right;
+                }
+                .lastMonthAvg {
+                    text-align: right;
+                    margin: 0;
+                    color:#6f777a;
+                    font-size: 13px;
+                    font-weight: 600;
+                }
+                h4.titleText{
+                    color: #1e92a8;
+                    font-size: 18px;
+                    line-height: 1.4em;
+                }
+            }
+        }
+        .common-card {
+            min-height: 400px;
+        }
+        .row {
+            margin-left: -10px;
+            margin-right: -10px;
+        }
+        .col-md-5,
+        .col-xs-5,
+        .col-xs-4,
+        .col-md-6,
+        .col-xs-6,
+        .col-md-3,
+        .col-md-4,
+        .col-md-6,
+        .col-md-12,
+        .col-xs-12,
+        .col-xs-10,
+        .col-md-1,
+        .col-xs-1 {
+            padding: 0 8px;
+        }
+    }
+
+    // ===== Show Data Modal ===== //
+    .showDataModal {
+        .modal {
+            .modal-content {
+                .modal-header {
+                    background: #2f6f98;
+                    border-radius: 5px 5px 0px 0px;
+                    padding: 10px 15px;
+                    color: #fff;
+                }
+                .modal-body {
+                    .mb-20 {
+                        margin-bottom: 20px;
+                    }
+                    .btn-exl {
+                        //border-radius: 20px;
+                        padding: 5px 15px;
+                        &:focus {
+                            outline: 0;
+                        }
+                    }
+                    .projectStatus-Sec {
+                        max-height: calc(100vh - 250px);
+                        overflow: auto;
+                        // max-height: 250px;
+                        // overflow-y: auto;
+                        .table {
+                            thead {
+                                tr {
+                                    th {
+                                        background: #eeeeee;
+                                        vertical-align: middle;
+                                        font-size: 12px;
+                                    }
+                                }
+                            }
+                            tbody {
+                                tr {
+                                    td {
+                                        vertical-align: middle;
+                                        font-size: 12px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.pt-5 {
+    padding-top: 5px !important;
+}
+
+.signatureData {
+    .signApproved {
+        .fa-check {
+            color:#5de859;
+            font-size: 20px;
+        }
+    }
+    /*.signUnApproved {
+        .fa-check {
+            color:#ff4452;
+            font-size: 20px;
+        }
+    }*/
+}
+
+//=====media Query=====//
+@media (min-width: 481px) and (max-width: 1500px) {
+    .common-card {
+        min-height: 410px !important;
+    }  
+    .countDown {
+        li {
+            min-width: 60px !important;
+            padding: 8px 6px !important;
+            font-size: 14px !important;
+            margin-right: 8px !important;
+        }
+    }
+    .avgAmt {
+        font-size: 23px !important;
+    }
+    .bookingBtn{
+        color: red;
+    }
+}
+
+

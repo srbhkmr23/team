@@ -1,0 +1,25 @@
+@import '../equipment-list/equipment-list.component';
+@import '../edit-equipment/edit-equipment.component';
+@import '../personnel-edit/personnel-edit.component';
+@import '../dashboard/dashboard.component';
+@import '../vendor-bidding/vendor-bidding.component';
+@import '../user-dashboard/user-dashboard.component';
+@import '../../variables';
+
+.personal-expenses {
+    .width-55 {
+        width:55px;
+    }
+    .width-40 {
+        width:40px;
+    }
+    .bold {
+        font-weight: 600;
+    }
+    .greenText {
+        color:#0e8303;
+    }
+    .yellowText {
+        color:#feae1b;
+    }
+}

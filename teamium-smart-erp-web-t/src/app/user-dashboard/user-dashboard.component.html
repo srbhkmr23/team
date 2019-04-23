@@ -1,0 +1,775 @@
+<!-- <app-not-found-page [message]='bookingNotExistMessage'></app-not-found-page> -->
+
+
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner>
+<div class="edit-equipment project-Budgeting project-procurement vendor-bidding dashboard user-dashboard open-side-modal">
+
+    <div class="filter-header">
+        <div class="container-fluid pad-0">
+            <h1 class="title">{{'Dashboard' | translate}}
+                <span>June 18</span>
+            </h1>
+            <div class="filter">
+                <div class="filter-search">
+                    <!-- <i class="fa fa-calendar"></i>
+                    <input type="text" class="inputStyle" placeholder="From">
+                    <input type="text" class="inputStyle" placeholder="To"> -->
+                    <div class="dateFilter-auto">
+                        <div class="dateInputdiv">
+                            <label>{{'From' | translate}}</label>
+                            <p-calendar [showIcon]="true" [showTime]="false" class="inputStyle"></p-calendar>
+                        </div>
+                        <div class="dateInputdiv">
+                            <label>To</label>
+                            <p-calendar [showIcon]="true" [showTime]="false" class="inputStyle"></p-calendar>
+                        </div>
+                    </div>
+
+                    <a href="javascript:void(0)" class="ml-5">
+                        <i class="fa fa-refresh"></i> {{'Reset' | translate}}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="inner-content">
+
+        <div class="row">
+            <!-- Group Booking DETAILS -->
+            <div class="col-md-6">
+                <div class="grid">
+                    <div class="grid-body">
+                        <div class="table-responsive">
+                            <table class="table text-center vBiddingTable common-Table">
+                                <thead>
+                                    <tr>
+                                        <th colspan="4">
+                                            <span>{{'Group Booking' | translate}}</span>
+                                        </th>
+                                        <th colspan="2">
+                                            <div class="filter-search pull-right">
+                                                <input type="text" [(ngModel)]="searchTextGroupBooking" class="input-search bg-grey" placeholder="Search...">
+                                                <i class="fa fa-search"></i>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let booking of userBookingsByGroups|lineSearch:searchTextGroupBooking;let i of index" >
+                                        <td class="text-left">
+                                            <h5 class="name">{{'Task' | translate}}  {{booking.id}} </h5>
+                                        </td>
+                                        <td class="text-center">
+                                            <a  class="projectId">{{booking.group.name}}</a>
+
+                                        </td>
+                                        <td>
+                                            <h5 class="name">{{booking.function.qualifiedName}}
+                                                <span class="subName">{{booking.event?booking.event.text:''}}</span>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <h5 class="name" >{{ booking.from | date:"dd/MM/yyyy"}}
+                                                <span class="subName">{{booking.from| date:"shortTime"}}</span>
+                                            </h5>
+                                         </td>
+                                        <td>
+                                            <h5 class="name" *ngIf="booking.to">{{ booking.to| date:"dd/MM/yyyy"}}
+                                                <span class="subName">{{booking.to| date:"shortTime"}}</span>
+                                            </h5>
+                                        </td><td class="text-center">
+                                            <button type="button" class="btn btn-first btn-assign ripple" (click)="addResourceToLine(booking)">{{'Assign To Me' | translate}}</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Assign to me DETAILS -->
+            <div class="col-md-6">
+                <div class="grid">
+                    <div class="grid-body">
+                        <div class="table-responsive">
+                            <table class="table text-center vBiddingTable common-Table">
+                                <thead>
+                                    <tr>
+                                        <th colspan="4">
+                                            <span>{{'Assigned to me' | translate}}</span>
+                                        </th>
+                                        <th colspan="2">
+                                            <div class="filter-search pull-right">
+                                                <input type="text" [(ngModel)]="searchTextMyBookings" class="input-search bg-grey " placeholder="Search...">
+                                                <i class="fa fa-search"></i>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody >
+                                    <tr *ngFor="let myBooking of loggedInUserBookings|lineSearch:searchTextMyBookings">
+                                        <td class="text-left">
+                                            <h5 class="name">{{'Task' | translate}} {{myBooking.id}}</h5>
+                                        </td>
+                                        <td>
+                                            <h5 class="name">{{myBooking.function.qualifiedName}}
+                                                <span class="subName">{{myBooking.event?myBooking.event.text:''}}</span>
+                                            </h5>
+                                        </td>
+
+                                        <td>
+                                            <!-- <div class="timestamp">
+                                                <i class="fa fa-clock-o" [ngClass]="myBooking.userStartTime?'green':'grey'" aria-hidden="true" (click)="startOrEndUserBookingTime(myBooking,true)" [title]="myBooking.userStartTime?'Task Started.':'Task Not Started.'" ></i>
+                                                <h5 class="name" *ngIf="myBooking.to">{{myBooking.userStartTime?(getFormatedDate(myBooking.userStartTime)|date:'dd/MM/yyyy'):''}}
+                                                    <span class="subName">{{myBooking.userStartTime?(getFormatedDate(myBooking.userStartTime)| date:"shortTime"):''}}</span>
+                                                </h5>
+                                            </div> -->
+                                            
+                                            <!--BUTTONS-->
+                                            <button type="button" class="btn btn-first btn-complete ripple">{{'Start' | translate}}</button>
+                                            <!-- <button type="button" class="btn btn-first btn-assign ripple">Started</button> -->
+                                            <!-- <button type="button" class="btn btn-first btn-rejected ripple">Stop</button> -->
+                                        </td>
+        
+                                        <td>
+                                            <h5 class="name" >{{ myBooking.from | date:"dd/MM/yyyy"}}
+                                                <span class="subName">{{myBooking.from| date:"shortTime"}}</span>
+                                            </h5>
+                                        </td>
+                                        
+                                        <td class="">
+                                            <div class="assign-progress">
+                                                <!-- <span class="checkIco" (click)="startOrEndUserBookingTime(myBooking,false)" [title]="myBooking.userEndTime?'Task Completed.':'Task Uncompleted.'">
+                                                    <i class="fa fa-check-circle-o" [ngClass]="myBooking.userEndTime?'completed':'uncompleted'"></i>
+                                                </span> -->
+                                                <h5 class="name">{{myBooking.userEndTime?(getFormatedDate(myBooking.userEndTime)|date:'dd/MM/yyyy'):''}}
+                                                    <span class="subName">{{myBooking.userEndTime?(getFormatedDate(myBooking.userEndTime)| date:"shortTime"):''}}</span>
+                                                </h5>
+                                                </div>
+                                            <div >
+                                                <span><p-slider [disabled]="!myBooking.userStartTime || myBooking.event.completion===100"  [(ngModel)]="myBooking.event.completion" [style]="{'width':'100%'}"  (onSlideEnd)="handleBookingCompletionChanges($event,myBooking)"></p-slider> {{myBooking.event.completion}}%</span>
+                                            </div>
+                                            <!-- <div class="progress">
+                                                <div class="progress-bar bg-warning" role="progressbar" title={{myBooking.event?myBooking.event.completion:0}}% [ngStyle]="{'width':myBooking.event?myBooking.event.completion +'%':0+'%' }" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{myBooking.event?myBooking.event.completion:0}}%</div>
+                                                </div> -->
+                                        </td>
+                                        <td class="text-center width-120px">
+                                            <button type="button" [disabled]="myBooking.event.completion===100" class="btn btn-first ripple"  [ngClass]="myBooking.event.completion===100?'btn-approved':'btn-unassign'" (click)="unassignResourceOnBooking(myBooking)">{{myBooking.event.completion===100?'Done':'Unassign'}}</button>
+                                        </td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-5">
+                <!-- Document Date -->
+                <div class="grid">
+                    <div class="grid-body">
+                        <div class="table-responsive">
+                            <table class="table common-Table">
+                                <thead>
+                                    <tr>
+                                        <th colspan="3">{{'Expenses Report' | translate}}
+                                            <a href="javascript:void(0);" class="plusIcon" (click)="openExpensesReportModal(null)">
+                                                <i class="fa fa-plus-circle"></i>
+                                            </a>
+                                        </th>
+                                        <th colspan="2">
+                                            <div class="filter-search pull-right">
+                                                <input type="text" [(ngModel)]="searchTextForExpenses" class="input-search bg-grey " placeholder="Search...">
+                                                <i class="fa fa-search"></i>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let report of expensesReports|expensesReportFilter:searchTextForExpenses;let i of index">
+                                        <td>
+                                            <h5 class="name">{{'ER' | translate}}{{report.id}}</h5>
+                                        </td>
+                                        <td>
+                                            <h5 class="name">{{'Team' | translate}}-{{report.project.id}}
+                                                <span class="subName">{{report.project.title}}</span>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <h5 class="name">{{report.date|date:'dd/MM/yyyy'}}</h5>
+                                        </td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-first btn-submit ripple" [ngStyle]="{'background-color':report.status=='Approved'?'#0e8303':''}"
+                                                (click)="changesExpensesReportStatus(report)">{{report.status=='Created'?'Submit':report.status=='Submitted'?'Approve':'Approved'}}</button>
+
+                                        </td>
+                                        <td class="text-center">
+                                            <span (click)="openExpensesReportModal(report)" class="rightText" title="Edit signature">
+                                                <i aria-hidden="true" class="fa fa-pencil-square-o ng-star-inserted"></i>
+                                            </span>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <!-- Booking Conflicts -->
+                <div class="grid">
+                    <div class="grid-body">
+                        <div class="table-responsive">
+                            <table class="table common-Table">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">{{'Time Sheet' | translate}}
+                                            <div class="filter-search pull-right">
+                                                <!-- <input type="text" [(ngModel)]="searchText" class="input-search bg-grey " placeholder="Search...">
+                                              <i class="fa fa-search"></i> -->
+                                            </div>
+                                        </th>
+                                        <th>&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of timeSheet">
+                                        <td>
+                                            <h5 class="name">{{'Week' | translate}} {{item.weekNumber}}</h5>
+                                        </td>
+                                        <td>
+                                            <h5 class="name">{{item.duration}}</h5>
+                                        </td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-first btn-complete ripple">{{'Complete' | translate}}</button>
+                                        </td>
+                                    </tr>
+                                    <!-- <tr>
+                                      <td><h5 class="name">Week 26</h5></td>
+                                      <td><h5 class="name">40 h</h5></td>
+                                      <td class="text-center"><button type="button" class="btn btn-first btn-process ripple">40 h</button></td>
+                                  </tr>
+                                  <tr>
+                                      <td><h5 class="name">Week 26</h5></td>
+                                      <td><h5 class="name">40 h</h5></td>
+                                      <td class="text-center"><button type="button" class="btn btn-first btn-process ripple">43 h</button></td>
+                                  </tr> -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <!-- Signatures -->
+                <div class="grid">
+                    <div class="grid-body">
+                        <div class="table-responsive">
+                            <table class="table signatureData common-Table">
+                                <thead>
+                                    <tr>
+                                        <th colspan="">{{'Signatures' | translate}}
+                                            <a href="javascript:void(0)" class="pull-right mt-4">
+                                                <!-- <i class="fa fa-calendar pull-right"></i> -->
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <div class="filter-search  pull-right">
+                                                <input type="text" [(ngModel)]="searchSignatureText" class="input-search bg-grey" placeholder="Search...">
+                                                <i class="fa fa-search"></i>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <h5 class="name">David Fowler
+                                                <span class="subName">{{'Director' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                        <td class="text-right">
+                                            <span class="signApproved signUnApproved">
+                                                <i class="fa fa-check" aria-hidden="true"></i>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h5 class="name">Ian Smith
+                                                <span class="subName">{{'Postprod Supervisor' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                        <td class="text-right">
+                                            <span class="signApproved signUnApproved">
+                                                <i class="fa fa-check" aria-hidden="true"></i>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h5 class="name">Susan Leight
+                                                <span class="subName">{{'Executive Supervisor' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                        <td class="text-right">
+                                            <span class="signApproved signUnApproved">
+                                                <i class="fa fa-check" aria-hidden="true"></i>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="userLeaveRecordDTO">
+            <div class="col-md-8">
+                <div class="grid">
+                    <div class="grid-body">
+                        <div class="table-responsive">
+                            <table class="table text-center vBiddingTable common-Table">
+                                <thead>
+                                    <tr>
+                                        <th colspan="5">
+                                            <span>{{'Leave Request' | translate}}</span>
+                                            <a (click)="showModal()" class="plusIcon" href="javascript:void(0);">
+                                                <i class="fa fa-plus-circle"></i>
+                                            </a>
+                                        </th>
+                                        <th colspan="2">
+                                            <!-- search filter -->
+                                            <div class="filter-search pull-right">
+                                                <input type="text" [(ngModel)]="searchText" class="input-search bg-grey" placeholder="Search...">
+                                                <i class="fa fa-search"></i>
+                                            </div>
+                                            <!-- search filter -->
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-left">
+                                            <span>LR</span>
+                                        </th>
+                                        <th class="text-center">
+                                            <span>{{'Day' | translate}} Off</span>
+                                        </th>
+                                        <th class="text-center">
+                                            <span>{{'Start Date' | translate}}</span>
+                                        </th>
+                                        <th class="text-center">
+                                            <span>{{'End Date' | translate}}</span>
+                                        </th>
+                                        <th class="text-center">
+                                            <span>{{'No. of Days' | translate}}</span>
+                                        </th>
+                                        <th class="text-center">
+                                            <span>{{'Attachment' | translate}}</span>
+                                        </th>
+                                        <th class="text-center">
+                                            <span>{{'Status' | translate}}</span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let leave of userLeaveRecordDTO.leaveRequestDTOs|leaveFilter:searchText;let i = index">
+                                        <td class="text-left">
+                                            <h5 class="name">{{'LR' | translate}}-{{leave.leaveRequestId}}</h5>
+                                        </td>
+                                        <td class="text-center">
+                                            <h5 class="name">{{leave.leaveRecordDTO.leaveTypeDTO.type}}</h5>
+                                        </td>
+                                        <td class="text-center">
+                                            <h5 class="name">{{leave.startTime}}</h5>
+                                        </td>
+                                        <td class="text-center">
+                                            <h5 class="name">{{leave.endTime}}</h5>
+                                        </td>
+                                        <td class="text-center">
+                                            <h5 class="name">{{leave.numberOfDay}}</h5>
+                                        </td>
+                                        <td>
+                                            <div class="text-center" *ngIf="leave.fileUploadDTO">
+                                                <a href="{{leave.fileUploadDTO.url}}">
+                                                    <img [src]="leave.fileUploadDTO.extension==='pdf'?'../../assets/img/pdf_logo.jpg':'../../assets/img/image_icon.png'" alt=""
+                                                        style="width: 45px;height: 35px;
+                                                ">{{leave.fileUploadDTO.type}}
+                                                </a>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <button *ngIf="leave.leaveStatus == userLeaveRecordDTO.leaveStatus[0]" class="btn btn-first btn-submit ripple" type="button">{{'Request' | translate}}</button>
+                                            <button *ngIf="leave.leaveStatus == userLeaveRecordDTO.leaveStatus[2]" class="btn btn-first btn-rejected ripple" type="button">{{'Rejected' | translate}}</button>
+                                            <button *ngIf="leave.leaveStatus == userLeaveRecordDTO.leaveStatus[1]" class="btn btn-first btn-approved ripple" type="button">{{'Approved' | translate}}</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Group Booking DETAILS -->
+            <div class="col-md-4">
+                <div class="grid">
+                    <div class="grid-body">
+                        <div class="table-responsive">
+                            <table class="table text-center vBiddingTable common-Table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-left">{{'Days Off' | translate}}</th>
+                                        <th class="text-center">{{'Total Days' | translate}}</th>
+                                        <th class="text-center">{{'Consume Days' | translate}}</th>
+                                        <th class="text-center">{{'Remain Days' | translate}}</th>
+                                        <!-- <th class="text-center "> &nbsp;</th> -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of userLeaveRecordDTO.leaveRecordDTOs">
+                                        <td class="text-left">
+                                            <h5 class="name">{{item.leaveTypeDTO.type}}</h5>
+                                        </td>
+                                        <td class="text-center">
+                                            <h5 class="name">{{item.creditLeave}}</h5>
+                                        </td>
+                                        <td class="text-center">
+                                            <h5 class="name orange">{{item.debitedLeave}}</h5>
+                                        </td>
+                                        <td class="text-center">
+                                            <h5 class="name green">{{item.remainBalance}}</h5>
+                                        </td>
+                                        <!-- <td class="text-center">
+                                            <a href="javascript:void(0);" [ngClass]='{"fa-save-disabled":!item.leaveTypeDTO.active}'>
+                                                <i *ngIf="item.leaveTypeDTO.active" class="fa fa-save" (click)="saveLeaveRecord(item)"></i>
+                                                <i *ngIf="!item.leaveTypeDTO.active" class="fa fa-save"></i>
+                                            </a>
+                                        </td> -->
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <!-- Expenses Report Modal -->
+    <div class="modal in fade procurement-modal user-dashboard-modal" style="display: block;background: rgba(0, 0, 0, 0.6);"
+        *ngIf="showExpensesReportModal">
+        <div class="modal-dialog  modal-lg">
+
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button type="button" class="close" data-dismiss="true" (click)="closeShowExpensesReportModal()">&times;</button>
+                    <h5 class="name pull-left">{{'ER' | translate}}{{selectedExpensesReport?selectedExpensesReport.id:""}}
+                        <span class="subName">{{'Team' | translate}}-{{expensesReportForm.get('project').value}}</span>
+                    </h5>
+                </div>
+
+                <div class="modal-body">
+                    <form [formGroup]="expensesReportForm">
+
+                        <div class="table-responsive">
+                            <!-- <table class="table text-center">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">
+                                            <label>Project *</label>
+                                            <select class="form-control" formControlName="project">
+                                                <option [ngValue]=null>Select Project</option>
+                                                <option [ngValue]="project.id" *ngFor="let project of projectsForPersonalExpenses">{{project.title}}</option>
+                                            </select>
+                                        </th>
+                                        <th class="" colspan="2">&nbsp;</th>
+                                        <th class="text-right" colspan="2"> 
+                                            <button class="btn btn-first btn-print ripple" type="button">Print</button>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">
+                                            <h5 class="name"><span>Date -</span>  {{expensesReportForm.get('date').value|date:'dd/MM/yyyy'}}</h5>
+                                        </th>
+                                        <th>
+                                            <button class="btn btn-first btn-plus" (click)="addItemToExpenseReport()">
+                                                <i class="fa fa-plus"></i> Add Item
+                                            </button>
+                                        </th>
+                                        <th class="ttlAmt text-center">
+                                            <span class="cardText">Company Card</span>
+                                            <label class="labelTotal grey">$ {{expensesReportForm.get('totalCompanyCardExpenses').value}}</label>
+                                        </th>
+                                        <th class="ttlAmt text-center">
+                                            <span class="cardText">Personnel</span>
+                                            <label class="labelTotal yellow">$ {{expensesReportForm.get('totalPersonalExpenses').value}}</label>
+                                        </th>
+                                        <th>&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody formArrayName="expensesItems">
+                                    <tr class="headSec">
+                                        <td>&nbsp;</td>
+                                        <td class="boldText">Item Name *</td>
+                                        <td class="boldText">Date *</td>
+                                        <td class="boldText">Company amount</td>
+                                        <td class="boldText">Personal amount</td>
+                                        <td class="boldText">&nbsp;</td>
+                                    </tr>
+                                    <tr *ngFor="let expensesitem of expensesItemsForm.controls; let i=index" [formGroupName]="i">
+                                        <td class="text-left">
+                                            <h5 class="name">Item {{i +1}}</h5>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" placeholder="Qty" formControlName="name">
+                                        </td>
+                                        <td class="basis_td">
+                                            <div style="display: flex;">
+                                                <p-calendar [showIcon]="true" [showTime]="false" formControlName="date"></p-calendar>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input class="form-control" type="number" placeholder="Company Card Expense" formControlName="companyCardExpense">
+                                        </td>
+                                        <td>
+                                            <input type="number" class="form-control" placeholder="Personal Expense" formControlName="personalExpense">
+                                        </td>
+                                        <td>
+                                            <a href="javascript:void(0);" class="deleteIco" (click)="removeItemFromExpenseReport(i);">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="4">&nbsp;</td>
+                                        <td class="ttlAmt text-center">
+                                            <label class="labelTotal grey">$0</label>
+                                            <span class="cardText">Payments</span>
+                                        </td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                </tfoot>
+                            </table> -->
+                            
+                            <table class="table text-center mb-0 common-Table">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">
+                                            <label>{{'Project' | translate}} *</label>
+                                            <select class="form-control" formControlName="project">
+                                                <option [ngValue]=null>{{'Select Project' | translate}}</option>
+                                                <option [ngValue]="project.id" *ngFor="let project of projectsForPersonalExpenses">{{project.title}}</option>
+                                            </select>
+                                            <!-- <hr class="sapretor" /> -->
+                                        </th>
+                                        <th class="" colspan="2">&nbsp;</th>
+                                        <th class="text-right" colspan="2">
+                                            <button class="btn btn-first btn-print ripple" type="button" [disabled]="selectedExpensesReport.status !== 'Approved'" *ngIf="showPrintButton" (click)="printExpensesReport()">{{'Print' | translate}}</button>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">
+                                            <h5 class="name">
+                                                <span>{{'Date' | translate}} -</span>  
+                                                {{expensesReportForm.get('date').value|date:'dd/MM/yyyy'}}
+                                            </h5>
+                                        </th>
+                                        <th>
+                                            <button class="btn btn-first btn-plus" (click)="addItemToExpenseReport()">
+                                                <i class="fa fa-plus"></i>{{' Add Item ' | translate}}
+                                            </button>
+                                        </th>
+                                        <th class="ttlAmt text-center">
+                                            <span class="cardText">{{'Company Amount' | translate}}</span>
+                                            <label class="labelTotal grey">$ {{expensesReportForm.get('totalCompanyCardExpenses').value}}</label>
+                                        </th>
+                                        <th class="ttlAmt text-center">
+                                            <span class="cardText">{{'Personnel Amount' | translate}}</span>
+                                            <label class="labelTotal yellow">$ {{expensesReportForm.get('totalPersonalExpenses').value}}</label>
+                                        </th>
+                                        <th style="width: 80px;">&nbsp;</th>
+                                    </tr>
+                                    <tr class="headSec">
+                                        <th class="width-55">&nbsp;</th>
+                                        <th class="text-center boldText">{{'Item Name' | translate}} *</th>
+                                        <th class="text-center boldText">{{'Date' | translate}} *</th>
+                                        <th class="text-center boldText">{{'Company Amount' | translate}}</th>
+                                        <th class="text-center boldText">{{'Personal Amount' | translate}}</th>
+                                        <th class="width-40">&nbsp;</th>
+                                    </tr>
+                                </thead>
+                            </table>
+
+                            <!-- table-inner-content -->
+                            <div class="table-inner-content">
+                                <table class="table text-center tabledata mb-0">
+                                    <tbody formArrayName="expensesItems">
+                                        <tr *ngFor="let expensesitem of expensesItemsForm.controls; let i=index" [formGroupName]="i">
+                                            <td class="text-left width-55">
+                                                <h5 class="name ">{{'Item' | translate}} {{i +1}}</h5>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control" placeholder="Qty" formControlName="name">
+                                            </td>
+                                            <td class="basis_td">
+                                                <div style="display: flex;">
+                                                    <p-calendar [showIcon]="true" [showTime]="false" formControlName="date"></p-calendar>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <input class="form-control" type="number" placeholder="Company Card Expense" formControlName="companyCardExpense">
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control" placeholder="Personal Expense" formControlName="personalExpense">
+                                            </td>
+                                            <td class="width-40">
+                                                <a href="javascript:void(0);" class="deleteIco" (click)="removeItemFromExpenseReport(i);">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div><!-- table-inner-content -->
+                            <!-- footer-->
+                            <table class="table text-center tabledata mb-0">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="">&nbsp;</td>
+                                        <td colspan="">&nbsp;</td>
+                                        <td colspan="">&nbsp;</td>
+                                        <td colspan="">&nbsp;</td>
+                                        <td colspan="">&nbsp;</td>
+                                        <td class="ttlAmt text-center">
+                                            <label class="labelTotal grey">$0</label>
+                                            <span class="cardText">{{'Payments' | translate}}</span>
+                                        </td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- footer-->
+
+                        </div>
+
+                    </form>
+                </div>
+
+                <hr>
+                <div class="row">
+                    <div class="col-md-12 mb-20" style="padding: 0 25px;">
+                        <button style="background-color: darkred;" class="btn btn-first ripple pull-left" (click)="deleteExpensesReport()" style="background-color: darkred;">{{'Delete' | translate}}</button>
+                        <button class="btn btn-first ripple ml-5 pull-right" type="button" (click)="saveOrUpdateExpensesReport()">{{'Save' | translate}}</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Leave Request Modal -->
+    <div class="modal in fade procurement-modal user-dashboard-modal" style="display: block;background: rgba(0, 0, 0, 0.6);"
+      *ngIf="showOrderEditModal">
+      <div class="modal-dialog  modal-md">
+          <div class="modal-content">
+              <div class="modal-header text-center">
+                  <button type="button" class="close" data-dismiss="true" (click)="showOrderEditModal=false">&times;</button>
+                  <h5 class="name pull-left">{{'Leave Request' | translate}}</h5>
+              </div>
+
+              <div class="modal-body" *ngIf="leaveForm">
+                  <div class="inner-content pad-20">
+                    <form [formGroup]="leaveForm">
+                        <div class="text-right mb-20">
+                            <div class="ttlDays pull-left">
+                                <label class="labelTotal">{{remainBalance}}</label>
+                            </div>
+                            <button class="btn btn-first btn-print ripple" type="button">{{'Print' | translate}}</button>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-content">
+                                    <div class="row mb-20">
+                                        <div class="col-xs-6">
+                                            <div class="input-row">
+                                                <label class="label-text">{{'Type*' | translate}}</label>
+                                                <select class="form-control" formControlName="leaveRecordDTO">
+                                                    <option disabled [ngValue]="null">{{'Select Type' | translate}}</option>
+                                                    <option *ngFor="let type of userLeaveRecordDTO.availableLeaveRecordDTOs" value="{{type.leaveRecordId}}">{{type.leaveTypeDTO.type}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <div class="input-row">
+                                                <label class="label-text">{{'No of Days*' | translate}}</label>
+                                                <input type="number" class="form-control" placeholder="No of Days" formControlName="numberOfDay" min="0" oninput="validity.valid||(value='')">
+                                                <span *ngIf="numOfDaysError && dayDiff!=0" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{'Number of Days should be greater than 0 and less than or equal to ' | translate}} {{dayDiff}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-20">
+                                        <div class="col-xs-6">
+                                            <div class="input-row">
+                                                <label class="label-text">{{'Begin On*' | translate}}</label>
+                                                <p-calendar formControlName="startTime"></p-calendar>
+                                                <span *ngIf="errorStart" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{errorStart}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <div class="input-row">
+                                                <label class="label-text">{{'End On*' | translate}}</label>
+                                                <p-calendar formControlName="endTime"></p-calendar>
+                                                <span *ngIf="errorEnd" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{errorEnd}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-20">
+                                        <div class="col-xs-6 col-xs-offset-3">
+                                            <div class="attachment-content">
+                                                <i class="fa fa-upload"></i>
+                                                <label for="">{{'Drag Here' | translate}}</label>
+                                                <label for="">{{'or Browse your computer' | translate}}</label>
+
+                                                <input type="file" class="fileType" (change)="onFileChange($event)">
+                                            </div>
+                                            <span *ngIf="addedAttachmentFileName" style="color: hsl(147, 78%, 18%);text-align: left;font-size: 14px;margin-top: 5pt;">{{addedAttachmentFileName}}</span>
+                                            <span *ngIf="invalidAttachmentFormatError" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{invalidAttachmentFormatError}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+              </div>
+
+              <hr>
+              <div class="mb-20  text-center">
+                  <button class="btn btn-first ripple" [disabled]="leaveForm.invalid || errorEnd || errorStart " style="padding: 6px 12px;min-width: 80px;"
+                      type="button" (click)="saveRequest()">{{'Save' | translate}}</button>
+              </div>
+
+          </div>
+      </div>
+    </div>
+
+</div>
+
+<app-leave-request #leaveRequest></app-leave-request>

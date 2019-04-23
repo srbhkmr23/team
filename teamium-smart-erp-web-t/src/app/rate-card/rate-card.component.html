@@ -1,0 +1,515 @@
+<!--     Spinner component-->
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner>
+
+<div class="edit-equipment project-Budgeting" [ngClass]="showSideModal !=null?'open-side-modal':' ' ">
+    <div class="filter-header">
+        <div class="container-fluid pad-0">
+            <h1 class="title">{{'Rate Card' | translate}}</h1>
+            <div class="button-set">
+                <button class="btn btn-first ripple" (click) = "showSideModal = !showSideModal; showDetails(null, {})"> + {{'Add' | translate}} </button>
+                <button class="btn btn-danger ripple" type="button">{{'Export' | translate}} {{'To' | translate}} <i class="fa fa-file-excel-o"></i></button>
+
+            </div>
+            <div class="filter">
+
+                <div class="filter-search">
+                    <input type="text" [(ngModel)]="searchText" class="input-search" placeholder="Search...">
+                    <i class="fa fa-search"></i>
+                    <a href="javascript:void(0)" id="filter-id" (click)="isfiterClicked = !isfiterClicked">
+                        {{'Filter by' | translate}}
+                        <i class="fa fa-sliders"></i>
+                    </a>
+
+                    <a href="javascript:void(0)" id="sort-id" (click)="isSortByClicked =!isSortByClicked">
+                        {{'Sort by' | translate}}
+                        <i class="fa fa-sort"></i>
+                    </a>
+
+                    <a *ngIf="isEquipmentManager" href="javascript:void(0)" class="ml-5" (click)="showSaveEquipmentModal = (!showSaveEquipmentModal)">
+                        <i class="fa fa-plus"></i> {{'Add' | translate}}
+
+                    </a>
+                </div>
+
+                <div class="filter-box" id="filter-id" [ngClass]="!isfiterClicked ? 'hide':''">
+                    <div class="arrow"></div>
+                    <div class="filter-row" [ngClass]="!isFilterByCompanyClicked?'collapse-ul':''">
+                        <h4 class="title4" (click)="isFilterByCompanyClicked = !isFilterByCompanyClicked">{{'Company' | translate}}
+                            <i class="fa fa-angle-down"></i>
+                        </h4>
+                        <ul class="chk-list ">
+
+                            <li *ngFor="let companyCheckBox of companyCheckBoxList; let i = index">
+                                <div class="checkbox">
+                                    <input type="checkbox" id="company{{i}}" (click)="doCheckbox(companyCheckBox, 'company')">
+                                    <label for="company{{i}}" class="chk"></label>
+                                    <label for="company{{i}}">{{companyCheckBox.label}}</label>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="filter-row" [ngClass]="!isFilterByClientClicked?'collapse-ul':''">
+                        <h4 class="title4" (click)="isFilterByClientClicked = !isFilterByClientClicked" [ngClass]="filterDisabled ? 'disableFilter': ''">{{'Client' | translate}}
+                            <i class="fa fa-angle-down"></i>
+                        </h4>
+                        <ul class="chk-list ">
+
+                            <li *ngFor="let functionCheckBox of clientCheckBoxList; let i = index">
+                                <div class="checkbox">
+                                    <input type="checkbox" id="client{{i}}" (click)="doCheckbox(functionCheckBox, 'client')">
+                                    <label for="client{{i}}" class="chk"></label>
+                                    <label for="client{{i}}">{{functionCheckBox.label}}</label>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="filter-row" [ngClass]="!isFilterByVendorClicked?'collapse-ul':''">
+                        <h4 class="title4" (click)="isFilterByVendorClicked = !isFilterByVendorClicked" [ngClass]="filterDisabled ? 'disableFilter': ''">{{'Vendor' | translate}}
+                            <i class="fa fa-angle-down"></i>
+                        </h4>
+                        <ul class="chk-list ">
+
+                            <li *ngFor="let functionCheckBox of vendorCheckBoxList; let i = index">
+                                <div class="checkbox">
+                                    <input type="checkbox" id="vendor{{i}}" (click)="doCheckbox(functionCheckBox,'vendor')">
+                                    <label for="vendor{{i}}" class="chk"></label>
+                                    <label for="vendor{{i}}">{{functionCheckBox.label}}</label>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="filter-row" [ngClass]="!isFilterByCardClicked?'collapse-ul':''">
+                        <h4 class="title4" (click)="isFilterByCardClicked = !isFilterByCardClicked" [ngClass]="filterDisabled ? 'disableFilter': ''">{{'Rate Type' | translate}}
+                            <i class="fa fa-angle-down"></i>
+                        </h4>
+                        <ul class="chk-list ">
+
+                            <li *ngFor="let functionCheckBox of typeCheckBoxList; let i = index">
+                                <div class="checkbox">
+                                    <input type="checkbox" id="name{{i}}" (click)="doCheckbox(functionCheckBox,'type')">
+                                    <label for="name{{i}}" class="chk"></label>
+                                    <label for="name{{i}}">{{functionCheckBox.label}}</label>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="filter-row" [ngClass]="!isFilterByFunctionClicked?'collapse-ul':''">
+                        <h4 class="title4" (click)="isFilterByFunctionClicked = !isFilterByFunctionClicked">{{'Function' | translate}}
+                            <i class="fa fa-angle-down"></i>
+                        </h4>
+                        <ul class="chk-list ">
+
+                            <li *ngFor="let functionCheckBox of functionCheckBoxList; let i = index">
+                                <div class="checkbox">
+                                    <input type="checkbox" id="function{{i}}" (click)="doCheckbox(functionCheckBox,'function')">
+                                    <label for="function{{i}}" class="chk"></label>
+                                    <label for="function{{i}}">{{functionCheckBox.label}}</label>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="filter-row" [ngClass]="!isFilterByBasisClicked?'collapse-ul':''">
+                        <h4 class="title4" (click)="isFilterByBasisClicked = !isFilterByBasisClicked">{{'Basis' | translate}}
+                            <i class="fa fa-angle-down"></i>
+                        </h4>
+                        <ul class="chk-list ">
+
+                            <li *ngFor="let basisCheckBox of basisCheckBoxList; let i = index">
+                                <div class="checkbox">
+                                    <input type="checkbox" id="basis{{i}}" (click)="doCheckbox(basisCheckBox,'basis')">
+                                    <label for="basis{{i}}" class="chk"></label>
+                                    <label for="basis{{i}}">{{basisCheckBox.label}}</label>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="filter-box" id="sort-id" [ngClass]="!isSortByClicked ? 'hide':''" style="left: 160px;">
+                    <div class="arrow"></div>
+                    <ul class="chk-list " style="height:auto;">
+
+                        <li>
+                            <div (click)="sort('company')" [ngClass]="(sortBy=='company'&&sortValue== 1)?'sort':''">
+                                <i class="fa fa-sort" aria-hidden="true"></i>
+                                <!-- <i class="fa fa-angle-up" aria-hidden="true"></i> -->
+                                <!-- <input type="radio" id='company' (click)="sortBy='company'" name="sort"> -->
+                                <label for='company' class="chk" style="margin-left:10px"></label>
+                                <label for='company'>{{'Company' | translate}}</label>
+                            </div>
+                        </li>
+                        <li [ngClass]="filterDisabled ? 'disableFilter': ''">
+                            <div (click)="sort('client')" [ngClass]="(sortBy=='client'&&sortValue== 1)?'sort':''">
+                                <i class="fa fa-sort " aria-hidden="true"></i>
+                                <!-- <input type="radio" id='client'  (click)="sortBy='client'" name="sort"> -->
+                                <label for='client' class="chk" style="margin-left:10px"></label>
+                                <label for='client'>{{'Client' | translate}}</label>
+                            </div>
+                        </li>
+                        <li [ngClass]="filterDisabled ? 'disableFilter': ''">
+                            <div (click)="sort('vendor')" [ngClass]="(sortBy=='vendor'&&sortValue== 1)?'sort':''">
+                                <i class="fa fa-sort " aria-hidden="true"></i>
+                                <!-- <input type="radio" id='vendor'  (click)="sortBy='vendor'" name="sort"> -->
+                                <label for='vendor' class="chk" style="margin-left:10px"></label>
+                                <label for='vendor'>{{'Vendors' | translate}}</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div (click)="sort('function')" [ngClass]="(sortBy=='function'&&sortValue== 1)?'sort':''">
+                                <i class="fa fa-sort " aria-hidden="true"></i>
+                                <!-- <input type="radio" id='function'  (click)="sortBy='function'" name="sort"> -->
+                                <label for='function' class="chk" style="margin-left:10px"></label>
+                                <label for='function'>{{'Function' | translate}}</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div (click)="sort('basis')" [ngClass]="(sortBy=='basis'&&sortValue== 1)?'sort':''">
+                                <i class="fa fa-sort " aria-hidden="true"></i>
+                                <!-- <input type="radio" id='basis'  (click)="sortBy='basis'" name="sort"> -->
+                                <label for='basis' class="chk" style="margin-left:10px"></label>
+                                <label for='basis'>{{'Basis' | translate}}</label>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="container-fluid hide">
+            <ol class="breadcrumb">
+                <!-- <li>
+                    <a href="#">
+                        <em class="fa fa-home"></em>
+                    </a>
+                </li> -->
+                <li class="active">{{'Rate Card' | translate}}</li>
+            </ol>
+        </div>
+    </div>    
+
+
+    <div class="inner-content" [ngClass]="showSideModal">
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- BOOKING DETAILS -->
+
+                <div class="grid bookingTable rateCardTable">
+                    <div class="grid-body">                        
+                        <div class="table-responsive">
+                            <table class="table text-center table-striped table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th class="text-left">{{'Production' | translate}}</th>
+                                        <th>&nbsp;</th>
+                                        <th>{{'Company' | translate}}</th>
+                                        <th>{{'Rate Type' | translate}}</th>
+                                        <th>{{'Currency' | translate}}</th>
+                                        <th>{{'Basis' | translate}}</th>
+                                        <th>{{'Quantity per default' | translate}}</th>
+                                        <th colspan="2">{{'Unit' | translate}}</th>
+                                        <th colspan="2">{{'Minimum' | translate}}</th>
+                                        <th colspan="3">{{'Extra' | translate}}</th>
+                                        <th>{{'Action' | translate}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let rate of rateCardData |rateFilter: selectedCompanyCheckBoxList : selectedFunctionCheckBoxList: selectedClientCheckBoxList:selectedBasisCheckBoxList:selectedTypeCheckBoxList|globalSort:sortBy:sortValue |rateSearch:searchText:searchList;let rateIndex = index;">
+                                        <td class="text-left" >
+                                            <h5 class="name">{{rate.functionDetails?rate.functionDetails.qualifiedName:''}}
+                                                <span class="subName">{{rate.functionDetails?rate.functionDetails.value:''}}</span>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <span *ngIf="rate.functionDetails">
+                                                <i *ngIf="rate.functionDetails.type === 'equipment'" class="fa fa-video-camera"></i>
+                                                <i *ngIf="rate.functionDetails.type === 'folder'" class="ui-treenode-icon  fa fa-folder"></i>
+                                                <i *ngIf="rate.functionDetails.type === 'staff'" class="fa fa-user"></i>
+                                                <i *ngIf="rate.functionDetails.type === 'right'" class="ui-treenode-icon  fa fa-arrow-right"></i>
+                                                <i *ngIf="rate.functionDetails.type === 'expenses'" class="ui-treenode-icon  fa fa-money"></i>
+                                                <i *ngIf="rate.functionDetails.type === 'service'" class="ui-treenode-icon fa fa-cog ng-star-inserted"></i>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <h5 class="name">{{rate.entity?rate.entity.name:''}}
+                                                <span class="subName"></span>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <h5 class="name">{{rate.type}}
+                                                <span class="subName"></span>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <h5 class="name">{{rate.currency}}
+                                                <span class="subName"></span>
+                                            </h5>
+                                        </td>
+
+                                        <td>
+                                            <h5 class="name">{{rate.basis}}
+                                                <span class="subName"></span>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <h5 class="name">{{rate.quantitySale}}
+                                                <span class="subName"></span>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <h5 class="name">${{rate.unitPrice}}
+                                                <span class="subName">{{'Price' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <h5 class="name">${{rate.unitCost}}
+                                                <span class="subName">{{'Cost' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <h5 class="name">{{rate.baseMin}}
+                                                <span class="subName">{{'Quantity' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <h5 class="name">${{rate.floorUnitPrice}}
+                                                <span class="subName">{{'Price' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                        <td>                                            
+                                            <h5 class="name">{{rate.extra?rate.extra.label:''}}
+                                                <span class="subName">{{'Name' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <h5 class="name">${{rate.extra?rate.extra.price:''}}
+                                                <span class="subName">{{'Price' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <h5 class="name">${{rate.extra?rate.extra.cost:''}}
+                                                <span class="subName">{{'Cost' | translate}}</span>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <div class="action-icons">
+                                                <a href="javascript:void(0);" class="deleteIco" (click)="delete=!delete;selectedId = rate.id; selectedIndex = rateIndex">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                                <a href="javascript:void(0);" class="ml-10" (click)="showSideModal = !showSideModal; showDetails(rate.id, rate)">
+                                                    <i class="fa fa-pencil-square-o"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>                               
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!--side-modal -->
+    <div class="side-modal ">
+        <div class="side-modal-inner">
+            <div class="create-new-card">
+                <div class="text-header">
+                    <h4 class="title" *ngIf="rateCardId === null">{{'New Rating Card' | translate}}
+                        <a href="javascript:void(0)" class="close pull-right" (click)="showSideModal = null">&times;</a>
+                    </h4>
+                    <h4 class="title" *ngIf="rateCardId !== null">{{'Edit Rating Card' | translate}}
+                        <a href="javascript:void(0)" class="close pull-right" (click)="showSideModal = null">&times;</a>
+                    </h4>
+                </div>
+                <!--Scrolling Content-->
+                <div class="inner-content" style="max-height: calc(100vh - 120px);overflow-y: auto;">
+                    <form [formGroup]="rateCardForm">
+                        <div class="body-content">
+                            <div class="select-card-option">
+                                <div class="row">
+                                    <div formGroupName="basicInfo">
+                                        <div class="col-xs-6">
+                                            <label for="">{{'Company' | translate}}</label>
+                                            <select class="form-control" formControlName="company">
+                                                <option value = 'undefined'>{{'Select' | translate}}</option>
+                                                <option [ngValue]="company.id" *ngFor="let company of companyList">{{company.name}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <label for="">{{'Rate Name' | translate}}</label>
+                                            <input type="text" class="form-control" formControlName="rateName">
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <label for="">{{'Function' | translate}}</label>
+                                            <select class="form-control" formControlName="function" (change)="getFunction()">
+                                                <option value = 'undefined'>{{'Select' | translate}}</option>
+                                                <option [ngValue]="f.qualifiedName" *ngFor="let f of functionList">{{f.qualifiedName}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <label for="">{{'Rate type' | translate}}</label>
+                                            <select class="form-control" formControlName="rateType" (change)="getClientData()">
+                                                <option value = 'undefined'>{{'Select' | translate}}</option>
+                                                <option value="Vendor">{{'Vendor' | translate}}</option>
+                                                <option value="Client">{{'Client' | translate}}</option>
+                                                <option value="Standard">{{'Standard' | translate}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <label for="">{{'Client' | translate}}/{{'Vendor Name' | translate}}</label>
+                                            <select class="form-control" formControlName="clientOrVendorName" (change)="getClient()">
+                                                <option value = 'undefined'>{{'Select' | translate}}</option>
+                                                <option [ngValue]="client.id" *ngFor="let client of clientList">{{client.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    <div formGroupName="rateCardInfo">
+                                        <div class="col-xs-4">
+                                            <label for="">{{'Currency' | translate}}</label>
+                                            <select class="form-control" formControlName="currency">
+                                                <option [ngValue]="currency.defaultCurrency && !rateCardForm.get('rateCardInfo').get('currency').value?null:currency.code" *ngFor="let currency of currencyList">{{currency.code}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <label for="">{{'Basis' | translate}}</label>
+                                            <select class="form-control" formControlName="basis">
+                                                <option value = 'undefined'>{{'Select' | translate}}</option>
+                                                <option [ngValue]="basis" *ngFor="let basis of basisList">{{basis}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <label for="">{{'Qty per default' | translate}}</label>
+                                            <input type="text" class="form-control" formControlName="qtyPerDefault">
+                                        </div>
+                                    </div>
+                                    <div formGroupName="unitRateInfo">
+                                        <div class="col-xs-12">
+                                            <h4 class="title4">{{'Unit' | translate}}</h4>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <label for="">{{'Price' | translate}}</label>
+                                            <input type="text" class="form-control" formControlName="unitPrice">
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <label for="">{{'Cost' | translate}}</label>
+                                            <input type="text" class="form-control" formControlName="unitCost">
+                                        </div>
+                                    </div>
+                                    <div formGroupName="minimumRateInfo">
+                                        <div class="col-xs-12">
+                                            <h4 class="title4" >{{'Minimum' | translate}}</h4>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <label for="">{{'Quantity' | translate}}</label>
+                                            <input type="text" class="form-control" formControlName="minimumQuantity">
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <label for="">{{'Price' | translate}}</label>
+                                            <input type="text" class="form-control" formControlName="minimumPrice">
+                                        </div>
+                                    </div>
+                                    <div formGroupName="extraInfo">
+                                        <div class="col-xs-12">
+                                            <h4 class="title4">{{'Extras' | translate}}</h4>
+                                        </div>
+                                        <div>
+                                            <div class="col-xs-4">
+                                                <label for="">{{'Name' | translate}}</label>
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <label for="">{{'Price' | translate}}</label>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <label for="">{{'Cost' | translate}}</label>
+                                            </div>
+                                            <div class="col-xs-1">
+                                                <label for=""></label>
+                                                <label for=""></label>
+                                            </div> 
+                                        </div>                                              
+                                        
+                                        <div>
+                                            <div class="col-xs-4">
+                                                <input type="text" class="form-control" formControlName="name">
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <input type="text" class="form-control" formControlName="price">
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <input type="text" class="form-control" formControlName="cost">
+                                            </div>                                                        
+                                        </div>  
+                                    </div>     
+                                    <div formGroupName="ledgerInfo">
+                                            <div class="col-xs-12">
+                                                <h4 class="title4" >{{'Ledger' | translate}}</h4>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <label for="">{{'Title' | translate}}</label>
+                                                <input type="text" class="form-control" formControlName="title">
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <label for="">{{'Code' | translate}}</label>
+                                                <input type="text" class="form-control" formControlName="code">
+                                            </div>
+                                        </div>                                     
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="col-xs-12 text-center">
+                    <label for="">&nbsp;</label>
+                    <button class="btn btn-first ripple" (click)= "editRateCard(rateCardId);">{{'Save' | translate}}</button>
+                </div>
+            </div>
+
+        </div>
+    </div><!--side-modal -->
+
+
+</div>
+
+<!-- CONFIRM Modal -->
+<div id="myModal" class="modal in fade confirmation-Modal add-personnel-modal" style="display: block;background: rgba(0, 0, 0, 0.6);" *ngIf='delete'>
+    <div class=" modal-dialog modal-md ">
+        <form>
+            <!-- Modal content-->
+            <div class="modal-content ">
+                <div class="modal-header ">
+                    <button type="button " class="close " data-dismiss="modal" (click)="delete=!delete"> &times;</button>
+                    <h4 class="title ">{{'Delete' | translate}} </h4>
+                </div>
+                <div class="modal-body ">
+                    <div class="create-personnel ">
+                        <div class="inner-content ">
+                            <h4 class="confirmationText">{{'Do you want to delete this rate card' | translate}}?</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer ">
+                    <div class="button-set">
+                        <button class="btn btn-first btn-confirm pull-left" type="submit" (click)= "deleteRateCard(selectedId)"> {{'Yes' | translate}} </button>
+                        <button class="btn btn-first btn-No" (click)="delete=!delete">{{'No' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

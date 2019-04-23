@@ -1,0 +1,95 @@
+<div class="">
+    <form [formGroup]="scheduleForm" >
+        <h1 mat-dialog-title>Schedule
+            <a (click)="closeModal(false)" href="javascript:void(0);" class="close">x</a>
+        </h1>
+        <div mat-dialog-content class="pt-15">
+            <div class="form-ctrl-row">
+                <mat-form-field class="common-input-field input-With-Icon">
+                    <span class="icon"><i class="fa fa-thumb-tack"></i></span>
+                    <input [readonly]="isUpdate && isbookingIdAvailable"  matInput placeholder="Enter a job Designation" class="common-input-style" formControlName="job" >
+                </mat-form-field>
+            </div> 
+            <div class="project-Input-Div">
+                <div class="form-ctrl-row">
+                    <!-- Select Option -->
+                    <ng-container *ngIf="!isUpdate">
+                        <mat-form-field class="common-input-field input-With-Icon">
+                            <span class="icon"><i class="fa fa-folder-o"></i></span>
+                            
+                                <mat-select placeholder="Project Name" class="common-input-style" formControlName="projectName">
+                                    <mat-option>None</mat-option>
+                                    <mat-option *ngFor="let project of projectList" [value]="project.id">{{project.title}}</mat-option>
+                                </mat-select>
+                        </mat-form-field>
+                    </ng-container>
+
+                    <!-- <ng-container *ngIf="isUpdate">
+                        <mat-form-field class="common-input-field input-With-Icon">
+                            <span class="icon"><i class="fa fa-thumb-tack"></i></span>
+                            <input  matInput placeholder="Project Name" class="common-input-style" [value]="data.eventData.text" >
+                        </mat-form-field>
+                    </ng-container> -->
+
+                </div>
+                <div class="form-ctrl-row">
+                    <!-- Select Option -->
+                    <ng-container *ngIf="!isUpdate && scheduleForm.controls.projectName.value!=null">
+                        <mat-form-field class="common-input-field"> 
+                            <mat-select placeholder="Function Name" class="common-input-style" formControlName="functionName">
+                                <mat-option>None</mat-option>
+                                <mat-option *ngFor="let function of functionList" [value]="function.id">{{function.name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </ng-container>
+                    <ng-container *ngIf="isUpdate && isbookingIdAvailable">
+                        <mat-form-field class="common-input-field input-With-Icon">
+                            <span class="icon"><i class="fa fa-thumb-tack"></i></span>
+                            <input [readonly]="true" matInput placeholder="Function Name" class="common-input-style" [value]="data.eventData.functionName" >
+                        </mat-form-field>
+                    </ng-container>
+                </div> 
+            </div>
+            <div class="project-Input-Div">
+                    
+                <div class="form-ctrl-row">
+                        <!-- <mat-form-field class="change-day-datepicker">
+                                
+                        </mat-form-field> -->
+                    <mat-form-field class="common-input-field">
+                        <input readonly matInput [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" placeholder="Start Date" class="common-input-style" formControlName="startDate">
+                        <owl-date-time #dt1 hour12Timer="true"></owl-date-time>
+
+                        <!-- <input class="common-input-style" matInput [matDatepicker]="startDatePicker" placeholder="Start Date" (focus)="startDatePicker.open()" (dateChange)="onStartDateSelect('change', $event)"> -->
+                        <!-- <mat-datepicker #startDatePicker></mat-datepicker> -->
+                    </mat-form-field>
+                </div>
+                <div class="form-ctrl-row">
+                    <mat-form-field class="common-input-field">
+                        <input readonly matInput [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" placeholder="End Date" class="common-input-style"  formControlName="endDate">
+                        <owl-date-time #dt2 hour12Timer="true"></owl-date-time>
+                        <!-- <input matInput placeholder="End Date" class="common-input-style" [matDatepicker]="endDatePicker" (focus)="endDatePicker.open()" (dateChange)="onEndDateSelect('change', $event)"> -->
+                        <!-- <mat-datepicker #endDatePicker></mat-datepicker> -->
+                    </mat-form-field>
+                </div> 
+            </div>
+            <div *ngIf="scheduleForm.controls.projectName.value==null && !isbookingIdAvailable" class="form-ctrl-row">
+                <label class="lbl-Text">Theme</label>
+                <mat-form-field class="common-input-field">
+                    <input readonly matInput class="common-input-style" [cpPosition]="left" [value]="scheduleForm.controls.theme.value"  [style.background]="scheduleForm.controls.theme.value" [(colorPicker)]="scheduleForm.controls.theme.value" 
+                    (colorPickerChange)="scheduleForm.controls.theme.setValue($event)"
+                    >
+                </mat-form-field>
+                <!-- <mat-color-picker></mat-color-picker> -->
+                <!-- <input class="form-control" [value]="selectedColor" [style.background]="selectedColor" [(colorPicker)]="selectedColor" /> -->
+            </div>
+            <div *ngIf="scheduleForm.controls.projectName.value==null && !isbookingIdAvailable" class="checkbox-Div">
+                <mat-checkbox formControlName="sick">Sick</mat-checkbox>
+            </div>
+        </div>
+        <div mat-dialog-actions>
+            <button type="button" (click)="onSave()" class="btn btn-first btn-save ripple">Save</button>
+            <button *ngIf="isUpdate && !isbookingIdAvailable" type="button" (click)="delete()" class="btn btn-first btn-danger-dlt ripple ml-10">Delete</button>
+        </div>
+    </form>
+</div>

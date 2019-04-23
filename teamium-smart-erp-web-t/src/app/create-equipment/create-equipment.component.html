@@ -1,0 +1,546 @@
+<!-- Modal -->
+
+<div id="myModal" class="modal in fade add-equipment-modal" role="dialog" style="display: block;">
+    <div class="modal-dialog  modal-lg">
+        <form [formGroup]="equipmentForm">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="true" (click)="sendCloseEventToEditOrListComponent()">&times;</button>
+                    <h4 class="title">{{modalHeading}}</h4>
+
+                </div>
+                <div class="modal-body">
+                    <!-- WIZARD STEPS -->
+                    <div class="crumbs">
+                        <ul>
+                            <li (click)="setSelectedStep(1)">
+                                <a [ngClass]="selectedStep==1?'active':''">
+                                    <span class="Step-span">1. </span>{{'Basic Info' | translate}}</a>
+                            </li>
+                            <li (click)="setSelectedStep(2)">
+                                <a [ngClass]="selectedStep==2?'active':''">
+                                    <span class="Step-span">2. </span>{{'Function' |translate}}</a>
+                            </li>
+                            <li (click)="setSelectedStep(3)">
+                                <a [ngClass]="selectedStep==3?'active':''">
+                                    <span class="Step-span">3. </span>{{'Specification' |translate}}</a>
+                            </li>
+                            <li (click)="setSelectedStep(4)">
+                                <a [ngClass]="selectedStep==4?'active':''">
+                                    <span>4. </span>{{'Attachment' |translate}}</a>
+                            </li>
+                            <li (click)="setSelectedStep(5)">
+                                <a [ngClass]="selectedStep==5?'active':''">
+                                    <span class="Step-span">5.{{'Others' |translate}}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="create-equipment">
+
+
+                        <div class="inner-content">
+
+
+
+                            <!-- 1 BASIC INFORMATION -->
+
+                            <div class="steps add-info basicInfo" [ngClass]="selectedStep!=1?'hide':''" formGroupName="basicInfo">
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <div class="form-content">
+                                            <div class="row">
+                                                <div class="col-xs-6">
+
+                                                </div>
+                                                <div class="col-xs-6">
+
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-6">
+                                                    <div class="input-row">
+                                                        <label>{{'Equipment Name*' |translate}}</label>
+                                                        <input type="text" class="form-control" (focusout)="focusOutEquipment('EquipmentName')" formControlName="name" placeholder="Equipment Name">
+                                                        <span *ngIf="equipmentNameError" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{equipmentNameError}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <div class="input-row">
+                                                        <label>{{'Serial No*' |translate}}</label>
+                                                        <input type="text" class="form-control" (focusout)="focusOutEquipment('SerialNumber')" formControlName="serialNumber" placeholder="Serial Number">
+                                                        <span *ngIf="serialNumberError" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{serialNumberError}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-6">
+                                                    <div class="equipment-on" title="Available">
+                                                        <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                                                        <label class="switch pull-right">
+                                                            <input type="checkbox" formControlName="available">
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6" title="Marketplace Availablility">
+                                                    <div class="equipment-on">
+                                                        <img alt="" src="../../assets/img/lg-market-place.png">
+                                                        <label class="switch pull-right">
+                                                            <input type="checkbox" formControlName="marketplace">
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-6">
+                                                    <div class="input-row">
+                                                        <label>{{'Type' |translate}}</label>
+                                                        <select class="form-control" formControlName="type">
+                                                            <option [ngValue]="null">{{'Select Type' |translate}}</option>
+                                                            <option *ngFor="let type of dropdownData.type" value="{{type}}">{{type}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <div class="input-row">
+                                                        <label>{{'Brand' |translate}}</label>
+                                                        <input type="text" class="form-control" (focusout)="clearSpace(equipmentForm.get('basicInfo'),'brand')" formControlName="brand"
+                                                            placeholder="Brand">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-6">
+                                                    <div class="input-row">
+                                                        <label>{{'Model' |translate}}</label>
+                                                        <input type="text" class="form-control" (focusout)="clearSpace(equipmentForm.get('basicInfo'),'model')" formControlName="model"
+                                                            placeholder="Model">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <div class="input-row">
+                                                        <label>{{'Reference' |translate}}</label>
+                                                        <input type="text" class="form-control" (focusout)="clearSpace(equipmentForm.get('basicInfo'),'reference')" formControlName="reference"
+                                                            placeholder="Reference">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-6">
+                                                    <div class="input-row">
+                                                        <label>{{'Location' |translate}}</label>
+                                                        <input type="text" class="form-control" (focusout)="clearSpace(equipmentForm.get('basicInfo'),'location')" formControlName="location"
+                                                            placeholder="Location">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <div class="input-row">
+                                                        <label>{{'Format' |translate}}</label>
+                                                        <input type="text" class="form-control" (focusout)="clearSpace(equipmentForm.get('basicInfo'),'format')" formControlName="format"
+                                                            placeholder="Format">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-row">
+
+                                                <label class="block">{{'Upload Image' |translate}}</label>
+
+                                                <div class="relative" title="{{profilePictureName ? profilePictureName : 'No file chosen'}}">
+                                                    <div *ngIf="pictureUrl" class="upload-img" style="width:50px;height:50px">
+                                                        <input type="file" (change)="onProfilePictureChange($event)">
+                                                        <img [src]="pictureUrl" style="width: 100%;height: 100%;">
+                                                    </div>
+    
+                                                    <div *ngIf="!pictureUrl" class="upload-img">
+                                                        <input type="file" (change)="onProfilePictureChange($event)">
+                                                        <i class="fa fa-file-image-o" aria-hidden="true"></i>
+                                                    </div>
+    
+                                                    <i class="fa fa-plus-circle"></i>
+    
+                                                    <!-- Delete picture -->
+                                                    <i *ngIf="pictureUrl" style="position: absolute;top: -6px;left: 44px;font-size: 18px;color: red;opacity: 1;cursor:pointer;" class="fa fa-times-circle" (click)='removePicture()'></i>
+    
+                                                    <div>
+    
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <span *ngIf="addedPictureNameMessage" style="color: hsl(147, 78%, 18%);text-align: left;font-size: 14px;margin-top: 5pt;">{{addedPictureNameMessage}}</span>
+                                            <span *ngIf="invalidPhotoFormatError" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{invalidPhotoFormatError}}</span>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                            </div>
+
+                            <!-- 2 FUNCTION & SPECIFICATOINS -->
+                            <div class="steps add-function" formGroupName="functions" [ngClass]="selectedStep!=2?'hide':''">
+                                <div class="row">
+                                    <div class="col-md-12">
+
+
+                                        <div class="form-content">
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <div class="input-row">
+                                                        <label>{{'Function' |translate}}</label>
+                                                        <select class="form-control" formControlName="selectedFunction">
+                                                            <option [ngValue]="null">{{'Select Function' |translate}}</option>
+
+                                                            <option *ngFor="let function of dropdownData.functions" [ngValue]="function">{{function.qualifiedName}}</option>
+                                                        </select>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <div class="input-row">
+                                                        <label>{{'Rating' |translate}}</label>
+                                                        <select class="form-control" formControlName="selectedRating">
+                                                            <option [ngValue]="null">{{'Select Rating' |translate}}</option>
+                                                            <option *ngFor="let rating of [0,1,2,3,4,5]" value="{{rating}}">{{rating}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <label>&nbsp;</label>
+                                                    <div class="text-right mt-0 p-0">
+                                                        <button class="btn btn-first btn-plus" [disabled]="equipmentForm.get('functions').invalid" (click)="addFunction()">
+                                                            <i class="fa fa-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <!-- SAVED DATA -->
+
+                                            <div class="added-function-list">
+                                                <table class="table common-Table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th colspan="2">{{'Function' |translate}}</th>
+                                                            <th>{{'Rating' |translate}}</th>
+
+                                                            <th>&nbsp;</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody *ngFor="let ob of functoinsWithRating; let i =index">
+                                                        <tr>
+                                                            <td style="width:12px;">
+                                                                <a href="javascript:void(0)" id="feature-id" *ngIf="getFeatureKeyword(ob.function.id).length>0 && showFeactureIndex!=ob.function.id"
+                                                                    (click)="showFeature(ob.function.id)">
+                                                                    <i class="fa fa-angle-double-right" href="#demo" data-toggle="collapse"></i>
+                                                                </a>
+                                                                <a href="javascript:void(0)" id="feature-id" *ngIf="getFeatureKeyword(ob.function.id).length>0 && showFeactureIndex==ob.function.id"
+                                                                    (click)="showFeature(ob.function.id)">
+                                                                    <i class="fa fa-angle-double-down" href="#demo" data-toggle="collapse"></i>
+                                                                </a>
+                                                            </td>
+                                                            <td>
+                                                                <!-- <a href="javascript:void(0)" id="feature-id" *ngIf="getFeatureKeyword(ob.function.id).length>0"> -->
+
+                                                                {{ob.function.qualifiedName}}
+                                                            </td>
+                                                            <td>
+                                                                <div class="rating">
+                                                                    <a href="javascript:void(0)" *ngFor="let i of [1,2,3,4,5]" (click)="ob.rating=i">
+                                                                        <i class="fa fa-star" [ngStyle]="{'color':ob.rating >=i ? '' : 'silver' }"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+                                                            <td (click)="removeFunction(ob)">
+                                                                <a href="javascript:void(0)" class="close">&times;</a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr id="feature-id" *ngIf='showFeactureIndex==ob.function.id'>
+                                                            <td class="pad-0" colspan="4">
+                                                                <div class="">
+                                                                    <label>{{'Features' |translate}}</label>
+                                                                    <div class="feature-box" *ngFor="let feature of getFeatureKeyword(showFeactureIndex)">
+                                                                        <div class="col-md-6">
+
+                                                                            <label>{{feature.keyValue}}</label>
+                                                                            <input type="text" class="form-control mb-15" value={{feature.description}} (keyup)="setfeatureDescription($event,feature)">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            <!-- <div class="row mt-15">
+                                                <div class="col-md-12">
+                                                    <div class="input-row">
+                                                        <label>Features</label>
+
+                                                        <div class="feature-box row">
+                                                            <div class="col-md-6" *ngFor="let feature of functionKeywords">
+                                                                <label>{{feature.keyValue}}</label>
+                                                                <input type="text" class="form-control" value={{feature.description}} (keyup)="setfeatureDescription($event,feature)">
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                            </div> -->
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 3  SPECIFICATOINS -->
+                            <div class="steps add-specification" formGroupName="specification" [ngClass]="selectedStep!=3?'hide':''">
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <!-- SPECIFICATION -->
+                                        <div class="form-content">
+
+                                            <div class="input-row">
+                                                <label>{{'Consumption' |translate}}</label>
+                                                <input type="text" class="form-control" (focusout)="clearSpace(equipmentForm.get('specification'),'specsConsumption')" formControlName="specsConsumption"
+                                                    placeholder="Watt">
+                                            </div>
+                                            <div class="input-row">
+                                                <label>{{'Weight' |translate}}</label>
+                                                <input type="text" class="form-control" (focusout)="clearSpace(equipmentForm.get('specification'),'specsWeight')" formControlName="specsWeight"
+                                                    placeholder="LBS">
+                                            </div>
+                                            <div class="input-row">
+                                                <label>{{'Size HxWxD' |translate}}</label>
+                                                <input type="text" class="form-control" (focusout)="clearSpace(equipmentForm.get('specification'),'specsSize')" formControlName="specsSize"
+                                                    placeholder="HxWxD">
+                                            </div>
+                                            <div class="input-row">
+                                                <label>{{'Origin' |translate}}</label>
+                                                <input type="text" class="form-control" (focusout)="clearSpace(equipmentForm.get('specification'),'specsOrign')" formControlName="specsOrign"
+                                                    placeholder="Origin">
+                                            </div>
+                                            <div class="input-row">
+                                                <label>{{'IP Address' |translate}}</label>
+                                                <input type="text" class="form-control" (focusout)="clearSpace(equipmentForm.get('specification'),'specsIp')" formControlName="specsIp"
+                                                    placeholder="Ip Address">
+                                            </div>
+                                            <div class="input-row">
+                                                <label>{{'Barcode' |translate}}</label>
+                                                <select class="form-control">
+                                                    <option value="">{{'Type 1' |translate}}</option>
+                                                    <option value="">{{'Type 2' |translate}}</option>
+                                                    <option value="">{{'Type 3' |translate}}</option>
+                                                </select>
+                                                <div class="barcode">
+                                                    <i class="fa fa-barcode" aria-hidden="true"></i>
+                                                    <span>35479</span>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 4  ATTACHMENTS -->
+                            <div class="steps add-attachment " formGroupName="attachment" [ngClass]="selectedStep!=4?'hide':''">
+                                <div class="row">
+                                    <div class="col-md-8">
+
+
+                                        <div class="form-content">
+
+
+                                            <label>{{'Attachment Name *' |translate}}</label>
+                                            <input type="text" class="form-control" placeholder="Attachment Name " (focusout)="clearSpace(equipmentForm.get('attachment'),'attachmentType')"
+                                                formControlName="attachmentType">
+                                            <div class="attachment-content">
+                                                <i class="fa fa-upload"></i>
+                                                <label for="">{{'Drag Here' |translate}}</label>
+                                                <label for="">{{'or Browse your computer' |translate}}</label>
+
+                                                <input [disabled]="this.equipmentForm.get('attachment').get('feedByUrl').value" type="file" class="fileType" (change)="onFileChange($event)">
+                                            </div>
+
+
+                                            <span *ngIf="addedAttachmentFileName" style="color: hsl(147, 78%, 18%);text-align: left;font-size: 14px;margin-top: 5pt;">{{addedAttachmentFileName}}</span>
+                                            <span *ngIf="invalidAttachmentFormatError" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{invalidAttachmentFormatError}}</span>
+                                            <p class="or"></p>
+                                            <div class="checkbox">
+                                                <input type="checkbox" id="a1" formControlName="feedByUrl" value="1">
+                                                <label class="chk" for="a1"></label>
+                                                <label for="a1">{{'Url:' |translate}}</label>
+
+                                            </div>
+                                            <input type="text" class="form-control" (focusout)="clearSpace(equipmentForm.get('attachment'),'url')" formControlName="url">
+                                            <span *ngIf="equipmentForm.get('attachment').get('url').invalid && equipmentForm.get('attachment').get('url').value !=null&& equipmentForm.get('attachment').get('url').value.length !=0"
+                                                style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{'Please enter valid URL.' |translate}}</span>
+                                        </div>
+
+
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="added-value-content">
+                                            <div class="description">
+                                                <label>&nbsp;</label>
+                                                <div class="text-left mt-0 p-0">
+                                                    <button class="btn btn-first btn-plus" [disabled]="equipmentForm.get('attachment').invalid" (click)="addAttachment()">
+                                                        <i class="fa fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="added-value mt-15" *ngFor="let attachment of attachments">
+                                                <!-- <img src="../../assets/img/equipment/edit-suit.jpg" alt=""> -->
+                                                <img [src]="getAttachmentImage(attachment)" alt="">
+                                                <label>
+                                                    <span>{{attachment.type}}</span>
+                                                </label>
+                                                <a href="javascript:void(0)" class="close" (click)="removeAttachment(attachment)">&times;</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- 5  OTHERS -->
+                            <div class="steps other-details" formGroupName="others" [ngClass]="selectedStep!=5?'hide':''">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <!-- ADD MILESTON -->
+
+                                        <div class="form-content">
+                                            <h4 class="title">{{'Add Milestone' |translate}}</h4>
+
+                                            <div class="added-value-content">
+                                                <div class="added-value" *ngFor="let milestone of milestones">
+                                                    <label>{{milestone.date|date:date:"MM/dd/yy"}}
+                                                        <span>{{milestone.type}}</span>
+                                                    </label>
+                                                    <a href="javascript:void(0)" class="close" (click)="removeMilestone(milestone)">&times;</a>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <div class="input-row">
+                                                        <label>{{'Type' |translate}}</label>
+                                                        <select class="form-control" formControlName="milestoneType">
+                                                            <option [ngValue]="null">{{'Select Milestone' |translate}}</option>
+                                                            <option *ngFor="let milestoneType of dropdownData.milestones" [ngValue]="milestoneType">{{milestoneType}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <div class="input-row">
+                                                        <label>{{'Expiration Date' |translate}}</label>
+                                                        <p-calendar [showIcon]="true" [showTime]="false" formControlName="milestoneDate"></p-calendar>
+                                                        <!-- <input type="date" class="form-control" formControlName="milestoneDate"> -->
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <label>&nbsp;</label>
+                                                    <div class="text-right mt-0 p-0">
+                                                        <button class="btn btn-first btn-plus" [disabled]="equipmentForm.get('others').invalid" (click)="addMilestone()">
+                                                            <i class="fa fa-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+
+                                        <!-- ADD VALUE -->
+
+                                        <div class="form-content">
+                                            <h4 class="title">{{'Values' |translate}}</h4>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="input-row">
+                                                        <label>{{'Insurance' |translate}}</label>
+                                                        <input type="text" currencyMask class="form-control" placeholder="Insurance(Only in numbers)" formControlName="insurance">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="input-row">
+                                                        <label>{{'Purchase' |translate}}</label>
+                                                        <input type="text" currencyMask class="form-control" placeholder="Purchase(Only in numbers)" formControlName="purchase">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="input-row">
+                                                        <label>{{'ATA' |translate}}</label>
+                                                        <input type="text" currencyMask class="form-control" placeholder="ATA(Only in numbers)" formControlName="ata">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <!-- ADD DESCRIPTIONS -->
+
+                                        <div class="form-content">
+                                            <h4 class="title">{{'Description' |translate}}</h4>
+                                            <div class="row">
+                                                <div class="col-md-12">
+
+                                                    <textarea class="form-control" rows="10" style="height: 100px;" (focusout)="clearSpace(equipmentForm.get('others'),'description')"
+                                                        placeholder="Description" formControlName="description"></textarea>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="button-set text-center" class="col-md-12">
+                            <button *ngIf="equipmentDetails" style="background-color: darkred;" class="btn btn-first pull-left" [ngClass]="selectedStep==1?'':'hide'"
+                                (click)="showDeleteModal=!showDeleteModal">{{'Delete' |translate}}</button>
+                            <button class="btn btn-first" [ngClass]="selectedStep>1?'':'hide'" (click)="selectedStep =selectedStep-1">{{'Prev' |translate}}</button>
+                            <button class="btn btn-first" [ngClass]="selectedStep==5?'hide':''" (click)="selectedStep =selectedStep+1" [disabled]="equipmentForm.get('basicInfo').invalid">{{'Next' |translate}}</button>
+                            <button type="submit" class="btn btn-first" [ngClass]="selectedStep!=5?'hide':''" (click)="saveEquipment()" [disabled]="equipmentForm.get('basicInfo').invalid">{{'Save And Close' |translate}}</button>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+<app-delete-confirm-modal *ngIf="showDeleteModal" [componentName]="componentName" (deleteDataEvent)="deleteEquipment($event)" (closeModalEvent)="closeDeleteConfirmModal($event)"></app-delete-confirm-modal>

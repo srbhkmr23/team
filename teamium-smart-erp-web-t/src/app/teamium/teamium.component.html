@@ -1,0 +1,44 @@
+<div class="dashboard" >
+
+    <app-header></app-header>
+    <app-sidebar class="sfsgf" (activeMenuEmitter)="changeMenuItem($event)" [ngClass]="{'openSubMenu':activeMenu}"></app-sidebar>
+
+    <div class="page-content">
+        <!-- <div class="sub-header">
+            <ol class="breadcrumb">
+                <li>
+                    <a href="#">
+                        <em class="fa fa-home"></em>
+                    </a>
+                </li>
+                <li class="active">Equipment</li>
+            </ol>
+
+
+            <ul class="control-icons">
+                <li class="calendar-li">
+                    <i class="fa fa-calendar"></i>
+                    <input type="text" class="inputStyle" placeholder="From">
+                    <input type="text" class="inputStyle" placeholder="To">
+                </li>
+                <li>
+                    <a href="javascript:void(0)">Add Widget</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)"><i class="fa fa-refresh"></i></a>
+                </li>
+
+            </ul>
+        </div> -->
+
+        <!-- ROUTED PAGES -->
+        <div class="dashboard-pages-content">
+            <router-outlet>
+              
+            </router-outlet>
+
+        </div>
+
+
+    </div>
+</div>

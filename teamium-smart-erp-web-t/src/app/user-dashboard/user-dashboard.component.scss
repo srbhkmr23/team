@@ -1,0 +1,202 @@
+@import '../equipment-list/equipment-list.component';
+@import '../edit-equipment/edit-equipment.component';
+@import '../personnel-edit/personnel-edit.component';
+@import '../dashboard/dashboard.component';
+@import '../vendor-bidding/vendor-bidding.component';
+@import '../../variables';
+
+
+.user-dashboard {
+    .width-120px {
+        width:120px;
+    }
+    .headSec {
+        .boldText {
+            font-weight: 600;
+        }
+    }
+    .assign-progress {
+        position: relative;
+        min-height: 28px;
+        //padding: 0px 0px 0px 40px;
+        /*.checkIco {
+            position: absolute;
+            left: 8px;
+            .completed {
+                color: #5de859;
+                font-size: 25px;
+            }
+            .uncompleted {
+                color:#f93224;
+                font-size: 25px;
+            }
+        }*/
+    }
+
+    // button //
+    .btn-submit,
+    .btn-approved,
+    .btn-rejected,
+    .btn-process,
+    .btn-complete,
+    .btn-assign,
+    .btn-unassign {
+        min-width:90px;
+        border-radius: 20px;
+        padding: 6px 15px;
+        &:focus {
+            outline: 0;
+        }
+    }
+    .btn-complete,
+    .btn-approved {
+        background: #5de859 !important;
+    }
+    .btn-rejected {
+        background: #f93224;
+    }
+    .btn-assign {
+        background: #FFC107;
+    }
+    .btn-unassign {
+        background: #ff1818;
+    }
+    .plusIcon {
+        text-decoration: none;
+        .fa-plus-circle {
+            font-size: 16px;
+            margin-left: 10px;
+        }
+    }
+    .orange {
+        color:#f28709;
+    }
+    .green {
+        color:#a5de37;
+    }
+    .timestamp {
+        position: relative;
+        min-height: 30px;
+        //padding-left: 30px;
+        /*.fa {
+            position: absolute;
+            top:2px;
+            left: 0;
+            font-size: 25px;
+        }*/
+        & .grey {
+            color :#666;
+        }
+        & .green {
+            color: #5de859;
+        }
+
+    }
+
+    .col-md-4,
+    .col-md-5,
+    .col-md-6,
+    .col-md-12,
+    .col-md-1,
+    .col-xs-6 {
+        padding: 0 8px;
+    }
+    .row {
+        margin-left: -10px;
+        margin-right: -10px;
+    }
+
+    // modal scss//
+    .user-dashboard-modal {
+        // =========== COMMON STYLE
+        .modal-content {
+            .modal-header {
+                background: #2f6f98;
+                color: #fff;
+                padding: 10px 15px;
+                border-radius: 5px 5px 0px 0px;
+                h4 {
+                    margin-top: 0;
+                }
+            }
+        }
+
+        // ====================
+        .width-55 {
+            width:55px;
+        }
+        .width-40 {
+            width:40px;
+        }
+        .label-text {
+            font-size: 12px !important;
+        }
+        .text-right {
+            text-align: right;
+        }
+        .mb-0 {
+            margin-bottom: 0px !important;
+        }
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+        .modal-header {
+            .name {
+                font-size: 16px;
+                color: #fff !important;
+                //font-weight: 600;
+            }
+        }
+        .btn-print {
+            border-radius: 20px;
+            padding: 6px 15px;
+            line-height: 20px;
+            width:80px;
+            &:focus {
+                outline: 0;
+            }
+        }
+        .sapretor { 
+        margin-top: 5px;
+        margin-bottom: 5px;
+        border: 0;
+        border-top: 1px solid #ddd;
+        }
+        .btn-plus {
+            border-radius: 4px;
+            padding: 6px 12px;
+            line-height: 20px;
+            &:focus {
+                outline: 0;
+            }
+        }
+        .ttlAmt {
+            .labelTotal {
+                padding: 6px 12px;
+                font-size: 18px;
+                border-radius: 5px;
+                min-width: 70px;
+            }
+            .cardText {
+                display: block;
+                font-weight: normal;
+                margin-bottom: 0;
+                font-size: 13px;
+                color:#666;
+            }
+            .grey {
+                background: #ddd;
+            }
+            .yellow {
+                background: #feae1b;
+            }
+        }
+    }
+
+    // =========== COMMON STYLE
+    .table-inner-content {
+        max-height: 166px;
+        overflow-y: auto;
+    }
+}
+

@@ -1,0 +1,65 @@
+<div class="sidebar ">
+    <ul id="dashboard-panel">
+        <li class="" *ngFor="let item of menu" (click)='changeMenuItem(item)' [ngClass]='{active:activeMenu==item}'>
+
+            <a href="javascript:void(0)">
+
+                <!-- leftIcon -->
+                <span class="leftIcon tooltipDiv" *ngIf="item.img" (mouseover)="onMouseOver()" (mouseout)="onMouseOut()">
+                    
+                    <img [src]="item.img" class="whiteIcon" alt="">
+                    <img [src]="item.activeImg" class="ActiveIcon" alt="">
+
+                    <!-- tooltip -->
+                    <span class="tooltiptext">{{item.title}}</span>
+                    <!-- tooltip -->
+
+                </span>
+
+                <!---->
+                <i class="fa leftIcon" [ngClass]="item.icon" aria-hidden="true" *ngIf="item.icon"></i>
+                <span class="title">{{item.title  | translate }}</span>
+                <i class="fa fa-arrow-right"></i>
+
+            </a>
+
+        </li>
+    </ul>
+
+    <div class="subMenu" *ngFor="let item of menu">
+        <div *ngIf="activeMenu===item">
+            <div class="menuTitle">{{item.title}}</div> 
+            <div class="list">
+                <p *ngFor="let subMenu of item.children" [ngClass]="currentUrl==subMenu.link?'active':''">
+                    <a href="javascript:void(0)" (click)="navigate(subMenu)">{{subMenu.title}}
+                        <i class="fa fa-arrow-right"></i>
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="showDropdown && activeSubMenu && activeSubMenu.hasOwnProperty('children')">
+        {{'inside' | translate}}
+        <div class="innerSubMenu-Sec active" [ngClass]="{'active':activeSubMenu}">
+            <div class="innerSubMenu">
+                <div>
+                    <div class="menuTitle">
+                        <a class="backSubMenu" href="javascript:void(0);" (click)="navigate(activeSubMenu)">
+                            <i class="fa fa-arrow-left"></i>
+                            <span>{{activeSubMenu.title}}</span>
+                        </a>
+                    </div>
+                    <ul class="list">
+                        <li class="p-Act" *ngFor="let subMenu of activeSubMenu.children" [ngClass]="innerCurrentUrl==subMenu.link?'active':''">
+                            <a href="javascript:void(0)" (click)="navigate(subMenu)">{{subMenu.title}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-sidebar-modal *ngIf="showSidebarModal" (closeModalEvent)="hideSidebarModal($event)"></app-sidebar-modal>

@@ -1,0 +1,393 @@
+<app-spinner [blockedPanel]='blockedPanel'></app-spinner> 
+<div class="equipment-list createGroup edit-equipment" style="min-height: calc(100vh - 150px);">
+    <div class="filter-header">
+        <div class="container-fluid">
+            <h1 class="title">{{'Group' |translate}}</h1>
+
+            <div class="filter">
+ 
+                <!-- <div class="filter-search">
+                    <input type="text" [(ngModel)]="searchText" class="input-search" placeholder="Search...">
+                    <i class="fa fa-search"></i>
+
+                    <a href="javascript:void(0)" id="filter-id" (click)="isfiterClicked = !isfiterClicked">
+                        Filter by
+                        <i class="fa fa-sliders"></i>
+                    </a>
+
+                    <a href="javascript:void(0)" id="sort-id">
+                        Sort by
+                        <i class="fa fa-sort"></i>
+                    </a>
+
+                    <a href="javascript:void(0)" class="ml-5">
+                        <i class="fa fa-plus"></i> Add
+
+                    </a>
+                </div> -->
+
+                <div class="filter-box" id="filter-id" [ngClass]="!isfiterClicked ? 'hide':''">
+                    <div class="arrow"></div>
+                    <div class="filter-row" [ngClass]="!isFilterByFunctionClicked?'collapse-ul':''">
+                        <h4 class="title4" (click)="isFilterByFunctionClicked = !isFilterByFunctionClicked">{{'Function' | translate}}
+                            <i class="fa fa-angle-down"></i>
+                        </h4>
+                        <ul class="chk-list ">
+
+                            <li *ngFor="let functionCheckBox of functionCheckBoxList; let i = index">
+                                <div class="checkbox">
+                                    <input type="checkbox" id={{i}} (click)="doCheckbox(functionCheckBox)">
+                                    <label for={{i}} class="chk"></label>
+                                    <label for={{i}}>{{functionCheckBox.label}}</label>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <!-- <div class="filter-row" id="filter-id" [ngClass]="!isFilterByModelClicked?'collapse-ul':''"> -->
+                    <div class="filter-row" id="filter-id">
+                        <!-- <h4 class="title4" (click)="isFilterByModelClicked =!isFilterByModelClicked">Model -->
+                        <h4 class="title4">{{'Model' |translate}}
+                            <i class="fa fa-angle-down"></i>
+                        </h4>
+                        <ul class="chk-list ">
+
+                            <li *ngFor="let modelCheckBox of modelCheckBoxList;let modelIndex = index">
+                                <div class="checkbox">
+                                    <input type="checkbox" id={{modelCheckBox.label}}{{modelIndex}} (click)="addSelectedModelCheckbox(modelCheckBox)">
+                                    <label for={{modelCheckBox.label}}{{modelIndex}} class="chk"></label>
+                                    <label for={{modelCheckBox.label}}{{modelIndex}}>{{modelCheckBox.label}}</label>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <!-- <div class="filter-row" id="filter-id" [ngClass]="!isFilterByLocationClicked?'collapse-ul':''"> -->
+                    <div class="filter-row" id="filter-id">
+                        <!-- <h4 class="title4" (click)="isFilterByLocationClicked =!isFilterByLocationClicked">Location -->
+                        <h4 class="title4">{{'Location' |translate}}
+                            <i class="fa fa-angle-down"></i>
+                        </h4>
+                        <ul class="chk-list ">
+
+                            <li *ngFor="let location of locationCheckBoxList;let locationIndex =index">
+                                <div class="checkbox">
+                                    <input type="checkbox" id={{locationIndex}}{{location.label}} (click)='addSelectedLocationCheckbox(location)'>
+                                    <label for={{locationIndex}}{{location.label}} class="chk"></label>
+                                    <label for={{locationIndex}}{{location.label}}>{{location.label}}</label>
+                                </div>
+                            </li>
+
+
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="filter-box" id="sort-id" [ngClass]="!isSortByClicked ? 'hide':''" style="left: 160px;">
+                    <div class="arrow"></div>
+                    <ul class="chk-list " style="height:auto;">
+
+                        <li>
+                            <!-- <div (click)="sort('model')" [ngClass]="(sortBy=='model'&&sortValue== 1)?'sort':''"> -->
+                            <div>
+                                <i class="fa fa-sort" aria-hidden="true"></i>
+                                <!-- <i class="fa fa-angle-up" aria-hidden="true"></i> -->
+                                <!-- <input type="radio" id='model' (click)="sortBy='model'" name="sort"> -->
+                                <label for='model' class="chk" style="margin-left:10px"></label>
+                                <label for='model'>{{'Model' |translate}}</label>
+                            </div>
+                        </li>
+                        <li>
+                            <!-- <div (click)="sort('location')" [ngClass]="(sortBy=='location'&&sortValue== 1)?'sort':''"> -->
+                            <div>
+                                <i class="fa fa-sort " aria-hidden="true"></i>
+                                <!-- <input type="radio" id='location'  (click)="sortBy='location'" name="sort"> -->
+                                <label for='location' class="chk" style="margin-left:10px"></label>
+                                <label for='location'>{{'Location' |translate}}</label>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTENT FOR GROUP -->
+    <div class="create-Group">
+
+        <div class="steps">
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- <div class="grid mb-30">
+                      <div class="grid-header">Create Group</div>
+                  </div> -->
+                    <div class="form-content ">
+
+                        <!-- SAVED DATA -->
+                        <div class="added-function-list ">
+                            <table class="table common-Table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>{{'Create Group' |translate}}</th>
+                                        <th class="pull-right">
+                                            <a (click)="onShowModal(null)" title="Create new group" href="javascript:void(0)" class="plusIco"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let group of groupList;">
+                                        <td>{{group.name}}</td>
+                                        <td class="text-right">
+                                            <a (click)="onShowModal(group)" href="javascript:void(0)" title="Edit group">
+                                                <i aria-hidden="true" class="fa fa-pencil-square-o ng-star-inserted"></i>
+                                            </a>
+                                           
+                                        </td>
+                                    </tr>
+                                    <!-- <tr>
+                                        <td>Group 2</td>
+                                        <td class="text-right">
+                                            <a href="javascript:void(0) " class="">Edit</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Group 3</td>
+                                        <td class="text-right">
+                                            <a href="javascript:void(0) " class="">Edit</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Group 4</td>
+                                        <td class="text-right">
+                                            <a href="javascript:void(0) " class="">Edit</a>
+                                        </td>
+                                    </tr> -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- CREATE GROUP -->
+                        <!-- <div class="row ">
+                            <div class="col-xs-6">
+                                <div class="input-row ">
+                                    <label>Create New Group</label>
+                                    <input type="text" class="form-control" value="" placeholder="Create Group">
+                                </div>
+                            </div>
+                            <div class="col-xs-1 ">
+                                <label>&nbsp;</label>
+                                <div class="">
+                                    <button class="btn btn-first btn-plus ">
+                                        <i class="fa fa-plus "></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div> -->
+
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <!-- <div class="grid mb-30">
+                    <div class="grid-header">Dynamic Group</div>
+                </div> -->
+                    <div class="form-content ">
+                        <!-- SAVED DATA -->
+                        <div class="added-function-list ">
+                            <table class="table common-Table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>{{'Dynamic Group' |translate}}</th>
+                                        <th>&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{'Amex 2018 Campaign'|translate}}</td>
+                                        <td>
+                                            <a href="javascript:void(0) " class="close ">&times;</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'Amex 2018 Campaign'|translate}}</td>
+                                        <td>
+                                            <a href="javascript:void(0) " class="close ">&times;</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'Amex 2018 Campaign'|translate}}</td>
+                                        <td>
+                                            <a href="javascript:void(0) " class="close ">&times;</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{'Amex 2018 Campaign'|translate}}</td>
+                                        <td>
+                                            <a href="javascript:void(0) " class="close ">&times;</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Modal  -->
+
+<div *ngIf="isModalVisible" class="modal fade in" style="display:block;background: rgba(0, 0, 0, 0.6);">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content mdlUpdateConfig mdlConfInfo groupModal">
+            <div class="modal-header">
+                <button (click)="hideModal()" type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{'Configure Group' |translate}}
+                    <!-- <p class="sub-Title">Group</p> -->
+                </h4>
+            </div>
+            <div class="modal-body">
+                <!-- tab Content Start -->
+                <div class="InfoContentSec">
+                        <form [formGroup]="groupForm"> 
+                            <div class="row ">
+                                    <div class="col-xs-6">
+                                        <div class="input-row ">
+                                            <label>{{'Group Name' |translate}}*</label>
+                                            <input type="text" class="form-control" formControlName="groupName" placeholder="Create Group">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="input-row ">
+                                            <label>{{'Theme' |translate}}</label>
+                                            <input class="form-control" [value]="selectedColor" [style.background]="selectedColor" [(colorPicker)]="selectedColor" />
+                                        </div>
+                                    </div>
+
+                                    <!-- <div class="col-xs-1 ">
+                                        <label>&nbsp;</label>
+                                        <div class="">
+                                            <button class="btn btn-first btn-plus ">
+                                                <i class="fa fa-plus "></i>
+                                            </button>
+                                        </div>
+                                    </div> -->
+                            </div>
+                        </form>
+
+                        <div class="common-Sec mt-0"> 
+
+                            <!-- TABLE SATRT -->
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="grid">
+                                        <div class="grid-body ">
+                                            <div >
+                                                <table class="table signaturetable grouptable table-hover text-center mb-0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th colspan="4">
+                                                                <span class="staff-Title">{{'Personnel' | translate}}</span>
+                                                                <div class="filter-search pull-right">
+                                                                    <input type="text" [(ngModel)]="searchText" class="input-search bg-grey" placeholder="Search...">
+                                                                    <i class="fa fa-search"></i>
+                                                                </div>
+                                                            </th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th class="width-35">&nbsp;</th>
+                                                            <th class="width-125 text-left">
+                                                                <h5 class="name">{{'First Name' |translate}}
+                                                                    <!-- <span class="subName">First Name</span> -->
+                                                                </h5>
+                                                            </th>
+                                                            <th class="width-125 text-left">
+                                                                <h5 class="name">{{'Last Name' |translate}}
+                                                                    <!-- <span class="subName">Last Name</span> -->
+                                                                </h5>
+                                                            </th>
+                                                            <th class="text-left">
+                                                                <h5 class="name">{{'Primary Function' |translate}}
+                                                                    <!-- <span class="subName">Function Type</span> -->
+                                                                </h5>
+                                                            </th>
+
+                                                        </tr>
+                                                    </thead>
+                                                   
+                                                    <tbody >
+                                                        
+                                                        <tr  *ngFor="let staff of staffList | globalSearch:searchText:terms"> 
+                                                            <td class="width-35">
+                                                                <span class="checkbox">
+                                                                    <input type="checkbox" id="{{staff.id}}" [checked]="isMember(staff.id)" (change)="onChangeStaff(staff)">
+                                                                    <label class="chk" for="{{staff.id}}"></label>
+                                                                    <label for="{{staff.id}}"></label>
+                                                                </span>
+                                                            </td>
+                                                            <td class="width-125 text-left">
+                                                                <h5 class="name">{{staff.firstName}}
+                                                                    <!-- <span class="subName">First Name</span> -->
+                                                                </h5>
+                                                            </td>
+                                                            <td class="width-125 text-left">
+                                                                <h5 class="name">{{staff.lastName}}
+                                                                    <!-- <span class="subName">Last Name</span> -->
+                                                                </h5>
+                                                            </td>
+                                                            <td class="text-left">
+                                                                <h5 class="name wb">{{staff.mainFunction && staff.mainFunction.hasOwnProperty('qualifiedName') ? staff.mainFunction['qualifiedName']:''}}
+                                                                    <!-- <span class="subName">Function Type</span> -->
+                                                                </h5>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                   
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- TABLE END -->
+
+                            <!-- <div class="row ">
+                                <div class="col-sm-12">
+                                    <div class="input-row ">
+                                        <label>Select Staff</label>
+                                    </div>
+                                    <div class="row staffCheckGroup">
+                                        <div *ngFor="let staff of staffList" class="col-sm-6">
+                                            <span class="checkbox">
+                                                <input type="checkbox" id="{{staff.id}}" [checked]="isMember(staff.id)" (change)="onChangeStaff(staff)">
+                                                <label class="chk" for="{{staff.id}}"></label>
+                                                <label for="{{staff.id}}">{{staff.firstName}}</label>
+                                            </span>
+                                        </div>
+
+ 
+                                    </div>
+
+                                </div>
+                                
+                            </div> -->
+                        </div>    
+                        
+                </div>
+                <!-- tab Content End -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" *ngIf="selectedGroup && selectedGroup.hasOwnProperty('id')" (click)="showDeleteModal=!showDeleteModal" class="btn btn-first ripple pull-left" data-dismiss="modal" style="background-color: darkred;">{{'Delete' |translate}}</button>
+                <button type="button" [disabled]="!groupForm.valid" (click)="saveGroup()" class="btn btn-first ripple" data-dismiss="modal">{{'Save' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+<app-delete-confirm-modal *ngIf="showDeleteModal" [componentName]="componentName" (deleteDataEvent)="deleteGroup($event)" (closeModalEvent)="hideDeleteModal($event)"></app-delete-confirm-modal>

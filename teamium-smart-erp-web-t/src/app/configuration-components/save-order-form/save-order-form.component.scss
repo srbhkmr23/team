@@ -1,0 +1,23 @@
+@import '../save-digital-signature/save-digital-signature.component';
+@import '../../../variables';
+
+.mdlConfInfo {  
+    .modal-body {
+        .InfoContentSec {
+            .mb-20 {
+                margin-bottom: 20px;
+            }
+            .common-Sec {
+                .keywordtable {
+                    tr {
+                        td {
+                            .width-200 {
+                                width:200px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,40 @@
+<!-- SIGNUP PAGE -->
+<div class="signup" (window:resize)="onResize($event)" [style.minHeight.px]="contentInnerHeight">
+    <div class="inner-page">
+        <h3 class="title3">Sign Up</h3>
+
+        <div class="page-logo">
+            <img src="assets/img/signin-icon-white.png" alt="" class="logo1">
+            <img src="assets/img/Teamium-white.png" alt="" class="logo2">
+            <p>PRODUCTION PLATFORM</p>
+        </div>
+
+        <form action="">
+            <div class="basic-form">
+                <div class="form-control-row" [ngClass]="{'valid': username.length > 0 }">
+                    <span class="icon"><i class="fa fa-user"></i></span>
+                    <input type="text" name="username" class="form-control" value="" [(ngModel)]="username">
+                    <label>User Name</label>
+                </div>
+
+                <div class="form-control-row" [ngClass]="{'valid': email.length > 0 }">
+                    <span class="icon"><i class="fa fa-envelope"></i></span>
+                    <input type="email" name="email" class="form-control" value="" [(ngModel)]="email">
+                    <label>Email</label>
+                </div>
+
+                <div class="form-control-row" [ngClass]="{'valid': password.length > 0 }">
+                    <span class="icon"><i class="fa fa-key"></i></span>
+                    <input type="password" class="form-control" value="" name="password" [(ngModel)]="password">
+                    <label>Password</label>
+                </div>
+            </div>
+        </form>
+
+        <div class="basic-form-footer">
+            <button class="btn btn-first btn-lg mb-15" type="button">Sign Up</button>
+            <p class="info">Already have an account? <a href="javascript:void(0)" class="link" (click)="goSignin()">Sign in</a></p>
+        </div>
+    </div>
+
+</div>

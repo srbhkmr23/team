@@ -1,0 +1,138 @@
+@import '../task/task.component';
+@import '../../variables.scss';
+
+.schedule-option {
+    .calender-option {
+        .fa {
+            margin-left: 10px;
+            font-size: 13px;
+        }
+    }
+
+    /* change-day-datepicker */
+    .change-day-datepicker{
+        ::ng-deep .mat-form-field-infix{
+            display: none !important;
+        }
+    }
+}
+
+::ng-deep .cdk-overlay-container {
+    .cdk-overlay-backdrop {
+        background: rgba(0, 0, 0, 0.6) !important;
+    }
+    ::ng-deep .cdk-overlay-connected-position-bounding-box {
+        #cdk-overlay-0 {
+            left: 50% !important;
+            top: 50% !important;
+            transform: translate(-50%, -50%) !important;
+            position: absolute;
+        }
+        .mat-datepicker-popup {
+            left: 50% !important;
+            top: 50% !important;
+            transform: translate(-50%, -50%) !important;
+            position: absolute;
+        }
+    }
+
+    .mat-datepicker-content {
+        ::ng-deep .mat-calendar {
+            background: $white-color !important;
+        }
+    }
+}
+/*============= Personnel-Schedule ============*/
+.personnel-schedule {
+    .personnel-schedule-demo {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        width: 100%;
+        ::ng-deep .calendar_default_main {
+            ::ng-deep .calendar_default_scroll {
+                height: 100% !important;
+                position: absolute;
+                zoom: 1;
+                left: 0px;
+                right: 0px;
+                top: 30px;
+                // ::ng-deep div {
+                //     ::ng-deep div + div {
+                //         height:100% !important;
+                //     }
+                // }
+            }
+        }
+    }
+}
+
+
+// ::ng-deep .calendar_default_scroll {
+//     height:100% !important;
+// }
+
+
+//========= Media Query ==========//
+
+@media (min-width: 320px) and (max-width: 480px) {
+    .header {
+        .navbar-menu {
+            h4.title {
+                .schedule-option {
+                    display: none;
+                }
+            }
+        }
+        .sub-Menu {
+            
+        }
+    }
+}
+/* 
+  ##Device = Tablets, Ipads (landscape)
+  ##Screen = B/w 768px to 1024px
+*/
+@media (min-width: 768px) and (max-width: 1024px) {
+    .header {
+        .navbar-menu {
+            h4.title {
+                .schedule-option {
+                    display: none;
+                }
+            }
+        }
+        .sub-Menu {
+            
+        }
+    }
+}
+
+/* ##Device = Most of the Smartphones Mobiles (Portrait)
+   ##Screen = B/w 320px to 479px
+*/
+@media (min-width: 320px) and (max-width: 812px) and (orientation: landscape) {
+    .header {
+        .navbar-menu {
+            h4.title {
+                text-align: left !important;
+                .schedule-option {
+                    display: inline-block;
+                    float: right;
+                    position: relative;
+                    top: -4px;
+                }
+            }
+        }
+        .sub-Menu {
+            display: none;
+        }
+    }
+    .wrapper {
+        padding-top: 73px;
+    }
+}
+
+

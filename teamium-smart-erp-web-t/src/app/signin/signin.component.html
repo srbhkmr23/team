@@ -1,0 +1,38 @@
+<!-- SIGNIN PAGE -->
+<div class="signin" (window:resize)="onResize($event)" [style.minHeight.px]="myInnerHeight">
+    <div class="inner-page">
+        <h3 class="title3">Sign In</h3>
+
+        <div class="page-logo">
+            <img src="assets/img/signin-icon-white.png" alt="" class="logo1">
+            <img src="assets/img/Teamium-white.png" alt="" class="logo2">
+            <p>PRODUCTION PLATFORM</p>
+        </div>
+
+        <form [formGroup]="loginForm" (submit)="login()">
+            <div class="basic-form">
+                <div class="form-control-row" [ngClass]="{'valid':loginForm.controls['username'].valid}">
+                    <span class="icon"><i class="fa fa-user"></i></span>
+                    <input type="text" name="username" class="form-control" formControlName="username">
+                    <label>User Name*</label>
+
+                </div>
+                <div *ngIf="loginForm.controls['username'].invalid && loginForm.controls['username'].touched" style="color: #FF5722;text-align: left;font-size: 14px;margin-top: 5pt;">The Username Name field is required.</div>
+                <div class="form-control-row" [ngClass]="{'valid':loginForm.controls['password'].valid}">
+                    <span class="icon"><i class="fa fa-key"></i></span>
+                    <input type="password" class="form-control" name="password" formControlName="password">
+                    <label>Password*</label>
+                </div>
+                <div *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched" style="color: #FF5722;text-align: left;font-size: 14px;margin-top: 5pt;">The Password field is required.</div>
+                <div *ngIf="errorMessage!=null && formValid()" style="color: #a94442;text-align: left;font-size: 14px;margin-top: 5pt;">{{errorMessage}}</div>
+            </div>
+
+
+            <div class="basic-form-footer">
+                <button class="btn btn-first btn-lg mb-15" type="submit" [disabled]="loginForm.invalid">Sign In</button>
+                <p class="info">Don't have an account? <a href="javascript:void(0)" class="link" (click)="goSignup()">Sign up</a></p>
+                <p class="info"><a href="javascript:void(0)" class="link" (click)="goForgotPassword()">Forget Password ?</a></p>
+            </div>
+        </form>
+    </div>
+</div>
